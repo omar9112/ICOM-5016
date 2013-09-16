@@ -1,0 +1,26 @@
+.ui-field-contain .ui-controlgroup,
+.ui-field-contain fieldset.ui-controlgroup {
+    text-align: center;
+}
+
+.ui-field-contain .ui-controlgroup-controls {
+    width: auto;
+}
+
+.ui-btn.ui-icon-cart.after {
+	background-image: url("/images/cart.png");
+}
+
+/*
+ * Error label to validate input
+ */
+label.error {
+    float: left; 
+    color: red; 
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.4;
+    margin-top: 0.5em;
+    width: 100%;
+}
+

@@ -1,0 +1,135 @@
+<!DOCTYPE >
+<html>
+	<head>
+		<title>Register Page</title>
+		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+		<!-- the three things that jQuery Mobile needs to work -->
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0-alpha.2/jquery.mobile-1.4.0-alpha.2.min.css">				
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.0-alpha.2/jquery.mobile-1.4.0-alpha.2.min.js"></script>
+		<script src="appjs/app.js"></script>
+
+		<!-- scripts for form validation -->
+		<script src="js/jquery.validate.min.js"></script>
+		<script src="js/additional-methods.min.js"></script>
+           
+	</head>
+	<body>
+		<div id="registerPage" data-role="page">
+		<div data-role="header" data-position="fixed" data-theme="b">
+  				<div class="ui-btn-left">
+  					<img border="0" src="images/header_logo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline"/>
+    				<!-- <a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext">Cancel</a> -->  				</div>
+  				<h1>Store</h1>
+  				<div class="ui-btn-right">
+    				<a href="#" data-role="button" data-icon="search" data-iconpos="notext">Search</a>
+    				<a href="#" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a>
+    				<a href="#popupMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
+  				</div>
+			</div> <!-- /header -->
+		<div data-role="content">
+			<h4>Step 1: Personal information</h4>
+			<form action="" id="registerForm">
+    			<div>
+         			<label for="firstName">First name</label>
+         			<input type="text" data-clear-btn="true" data-mini="true" name="firstName" id="firstName" value="" class="required">
+         		</div>
+    			<div >
+         			<label for="lastName">Last name</label>
+         			<input type="text" data-clear-btn="true" data-mini="true" name="lastName" id="lastName" value="" class="required">
+    			</div>
+    			<h5>Mailing address</h5>
+    			<div >
+     				<label for="streetMailingAddress">Street address</label>
+     				<input type="text" data-mini="true" name="streetMailingAddress" id="streetMailingAddress" value="" class="required">
+    			</div>
+    			<div >
+     				<label for="cityMailingAddress">City</label>
+     				<input type="text" data-mini="true" name="cityMailingAddress" id="cityMailingAddress" value="" class="required">
+    			</div>
+    			<div >
+    				<label for="stateMailingAddress">State</label>
+						<select name="stateMailingAddress" id="stateMailingAddress" data-native-menu="false" data-mini="true" class="required">
+							<!-- <option value="" data-placeholder="true">Select one</option> -->						    
+							<option value="alabama">Alabama</option>
+						    <option value="alaska">Alaska</option>
+						    <option value="arizona">Arizona</option>
+						    <option value="arkansas">Arkansas</option>
+					</select>
+    			</div>
+    			<div>
+     				<label for="zipMailingAddress">ZIP code</label>
+     				<input type="number" data-mini="true" name="zipMailingAddress" id="zipMailingAddress" value="" class="required" maxlength="5">
+    			</div>
+    			<h5>Billing address</h5>
+    			<div >
+     				<label for="streetBillingAddress">Street address</label>
+     				<input type="text" data-mini="true" name="streetBillingAddress" id="streetBillingAddress" value="" class="required">
+    			</div>
+    			<div >
+     				<label for="cityBillingAddress">City</label>
+     				<input type="text" data-mini="true" name="cityBillingAddress" id="cityBillingAddress" value="" class="required">
+    			</div>
+    			<div >
+    				<label for="stateBillingAddress">State</label>
+						<select name="stateBillingAddress" id="stateBillingAddress" data-native-menu="false" data-mini="true" class="required">
+							<!-- <option value="" data-placeholder="true">Select one</option> -->						    
+							<option value="alabama">Alabama</option>
+						    <option value="alaska">Alaska</option>
+						    <option value="arizona">Arizona</option>
+						    <option value="arkansas">Arkansas</option>
+					</select>
+    			</div>
+    			<div>
+     				<label for="zipBillingAddress">ZIP code</label>
+     				<input type="number" data-mini="true" name="zipBillingAddress" id="zipBillingAddress" value="" class="required" maxlength="5">
+    			</div>
+    			<div >
+     				<label for="telephone">Telephone number:</label>
+     				<input type="number" data-mini="true" name="telephone" id="telephone" value="" class="required">
+    			</div>
+    			
+    			<div >
+   	 				<label for="email">Email address</label>
+     				<input type="email" data-mini="true" name="email" id="email" value="" class="required email">
+    			</div>
+    			<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b">
+					<input type="submit" data-mini="true" value="Continue to next step"/>
+    				<a href="#registerPage2" data-role="button" align="center" data-inline="true" data-shadow="false" data-transition="slide" data-mini="true">Continue to next step</a>
+    			</div>
+		</div>
+	</div>
+	
+	<div id="registerPage2" data-role="page">
+		<div data-role="header" data-position="fixed" data-theme="b">
+  				<div class="ui-btn-left">
+  					<img border="0" src="images/header_logo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline"/>
+    				<!-- <a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext">Back</a> -->  				</div>
+  				<h1>Store</h1>
+  				<div class="ui-btn-right">
+    				<a href="#" data-role="button" data-icon="search" data-iconpos="notext">Search</a>
+    				<a href="#" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a>
+    				<a href="#popupMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
+  				</div>
+			</div> <!-- /header -->
+			<div data-role="content">
+				<h4>Step 2: User ID and Password</h4>
+				<form action="" id="registerForm2">
+					<div>
+	         			<label for="username">Create your user ID</label>
+	         			<input type="text" data-clear-btn="true" data-mini="true" name="username" id="username" value="" class="required">
+	         		</div>
+	    			<div >
+	         			<label for="password">Create your password</label>
+	         			<input type="password" data-clear-btn="true" data-mini="true" name="password" id="password" value="" class="required">
+	    			</div>
+	    			<div >
+	         			<label for="password2">Re-enter password</label>
+	         			<input type="password" data-clear-btn="true" data-mini="true" name="password2" id="password2" value="" class="required">
+	    			</div>
+	    		</form>
+			</div>
+	</div>
+	</body>
+</html>

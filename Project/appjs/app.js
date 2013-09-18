@@ -254,3 +254,12 @@ function DeleteProduct(){
 		// });
 	// });
 // }
+
+//Initialize simpleCartjs
+simpleCart({
+  checkout: {
+    type: "PayPal" ,
+    email: "chris.omar91@gmail.com"
+  },
+  cartStyle: 'table'
+  });

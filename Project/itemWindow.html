@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Project</title>
+<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+<!-- the three things that jQuery Mobile needs to work -->
+<link rel="stylesheet" href="css/jquery.mobile-1.4.0-alpha.2.css">
+<link rel="stylesheet" href="css/itemWindowStyle.css" />
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery.mobile-1.4.0-alpha.2.js"></script>
+<script src="appjs/app.js"></script>
+</head>
+<body>
+<!-- This is the home page -->
+<div id="homePage" data-role="page"> 
+  <!-- /left panel -->
+  <div data-role="header" data-position="fixed" data-theme="b">
+    <div class="ui-btn-left"> <img border="0" src="images/header_logo.png" alt="main logo" style="float:right; display:inline"/> </div>
+    <h1>Store</h1>
+    <div class="ui-btn-right"> <a href="#" data-role="button" data-icon="search" data-iconpos="notext">Search</a> <a href="#" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a> <a href="#popupMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a> </div>
+  </div>
+  <!-- /header -->
+  <style>
+
+/* Swipe 2 required styles */
+
+.swipe {
+overflow: hidden;
+visibility: visible;
+position: relative;
+}
+.swipe-wrap {
+overflow: hidden;
+position: relative;
+}
+.swipe-wrap > div {
+float:left;
+width:100%;
+position: relative;
+}
+
+/* END required styles */
+
+</style>
+  </head>
+  <div id='mySwipe' style='max-width:500px;margin:0 auto' class='swipe'>
+    <div class='swipe-wrap'>
+      <div><b>1</b></div>
+      <div><b>2</b></div>
+      <div><b>3</b></div>
+      <div><b>4</b></div>
+      <div><b>5</b></div>
+      <div><b>6</b></div>
+      <div><b>7</b></div>
+      <div><b>8</b></div>
+      <div><b>9</b></div>
+      <div><b>10</b></div>
+      <div><b>11</b></div>
+      <div><b>12</b></div>
+      <div><b>13</b></div>
+      <div><b>14</b></div>
+      <div><b>15</b></div>
+      <div><b>16</b></div>
+      <div><b>17</b></div>
+      <div><b>18</b></div>
+      <div><b>19</b></div>
+      <div><b>20</b></div>
+    </div>
+  </div>
+  <script src='js/swipe.js'></script> 
+  <script>
+
+ //pure JS
+var elem = document.getElementById('mySwipe');
+window.mySwipe = Swipe(elem, {
+ startSlide: 4,
+ //auto: 3000,
+ continuous: true,
+ disableScroll: true,
+ stopPropagation: true,
+ callback: function(index, element) {},
+ transitionEnd: function(index, element) {}
+});
+
+//with jQuery
+ // window.mySwipe = $('#mySwipe').Swipe().data('Swipe');
+  </script>
+  
+  <div style='text-align:center;padding-top:20px;'>
+  
+  <!--<button onclick='mySwipe.prev()'>prev</button> 
+  <button onclick='mySwipe.next()'>next</button>-->
+
+</div>
+
+<ul data-role="listview">
+    <li><label for="upd-name">Acura</label></li>
+    <li><label for="upd-model">Audi</label></li>
+    <li>BMW</li>
+    <li>Cadillac</li>
+    <li>Ferrari</li>
+</ul>
+  
+  <div data-role="content">
+    <div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b"> <a href="#popupLogin" data-rel="popup" data-position-to="window" data-role="button" data-mini="true" data-transition="pop">Sign in</a> <a href="registerPage.html" data-role="button" data-shadow="false" data-transition="slide" data-mini="true">Register</a> </div>
+  </div>
+  <!-- /content -->
+  <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
+    <form>
+      <div style="padding:10px 20px;">
+        <h3>Please sign in</h3>
+        <label for="un" class="ui-hidden-accessible">Username:</label>
+        <input type="text" name="user" id="un" value="" placeholder="username" data-mini="true" data-theme="a">
+        <label for="pw" class="ui-hidden-accessible">Password:</label>
+        <input type="password" name="pass" id="pw" value="" placeholder="password" data-mini="true" data-theme="a">
+        <button type="submit" data-mini="true" data-theme="b">Sign in</button>
+      </div>
+    </form>
+  </div>
+  <!-- /sign in -->
+  <div data-role="popup" id="popupMenu" data-theme="a">
+    <ul data-role="listview" data-position="right" data-inset="true" style="min-width:210px;">
+      <li><a href="#">Sign Out</a></li>
+      <li><a href="#homePage">Home</a></li>
+      <li><a href="#accountPage">My Account</a></li>
+      <li><a href="#settingsPage">Settings</a></li>
+    </ul>
+  </div>
+  <!-- /popupMenu --> 
+</div>
+
+<!-- phonesCategory --> 
+<!-- /phonesCategory -->
+</body>
+</html>

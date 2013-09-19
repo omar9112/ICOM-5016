@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Project</title>
+        <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+        <!-- the three things that jQuery Mobile needs to work -->
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.0-alpha.2.css">
+        <link rel="stylesheet" href="css/style.css" />
+        <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.0-alpha.2/jquery.mobile-1.4.0-alpha.2.min.js"></script>
+        <script src="appjs/app.js"></script>
+        
+        <!-- scripts for form validation -->
+        <script src="js/jquery.validate.js"></script>
+        <script src="js/additional-methods.js"></script>  
+    </head>
+    <body>
+        <!-- This is the home page -->
+        <div id="homePage" data-role="page">
+            <div id="leftPanel" data-role="panel"  data-theme="b" data-position="left" data-display="push" data-rel="back">
+                <h3>Categories</h3>
+                <div data-role="collapsible-set" data-inset="false" data-collapsed-icon="arrow-d"  data-expanded-icon="arrow-u" data-iconpos="right" data-corners="false" data-theme="b">
+                    <div data-role="collapsible" >
+                        <ul data-role="listview" data-theme="a">
+                            <li><a href="#">Children</a></li>
+                            <li><a href="#">Fiction</a></li>
+                            <li><a href="#">Technology</a></li>
+                            <li><a href="#">Business</a></li>
+                            <li><a href="#">Others</a></li>
+                        </ul>
+                    </div>
+                    <div data-role="collapsible">
+                        <h3>Electronics</h3>
+                        <ul data-role="listview" data-inset="false" data-theme="a">
+                            <li><a href="#">TV</a></li>
+                            <li><a href="#">Audio</a></li>
+                            <li><a href="#phones-view">Phones</a></li>
+                            <li><a href="#">Cameras</a></li>
+                            <li><a href="#">Video</a></li>
+                            <li><a href="#">Others</a></li>
+                        </ul>
+                    </div>
+                    <div data-role="collapsible">
+                        <h3>Computers</h3>
+                        <ul data-role="listview" data-inset="false" data-theme="a">
+                            <li><a href="#">Laptops</a></li>
+                            <li><a href="#">Desktops</a></li>
+                            <li><a href="#">Tablets</a></li>
+                            <li><a href="#">Printers</a></li>
+                            <li><a href="#">Others</a></li>
+                        </ul>
+                    </div>
+                    <div data-role="collapsible">
+                        <h3>Clothing</h3>
+                        <ul data-role="listview" data-inset="false" data-theme="a">
+                            <li><a href="#">Children</a></li>
+                            <li><a href="#">Women</a></li>
+                            <li><a href="#">Men</a></li>
+                        </ul>
+                    </div>
+                    <div data-role="collapsible">
+                        <h3>Shoes</h3>
+                        <ul data-role="listview" data-inset="false" data-theme="a">
+                            <li><a href="#">Children</a></li>
+                            <li><a href="#">Women</a></li>
+                            <li><a href="#">Men</a></li>
+                        </ul>
+                    </div>
+                    <div data-role="collapsible">
+                        <h3>Sports</h3>
+                        <ul data-role="listview" data-inset="false" data-theme="a">
+                            <li><a href="#">Bicycles</a></li>
+                            <li><a href="#">Fishing</a></li>
+                            <li><a href="#">Baseball</a></li>
+                            <li><a href="#">Golf</a></li>
+                            <li><a href="#">Basketball</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> <!-- /left panel --> 
+            <div data-role="header" data-position="fixed" data-theme="b">
+                <div class="ui-btn-left">
+                    <img border="0" src="images/header_logo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline"/>
+                    <a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext">Categories</a>
+                    <a data-role="button" data-icon="add" data-iconpos="notext" href="#add-product"></a>
+                </div>
+                <h1>Store</h1>
+                <div class="ui-btn-right">
+                    <a href="#" data-role="button" data-icon="search" data-iconpos="notext">Search</a>
+                    <a href="#" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a>
+                    <a href="#popupMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
+                </div>
+            </div> <!-- /header -->
+            <div data-role="content">
+                <ul class="products" id="product-list" data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Search products..." data-inset="false">
+                    <!--  <li><a href="#">iPhone 5</a></li>
+                    <li><a href="#">iPhone 4</a></li>
+                    <li><a href="#">Nexus 4</a></li>
+                    <li><a href="#">HTC One</a></li>
+                    <li><a href="#">Samsung Galaxy S4</a></li>
+                    <li><a href="#">LG G2</a></li> -->
+                </ul>       
+            </div> <!-- /content -->
+            <div data-role="content">
+                <div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b">
+                        <a href="#popupLogin" data-rel="popup" data-position-to="window" data-role="button" data-mini="true" data-transition="pop">Sign in</a>
+                        <a href="registerPage.html" data-role="button" data-shadow="false" data-transition="slide" data-mini="true">Register</a>
+                </div>
+            </div><!-- /content -->
+            <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
+                <form>
+                    <div style="padding:10px 20px;">
+                        <h3>Please sign in</h3>
+                        <label for="un" class="ui-hidden-accessible">Username:</label>
+                        <input type="text" name="user" id="un" value="" placeholder="username" data-mini="true" data-theme="a">
+                        <label for="pw" class="ui-hidden-accessible">Password:</label>
+                        <input type="password" name="pass" id="pw" value="" placeholder="password" data-mini="true" data-theme="a">
+                        <button type="submit" data-mini="true" data-theme="b">Sign in</button>
+                    </div>
+                </form>
+            </div><!-- /sign in -->
+            <div data-role="popup" id="popupMenu" data-theme="a">
+                <ul data-role="listview" data-position="right" data-inset="true" style="min-width:210px;">
+                    <li><a href="#">Sign Out</a></li>
+                    <li><a href="#homePage">Home</a></li>
+                    <li><a href="#accountPage">My Account</a></li>
+                    <li><a href="#settingsPage">Settings</a></li>
+                </ul>
+            </div><!-- /popupMenu -->
+        </div>
+        <!-- phonesCategory -->
+        <div id="phones-view" data-role="page">
+            <div id="leftPanel" data-role="panel" data-position="left" data-display="push" data-rel="back">
+                <div data-role="collapsible-set" data-inset="false" data-iconpos="right" data-corners="false" data-theme="b">
+                    <div data-role="collapsible">
+                        <ul data-role="listview">
+                            <li><a href="#">Children</a></li>
+                            <li><a href="#">Fiction</a></li>
+                            <li><a href="#">Technology</a></li>
+                            <li><a href="#">Business</a></li>
+                        </ul>
+                    </div>
+                    <div data-role="collapsible">
+                        <h3>Electronics</h3>
+                        <ul data-role="listview" data-inset="false">
+                            <li><a href="#">TV</a></li>
+                            <li><a href="#">Audio</a></li>
+                            <li class="ui-btn-active">Phones</li>
+                            <li><a href="#">Cameras</a></li>
+                            <li><a href="#">Video</a></li>
+                        </ul>
+                    </div>
+                    <div data-role="collapsible">
+                        <h3>Computers</h3>
+                        <ul data-role="listview" data-inset="false">
+                            <li><a href="#">Laptops</a></li>
+                            <li><a href="#">Desktops</a></li>
+                            <li><a href="#">Tablets</a></li>
+                            <li><a href="#">Printers</a></li>
+                        </ul>
+                    </div>
+                    <div data-role="collapsible">
+                        <h3>Clothing</h3>
+                        <ul data-role="listview" data-inset="false">
+                            <li><a href="#">Children</a></li>
+                            <li><a href="#">Women</a></li>
+                            <li><a href="#">Men</a></li>
+                        </ul>
+                    </div>
+                    <div data-role="collapsible">
+                        <h3>Shoes</h3>
+                        <ul data-role="listview" data-inset="false">
+                            <li><a href="#">Children</a></li>
+                            <li><a href="#">Women</a></li>
+                            <li><a href="#">Men</a></li>
+                        </ul>
+                    </div>
+                    <div data-role="collapsible">
+                        <h3>Sports</h3>
+                        <ul data-role="listview" data-inset="false">
+                            <li><a href="#">Bicycles</a></li>
+                            <li><a href="#">Fishing</a></li>
+                            <li><a href="#">Baseball</a></li>
+                            <li><a href="#">Golf</a></li>
+                            <li><a href="#">Basketball</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> <!-- /left panel -->
+            <div data-role="header" data-position="fixed" data-theme="b">
+                <div class="ui-btn-left">
+                    <img border="0" src="images/header_logo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline"/>
+                    <a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext">Categories</a>
+                </div>
+                <h1>Store</h1>
+                <div class="ui-btn-right">
+                    <a href="#" data-role="button" data-icon="search" data-iconpos="notext">Search</a>
+                    <a href="#" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a>
+                    <a href="#popupMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
+                </div>
+            </div> <!-- /header --> 
+            <div data-role="content">
+                <ul class="products" data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Search Phones" data-split-icon="star" data-split-theme="b" data-inset="false">
+                    <!-- <li><a href="#">
+                        <img src="images/cd-01.jpg">
+                        <h2>iPhone 5</h2>
+                        <p>Subtitle</p>
+                        <div class="ui-li-aside">
+                            <p>$500.00</p>
+                            <p>10 bids</p>
+                            <p>7d 10h</p>
+                        </div>
+                        </a>        
+                        <a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop" data-icon="cart">Purchase album</a>
+                        <a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+                    </li>
+                    <li><a href="#">
+                        <img src="images/cd-02.jpg">
+                        <h2>HTC One</h2>
+                        <p>Hot Chip</p></a>
+                        <a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+                    </li>
+                    <li><a href="#">
+                        <img src="images/cd-03.jpg">
+                        <h2>Samsung Galaxy S4</h2>
+                        <p>Phoenix</p></a>
+                        <a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+                    </li> -->
+                </ul>
+            </div>
+            <div data-role="popup" id="popupMenu" data-theme="b">
+                <ul data-role="listview" data-position="right" data-inset="true" style="min-width:210px;">
+                    <li><a href="#">Sign Out</a></li>
+                    <li><a href="#homePage">Home</a></li>
+                    <li><a href="#accountPage">My Account</a></li>
+                    <li><a href="#settingsPage">Settings</a></li>
+                </ul>
+            </div><!-- /popupMenu -->
+    </div><!-- /phonesCategory -->
+    
+    <div id="add-product" data-role="page">
+            <div data-role="header" data-theme="b" data-position="fixed">
+                <a data-role="button" data-rel="back" href="#homePage">Cancel</a>
+                <h1>New Product</h1>
+                <a data-role="button" data-rel="back" onclick="SaveProduct()">Save</a>
+            </div>
+            <center>
+                <h2>Enter the new product info</h2>
+            </center>
+            <form id="product-form">
+                <fieldset data-role="controlgroup">
+                    <ul>
+                    <li><label for="name"> Name: <input id="name" name="name" type="text"/></label></li>
+                    <li><label for="model"> Model: <input id="model" name="model" type="text"/></label></li>
+                    <li><label for="bidPrice"> Bid price: <input id="bidPrice" name="bidPrice" type="number"/></label></li>
+                    <li><label for="instantPrice"> Instant price $: <input id="instantPrice" name="instantPrice" type="number"/></label></li>
+                    <li><label for="description"> Description: <input id="description" name="description" type="text"/></label></li>
+                </ul>
+             </fieldset>
+            </form>
+        </div>
+    
+    <!-- PRODUCT VIEW - Esto hay que cambiarlo-->
+    <div id="product-view" data-role="page">
+            <div data-role="header" data-theme="b" data-position="fixed">
+                <a data-role="button" data-rel="back" href="#homePage">Cancel</a>
+                <h1>Product Info</h1>
+                <a data-role="button" data-rel="back" onclick="UpdateProduct()">Save</a>
+            </div>
+            <center>
+                <h2>Enter the new product info</h2>
+            </center>
+            <form id="product-view-form">
+                <fieldset data-role="controlgroup">
+                    <ul>
+                    <li><label for="upd-name"> Name: <input id="upd-name" name="name" type="text"/></label></li>
+                    <li><label for="upd-model"> Model: <input id="upd-model" name="model" type="text"/></label></li>
+                    <li><label for="upd-bidPrice"> Bid Price: <input id="upd-bidPrice" name="bidPrice" type="number"/></label></li>
+                    <li><label for="upd-instantPrice"> Instant Price $: <input id="upd-instantPrice" name="instantPrice" type="number"/></label></li>
+                    <li><label for="upd-description"> Description: <input id="upd-description" name="description" type="text"/></label></li>
+                </ul>
+             </fieldset>
+            </form>
+            <center>
+                <a data-role="button" onclick="DeleteProduct()">Delete</a>
+            </center>
+        </div>   
+    </body>
+</html>

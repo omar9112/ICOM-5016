@@ -74,9 +74,9 @@ position: relative;
 var elem = document.getElementById('mySwipe');
 window.mySwipe = Swipe(elem, {
  startSlide: 4,
- auto: 3000,
+ //auto: 3000,
  continuous: true,
- disableScroll: false,
+ disableScroll: true,
  stopPropagation: true,
  callback: function(index, element) {},
  transitionEnd: function(index, element) {}
@@ -88,10 +88,18 @@ window.mySwipe = Swipe(elem, {
   
   <div style='text-align:center;padding-top:20px;'>
   
-  <button onclick='mySwipe.prev()'>prev</button> 
-  <button onclick='mySwipe.next()'>next</button>
+  <!--<button onclick='mySwipe.prev()'>prev</button> 
+  <button onclick='mySwipe.next()'>next</button>-->
 
 </div>
+
+<ul data-role="listview">
+    <li><label for="upd-name">Acura</label></li>
+    <li><label for="upd-model">Audi</label></li>
+    <li>BMW</li>
+    <li>Cadillac</li>
+    <li>Ferrari</li>
+</ul>
   
   <div data-role="content">
     <div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b"> <a href="#popupLogin" data-rel="popup" data-position-to="window" data-role="button" data-mini="true" data-transition="pop">Sign in</a> <a href="registerPage.html" data-role="button" data-shadow="false" data-transition="slide" data-mini="true">Register</a> </div>

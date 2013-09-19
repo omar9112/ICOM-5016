@@ -3,12 +3,12 @@
 	<head>
 		<title>Project</title>
 		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
-		<!-- the three things that jQuery Mobile needs to work -->
-		<link rel="stylesheet" href="css/jquery.mobile-1.4.0-alpha.2.css">
-		<link rel="stylesheet" href="css/style.css" />
-		<script src="js/jquery-1.10.2.min.js"></script>
-		<script src="js/jquery.mobile-1.4.0-alpha.2.js"></script>
-		<script src="appjs/app.js"></script>
+        <!-- the three things that jQuery Mobile needs to work -->     
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0-alpha.2/jquery.mobile-1.4.0-alpha.2.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.0-alpha.2/jquery.mobile-1.4.0-alpha.2.min.js"></script>
+        <script src="appjs/app.js"></script>
 	</head>
 	<body>
 		<!-- This is the home page -->
@@ -73,49 +73,52 @@
 							<li><a href="#">Basketball</a></li>
 				        </ul>
 				    </div>
+				    <div data-role="collapsible">
+                        <h3>Settings</h3>
+                        <ul data-role="listview" data-inset="false" data-theme="a">
+                            <li><a href="#">Sign Out</a></li>
+                            <li><a href="#homePage">Home</a></li>
+                            <li><a href="#accountPage">My Account</a></li>
+                            <li><a href="#settingsPage">Settings</a></li>
+                        </ul>
+                    </div>
 				</div>
+				<h3>Settings</h3>
+				<ul data-role="listview" data-theme="b" data-icon="false">
+                     <li><a href="#">Sign Out</a></li>
+                     <li><a href="#homePage">Home</a></li>
+                     <li><a href="#accountPage">My Account</a></li>
+                     <li><a href="#settingsPage">Settings</a></li>
+                </ul>
+				
 			</div> <!-- /left panel --> 
+			
 			<div data-role="header" data-position="fixed" data-theme="b">
   				<div class="ui-btn-left">
   					<img border="0" src="images/header_logo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline"/>
-    				<a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext">Categories</a>
+    				<a href="#leftPanel" id="menu" data-role="button" data-icon="bars" data-iconpos="notext">Categories</a>
   				</div>
-  				<h1>Store</h1>
+  				<h1></h1>
   				<div class="ui-btn-right">
     				<a href="#" data-role="button" data-icon="search" data-iconpos="notext">Search</a>
-    				<a href="#" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a>
+    				<a href="#" data-role="button" data-rel="popup" data-position-to="window" data-icon="cart" data-iconpos="notext">My Cart</a>
     				<a href="#popupMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
   				</div>
 			</div> <!-- /header -->
 			
-			<div data-role="content">
-				<ul id="autocomplete" data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Search products..." data-inset="false">
-    				<li><a href="#">iPhone 5</a></li>
-    				<li><a href="#">iPhone 4</a></li>
-    				<li><a href="#">Nexus 4</a></li>
-   			 		<li><a href="#">HTC One</a></li>
-    				<li><a href="#">Samsung Galaxy S4</a></li>
-    				<li><a href="#">LG G2</a></li>
-				</ul>		
-			</div> 
-			<div data-role="content">
-				<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b">
-						<a href="#popupLogin" data-rel="popup" data-position-to="window" data-role="button" data-mini="true" data-transition="pop">Sign in</a>
-						<a href="registerPage.html" data-role="button" data-shadow="false" data-transition="slide" data-mini="true">Register</a>
-					</div>
-			</div><!-- /content -->
 			<div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
-    			<form>
-        			<div style="padding:10px 20px;">
-            			<h3>Please sign in</h3>
-            			<label for="un" class="ui-hidden-accessible">Username:</label>
-            			<input type="text" name="user" id="un" value="" placeholder="username" data-mini="true" data-theme="a">
-            			<label for="pw" class="ui-hidden-accessible">Password:</label>
-            			<input type="password" name="pass" id="pw" value="" placeholder="password" data-mini="true" data-theme="a">
-            			<button type="submit" data-mini="true" data-theme="b">Sign in</button>
-        			</div>
-    			</form>
-			</div><!-- /sign in -->
+                    <form>
+                        <div style="padding:10px 20px;">
+                            <h3>Please sign in</h3>
+                            <label for="un" class="ui-hidden-accessible">Username:</label>
+                            <input type="text" name="user" id="un" value="" placeholder="username" data-theme="b">
+                            <label for="pw" class="ui-hidden-accessible">Password:</label>
+                            <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="b">
+                            <button href="#" type="submit" data-theme="e" data-icon="check" data-iconpos="right" >Sign in</button>
+                            <button href="registerPage.html" type="submit" data-theme="e" data-icon="check" data-iconpos="right" >Register</button>
+                        </div>
+                    </form>
+            </div>
 			
 			<div data-role="popup" id="popupMenu" data-theme="a">
         		<ul data-role="listview" data-position="right" data-inset="true" style="min-width:210px;">
@@ -186,6 +189,7 @@
 				    </div>
 				</div>
 			</div> <!-- /left panel -->
+			
 			<div data-role="header" data-position="fixed" data-theme="b">
   				<div class="ui-btn-left">
   					<img border="0" src="images/header_logo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline"/>

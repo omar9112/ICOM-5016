@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width; initial-scale=1.0" />
 <!-- the three things that jQuery Mobile needs to work -->
 <link rel="stylesheet" href="css/jquery.mobile-1.4.0-alpha.2.css">
+<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/itemWindowStyle.css" />
 <script src="js/jquery-1.10.2.min.js"></script>
 <script src="js/jquery.mobile-1.4.0-alpha.2.js"></script>
@@ -20,86 +21,93 @@
     <div class="ui-btn-right"> <a href="#" data-role="button" data-icon="search" data-iconpos="notext">Search</a> <a href="#" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a> <a href="#popupMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a> </div>
   </div>
   <!-- /header -->
-  <style>
+ 
+  
 
-/* Swipe 2 required styles */
+<div id="slider" class="flexslider">
+          <ul class="slides">
+            <li>
+  	    	    <img src="images/kitchen_adventurer_cheesecake_brownie.jpg" />
+  	    		</li>
+  	    		<li>
+  	    	    <img src="images/kitchen_adventurer_lemon.jpg" />
+  	    		</li>
+  	    		<li>
+  	    	    <img src="images/kitchen_adventurer_donut.jpg" />
+  	    		</li>
+  	    		<li>
+  	    	    <img src="images/kitchen_adventurer_caramel.jpg" />
+  	    		</li>
+            <li>
+  	    	    <img src="images/kitchen_adventurer_cheesecake_brownie.jpg" />
+  	    		</li>
+  	    		<li>
+  	    	    <img src="images/kitchen_adventurer_lemon.jpg" />
+  	    		</li>
+  	    		<li>
+  	    	    <img src="images/kitchen_adventurer_donut.jpg" />
+  	    		</li>
+  	    		<li>
+  	    	    <img src="images/kitchen_adventurer_caramel.jpg" />
+  	    		</li>
+            <li>
+  	    	    <img src="images/kitchen_adventurer_cheesecake_brownie.jpg" />
+  	    		</li>
+  	    		<li>
+  	    	    <img src="images/kitchen_adventurer_lemon.jpg" />
+  	    		</li>
+  	    		<li>
+  	    	    <img src="images/kitchen_adventurer_donut.jpg" />
+  	    		</li>
+  	    		<li>
+  	    	    <img src="images/kitchen_adventurer_caramel.jpg" />
+  	    		</li>
+          </ul>
+        </div>
+  
+  
+<!-- FlexSlider -->
+  <script defer src="js/jquery.flexslider.js"></script>
 
-.swipe {
-overflow: hidden;
-visibility: visible;
-position: relative;
-}
-.swipe-wrap {
-overflow: hidden;
-position: relative;
-}
-.swipe-wrap > div {
-float:left;
-width:100%;
-position: relative;
-}
+  <script type="text/javascript">
+    $(function(){
+      SyntaxHighlighter.all();
+    });
+    $(window).load(function(){
+      $('#carousel').flexslider({
+        animation: "slide",
+        controlNav: false,
+        animationLoop: false,
+        slideshow: false,
+        itemWidth: 210,
+        itemMargin: 5,
+        asNavFor: '#slider'
+      });
 
-/* END required styles */
-
-</style>
-  </head>
-  <div id='mySwipe' style='max-width:500px;margin:0 auto' class='swipe'>
-    <div class='swipe-wrap'>
-      <div><b>1</b></div>
-      <div><b>2</b></div>
-      <div><b>3</b></div>
-      <div><b>4</b></div>
-      <div><b>5</b></div>
-      <div><b>6</b></div>
-      <div><b>7</b></div>
-      <div><b>8</b></div>
-      <div><b>9</b></div>
-      <div><b>10</b></div>
-      <div><b>11</b></div>
-      <div><b>12</b></div>
-      <div><b>13</b></div>
-      <div><b>14</b></div>
-      <div><b>15</b></div>
-      <div><b>16</b></div>
-      <div><b>17</b></div>
-      <div><b>18</b></div>
-      <div><b>19</b></div>
-      <div><b>20</b></div>
-    </div>
-  </div>
-  <script src='js/swipe.js'></script> 
-  <script>
-
- //pure JS
-var elem = document.getElementById('mySwipe');
-window.mySwipe = Swipe(elem, {
- startSlide: 4,
- //auto: 3000,
- continuous: true,
- disableScroll: true,
- stopPropagation: true,
- callback: function(index, element) {},
- transitionEnd: function(index, element) {}
-});
-
-//with jQuery
- // window.mySwipe = $('#mySwipe').Swipe().data('Swipe');
+      $('#slider').flexslider({
+        animation: "slide",
+        controlNav: false,
+        animationLoop: false,
+        slideshow: false,
+        sync: "#carousel",
+        start: function(slider){
+          $('body').removeClass('loading');
+        }
+      });
+    });
   </script>
-  
-  <div style='text-align:center;padding-top:20px;'>
-  
-  <!--<button onclick='mySwipe.prev()'>prev</button> 
-  <button onclick='mySwipe.next()'>next</button>-->
 
-</div>
 
-<ul data-role="listview">
-    <li><label for="upd-name">Acura</label></li>
-    <li><label for="upd-model">Audi</label></li>
-    <li>BMW</li>
-    <li>Cadillac</li>
-    <li>Ferrari</li>
-</ul>
+<div id="product-view-form">
+ 					<ul data-role="listview">
+	  					<li><label class="labelText" for="upd-name" > Name: <span class="spanText" id="upd-name" name="name"></span></label></li>
+	  					<li><label class="labelText" for="upd-model"> Model: <span class="spanText" id="upd-model" name="name"></span></label></li>
+	  					<li><label class="labelText" for="upd-bidPrice"> Bid Price: <span class="spanText" id="upd-bidPrice" name="name"></span></label></li>
+	  					<li><label class="labelText" for="upd-instantPrice"> Instant Price $: <span class="spanText" id="upd-instantPrice" name="name"></span></label></li>
+	  			  		<li><label class="labelText" for="upd-description"> Description: <span class="spanText" id="upd-description" name="name"></span></label></li>
+  			  	</ul>
+			</div>
+
   
   <div data-role="content">
     <div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b"> <a href="#popupLogin" data-rel="popup" data-position-to="window" data-role="button" data-mini="true" data-transition="pop">Sign in</a> <a href="registerPage.html" data-role="button" data-shadow="false" data-transition="slide" data-mini="true">Register</a> </div>

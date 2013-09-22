@@ -98,13 +98,16 @@
   </script>
 
 
-<ul data-role="listview">
-    <li><label for="upd-name">Acura</label></li>
-    <li><label for="upd-model">Audi</label></li>
-    <li>BMW</li>
-    <li>Cadillac</li>
-    <li>Ferrari</li>
-</ul>
+<div id="product-view-form">
+ 					<ul data-role="listview">
+	  					<li><label class="labelText" for="upd-name" > Name: <span class="spanText" id="upd-name" name="name"></span></label></li>
+	  					<li><label class="labelText" for="upd-model"> Model: <span class="spanText" id="upd-model" name="name"></span></label></li>
+	  					<li><label class="labelText" for="upd-bidPrice"> Bid Price: <span class="spanText" id="upd-bidPrice" name="name"></span></label></li>
+	  					<li><label class="labelText" for="upd-instantPrice"> Instant Price $: <span class="spanText" id="upd-instantPrice" name="name"></span></label></li>
+	  			  		<li><label class="labelText" for="upd-description"> Description: <span class="spanText" id="upd-description" name="name"></span></label></li>
+  			  	</ul>
+			</div>
+
   
   <div data-role="content">
     <div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b"> <a href="#popupLogin" data-rel="popup" data-position-to="window" data-role="button" data-mini="true" data-transition="pop">Sign in</a> <a href="registerPage.html" data-role="button" data-shadow="false" data-transition="slide" data-mini="true">Register</a> </div>

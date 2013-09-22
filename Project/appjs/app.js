@@ -96,7 +96,7 @@ $(document).on('pagebeforeshow', "#homePage", function( event, ui ) {
 
 $(document).on('pagebeforeshow', "#product-view", function( event, ui ) {
 	// currentProduct has been set at this point
-	$("#upd-name").html(currentProduct.name);
+	$("#upd-name").html("<h1>"+currentProduct.name+"</h1>");
 	$("#upd-model").html(currentProduct.model);
 	$("#upd-bidPrice").html(currentProduct.bidPrice);
 	$("#upd-instantPrice").html(currentProduct.instantPrice);

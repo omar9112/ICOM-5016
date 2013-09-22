@@ -94,7 +94,7 @@ $(document).on('pagebeforeshow', "#homePage", function( event, ui ) {
 	});
 });
 
-$(document).on('pagebeforechange', "#item-window", function( event, ui ) {
+$(document).on('pagebeforeshow', "#product-view", function( event, ui ) {
 	// currentProduct has been set at this point
 	$("#upd-name").html(currentProduct.name);
 	$("#upd-model").html(currentProduct.model);
@@ -148,7 +148,6 @@ var currentProduct = {};
 
 function GetProduct(id){
 	$.mobile.loading("show");
-	$.mobile.loadPage("itemWindow.html", { showLoadMsg: false } );
 	$.ajax({
 		url : "http://localhost:3412/ProjectServer/products/" + id,
 		method: 'get',
@@ -157,9 +156,7 @@ function GetProduct(id){
 		success : function(data, textStatus, jqXHR){
 			currentProduct = data.product;
 			$.mobile.loading("hide");
-			$.mobile.changePage("itemWindow.html");
-			$.mobile.navigate("#item-window");
-			
+			$.mobile.navigate("#product-view");
 		},
 		error: function(data, textStatus, jqXHR){
 			console.log("textStatus: " + textStatus);

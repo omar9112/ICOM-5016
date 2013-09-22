@@ -10,3 +10,17 @@ label.error {
     margin-top: 0.5em;
     width: 100%;
 }
+
+span.spanText {
+	font-size: 13px;
+}
+
+label.labelText {
+	font-size: 13px;
+	/*font-family: "HelveticaNeue-Medium"*/	/*font-weight: bold;*/
+}
+
+body {
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 300;
+}

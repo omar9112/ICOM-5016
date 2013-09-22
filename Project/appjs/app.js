@@ -96,11 +96,11 @@ $(document).on('pagebeforeshow', "#homePage", function( event, ui ) {
 
 $(document).on('pagebeforeshow', "#product-view", function( event, ui ) {
 	// currentProduct has been set at this point
-	$("#upd-name").val(currentProduct.name);
-	$("#upd-model").val(currentProduct.model);
-	$("#upd-bidPrice").val(currentProduct.bidPrice);
-	$("#upd-instantPrice").val(currentProduct.instantPrice);
-	$("#upd-description").val(currentProduct.description);
+	$("#upd-name").html(currentProduct.name);
+	$("#upd-model").html(currentProduct.model);
+	$("#upd-bidPrice").html(currentProduct.bidPrice);
+	$("#upd-instantPrice").html(currentProduct.instantPrice);
+	$("#upd-description").html(currentProduct.description);
 	
 });
 

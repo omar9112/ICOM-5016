@@ -13,6 +13,22 @@
     // });
 // });
 
+$('#star').raty({
+
+   numberMax: 5,
+   number   : 500,
+   cancel   : true,
+   cancelOff: 'cancel-off-big.png',
+   cancelOn : 'cancel-on-big.png',
+   half     : true,
+   size     : 24,
+   starHalf : 'star-half-big.png',
+   starOff  : 'star-off-big.png',
+   starOn   : 'star-on-big.png',
+
+});
+
+
 // Validate register page
 $(document).on("pageshow", "#registerPage", function() {
 	$("#registerForm").validate({
@@ -140,8 +156,32 @@ function SaveProduct(){
 			alert("Data could not be added!");
 		}
 	});
+}
 
-
+function SaveReview(){
+    $.mobile.loading("show");
+    var form = $("#review-form");
+    var formData = form.serializeArray();
+    console.log("form Data: " + formData);
+    var newProduct = ConverToJSON(formData);
+    console.log("New Product: " + JSON.stringify(newProduct));
+    var newProductJSON = JSON.stringify(newProduct);
+    $.ajax({
+        url : "http://localhost:3412/ProjectServer/products",
+        method: 'post',
+        data : newProductJSON,
+        contentType: "application/json",
+        dataType:"json",
+        success : function(data, textStatus, jqXHR){
+            $.mobile.loading("hide");
+            $.mobile.navigate("#homePage");
+        },
+        error: function(data, textStatus, jqXHR){
+            console.log("textStatus: " + textStatus);
+            $.mobile.loading("hide");
+            alert("Data could not be added!");
+        }
+    });
 }
 
 var currentProduct = {};

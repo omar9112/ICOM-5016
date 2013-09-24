@@ -26,8 +26,10 @@
 		<script language="javascript" type="text/javascript" src="js/jquery.validate.min.js"></script>
 	</head>
 	<body>
-		<!-- HOME PAGE -->
-		<div id="homePage" data-role="page">
+	    
+	        <!-- ############################### -->
+            <!-- Main page -->
+            <div id="main" data-role="page">
 			
 			<!-- Home Page header -->
 			<div data-role="header" data-position="fixed" data-theme="b">
@@ -40,7 +42,7 @@
                 <h1></h1>
                 <div class="ui-btn-right">
                     <a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext">Search</a>
-                    <a href="#" data-role="button" data-icon="cart" data-iconpos="notext" <span class="simpleCart_quantity"></span>>My Cart</a>
+                    <a href="#review-page" data-role="button" data-icon="cart" data-iconpos="notext" <span class="simpleCart_quantity"></span>>My Cart</a>
                     <a href="#popupMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
                 
                 </div>
@@ -72,6 +74,7 @@
      
             </div> <!-- /content -->
             
+			
 			<div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
     			<form>
         			<div style="padding:10px 20px;">
@@ -84,7 +87,7 @@
         			</div>
     			</form>
 			</div><!-- /sign in -->
-			
+
 			<!-- popupMenu Home Page-->
 			<div data-role="popup" id="popupMenu" data-theme="a">
         		<ul data-role="listview" data-position="right" data-inset="true" style="min-width:210px;">
@@ -96,6 +99,7 @@
 			</div><!-- /popupMenu -->
 		</div> <!-- HOME PAGE -->
 		
+		<!-- ############################################################ -->
 		<!-- phonesCategory -->
 		<div id="phones-view" data-role="page">
 			<div id="leftPanel" data-role="panel" data-position="left" data-display="push" data-rel="back">
@@ -183,6 +187,7 @@
 			</div><!-- /popupMenu -->
 	</div><!-- /phonesCategory -->
 	
+
 	<!-- ###################################################################################################################### -->
     <!-- ADD PRODUCT -->
     <div id="add-product" data-role="page">
@@ -251,12 +256,15 @@
                         </li>
                         <li><label for="instantPrice"> <input id="instantPrice" name="instantPrice" type="number" placeholder="Instant Price $"/></label></li>
                         <li><label for="buyIt"> <input id="buyIt" name="buyIt" pattern="[0-9]*" type="number" placeholder="Buy It Now Price"/></label></li>
-                        <li><label for="descrition"><textarea name="description" id="description" placeholder="Description"></textarea></label></li>
+                        <li><label for="descrition"><input name="description" type="text" id="description" placeholder="Description"></label></li>
                 </ul>
              </fieldset>
             </form>
         </div>
+
+    
 	
+	<!-- ######################################################################################## -->
 	<!-- PRODUCT VIEW -->
 	<div id="product-view" data-role="page"> 
 	  <!-- /left panel -->
@@ -359,7 +367,7 @@
 	  </div>
 	  <!-- /popupMenu --> 
 	</div>
-	
+
 	  <!-- ############################################################# -->
       <!-- REVIEW PAGE -->
       <div id="review-page" data-role="page">
@@ -377,7 +385,8 @@
                      
                         <li><label for="user"> <input id="user" name="user" type="text" placeholder="Name"data-clear-btn="true"/></label></li>
                         <li><label for="subject"> <input id="subject" name="subject" type="text" placeholder="Subject"data-clear-btn="true"/></label></li>
-                        <li><div id="star"></div>
+                        <li>
+                            <div id="star"></div>
                             <script type="text/javascript">
                                 $(function() {
                                   $.fn.raty.defaults.path = 'images';
@@ -399,15 +408,15 @@
                                   );
                             
                                 })();
-                           </script></li>
-                        <li><label for="comentary"><textarea cols="40" rows="8" name="comentary" id="comentary" placeholder="Comentaries"></textarea></label></li>
+                           </script>
+                        </li>
+                        <li><label for="comentary"><input name="comentary" id="comentary" placeholder="Comentaries"></label></li>
                         
                    </ul>
                </fieldset>    
             </div>
       </div>      
       
-	
 		
 	<!-- SEARCH PAGE -->
 	<div id="searchPage" data-role="page">

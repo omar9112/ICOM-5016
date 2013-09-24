@@ -147,6 +147,7 @@ function SaveProduct(){
 		contentType: "application/json",
 		dataType:"json",
 		success : function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
 			$.mobile.loading("hide");
 			$.mobile.navigate("#homePage");
 		},
@@ -173,6 +174,7 @@ function SaveReview(){
         contentType: "application/json",
         dataType:"json",
         success : function(data, textStatus, jqXHR){
+            console.log("textStatus: " + textStatus);
             $.mobile.loading("hide");
             $.mobile.navigate("#homePage");
         },

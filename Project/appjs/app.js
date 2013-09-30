@@ -13,20 +13,6 @@
     // });
 // });
 
-$('#star').raty({
-
-   numberMax: 5,
-   number   : 500,
-   cancel   : true,
-   cancelOff: 'cancel-off-big.png',
-   cancelOn : 'cancel-on-big.png',
-   half     : true,
-   size     : 24,
-   starHalf : 'star-half-big.png',
-   starOff  : 'star-off-big.png',
-   starOn   : 'star-on-big.png',
-
-});
 
 
 // Validate register page

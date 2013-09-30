@@ -4,6 +4,7 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
 
+        
 		<!-- the three things that jQuery Mobile needs to work -->
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0-alpha.2/jquery.mobile-1.4.0-alpha.2.min.css">				
 		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -11,10 +12,11 @@
 		
 		<link rel="stylesheet" href="css/style.css">				
 		<script src="appjs/app.js"></script>
-		 
+		
 		<!-- This are for the Star Ratings -->
         <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/jquery.raty.min.js"></script>		
+        <script type="text/javascript" src="js/jquery.raty.min.js"></script>
+				
 		
 		<!-- Simple Cart plugin -->
 		<script src="js/simpleCart.js"></script>	
@@ -35,7 +37,7 @@
 			<div data-role="header" data-position="fixed" data-theme="b">
                 
                 <div class="ui-btn-left">
-                    <img border="0" src="images/header_logo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline"/>
+                    <a href="#main"><img border="0" src="images/header_logo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline"/></a>
                     
                 </div>
                 
@@ -43,7 +45,7 @@
                 <div class="ui-btn-right">
                     <a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext">Search</a>
                     <a href="#review-page" data-role="button" data-icon="cart" data-iconpos="notext" <span class="simpleCart_quantity"></span>>My Cart</a>
-                    <a href="#popupMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
+                    <a href="#add-product" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
                 
                 </div>
         
@@ -99,6 +101,7 @@
 			</div><!-- /popupMenu -->
 		</div> <!-- HOME PAGE -->
 		
+
 		<!-- ############################################################ -->
 		<!-- phonesCategory -->
 		<div id="phones-view" data-role="page">
@@ -187,7 +190,7 @@
 			</div><!-- /popupMenu -->
 	</div><!-- /phonesCategory -->
 	
-
+	
 	<!-- ###################################################################################################################### -->
     <!-- ADD PRODUCT -->
     <div id="add-product" data-role="page">
@@ -197,9 +200,9 @@
                 <h1>New Product</h1>
                 <a data-role="button" data-rel="back" onclick="SaveProduct()">Save</a>
             </div>
-            <center>
+            <div align="center">
                 <h2>Enter the new product info</h2>
-            </center>
+            </div>
             <form id="product-form">
                 <fieldset data-role="controlgroup" data-theme="a">
                     <ul>
@@ -262,9 +265,9 @@
             </form>
         </div>
 
-    
 	
-	<!-- ######################################################################################## -->
+	
+	<!-- ###################################################################### -->
 	<!-- PRODUCT VIEW -->
 	<div id="product-view" data-role="page"> 
 	  <!-- /left panel -->
@@ -368,25 +371,26 @@
 	  <!-- /popupMenu --> 
 	</div>
 
-	  <!-- ############################################################# -->
-      <!-- REVIEW PAGE -->
-      <div id="review-page" data-role="page">
+    <!-- ######################################################################## -->
+    <!-- REVIEW PAGE -->
+    <div id="review-page" data-role="page">
           <div data-role="header" data-theme="b" data-position="fixed">
                 <a data-role="button" data-rel="back" href="#homePage">Cancel</a>
                 <h1>Review</h1>
                 <a data-role="button" data-rel="back">Save</a>
             </div>
-            <center>
+            <div align="center">
                 <h2>Enter your review</h2>
-            </center>
+            </div>
             <div id="review-form">
-                <fieldset data-role="controlgroup" data-theme="a">
+                <fieldset data-role="controlgroup" >
                     <ul>
                      
                         <li><label for="user"> <input id="user" name="user" type="text" placeholder="Name"data-clear-btn="true"/></label></li>
                         <li><label for="subject"> <input id="subject" name="subject" type="text" placeholder="Subject"data-clear-btn="true"/></label></li>
                         <li>
-                            <div id="star"></div>
+                            <div id="star"><div id="hint"></div></div>
+                            
                             <script type="text/javascript">
                                 $(function() {
                                   $.fn.raty.defaults.path = 'images';
@@ -403,21 +407,24 @@
                                           size     : 24,
                                           starHalf : 'star-half-big.png',
                                           starOff  : 'star-off-big.png',
-                                          starOn   : 'star-on-big.png'
+                                          starOn   : 'star-on-big.png',
+                                          target    : '#hint',
+                                          targetType: 'number',
+                                          targetKeep: true,
                                       }
                                   );
                             
                                 })();
-                           </script>
+                            </script>
                         </li>
                         <li><label for="comentary"><input name="comentary" id="comentary" placeholder="Comentaries"></label></li>
                         
                    </ul>
                </fieldset>    
             </div>
-      </div>      
-      
-		
+      </div>
+    
+    <!-- ######################################################################## -->
 	<!-- SEARCH PAGE -->
 	<div id="searchPage" data-role="page">
 		<div data-role="header" data-position="fixed" data-theme="b">
@@ -446,7 +453,7 @@
             		<li><a href="#settingsPage">Settings</a></li>
         		</ul>
 			</div><!-- /popupMenu Search Page -->
-		</div> <!-- /SEARCHPAGE -->
+	</div> <!-- /SEARCHPAGE -->
+		
 	</body>
-
 </html>

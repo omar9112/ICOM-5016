@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Project</title>
+		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+		<link rel="stylesheet" href="css/style.css" />
+		<!-- the three things that jQuery Mobile needs to work -->
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0-alpha.2/jquery.mobile-1.4.0-alpha.2.min.css">
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.0-alpha.2/jquery.mobile-1.4.0-alpha.2.min.js"></script>
+		<script src="appjs/app.js"></script>
+		<!-- This are for the Star Ratings -->
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jquery.raty.min.js"></script>
+	</head>
+	<body>
+		 
+        <div id="review-page" data-role="page">
+          <div data-role="header" data-theme="b" data-position="fixed">
+                <a data-role="button" data-rel="back" href="#homePage">Cancel</a>
+                <h1>Review</h1>
+                <a data-role="button" data-rel="back">Save</a>
+            </div>
+            <div align="center">
+                <h2>Enter your review</h2>
+            </div>
+            <div id="review-form">
+                <fieldset data-role="controlgroup" data-theme="a">
+                    <ul>
+                     
+                        <li><label for="user"> <input id="user" name="user" type="text" placeholder="Name"data-clear-btn="true"/></label></li>
+                        <li><label for="subject"> <input id="subject" name="subject" type="text" placeholder="Subject"data-clear-btn="true"/></label></li>
+                        <li>
+                            <div id="star"><div id="hint"></div></div>
+                            
+                            <script type="text/javascript">
+                                $(function() {
+                                  $.fn.raty.defaults.path = 'images';
+                            
+                                  $('#star').raty(
+                                      {
+                                          numberMax: 5,
+                                          number   : 500,
+                                          cancel   : true,
+                                          cancelPlace: 'right',
+                                          cancelOff: 'cancel-off-big.png',
+                                          cancelOn : 'cancel-on-big.png',
+                                          half     : true,
+                                          size     : 24,
+                                          starHalf : 'star-half-big.png',
+                                          starOff  : 'star-off-big.png',
+                                          starOn   : 'star-on-big.png',
+                                          target    : '#hint',
+                                          targetType: 'number',
+                                          targetKeep: true,
+                                      }
+                                  );
+                            
+                                })();
+                            </script>
+                        </li>
+                        <li><label for="comentary"><input name="comentary" id="comentary" placeholder="Comentaries"></label></li>
+                        
+                   </ul>
+               </fieldset>    
+            </div>
+      </div>
+	</body>
+</html>

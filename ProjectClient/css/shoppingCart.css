@@ -1,0 +1,68 @@
+/* These apply across all breakpoints because they are outside of a media query */
+/* Make the labels light gray all caps across the board */
+.cart-list thead th,
+.cart-list tbody th .ui-table-cell-label,
+.cart-list tbody td .ui-table-cell-label {
+    text-transform: uppercase;
+    font-size: .7em;
+    color: rgba(0,0,0,0.5);
+    font-weight: normal;
+    /*text-align:center;*/
+}
+
+.cart-list th {
+	background : #ddd;
+}
+
+.cart-list tbody tr:nth-child(odd) td,
+.cart-list tbody tr:nth-child(odd) th {
+    background-color: #eeeeee; /* non-RGBA fallback  */
+    background-color :#FFFFFF;
+}
+
+.item-quantity{
+	/*float:left;*/
+	width:10px;
+	vertical-align:middle;
+	text-align:center;
+}
+		
+.item-image{
+	/*float:left;*/
+	/*width:5%;
+	height: 5%;*/
+}
+
+.item-image img{
+	vertical-align:middle;
+	width:70px;
+}
+		
+/*.item-name{
+	color:#c23f26;
+	vertical-align:middle;
+	text-align:center;
+
+
+}
+
+.item-price{
+	color:#418932;
+	vertical-align:middle;
+	text-align:center;
+}
+		
+.item-total{
+	color:#c23f26;
+	text-align:right;
+	width:45px;
+}
+
+.totalPrice{
+	float:right;
+	text-align:right;
+}*/
+
+.ui-table-columntoggle-btn {
+    display: none !important;
+}

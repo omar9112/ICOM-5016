@@ -1,0 +1,135 @@
+/*
+ * Error label to validate input
+ */
+label.error {
+    /*float: left;*/ 
+    color: red; 
+    font-size: 14px;
+    font-weight: bold;
+    /*line-height: 1;*/    
+    /*margin-top: 0.5em;*/   
+     /*width: 100%;*/
+}
+
+span.spanText {
+	font-size: 13px;
+}
+
+label.labelText {
+	font-size: 13px;
+	/*font-family: "HelveticaNeue-Medium"*/	/*font-weight: bold;*/
+}
+
+body {
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 300;
+}
+
+*.home-grid {
+  margin: 0;
+  padding: 0;
+}
+ 
+body.home-grid {
+  background: #333;
+}
+ 
+div.home-grid {
+  width: 900px;
+  margin: 0 auto;
+  overflow: auto;
+}
+ 
+ul.home-grid {
+  list-style-type: none;
+}
+ 
+li.home-grid img {
+  float: left;
+  margin: 10px;
+  border: 5px solid #fff;
+ 
+  -webkit-transition: box-shadow 0.5s ease;
+  -moz-transition: box-shadow 0.5s ease;
+  -o-transition: box-shadow 0.5s ease;
+  -ms-transition: box-shadow 0.5s ease;
+  transition: box-shadow 0.5s ease;
+}
+ 
+li.home-grid img:hover {
+  -webkit-box-shadow: 0px 0px 7px rgba(255,255,255,0.9);
+  box-shadow: 0px 0px 7px rgba(255,255,255,0.9);
+}
+
+/*h2 {
+	/*font-size: 18px;*/    color: #272b32;
+    text-shadow: 1px 1px 0 #fff;
+}*/
+
+h2, h4, h5, h6 {
+    margin: 0 0 .2em 0;
+    color: #333
+}
+
+h2 {
+    font-weight: normal;
+    font-size: 31px;
+}
+
+h3 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+h3 a,
+h2 a {
+    color: #333;
+}
+
+h3 a:hover,
+h2 a:hover {
+    color: #000;
+}
+
+h4 {
+    font-size: 13px;
+    color: #96a0ad;
+    text-shadow: 1px 1px 0 #fff;
+    text-transform: uppercase;
+}
+
+/*h4.review {
+    font-size: 13px;
+    color: #96a0ad;
+    text-shadow: 1px 1px 0 #fff;
+}*/
+
+/* Button up */
+.ui-overlay-a .ui-btn,
+.ui-page-theme-a .ui-btn,
+html .ui-bar-a .ui-btn,
+html .ui-body-a .ui-btn,
+html body .ui-group-theme-a .ui-btn,
+html head + body .ui-btn.ui-btn-a,
+/* Button visited */
+.ui-overlay-a .ui-btn:visited,
+.ui-page-theme-a .ui-btn:visited,
+html .ui-bar-a .ui-btn:visited,
+html .ui-body-a .ui-btn:visited,
+html body .ui-group-theme-a .ui-btn:visited,
+html head + body .ui-btn.ui-btn-a:visited {
+	background: 			#fff /*{a-body-background-color}*/;
+	border-color:	 		#ddd /*{a-body-border}*/;
+	color: 					#111 /*{a-body-color}*/;
+	text-shadow: 0 /*{a-body-shadow-x}*/ 1px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ 	#eee /*{a-body-shadow-color}*/;
+}
+
+/* Links */
+.ui-overlay-a a,
+.ui-page-theme-a a,
+html .ui-bar-a a,
+html .ui-body-a a,
+html body .ui-group-theme-a a {
+	color: #0066ff /*{a-link-color}*/;
+	font-weight: normal;
+}

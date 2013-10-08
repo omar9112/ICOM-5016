@@ -1,0 +1,580 @@
+// $(document).on( "pageinit", function() {
+    // $( document ).on( "swipeleft swiperight", function( e ) {
+        // // We check if there is no open panel on the page because otherwise
+        // // a swipe to close the left panel would also open the right panel (and v.v.).
+        // // We do this by checking the data that the framework stores on the page element (panel: open).
+        // if ( $.mobile.activePage.jqmData( "panel" ) !== "open" ) {
+            // if ( e.type === "swipeleft"  ) {
+                // $( "#rightPanel" ).panel( "open" );
+            // } else if ( e.type === "swiperight" ) {
+                // $( "#leftPanel" ).panel( "open" );
+            // }
+        // }
+    // });
+// });
+
+// Validate register page
+$(document).on("pageshow", "#registerPage", function() {
+	$("#registerForm").validate({
+		rules: {
+			zipMailingAddress: {
+				required: true,
+				digits: true,
+				minlength: 5,
+				maxlength: 5
+			},
+			
+			zipBillingAddress: {
+				required: true,
+				digits: true,
+				minlength: 5,
+				maxlength: 5
+			},
+			
+			telephone: {
+				required: true,
+				phoneUS: true,
+			}
+		}
+	});
+	
+	$("#registerForm").validate({
+		errorPlacement: function(error, element) {
+			if ($(element).is("select")) {
+				error.insertAfter($(element).parent());
+			} else {
+				error.insertAfter(element);
+			}
+		}	
+	});	 
+});
+
+/*
+ * PRODUCTS
+ * 
+ */
+var productlist, List;
+$(document).on('pagebeforeshow', function( event, ui ) {
+	console.log("TESTING");
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/products",
+		contentType: "application/json",
+		success : function(data, textStatus, jqXHR){
+			var productList = data.products;
+			var len = productList.length;
+			var list = $('ul.products');
+			list.empty();
+			var product;
+			for (var i=0; i < len; ++i){
+				product = productList[i];
+				list.append("<li class=\"ui-screen-hidden simpleCart_shelfItem\" ><a onclick=GetProduct(" + product.id + ") >" + 
+					"<img class=\"item_image\" src=\"images/products/"+ product.id+ "/0.jpg\"/>" +
+					"<h2 class=\"item_name\">" + product.name + "</h2>" + 
+					"<p>" + product.brand + "</p>" +
+					"<p>" + product.model + "</p>" +
+					"<div class=\"ui-li-aside\">" +
+							"<p class=\"item_price\">" + "$" + product.price + "</p>" +
+							"<p>10 bids</p>" +
+							"<p>7d 10h</p>" +
+						"</div></a>" +
+        				"<a class=\"item_add\" href=\"javascript:;\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+    				"</li>");
+			}
+			productlist = productList;
+            List = list;
+			list.listview("refresh");	
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			alert("Data not found!");
+		}
+	});
+});
+
+$(document).on('pagebeforeshow', "#product-view", function( event, ui ) {
+	// currentProduct has been set at this point
+	for(var i = 0; i < 3; i++)
+	{
+		$("#image"+i).html("<img src=\"images/products/" + currentProduct.id+"/"+i+".jpg\" />");
+	}
+	$("#upd-name").html("<h1>"+currentProduct.name+"</h1>");
+	$("#upd-model").html("Model: "+currentProduct.model);
+	$("#upd-brand").html("Brand: "+currentProduct.brand);
+	$("#upd-condition").html("Condition: "+ currentProduct.condition);
+	$("#upd-price").html(currentProduct.priceMethod +" price: "+currentProduct.price);
+	$("#upd-seller").html("Seller: "+currentUser.firstName);
+	$("#upd-description").html("Description: "+currentProduct.description);
+	if(currentProduct.priceMethod=="instant")
+	{
+		$("#upd-bidButton").hide();
+		$("#upd-butItNowButton").show();
+		$("#upd-addToCartButton").show();
+	}
+	else if(currentProduct.priceMethod=="bid")
+	{
+		$("#upd-bidButton").show();
+		$("#upd-butItNowButton").hide();
+		$("#upd-addToCartButton").hide();
+	}
+	
+});
+
+
+$(document).on('pagebeforeshow', "#categories", function( event, ui ) {
+	console.log("TESTING");
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/products",
+		contentType: "application/json",
+		success : function(data, textStatus, jqXHR){
+			var productList = data.products;
+			var len = productList.length;
+			var list = $('ul.categories');
+			list.empty();
+			var product;
+			for (var i=0; i < len; ++i){
+				product = productList[i];
+				list.append("<li class=\"simpleCart_shelfItem\" ><a onclick=GetProduct(" + product.id + ") >" + 
+					"<img class=\"item_image\" src=\"images/products/"+ product.id+ "/0.jpg\"/>" +
+					"<h2 class=\"item_name\">" + product.name + "</h2>" + 
+					"<p>" + product.brand + "</p>" +
+					"<p>" + product.model + "</p>" +
+					"<div class=\"ui-li-aside\">" +
+							"<p class=\"item_price\">" + "$" + product.price + "</p>" +
+							"<p>10 bids</p>" +
+							"<p>7d 10h</p>" +
+						"</div></a>" +
+        				"<a class=\"item_add\" href=\"javascript:;\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+    				"</li>");
+			}
+			productlist = productList;
+            List = list;
+			list.listview("refresh");	
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			alert("Data not found!");
+		}
+	});
+});
+
+function SortingCategories (event) {
+    
+    var sort_by = function(field, reverse, primer){
+
+       var key = function (x) {return primer ? primer(x[field]) : x[field];};
+       return function (a,b) {
+           var A = key(a), B = key(b);
+           return ((A < B) ? -1 : (A > B) ? +1 : 0) * [-1,1][+!!reverse];                  
+       };
+    };
+        
+    if(event == 'price'){
+        //Sorting by the product increasing price
+        console.log("Sorting by price");
+        productlist.sort(sort_by('price', true, parseInt));
+        
+    }
+    else if(event == 'brand'){
+       //Sorting by the product brand
+       console.log("Sorting by brand");
+       productlist.sort(sort_by('brand', true, function(a){return a.toUpperCase();}));
+    }
+    else if(event == 'name'){
+        //Sorting by the product name
+        console.log("Sorting by name");
+       productlist.sort(sort_by('name', true, function(a){return a.toUpperCase();}));
+    }
+            //Refresh the new list
+            var len = productlist.length;
+            List.empty();
+            var product;
+            for (var i=0; i < len; ++i){
+                product = productlist[i];
+                List.append("<li class=\"simpleCart_shelfItem\" ><a onclick=GetProduct(" + product.id + ") >" + 
+					"<img class=\"item_image\" src=\"images/products/"+ product.id+ "/0.jpg\"/>" +
+					"<h2 class=\"item_name\">" + product.name + "</h2>" + 
+					"<p>" + product.brand + "</p>" +
+					"<p>" + product.model + "</p>" +
+					"<div class=\"ui-li-aside\">" +
+							"<p class=\"item_price\">" + "$" + product.price + "</p>" +
+							"<p>10 bids</p>" +
+							"<p>7d 10h</p>" +
+						"</div></a>" +
+        				"<a class=\"item_add\" href=\"javascript:;\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+    				"</li>");
+            }
+            List.listview("refresh"); 
+}
+
+$(document).on('pagebeforeshow', "#myAccount", function( event, ui ) {
+	// currentUser has been set at this point
+	$("#headerHello").html("Hello "+ currentUser.firstName + "!");
+	$("#account-name").html("Name: "+ currentUser.firstName + " " + currentUser.lastName);
+	$("#account-street").html("Street Address: "+ currentUser.streetMailingAddress);
+	$("#account-state").html("State: "+ currentUser.stateMailingAddress);
+	$("#account-city").html("City: "+ currentUser.cityMailingAddress);
+    $("#account-zip").html("Zip Code: "+ currentUser.zipMailingAddress);
+    $("#account-telephone").html("Telephone: "+ currentUser.telephone);
+    $("#account-email").html("Email: "+ currentUser.email);
+	
+});
+
+$(document).on('pagebeforeshow', "#review-page", function( event, ui ) {
+	// currentUser has been set at this point
+	$("#review-username").html(currentUser.username);
+
+
+	
+});
+
+$(document).on('pagebeforeshow', "#product-view", function productName() {
+	// currentProduct has been set at this point
+	return currentProduct.name;
+	
+});
+
+$(document).on('pagebeforeshow', "#seller-page", function( event, ui ) {
+	// currentProduct has been set at this point
+	$("#upd-userImage").html("<img src=\"images/sellers/0.png\"width=100% height=auto</img> ");
+	$("#upd-sellerName").html("<h1>Cristian</h1>");
+	
+	$.fn.raty.defaults.path = 'images';
+    $('#star').raty(
+     	{
+			numberMax: 5,
+			score    : currentUser.rating,
+			number   : 500,
+			cancel   : false,
+			cancelPlace: 'right',
+			cancelOff: 'cancel-off.png',
+			cancelOn : 'cancel-on.png',
+			half     : true,
+			size     : 15,
+			starHalf : 'star-half.png',
+			starOff  : 'star-off.png',
+			starOn   : 'star-on.png',
+			readOnly : 'true'
+		}
+	);
+
+});
+
+$(document).on('pagebeforeshow', "#review-page", function( event, ui ) {
+	
+	$.fn.raty.defaults.path = 'images';
+    	for (var i = 0; i < 4; i++) {
+        	$('#star' + i).raty({
+	        	numberMax: 5,
+	            number   : 500,
+	            cancel   : true,
+	            cancelPlace: 'right',
+	            cancelOff: 'cancel-off-big.png',
+	            cancelOn : 'cancel-on-big.png',
+	            half     : true,
+	            size     : 24,
+	            starHalf : 'star-half-big.png',
+                starOff  : 'star-off-big.png',
+                starOn   : 'star-on-big.png',
+                target    : '#hint'+ i,
+                targetType: 'number',
+                targetKeep: true,
+             });
+        	}
+});
+////////////////////////////////////////////////////////////////////////////////////////////////
+/// Functions Called Directly from Buttons ///////////////////////
+
+function ConverToJSON(formData){
+	// var result = {};
+	// $.each(formData, 
+		// function(i, o){
+			// result[o.name] = o.value;
+	// });
+	// return result;
+	
+	var o = {};
+    $.each(formData, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+}
+
+function SaveProduct(){
+	$.mobile.loading("show");
+	var form = $("#product-form");
+	var formData = form.serializeArray();
+	console.log("form Data: " + formData);
+	var newProduct = ConverToJSON(formData);
+	console.log("New Product: " + JSON.stringify(newProduct));
+	var newProductJSON = JSON.stringify(newProduct);
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/products",
+		method: 'post',
+		data : newProductJSON,
+		contentType: "application/json",
+		dataType:"json",
+		success : function(data, textStatus, jqXHR){
+			$.mobile.loading("hide");
+			$.mobile.navigate("#homePage");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			$.mobile.loading("hide");
+			alert("Data could not be added!");
+		}
+	});
+
+
+}
+
+var currentProduct = {};
+var currentUser = {};
+var currentSeller = {};
+
+function GetProduct(id){
+	$.mobile.loading("show");
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/products/" + id,
+		method: 'get',
+		contentType: "application/json",
+		dataType:"json",
+		async: true,
+		success : function(data, textStatus, jqXHR){
+			currentProduct = data.product;		
+			$.mobile.loading("hide");
+			$.mobile.navigate("#product-view");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			$.mobile.loading("hide");
+			if (data.status == 404){
+				alert("Product not found.");
+			}
+			else {
+				alter("Internal Server Error.");
+			}
+		}
+	});
+	
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/users/" + 0,
+		method: 'get',
+		contentType: "application/json",
+		dataType:"json",
+		async: true,
+		success : function(data, textStatus, jqXHR){
+			currentUser = data.user;
+			 // $.mobile.loading("hide");
+			 // $.mobile.navigate("#myAccount");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			//$.mobile.loading("hide");
+			if (data.status == 404){
+				alert("User not found.");
+			}
+			else {
+				alter("Internal Server Error.");
+			}
+		}
+	});
+	
+	
+	
+}
+
+function GetSeller(id){
+	$.mobile.loading("show");
+				
+			$.mobile.loading("hide");
+			$.mobile.navigate("#seller-page");
+}
+
+function GetUser(id){
+	$.mobile.loading("show");
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/users/" + id,
+		method: 'get',
+		contentType: "application/json",
+		dataType:"json",
+		success : function(data, textStatus, jqXHR){
+			currentUser = data.user;
+			 // $.mobile.loading("hide");
+			 // $.mobile.navigate("#myAccount");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			$.mobile.loading("hide");
+			if (data.status == 404){
+				alert("User not found.");
+			}
+			else {
+				alter("Internal Server Error.");
+			}
+		}
+	});
+}
+
+function GetSeller(id){
+	$.mobile.loading("show");
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/users/" + id,
+		method: 'get',
+		contentType: "application/json",
+		dataType:"json",
+		success : function(data, textStatus, jqXHR){
+			currentUser = data.user;
+			  $.mobile.loading("hide");
+			  $.mobile.navigate("#seller-page");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			$.mobile.loading("hide");
+			if (data.status == 404){
+				alert("User not found.");
+			}
+			else {
+				alter("Internal Server Error.");
+			}
+		}
+	});
+}
+
+function UpdateProduct(){
+	$.mobile.loading("show");
+	var form = $("#product-view-form");
+	var formData = form.serializeArray();
+	console.log("form Data: " + formData);
+	var updProduct = ConverToJSON(formData);
+	updProduct.id = currentProduct.id;
+	console.log("Updated Product: " + JSON.stringify(updProduct));
+	var updProductJSON = JSON.stringify(updProduct);
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/products/" + updProduct.id,
+		method: 'put',
+		data : updProductJSON,
+		contentType: "application/json",
+		dataType:"json",
+		success : function(data, textStatus, jqXHR){
+			$.mobile.loading("hide");
+			$.mobile.navigate("#homePage");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			$.mobile.loading("hide");
+			if (data.status == 404){
+				alert("Data could not be updated!");
+			}
+			else {
+				alert("Internal Error.");		
+			}
+		}
+	});
+}
+
+function DeleteProduct(){
+	$.mobile.loading("show");
+	var id = currentProduct.id;
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/products/" + id,
+		method: 'delete',
+		contentType: "application/json",
+		dataType:"json",
+		success : function(data, textStatus, jqXHR){
+			$.mobile.loading("hide");
+			$.mobile.navigate("#homePage");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			$.mobile.loading("hide");
+			if (data.status == 404){
+				alert("Product not found.");
+			}
+			else {
+				alter("Internal Server Error.");
+			}
+		}
+	});
+}
+
+/*
+ * ################################## REGISTER FORM ############################################
+ */
+
+function SaveUser(){
+	$.mobile.loading("show");
+	var form = $("#registerForm");
+	var formData = form.serializeArray();
+	console.log("form Data: " + formData);
+	var newUser = ConverToJSON(formData);
+	console.log("New User: " + JSON.stringify(newUser));
+	var newUserJSON = JSON.stringify(newUser);
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/users",
+		method: 'post',
+		data : newUserJSON,
+		contentType: "application/json",
+		dataType:"json",
+		success : function(data, textStatus, jqXHR){
+			$.mobile.loading("hide");
+			$.mobile.navigate("#registerPage2");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			$.mobile.loading("hide");
+			alert("Data could not be added!");
+		}
+	});
+}
+
+// This function uses a give category and the name of a ul list
+// to refresh and divide the products by categories.
+function CategoryList(category, classList){
+    console.log("Category List Testing: "+ category);
+    $.ajax({
+        url : "http://localhost:3412/ProjectServer/products",
+        contentType: "application/json",
+        success : function(data, textStatus, jqXHR){
+            var productList = data.products;
+            var len = productList.length;
+            var list = $('ul.'+ classList);
+            list.empty();
+            var product;
+            for (var i=0; i < len; ++i){
+                product = productList[i];
+                console.log("Product"+product.id+" categories:"+product.category);
+                
+                //Check of the cateory is in the products category list
+                console.log($.inArray(category, product.category));
+                console.log(product.category == category);
+                if($.inArray(category, product.category) >= 0 || product.category == category){
+                    list.append("<li class=\"simpleCart_shelfItem\" ><a onclick=GetProduct(" + product.id + ") >" + 
+					"<img class=\"item_image\" src=\"images/products/"+ product.id+ "/0.jpg\"/>" +
+					"<h2 class=\"item_name\">" + product.name + "</h2>" + 
+					"<p>" + product.brand + "</p>" +
+					"<p>" + product.model + "</p>" +
+					"<div class=\"ui-li-aside\">" +
+							"<p class=\"item_price\">" + "$" + product.price + "</p>" +
+							"<p>10 bids</p>" +
+							"<p>7d 10h</p>" +
+						"</div></a>" +
+        				"<a class=\"item_add\" href=\"javascript:;\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+    				"</li>");  
+                }
+            }
+             
+            list.listview("refresh");   
+        },
+        error: function(data, textStatus, jqXHR){
+            console.log("textStatus: " + textStatus);
+            alert("Data not found!");
+        }
+    });
+}

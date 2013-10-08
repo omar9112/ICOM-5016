@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Kiwi.net</title>
+		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+
+		<!-- the three things that jQuery Mobile needs to work -->
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.min.css">
+		<script src="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.min.js"></script>
+		
+		<!--############ CSS ############-->
+			<link rel="stylesheet" href="css/style.css">
+			<!-- Shopping Cart plugin-->		
+		 	<link rel="stylesheet" href="css/shoppingCart.css">
+		 	<!-- Flexslider plugin-->
+				<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+			<!-- Credit card plugin -->
+				<link rel="stylesheet" href="css/creditCard.css">  
+	 	
+	 	<!--############ JavaScript ############-->
+			<script src="appjs/app.js"></script>
+			<!-- Simple Cart plugin -->
+				<script src="js/simpleCart.js"></script>	
+			<!-- Star Ratings  plugin -->
+		        <script type="text/javascript" src="js/jquery.raty.min.js"></script>
+			<!-- Form validation plugin-->
+				<script language="javascript" type="text/javascript" src="js/jquery.validate.min.js"></script>
+				<script language="javascript" type="text/javascript" src="js/additional-methods.min.js"></script>
+			<!-- Credit card plugin -->
+				<script type="text/javascript" src="js/jquery.creditCardValidator.js"></script>
+				<script type="text/javascript" src="appjs/demo.js"></script>
+				
+		<style type="text/css">
+		    .ui-icon-cart:after {
+		    background: url('images/cart.png') no-repeat;
+		}
+		</style>
+		
+		<script>
+		  simpleCart({
+			// array representing the format and columns of the cart,
+			// see the cart columns documentation
+			cartColumns: [
+				{ attr: "image", label: "Image", view: "image"},
+				{ attr: "name", label: "Name"},
+				// { attr: "price", label: "Price"},
+				{ attr: "quantity", label: "Quantity", view: "input"},
+				{ attr: "total", label: "Subtotal", view: "currency"},
+				{ view: "remove" , label: false }
+				
+			],
+		
+			// "div" or "table" - builds the cart as a 
+			// table or collection of divs
+			cartStyle: "table", 
+		
+			// how simpleCart should checkout, see the 
+			// checkout reference for more info 
+			checkout: { 
+				type: "PayPal" , 
+				email: "chris.omar91@gmail.com" 
+			},
+		
+			// set the currency, see the currency 
+			// reference for more info
+			currency: "USD",
+		
+			// custom function to add shipping cost
+			shippingCustom: null,
+		
+			// flat rate shipping option
+			shippingFlatRate: 10,
+		
+			// added shipping based on this value 
+			// multiplied by the cart quantity
+			shippingQuantityRate: 0,
+		
+			// added shipping based on this value 
+			// multiplied by the cart subtotal
+			shippingTotalRate: 0,
+		
+			// tax rate applied to cart subtotal
+			taxRate: 0,
+		
+			// true if tax should be applied to shipping
+			taxShipping: false,
+});
+	</script>
+    
+    <!-- FlexSlider --> 
+	  <script defer src="js/jquery.flexslider.js"></script> 
+	  <script type="text/javascript">
+	    $(function(){
+	      SyntaxHighlighter.all();
+	    });
+	    $(window).load(function(){
+	      $('#carousel').flexslider({
+	        animation: "slide",
+	        controlNav: false,
+	        animationLoop: false,
+	        slideshow: false,
+	        itemWidth: 210,
+	        itemMargin: 5,
+	        asNavFor: '#slider'
+	      });
+	
+	      $('#slider').flexslider({
+	        animation: "slide",
+	        controlNav: false,
+	        animationLoop: false,
+	        slideshow: false,
+	        sync: "#carousel",
+	        start: function(slider){
+	          $('body').removeClass('loading');
+	        }
+	      });
+	    });
+	  </script>
+	<!-- <script>
+		simpleCart.bind( 'afterAdd' , function( item ){
+    	alert( item_name + " has been added to the cart!");
+	}	);
+	</script> -->
+		
+	</head>
+	<body>	
+		<!--###################################### Main page ######################################-->
+        <div id="signIn" data-role="page">
+        	<!-- Home Page header -->
+            <div data-role="header" data-position="fixed" data-theme="b">
+            	<div class="ui-btn-left">
+                	<a href="#signIn"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:left; display:inline; margin-top: 5px"/></a>                        
+                </div>
+                    <h1>Welcome!</h1>
+            </div>
+
+            <div data-role="content"> 
+            	<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b">
+                	<a href="#popupLogin" data-rel="popup" data-position-to="window" data-role="button" data-mini="true" data-transition="pop">Sign in</a>
+                    <a href="#registerPage" data-role="button" data-shadow="false" data-transition="slide" data-mini="true">Register</a>
+                </div>
+            </div>
+            <!-- Sign in -->
+            <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
+                <form action="#homePage">
+                    <div style="padding:10px 20px;">
+                        <h3>Please sign in</h3>
+                        <label for="un" class="ui-hidden-accessible">Username:</label>
+                        <input type="text" name="user" id="un" value="" placeholder="username" data-mini="true" data-theme="a">
+                        <label for="pw" class="ui-hidden-accessible">Password:</label>
+                        <input type="password" name="pass" id="pw" value="" placeholder="password" data-mini="true" data-theme="a">
+                        <button type="submit" onclick="window.location='#homePage'" data-mini="true" data-theme="b">Sign in</button>
+                    </div>
+                </form>
+            </div><!-- /Sign in -->
+        </div>
+            
+		<!--###################################### HOME PAGE ######################################-->
+		<div id="homePage" data-role="page">
+			<!-- Home Page header -->
+			<div data-role="header" data-position="fixed" data-theme="b">
+  				<div class="ui-btn-left">
+  					<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:left; display:inline; margin-top: 5px"/></a>
+  				</div>
+  				
+  				<h1></h1>
+  				
+  				<div class="ui-btn-right">
+    				<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext">Search</a>
+    				<a href="#shoppingCart" data-role="button" data-icon="cart"><span class="simpleCart_quantity">2</span></a>
+    				<a href="#popupMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
+  				</div>
+			</div> <!-- /Home Page header -->
+			
+			<div data-role="content">
+				<img src="images/main2.jpg" width=100%/>
+				<a href="#add-product" data-role="button" data-id="sell" data-theme='b' data-mini = 'true' >Sell an Item</a>
+				<div class="ui-grid-b">
+                    <div class="ui-block-a"><a href="#categories" data-role="button" style="height: 15%" data-theme="b" onclick="CategoryList('books', 'categories')"><img src="images/books.jpg" width=100% height=10%> <br/>Books</a></div>
+                    <div class="ui-block-b"><a href="#categories" data-role="button" style="height: 15%" data-theme="b" onclick="CategoryList('electronics', 'categories')"><img src="images/electronics.jpg" width=100% height=10%> <br/>Electronics</a></div>
+                    <div class="ui-block-c"><a href="#categories" data-role="button" style="height: 15%" data-theme="b" onclick="CategoryList('computers', 'categories')"><img src="images/computers.jpg" width=100% height=10%> <br/>Computers</a></div>
+                    <div class="ui-block-a"><a href="#categories" data-role="button" style="height: 15%" data-theme="b" onclick="CategoryList('cloting', 'categories')"><img src="images/clothing.jpg" width=100% height=10%> <br/>Clothing</a></div>
+                    <div class="ui-block-b"><a href="#categories" data-role="button" style="height: 15%" data-theme="b" onclick="CategoryList('shoes', 'categories')"><img src="images/shoes.jpg" width=100% height=10%> <br/>Shoes</a></div>
+                    <div class="ui-block-c"><a href="#categories" data-role="button" style="height: 15%" data-theme="b" onclick="CategoryList('sporst', 'categories')"><img src="images/sports.jpg" width=100% height=10%> <br/>Sports</a></div>
+                </div>
+ 	
+			</div><!-- /content -->
+			
+			<div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
+    			<form>
+        			<div style="padding:10px 20px;">
+            			<h3>Please sign in</h3>
+            			<label for="un" class="ui-hidden-accessible">Username:</label>
+            			<input type="text" name="user" id="un" value="" placeholder="username" data-mini="true" data-theme="a">
+            			<label for="pw" class="ui-hidden-accessible">Password:</label>
+            			<input type="password" name="pass" id="pw" value="" placeholder="password" data-mini="true" data-theme="a">
+            			<button type="submit" onclick="window.location.assign("#homePage")" data-mini="true" data-theme="b">Sign in</button>
+        			</div>
+    			</form>
+			</div><!-- /sign in -->
+			
+			<!-- popupMenu Home Page-->
+			<div data-role="popup" id="popupMenu" data-theme="a">
+        		<ul data-role="listview" data-position="right" data-inset="true" style="min-width:150px;">
+            		<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
+            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
+        		</ul>
+			</div><!-- /popupMenu -->
+		</div>
+	
+    <!--###################################### ADD PRODUCT ######################################-->
+    <div id="add-product" data-role="page">
+        <div data-role="header" data-position="fixed" data-theme="b">
+	    	<div class="ui-btn-left">
+	    		<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 5px"/></a>
+	    		<a data-role="button" data-rel="back" href="#homePage" data-icon="delete" data-iconpos="notext">Cancel</a>
+	    	</div>
+		   		<h1></h1>
+		    <div class="ui-btn-right"> <a href="#" data-role="button" data-icon="search" data-iconpos="notext">Search</a>
+		    	<!-- <a href="#" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a> -->
+		    	<a data-role="button" data-rel="back" onclick="SaveProduct()">Save</a> 
+		    </div>
+	  	</div>
+	  	<div data-role="content">
+	  		<center><h2>Enter the new product info</h2></center>
+            <form id="product-form">
+                <fieldset data-role="controlgroup" data-theme="a">
+                    <ul>
+                        <li><label for="photo">Image:</label><input type="file" data-clear-btn="true" name="photo" id="photo" value=""></li>
+                        <li><label for="name"> <input id="name" name="name" type="text" placeholder="Title"data-clear-btn="true"/></label></li>
+                        <li><label for="brand"> <input id="brand" name="brand" type="text" placeholder="Brand"data-clear-btn="true"/></label></li>
+                        <li><label for="model"> <input id="model" name="model" type="text" placeholder="Model"data-clear-btn="true"/></label></li>
+                        <li>
+                            <label for="category" ></label>
+                                <select name="category" id="category" multiple="multiple" data-native-menu="false" data-icon="arrow-d" data-iconpos="right">
+                                    <option>Categories</option>
+                                    <optgroup label="Books">
+                                        <option value="children" >Children</option>
+                                        <option value="fiction">Fiction</option>
+                                        <option value="technology">Technology</option>
+                                        <option value="business">Business</option>
+                                    </optgroup>
+                                    <optgroup label="Electronics">
+                                        <option value="tv">TV</option>
+                                        <option value="audio">Audio</option>
+                                        <option value="phones">Phones</option>
+                                        <option value="cameras">Cameras</option>
+                                        <option value="video">Video</option>
+                                    </optgroup>
+                                    <optgroup label="Computers">
+                                        <option value="laptops">Laptops</option>
+                                        <option value="desktops">Desktops</option>
+                                        <option value="tablets">Tablets</option>
+                                        <option value="printers">Printers</option>
+                                    </optgroup>
+                                    <optgroup label="Clothing">
+                                        <option value="men">Men</option>
+                                        <option value="women">Women</option>
+                                        <option value="children">Children</option>
+                                        <option value="shoes">Shoes</option>
+                                    </optgroup>
+                                    <optgroup label="Sports">
+                                        <option value="bicycles">Bicycles</option>
+                                        <option value="fishing">Fishing</option>
+                                        <option value="baseball">Baseball</option>
+                                        <option value="golf">Golf</option>
+                                        <option value="basketball">Basketball</option>
+                                    </optgroup>
+                                </select>
+                        </li>
+                        <li>
+                            <label for="condition">Condition:</label>
+                            <select name="condition" id="condition" data-mini="true" data-inline="true">
+                                <option value="New">New</option>
+                                <option value="Manufacturer Refurbished">Manufacturer Refurbished</option>
+                                <option value="Used">Used</option>
+                                <option value="For parts or not working">For parts or not working</option>
+                            </select>
+                        </li>
+                        <li>
+                            <label for="priceMethod">Select price method:</label>
+                            <select name="priceMethod" id="priceMethod" data-mini="true" data-inline="true">
+                                <option value="Instant">Instant</option>
+                                <option value="Bid">Bid</option>
+                            </select>
+                        </li>
+                        <li><label for="price"> <input id="price" name="price" type="number" placeholder="Price $$"/></label></li>     
+                        <li><label for="description"><input  id="description" name="description" type="text" placeholder="Description"></label></li>
+                </ul>
+             </fieldset>
+            </form>
+	  	</div>
+            
+    </div>
+	
+	<!--###################################### PRODUCT VIEW ######################################-->
+	<div id="product-view" data-role="page"> 
+	  <!-- /left panel -->
+	  <div data-role="header" data-position="fixed" data-theme="b">
+	    <div class="ui-btn-left"> 
+	    	<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="main logo" style="float:right; display:inline; margin-top: 5px"/></a>
+	    </div>
+	    <h1>Product</h1>
+	    <div class="ui-btn-right"> 
+	    	<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext">Search</a> 
+	    	<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a>
+	    	<a href="#productViewMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a> </div>
+	  </div> <!-- /header -->
+	  <div data-role="content">
+	  	<div id="slider" class="flexslider ">
+	    <ul class="slides">
+	      <li id = "image0"></li>
+	      <li id = "image1"></li>
+	      <li id = "image2"></li>
+	    </ul>
+	  </div>
+
+	  <div class="simpleCart_shelfItem" id="product-view-form">
+	  	<label class="labelText" for="upd-name" ><span span  class="item_name" id="upd-name" name="name"></span></label>
+	    <ul data-role="listview">
+	      <li id = "upd-model">
+	      </li>
+	      <li id = "upd-brand">
+	      </li>
+	      <li id = "upd-condition">
+	      </li>
+	      <li class="item_price" id = "upd-price">
+	      </li>
+          <li>
+          <a id = "upd-seller" href="#seller-page">Seller: </a>
+          </li>
+	      <li id = "upd-description">
+	      </li>
+	      <li id = "upd-bidderList"> 
+          <a href = "#bidderList-view"> Bidder List</a>
+	      </li>
+	      <a data-theme="b" id ="upd-bidButton" href="#placeBidAlert" data-rel="popup" data-position-to="window"data-transition="pop" data-role="button">Place a Bid</a>
+	      <a data-theme="b" id = "upd-butItNowButton"href="#creditCard" data-role="button">Buy it Now</a>
+	      <a data-theme="b" id = "upd-addToCartButton" class="item_add" href="javascript:;" data-role="button"> Add to Cart </a>
+	    </ul>
+	  </div>
+	  </div>
+	  <!-- /content -->
+	  	<!-- popupMenu Product View Page-->
+		<div data-role="popup" id="productViewMenu" data-theme="a">
+	      	<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
+	        		<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
+            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
+	        </ul>
+		</div><!-- /popupMenu -->
+		
+		<div data-role="popup" id="placeBidAlert" data-theme="a" class="ui-corner-all">
+    			<form action="#homePage">
+        			<div style="padding:10px 20px;">
+            			<center><h3>Confirm bid</h3></center>
+            			<input type="number"/ placeholder="$" value="">
+            			<button type="submit" onclick="window.location='#product-view'" data-mini="true" data-theme="b">Place Bid</button>
+        			</div>
+        		</form>	
+			</div>
+	</div>
+    
+<!--###################################### SELLER PAGE ######################################-->    
+    <div id="seller-page" data-role="page"> 
+	  <!-- /left panel -->
+	  <div data-role="header" data-position="fixed" data-theme="b">
+	    <div class="ui-btn-left"> 
+	    	<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="main logo" style="float:right; display:inline; margin-top: 5px"/></a>
+	    </div>
+	    <h1>Seller</h1>
+	    <div class="ui-btn-right"> 
+	    	<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext">Search</a> 
+	    	<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a>
+	    	<a href="#sellerViewMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a> </div>
+	  </div> <!-- /header -->
+	  
+      <div id = "upd-userImage"></div>
+      <div id = "upd-seller"></div>
+      
+	  <ul data-role="listview">
+      <li id = "upd-rating">
+      <div id="star">Rating:  </div>
+      </li>
+	
+	   <li id = "itemsForSale"><a onclick="GetUser(0)" href="#review-page">Write a Review</a>
+      </li>
+      <li id="upd-recentFeedback"><a href="#recentFeedback-view">Recent Feedback</a>
+      </li>
+      <li id = "upd-askAQuestion"><a href="#askAQuestion-view">Ask a Question</a>
+      </li>
+      <li id = "itemsForSale"><a href="#categories">Item for Sale</a>
+      </li>
+      <li id = "itemHistory"><a href="#categories">Sale History</a>
+      </li>
+    </ul>
+    
+     <!-- popupMenu Seller View Page-->
+		<div data-role="popup" id="sellerViewMenu" data-theme="a">
+	      	<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
+	        	<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
+            	<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            	<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
+	        </ul>
+		</div><!-- /popupMenu -->
+	    
+	</div>
+	 
+	
+    <!--###################################### REVIEW PAGE ######################################-->
+    <div id="review-page" data-role="page">
+    	<div data-role="header" data-theme="b" data-position="fixed">
+        	<a data-role="button" data-rel="back" href="#homePage">Cancel</a>
+            <h1>Review</h1>
+            <a data-role="button" data-rel="back">Save</a>
+        </div>
+        <div data-role="content">
+        	<center><h2 class="review">Enter your review for</h2></center>
+        	<center><h4 class="review" id="review-username"></h4></center>
+        </div>
+        <div data-role="content">
+        	
+            <form id="review-form">
+            	<ul data-role="listview">
+                   	<li>
+                   		<label for="subject">
+                    	<input id="subject" name="subject" type="text" placeholder="Subject"data-clear-btn="true"/></label>
+                   	</li>
+                   	<li>
+                   		<label for="comentary">
+                		<input name="comentary" id="comentary" placeholder="Enter your feedback here..."></label>
+                   	</li>
+                   	<li>
+                   		<span>Accurate description?</span><div id="star0" style="float: right"></div> <input type="hidden" id="hint0"/>
+                   	</li>
+                   	<li>
+                   		<span>Shipping speed?</span><div id="star2" style="float: right"></div> <input type="hidden" id="hint2"/>
+                   	</li>
+                   	<li>
+                   		<span>Reasonable shipping cost?</span><div id="star3" style="float: right"></div> <input type="hidden" id="hint3"/>
+                   	</li>
+                   	
+            	</ul>  
+            	<br /> 
+            	<a data-theme="b" id = "reviewButton" data-rel="back" data-role="button">Leave review</a> 
+           	</form>  
+           	
+           	  
+        </div>
+    </div>
+      
+	<!--###################################### SEARCH PAGE ######################################-->
+	<div id="searchPage" data-role="page">
+		<!-- leftPanel -->
+			<div id="leftPanel" data-role="panel"  data-theme="b" data-position="left" data-display="push" data-rel="back">
+				<h3>Categories</h3>
+				<div data-role="collapsible-set" data-inset="false" data-collapsed-icon="arrow-d"  data-expanded-icon="arrow-u" data-iconpos="right" data-corners="false" data-theme="b">
+					<div data-role="collapsible" >
+						<h3>Books</h3>
+						<ul data-role="listview" data-theme="a">
+							<li><a onclick="CategoryList('children', 'products')">Children</a></li>
+							<li><a onclick="CategoryList('fiction', products)">Fiction</a></li>
+							<li><a onclick="CategoryList('technology', 'products')">Technology</a></li>
+							<li><a onclick="CategoryList('business', 'products')">Business</a></li>
+							<li><a onclick="CategoryList('others', 'products')">Others</a></li>
+						</ul>
+					</div>
+					<div data-role="collapsible">
+        				<h3>Electronics</h3>
+       	 				<ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a onclick="CategoryList('tv', 'products')">TV</a></li>
+							<li><a onclick="CategoryList('audio', 'products')">Audio</a></li>
+							<li><a onclick="CategoryList('phones', 'products')">Phones</a></li>
+							<li><a onclick="CategoryList('cameras', 'products')">Cameras</a></li>
+							<li><a onclick="CategoryList('videos', 'products')">Video</a></li>
+							<li><a onclick="CategoryList('others', 'products')">Others</a></li>
+        				</ul>
+    				</div>
+				    <div data-role="collapsible">
+				        <h3>Computers</h3>
+				        <ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a onclick="CategoryList('laptops', 'products')">Laptops</a></li>
+							<li><a onclick="CategoryList('desktops', 'products')">Desktops</a></li>
+							<li><a onclick="CategoryList('tablets', 'products')">Tablets</a></li>
+							<li><a onclick="CategoryList('printers', 'products')">Printers</a></li>
+							<li><a onclick="CategoryList('others', 'products')">Others</a></li>
+				        </ul>
+				    </div>
+				    <div data-role="collapsible">
+				        <h3>Clothing</h3>
+				        <ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a onclick="CategoryList('children', 'products')">Children</a></li>
+				            <li><a onclick="CategoryList('men', 'products')">Men</a></li>
+				            <li><a onclick="CategoryList('women', 'products')">Women</a></li>
+				            <li><a onclick="CategoryList('dresses', 'products')">Dresses</a></li>
+				            <li><a onclick="CategoryList('shirts', 'products')">Shirts</a></li>
+				            <li><a onclick="CategoryList('pants', 'products')">Pants</a></li>
+				            <li><a onclick="CategoryList('socks', 'products')">Socks</a></li>
+				        </ul>
+				    </div>
+				    <div data-role="collapsible">
+				        <h3>Shoes</h3>
+				        <ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a onclick="CategoryList('children', 'products')">Children</a></li>
+							<li><a onclick="CategoryList('women', 'products')">Women</a></li>
+							<li><a onclick="CategoryList('men', 'products')">Men</a></li>
+				        </ul>
+				    </div>
+				    <div data-role="collapsible">
+				        <h3>Sports</h3>
+					 	<ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a onclick="CategoryList('bicycles', 'products')">Bicycles</a></li>
+							<li><a onclick="CategoryList('fishing', 'products')">Fishing</a></li>
+							<li><a onclick="CategoryList('baseball', 'products')">Baseball</a></li>
+							<li><a onclick="CategoryList('golf', 'products')">Golf</a></li>
+							<li><a onclick="CategoryList('basketball', 'products')">Basketball</a></li>
+				        </ul>
+				    </div>
+				</div>
+			</div> <!-- /leftPanel -->
+		<div data-role="header" data-position="fixed" data-theme="b">
+  			<div class="ui-btn-left">
+  				<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline; margin-top: 5px"/></a>
+    			<a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext">Categories</a>  				
+  				</div>
+  				<h1>Search</h1>
+  				<div class="ui-btn-right">
+    				<!-- <a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext">Search</a> -->
+    				<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" <span class="simpleCart_quantity"></span>>My Cart</a>
+    				<a href="#searchMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
+  				</div>
+			</div> <!-- /header -->
+			<div data-role="content">
+				<ul class="products" id="product-list" data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Search products..." data-inset="false">
+				<!-- Products added dynamically  -->
+				</ul>		
+			</div> <!-- /content -->
+			<!-- popupMenu Search Page-->
+			<div data-role="popup" id="searchMenu" data-theme="a">
+        		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
+            		<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
+            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
+        		</ul>
+			</div><!-- /popupMenu -->
+		</div> <!-- /SEARCHPAGE -->
+		
+		<!--###################################### SHOPPING CART ######################################-->
+		<div id="shoppingCart" data-role="page" class="simpleCart_shelfItem">
+			<!-- leftPanel -->
+			<div id="leftPanel" data-role="panel"  data-theme="b" data-position="left" data-display="push" data-rel="back">
+				<h3>Categories</h3>
+				<div data-role="collapsible-set" data-inset="false" data-collapsed-icon="arrow-d"  data-expanded-icon="arrow-u" data-iconpos="right" data-corners="false" data-theme="b">
+					<div data-role="collapsible" >
+						<h3>Books</h3>
+						<ul data-role="listview" data-theme="a">
+							<li><a href="#categories">Children</a></li>
+							<li><a href="#categories">Fiction</a></li>
+							<li><a href="#categories">Technology</a></li>
+							<li><a href="#categories">Business</a></li>
+							<li><a href="#categories">Others</a></li>
+						</ul>
+					</div>
+					<div data-role="collapsible">
+        				<h3>Electronics</h3>
+       	 				<ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a href="#categories">TV</a></li>
+							<li><a href="#categories">Audio</a></li>
+							<li><a href="#categories">Phones</a></li>
+							<li><a href="#categories">Cameras</a></li>
+							<li><a href="#categories">Video</a></li>
+							<li><a href="#categories">Others</a></li>
+        				</ul>
+    				</div>
+				    <div data-role="collapsible">
+				        <h3>Computers</h3>
+				        <ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a href="#categories">Laptops</a></li>
+							<li><a href="#categories">Desktops</a></li>
+							<li><a href="#categories">Tablets</a></li>
+							<li><a href="#categories">Printers</a></li>
+							<li><a href="#categories">Others</a></li>
+				        </ul>
+				    </div>
+				    <div data-role="collapsible">
+				        <h3>Clothing</h3>
+				        <ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a href="#categories">Children</a></li>
+				            <li><a href="#categories">Men</a></li>
+				            <li><a href="#categories">Women</a></li>
+				            <li><a href="#categories">Dresses</a></li>
+				            <li><a href="#categories">Shirts</a></li>
+				            <li><a href="#categories">Pants</a></li>
+				            <li><a href="#categories">Socks</a></li>
+				        </ul>
+				    </div>
+				    <div data-role="collapsible">
+				        <h3>Shoes</h3>
+				        <ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a href="#categories">Children</a></li>
+							<li><a href="#categories">Women</a></li>
+							<li><a href="#categories">Men</a></li>
+				        </ul>
+				    </div>
+				    <div data-role="collapsible">
+				        <h3>Sports</h3>
+					 	<ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a href="#categories">Bicycles</a></li>
+							<li><a href="#categories">Fishing</a></li>
+							<li><a href="#categories">Baseball</a></li>
+							<li><a href="#categories">Golf</a></li>
+							<li><a href="#categories">Basketball</a></li>
+				        </ul>
+				    </div>
+				</div>
+			</div> <!-- /leftPanel -->
+			<!-- Shopping Cart header -->
+			<div data-role="header" data-position="fixed" data-theme="b">
+  				<div class="ui-btn-left">
+  					<a data-rel="back"> <img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 5px"/> </a>
+  					<a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext">Categories</a>
+  				</div>
+  				
+  				<h1>Cart</h1>
+  				
+  				<div class="ui-btn-right">
+    				<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext">Search</a>
+    				<!-- <a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext"</span>>My Cart</a> -->
+    				<a href="#cartMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
+  				</div>
+			</div> <!-- /Home Page header -->
+			<div data-role="content" class="simpleCart_items"></div>
+						
+			<div data-role="content"> 
+				<label>Items (<div style="display: inline-block" class="simpleCart_quantity"></div>)</label>
+				<label>Shipping <div style="display: inline-block" class="simpleCart_shipping"></div></label>
+				<hr/>
+				<label>Cart subtotal <div style="display: inline-block" class="simpleCart_grandTotal"></div></label>
+				<br />
+				
+				<label for="paymentMethod">Check out with: </label>
+            	<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b">
+            		<input data-theme="b" data-mini="true" href="javascript:;" class="simpleCart_checkout" type="button" value="Paypal">
+            		<a data-theme="b" data-mini="true" href="#creditCard" data-role="button">Credit Card</a>
+                </div>
+            </div>
+            <!-- popupMenu Search Page-->
+			<div data-role="popup" id="cartMenu" data-theme="a">
+        		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
+            		<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
+            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
+        		</ul>
+			</div><!-- /popupMenu -->
+		</div> <!-- /SHOPPING CART -->
+		
+		<!--###################################### CREDIT CARD ######################################-->
+		<div id="creditCard" data-role="page">
+        	<div data-role="header" data-position="fixed" data-theme="b">
+  				<div class="ui-btn-left">
+                    <a data-rel="back"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 5px"/></a>
+                    <a href="#shoppingCart" data-role="button" data-icon="arrow-l" data-iconpos="notext">Back</a>
+                </div>
+  				<h1></h1>
+  				<div class="ui-btn-right">
+    				<a href="#creditMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
+  				</div>
+			</div> <!-- /header -->
+			<div data-role="content">
+				<h4>Payment details</h4>
+				<form action="" id="creditForm">
+					<div class="cards">
+                   		<li class="visa">Visa</li>
+                        <li class="visa_electron">Visa Electron</li>
+                        <li class="mastercard">MasterCard</li>
+                        <li class="maestro">Maestro</li>
+                        <li class="discover">Discover</li>
+                    </div>
+                    <br />
+                    <div>
+                        <input type="tel" data-mini="true" name="cardNumber" id="cardNumber" placeholder="Card number">
+                    </div>
+                    
+                    <div data-role="controlgroup" data-type="horizontal">
+                        <div style="float: left">
+                            <!-- <label for="expiry_date">Expiry date <small>mm/yy</small></label> -->
+                        	<input type="text" data-mini="true" name="expiry_date" id="expiration_date" maxlength="5" placeholder="Expiry date (mm/yy)" style="width: 150px">
+                                    	
+                        </div>
+                        <div style="float: right">
+                            <input type="tel" data-mini="true" name="cvv" id="cvv" maxlength="3" placeholder="CVV" style="width: 100px">
+                        </div>
+                    </div>
+                    <div>
+                        <input type="text" data-mini="true" name="nameOnCard" id="nameOnCard" placeholder="Name on card">
+                    </div>
+				</form>
+				<a data-theme="b" onclick="GetUserOrder(0)" data-mini="true" data-role="button">Order Confirmation</a>
+			</div>
+			<!-- popupMenu Credit Card Page-->
+			<div data-role="popup" id="creditMenu" data-theme="a">
+        		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
+            		<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
+            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
+        		</ul>
+			</div><!-- /popupMenu -->
+        </div>
+		
+		<!--###################################### Order Confirmation Page ######################################-->
+        <div id="order-confirmation" data-role="page" class="simpleCart_shelfItem">
+            <!-- Shopping Cart header -->
+            <div data-role="header" data-position="fixed" data-theme="b">
+                <div class="ui-btn-left">
+                    <a data-rel="back"> <img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 5px"/> </a>
+                    <a href="#creditcard" data-role="button" data-icon="arrow-l" data-iconpos="notext"></a>
+                </div>
+                
+                <h1>Order</h1>
+             
+            </div> <!-- /Home Page header -->
+            
+            <div data-role="content">
+            	<h1><center>Your order summary</center></h1>
+            
+	            <label >Items: (<div style="display: inline-block" class="simpleCart_quantity"></div>)</label>
+	            <label >Shipping: <div style="display: inline-block" class="simpleCart_shipping"></div></label>
+	            <hr/>
+	            <label >Total: <div style="display: inline-block" class="simpleCart_grandTotal"></div></label>
+	
+	            <ul data-role="listview">
+	                      <center><h3 id="orderMA"></h3></center>
+	                      <li id = "order-street"></li>
+	                      <li id = "order-state"></li>
+	                      <li id = "order-city"></li>
+	                      <li id = "order-zip"></li>
+	            </ul>
+            </div>
+            
+            <div data-role="content">
+            	<a data-role="button" data-theme="b" data-rel="popup" data-position-to="window" data-mini="true" data-transition="pop" href="#orderAlert">Confirm Order</a>
+            </div>
+            
+            <div data-role="popup" id="orderAlert" data-theme="a" class="ui-corner-all">
+    			<form action="#homePage">
+        			<div style="padding:10px 20px;">
+            			<center><h3>Thank You!</h3></center>
+            			<p>Your order has been placed.</p>
+            			<button type="submit" onclick="window.location='#homePage'" data-mini="true" data-theme="b">Place Order</button>
+        			</div>
+        		</form>	
+			</div>
+        </div>
+		
+	    <!--###################################### Settings Page ######################################-->
+	    <div id="settings-page" data-role="page">
+	        <div data-role="header" data-position="fixed" data-theme="b">
+	                
+	                <div class="ui-btn-left">
+	                    <a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline"/></a>
+	                </div>
+	                
+	                <h1>Settings</h1>
+	        </div> <!-- /header -->
+	        
+	        <!-- Content -->
+	        <div data-role="content" class="my-page">
+	                
+	            <div data-role="collapsible" data-theme="b" data-content-theme="a" data-inset="true"  data-iconpos="right">
+	                <h3>About</h3>
+	                <ul data-role="listview">
+	                    <p>This application has been developed for the Data Bases course ICOM-5016. University of Puerto Rico-Mayaguez Campus</p>
+	                    <p>Developers: Juan Nieves, Christian Montes, Jose Virella</p>
+	                    <p>Version: 1.0</p>
+	                </ul>
+	            </div><!-- /collapsible -->
+	            <div data-role="collapsible" data-theme="b" data-content-theme="a" data-inset="true"  data-iconpos="right">
+	                <h3>Costumer Support</h3>
+	                <ul data-role="listview">
+	                    <p>If you need any help or support with this app, please contact one of us:</p>
+	                    <p>Juan Nieves: 787-457-0208</p>
+	                    <p>Christian Montes: 787-231-5270</p>
+	                    <p>Jose Virella: 939-332-1053</p>
+	                </ul>
+	            </div><!-- /collapsible -->
+	        </div>
+    	</div>
+    	
+        <!--###################################### User Account Page ######################################-->
+        <div id="myAccount" data-role="page">
+			
+			<div data-role="header" data-position="fixed" data-theme="b">
+  				<div class="ui-btn-left">
+                    <a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 5px"/></a>
+                </div>
+  				<h1>My Account</h1>
+  				<div class="ui-btn-right">
+                	<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext">Search</a>
+    				<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext">Cart</a>
+    				<a href="#accountMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
+  				</div>
+  			</div>
+            
+            <!-- Content -->
+            <div data-role="content" class="my-page">
+                <center><h1 id="headerHello"></h1></center>
+                 <ul data-role="listview">
+                      <li id = "account-name"></li>
+                      <li id = "account-street"></li>
+                      <li id = "account-state"></li>
+                      <li id = "account-city"></li>
+                      <li id = "account-zip"></li>
+                      <li id = "account-telephone"></li>
+                      <li id = "account-email"></li>
+                      <a href="#add-product" data-role="button" data-theme="b">Sell an Item</a>
+                </ul>
+            </div> <!-- /content -->
+            <!-- popupMenu  Account Page-->
+			<div data-role="popup" id="accountMenu" data-theme="a">
+        		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
+            		<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
+            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
+        		</ul>
+			</div><!-- /popupMenu -->
+        </div>
+            
+          	<!--###################################### Categories Page ######################################-->
+        <div id="categories" data-role="page">
+        	<!-- leftPanel -->
+			<div id="leftPanel" data-role="panel"  data-theme="b" data-position="left" data-display="push" data-rel="back">
+				<h3>Categories</h3>
+				<div data-role="collapsible-set" data-inset="false" data-collapsed-icon="arrow-d"  data-expanded-icon="arrow-u" data-iconpos="right" data-corners="false" data-theme="b">
+					<div data-role="collapsible" >
+						<h3>Books</h3>
+						<ul data-role="listview" data-theme="a">
+							<li><a href="#categories">Children</a></li>
+							<li><a href="#categories">Fiction</a></li>
+							<li><a href="#categories">Technology</a></li>
+							<li><a href="#categories">Business</a></li>
+							<li><a href="#categories">Others</a></li>
+						</ul>
+					</div>
+					<div data-role="collapsible">
+        				<h3>Electronics</h3>
+       	 				<ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a href="#categories">TV</a></li>
+							<li><a href="#categories">Audio</a></li>
+							<li><a href="#categories">Phones</a></li>
+							<li><a href="#categories">Cameras</a></li>
+							<li><a href="#categories">Video</a></li>
+							<li><a href="#categories">Others</a></li>
+        				</ul>
+    				</div>
+				    <div data-role="collapsible">
+				        <h3>Computers</h3>
+				        <ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a href="#categories">Laptops</a></li>
+							<li><a href="#categories">Desktops</a></li>
+							<li><a href="#categories">Tablets</a></li>
+							<li><a href="#categories">Printers</a></li>
+							<li><a href="#categories">Others</a></li>
+				        </ul>
+				    </div>
+				    <div data-role="collapsible">
+				        <h3>Clothing</h3>
+				        <ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a href="#categories">Children</a></li>
+				            <li><a href="#categories">Men</a></li>
+				            <li><a href="#categories">Women</a></li>
+				            <li><a href="#categories">Dresses</a></li>
+				            <li><a href="#categories">Shirts</a></li>
+				            <li><a href="#categories">Pants</a></li>
+				            <li><a href="#categories">Socks</a></li>
+				        </ul>
+				    </div>
+				    <div data-role="collapsible">
+				        <h3>Shoes</h3>
+				        <ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a href="#categories">Children</a></li>
+				            <li><a href="#categories">Men</a></li>
+				            <li><a href="#categories">Women</a></li>
+				            <li><a href="#categories">Dresses</a></li>
+				            <li><a href="#categories">Shirts</a></li>
+				            <li><a href="#categories">Pants</a></li>
+				            <li><a href="#categories">Socks</a></li>
+				        </ul>
+				    </div>
+				    <div data-role="collapsible">
+				        <h3>Sports</h3>
+					 	<ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a href="#categories">Bicycles</a></li>
+							<li><a href="#categories">Fishing</a></li>
+							<li><a href="#categories">Baseball</a></li>
+							<li><a href="#categories">Golf</a></li>
+							<li><a href="#categories">Basketball</a></li>
+				        </ul>
+				    </div>
+				</div>
+			</div> <!-- /leftPanel -->
+            <div data-role="header" data-position="fixed" data-theme="b">
+                <div class="ui-btn-left">
+                    <a data-rel="back"> <img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 5px"/> </a>
+                    <a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext">Categories</a>
+                </div>
+                
+                <h1></h1>
+                <div class="ui-btn-right">
+                	<a href="#sortByMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="">Filter</a>
+    				<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext">Cart</a>
+    				<a href="#categoriesMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
+  				</div>
+            </div> <!-- /Home Page header -->
+            
+            <div data-role="content">
+                <ul class="categories" id="category-list" data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Search products..." data-inset="false">
+                <!-- Products added dynamically  -->
+                </ul>       
+            </div> <!-- /content -->
+            <!-- popupMenu  categories Page-->
+			<div data-role="popup" id="categoriesMenu" data-theme="a">
+        		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:100px;">
+            		<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
+            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
+        		</ul>
+			</div><!-- /popupMenu -->
+			
+			<!-- popupMenu  sortBy Menu-->
+			<div data-role="popup" id="sortByMenu" data-theme="a">
+        		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:100px;">
+            		<li><a onclick="SortingCategories('name')">Name</a></li>
+            		<li><a onclick="SortingCategories('brand')">Brand</a></li>
+            		<li><a onclick="SortingCategories('price')">Price $</a></li>
+        		</ul>
+			</div><!-- /popupMenu -->
+            
+        </div>
+        
+        <!--###################################### Register Page ######################################-->
+        <div id="registerPage" data-role="page">
+			<div data-role="header" data-position="fixed" data-theme="b">
+  				<div class="ui-btn-left">
+                    <img border="0" src="images/kiwiLogo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline; margin-top: 5px"/>
+                    <a href="index.html" data-role="button" data-icon="arrow-l" data-iconpos="notext">Cancel</a>
+                    
+                </div>
+  				<h1>Register</h1>
+  				
+			</div> <!-- /header -->
+			<div data-role="content">
+				<h4>Step 1: User ID and Password</h4>
+				<form action="" id="registerForm">
+					<div>
+						<label for="username"></label>
+	         			<input type="text" data-clear-btn="true" data-mini="true" name="username" id="username" value="" placeholder="Username" class="required">
+	         		</div>
+	    			<div >
+	    				<label for="password"></label>
+	         			<input type="password" data-clear-btn="true" data-mini="true" name="password" id="password" value="" placeholder="Password" class="required">
+	    			</div>
+	    			
+	    			<h4>Step 2: Personal information</h4>
+	    			
+	    			<div>
+	         			<label for="firstName"></label>
+	         			<input type="text" placeholder="First name" data-clear-btn="true" data-mini="true" name="firstName" id="firstName" value="" class="required" placeholder="First name">
+	         		</div>
+	    			<div >
+	         			<label for="lastName"></label>
+	         			<input type="text" placeholder="Last name"data-clear-btn="true" data-mini="true" name="lastName" id="lastName" value="" class="required">
+	    			</div>
+	    			<h5>Mailing address</h5>
+	    			<div >
+	     				<label for="streetMailingAddress"></label>
+	     				<input type="text" placeholder="Street Address" data-mini="true" name="streetMailingAddress" id="streetMailingAddress" value="" class="required">
+	    			</div>
+	    			<div >
+	     				<label for="cityMailingAddress"></label>
+	     				<input type="text" placeholder="City" data-mini="true" name="cityMailingAddress" id="cityMailingAddress" value="" class="required">
+	    			</div>
+	    			<div >
+	    				<label for="stateMailingAddress">State</label>
+							<select name="stateMailingAddress" id="stateMailingAddress" data-native-menu="false" data-mini="true" class="required">
+								<!-- <option value="" data-placeholder="true">Select one</option> -->
+								<option value="puerto rico">Puerto Rico</option>	
+								<option value="alabama">Alabama</option>
+								<option value="alaska">Alaska</option>
+								<option value="arizona">Arizona</option>
+								<option value="arkansas">Arkansas</option>
+								<option value="california">California</option>
+								<option value="colorado">Colorado</option>
+								<option value="connecticut">Connecticut</option>
+								<option value="delaware">Delaware</option>
+								<option value="florida">Florida</option>
+								<option value="georgi">Georgia</option>
+								<option value="hawaii">Hawaii</option>
+								<option value="idaho">Idaho</option>
+								<option value="illinois">Illinois</option>
+								<option value="indiana">Indiana</option>
+								<option value="iowa">Iowa</option>
+								<option value="kansas">Kansas</option>
+								<option value="kentucky">Kentucky</option>
+								<option value="lousiana">Louisiana</option>
+								<option value="maine">Maine</option>
+								<option value="maryland">Maryland</option>
+								<option value="massachusetts">Massachusetts</option>
+								<option value="michigan">Michigan</option>
+								<option value="minnesota">Minnesota</option>
+								<option value="mississippi">Mississippi</option>
+								<option value="missouri">Missouri</option>
+								<option value="montana">Montana</option>
+								<option value="nebraska">Nebraska</option>
+								<option value="nevada">Nevada</option>
+								<option value="new hampshire">New Hampshire</option>
+								<option value="new jersey">New Jersey</option>
+								<option value="new mexico">New Mexico</option>
+								<option value="new york">New York</option>
+								<option value="north carolina">North Carolina</option>
+								<option value="north dakota">North Dakota</option>
+								<option value="ohio">Ohio</option>
+								<option value="oklahoma">Oklahoma</option>
+								<option value="oregon">Oregon</option>
+								<option value="pennsylvania">Pennsylvania</option>
+								<option value="phode island">Rhode Island</option>
+								<option value="south carolina">South Carolina</option>
+								<option value="south dakota">South Dakota</option>
+								<option value="tennessee">Tennessee</option>
+								<option value="texas">Texas</option>
+								<option value="utah">Utah</option>
+								<option value="vermont">Vermont</option>
+								<option value="virginia">Virginia</option>
+								<option value="washington">Washington</option>
+								<option value="west virginia">West Virginia</option>
+								<option value="wisconsing">Wisconsin</option>
+								<option value="wyoming">Wyoming</option>
+						</select>
+	    			</div>
+	    			<div>
+	     				<label for="zipMailingAddress"></label>
+	     				<input type="number" placeholder="ZIP Code" data-mini="true" name="zipMailingAddress" id="zipMailingAddress" value="" class="required" maxlength="5">
+	    			</div>
+	    			<h5>Billing address</h5>
+	    			<div >
+	     				<label for="streetBillingAddress"></label>
+	     				<input type="text" placeholder="Street Address" data-mini="true" name="streetBillingAddress" id="streetBillingAddress" value="" class="required">
+	    			</div>
+	    			<div >
+	     				<label for="cityBillingAddress"></label>
+	     				<input type="text" placeholder="City" data-mini="true" name="cityBillingAddress" id="cityBillingAddress" value="" class="required">
+	    			</div>
+	    			<div >
+	    				<label for="stateBillingAddress">State</label>
+							<select name="stateBillingAddress" id="stateBillingAddress" data-native-menu="false" data-mini="true" class="required">
+								<!-- <option value="" data-placeholder="true">Select one</option> -->
+								<option value="puerto rico">Puerto Rico</option>					    
+								<option value="alabama">Alabama</option>
+								<option value="alaska">Alaska</option>
+								<option value="arizona">Arizona</option>
+								<option value="arkansas">Arkansas</option>
+								<option value="california">California</option>
+								<option value="colorado">Colorado</option>
+								<option value="connecticut">Connecticut</option>
+								<option value="delaware">Delaware</option>
+								<option value="florida">Florida</option>
+								<option value="georgi">Georgia</option>
+								<option value="hawaii">Hawaii</option>
+								<option value="idaho">Idaho</option>
+								<option value="illinois">Illinois</option>
+								<option value="indiana">Indiana</option>
+								<option value="iowa">Iowa</option>
+								<option value="kansas">Kansas</option>
+								<option value="kentucky">Kentucky</option>
+								<option value="lousiana">Louisiana</option>
+								<option value="maine">Maine</option>
+								<option value="maryland">Maryland</option>
+								<option value="massachusetts">Massachusetts</option>
+								<option value="michigan">Michigan</option>
+								<option value="minnesota">Minnesota</option>
+								<option value="mississippi">Mississippi</option>
+								<option value="missouri">Missouri</option>
+								<option value="montana">Montana</option>
+								<option value="nebraska">Nebraska</option>
+								<option value="nevada">Nevada</option>
+								<option value="new hampshire">New Hampshire</option>
+								<option value="new jersey">New Jersey</option>
+								<option value="new mexico">New Mexico</option>
+								<option value="new york">New York</option>
+								<option value="north carolina">North Carolina</option>
+								<option value="north dakota">North Dakota</option>
+								<option value="ohio">Ohio</option>
+								<option value="oklahoma">Oklahoma</option>
+								<option value="oregon">Oregon</option>
+								<option value="pennsylvania">Pennsylvania</option>
+								<option value="phode island">Rhode Island</option>
+								<option value="south carolina">South Carolina</option>
+								<option value="south dakota">South Dakota</option>
+								<option value="tennessee">Tennessee</option>
+								<option value="texas">Texas</option>
+								<option value="utah">Utah</option>
+								<option value="vermont">Vermont</option>
+								<option value="virginia">Virginia</option>
+								<option value="washington">Washington</option>
+								<option value="west virginia">West Virginia</option>
+								<option value="wisconsing">Wisconsin</option>
+								<option value="wyoming">Wyoming</option>
+						</select>
+	    			</div>
+	    			<div>
+	     				<label for="zipBillingAddress"></label>
+	     				<input type="number" placeholder="ZIP Code" data-mini="true" name="zipBillingAddress" id="zipBillingAddress" value="" class="required" maxlength="5">
+	    			</div>
+	    			<div >
+	     				<label for="telephone"></label>
+	     				<input type="number"placeholder="Telephone number" data-mini="true" name="telephone" id="telephone" value="" class="required">
+	    			</div>
+	    			<div>
+	   	 				<label for="email"></label>
+	     				<input type="email" placeholder="Email Address" data-mini="true" name="email" id="email" value="" class="required email">
+	    			</div>
+	    			
+					<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b">
+						<button type="submit" onclick="SaveUser()" data-mini="true" value="Register">Register</button>
+    				</div>
+    			</form>
+    			
+			</div>
+		</div>
+	</body>
+</html>

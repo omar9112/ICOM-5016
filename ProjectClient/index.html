@@ -333,8 +333,8 @@
           </li>
 	      <li id = "upd-description">
 	      </li>
-	      <li id = "upd-bidderList"> 
-          <a href = "#bidderList-view"> Bidder List</a>
+	      <li> 
+          <a href = "#bidderList-page"> Bidder List</a>
 	      </li>
 	      <a data-theme="b" id ="upd-bidButton" href="#placeBidAlert" data-rel="popup" data-position-to="window"data-transition="pop" data-role="button">Place a Bid</a>
 	      <a data-theme="b" id = "upd-butItNowButton"href="#creditCard" data-role="button">Buy it Now</a>
@@ -387,9 +387,9 @@
 	
 	   <li id = "itemsForSale"><a onclick="GetUser(0)" href="#review-page">Write a Review</a>
       </li>
-      <li id="upd-recentFeedback"><a href="#recentFeedback-view">Recent Feedback</a>
+      <li id="upd-recentFeedback"><a href="#recentFeedback-page">Recent Feedback</a>
       </li>
-      <li id = "upd-askAQuestion"><a href="#askAQuestion-view">Ask a Question</a>
+      <li id = "upd-askAQuestion"><a href="#askAQuestion-page">Ask a Question</a>
       </li>
       <li id = "itemsForSale"><a href="#categories">Item for Sale</a>
       </li>
@@ -408,6 +408,82 @@
 	    
 	</div>
 	 
+	<!--###################################### BIDDER LIST PAGE ######################################--> 
+    <div id="bidderList-page" data-role="page"> 
+  		<!-- /left panel -->
+  	<div data-role="header" data-position="fixed" data-theme="b">
+	    <div class="ui-btn-left"> 
+	    	<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="main logo" style="float:right; display:inline; margin-top: 5px"/></a>
+	    </div>
+	    <h1>Bidder List</h1>
+	    <div class="ui-btn-right"> 
+	    	<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext">Search</a> 
+	    	<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a>
+	    	<a href="#bidderListMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a> </div>
+	  </div> <!-- /header -->
+  
+   <div><h2><center>Recent Bids</center></h2></div>
+  
+    <ul id ="upd-bidderList" data-role="listview">
+      
+    </ul>
+ 
+  <!-- popupMenu Bidder List Page-->
+		<div data-role="popup" id="bidderListMenu" data-theme="a">
+	      	<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
+	        	<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
+            	<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            	<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
+	        </ul>
+		</div><!-- /popupMenu -->
+</div>
+	
+	<!--###################################### RECENT FEEDBACK PAGE ######################################--> 
+    <div id="recentFeedback-page" data-role="page"> 
+  <!-- /left panel -->
+  <div data-role="header" data-position="fixed" data-theme="b">
+	    <div class="ui-btn-left"> 
+	    	<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="main logo" style="float:right; display:inline; margin-top: 5px"/></a>
+	    </div>
+	    <h1>Recent fedback</h1>
+	    <div class="ui-btn-right"> 
+	    	<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext">Search</a> 
+	    	<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a>
+	    	<a href="#sellerViewMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a> </div>
+	  </div> <!-- /header -->
+  
+   <div><h2><center>Recent Feedback</center></h2></div>
+  
+    <ul id ="upd-feedbackList" data-role="listview">
+      
+    </ul> 
+  <!-- /popupMenu --> 
+</div>    
+
+	<!--###################################### ASK A QUESTION PAGE ######################################-->    
+    <div id="askAQuestion-page" data-role="page"> 
+	  <!-- /left panel -->
+	  <div data-role="header" data-position="fixed" data-theme="b">
+	    <div class="ui-btn-left"> 
+	    	<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="main logo" style="float:right; display:inline; margin-top: 5px"/></a>
+	    </div>
+	    <h1>Ask a question</h1>
+	    <div class="ui-btn-right"> 
+	    	<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext">Search</a> 
+	    	<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a>
+	    	<a href="#sellerViewMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a> </div>
+	  </div> <!-- /header -->
+	  
+      
+<div id = upd-sellerNameQ></div>	 
+<textarea name="textarea" id="textarea-a" value placeholder="What would you like to say?" style="height:100px">
+</textarea>
+	    <fieldset class="ui-grid-a">
+	<div class="ui-block-a"><a href = "#seller-page" data-role= button>Cancel</a></div>
+	<div class="ui-block-b"><a href = "#seller-page" data-role= button>Submit</a></div>
+	  </fieldset>
+      
+     </div>
 	
     <!--###################################### REVIEW PAGE ######################################-->
     <div id="review-page" data-role="page">

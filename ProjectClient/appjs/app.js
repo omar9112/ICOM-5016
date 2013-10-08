@@ -157,6 +157,51 @@ $(document).on('pagebeforeshow', "#categories", function( event, ui ) {
 	});
 });
 
+$(document).on('pagebeforecreate', "#bidderList-page", function( event, ui ) {
+	// currentUser has been set at this point
+	for(var i = 5; i > 0 ; i--)
+	{
+		$("#upd-bidderList").append("<li class = \"ui-li\" style= \"height : 40px\">"+ currentUser.firstName +i*3+"<div class = \"ui-li-aside ui-li-desc\">"+
+		"<p><b>US $" + currentProduct.price+ i +"</b></p><p> 10:4"+(i+3)+"pm</p></div></li>" );
+	}
+	
+});
+
+$(document).on('pagebeforeshow', "#askAQuestion-page", function( event, ui ) {
+	// currentUser has been set at this point
+	$("#upd-sellerNameQ").html("<h2><b>Dear "+currentUser.firstName+
+	":</b></h2>");
+});
+
+$(document).on('pagebeforecreate', "#recentFeedback-page", function( event, ui ) {
+	// currentUser has been set at this point
+	for(var i = 7; i > 0 ; i--)
+	{
+		$("#upd-feedbackList").append("<li class = \"ui-li\" style= \"height : 50px\">"+ currentUser.firstName +i*3+"<div class = \"ui-li-aside ui-li-desc\">"+
+		"<p id = star"+i+"></p><p> 10:4"+(i+2)+"pm</p></div></li>" );
+		 $.fn.raty.defaults.path = 'images';
+    $('#star'+i).raty(
+     	{
+			numberMax: 5,
+			score    : Math.floor((Math.random()*5)+1),
+			number   : 500,
+			cancel   : false,
+			cancelPlace: 'right',
+			cancelOff: 'cancel-off.png',
+			cancelOn : 'cancel-on.png',
+			half     : true,
+			size     : 15,
+			starHalf : 'star-half.png',
+			starOff  : 'star-off.png',
+			starOn   : 'star-on.png',
+			readOnly : 'true'
+		}
+	);
+
+		
+	}	
+});
+
 function SortingCategories (event) {
     
     var sort_by = function(field, reverse, primer){
@@ -345,7 +390,7 @@ function GetProduct(id){
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
-		async: true,
+		async: false,
 		success : function(data, textStatus, jqXHR){
 			currentProduct = data.product;		
 			$.mobile.loading("hide");
@@ -368,7 +413,7 @@ function GetProduct(id){
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
-		async: true,
+		async: false,
 		success : function(data, textStatus, jqXHR){
 			currentUser = data.user;
 			 // $.mobile.loading("hide");

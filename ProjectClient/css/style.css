@@ -133,3 +133,11 @@ html body .ui-group-theme-a a {
 	color: #0066ff /*{a-link-color}*/;
 	font-weight: normal;
 }
+
+/*.ui-listview. .ui-li-aside {
+	position: absolute;
+	top: .3em;
+	right: 3.333em;
+	margin: 0;
+	text-align: right;
+}*/

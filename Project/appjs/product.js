@@ -1,9 +1,10 @@
-function Product(name, model, instantPrice, bidPrice, description){
+function Product(title, brand, model,condition, price, description){
 	this.id = "";
-	this.name = name;
+	this.title = title;
+	this.brand = brand;
 	this.model = model;
-	this.bidPrice = bidPrice;
-	this.instantPrice = instantPrice;
+	this.condition= condition;
+	this.price = price;
 	this.description = description;
 	this.toJSON = toJSON;
 }

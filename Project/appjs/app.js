@@ -68,16 +68,16 @@ $(document).on('pagebeforeshow', "#homePage", function( event, ui ) {
 			var product;
 			for (var i=0; i < len; ++i){
 				product = productList[i];
-				list.append("<li class=\"ui-screen-hidden\"><a onclick=GetProduct(" + product.id + ")>" + 
+				list.append("<li><a onclick=GetProduct(" + product.id + ")>" + 
 					"<img src=\"images/cd-01.jpg\">" +
 					"<h2>" + product.name + "</h2>" + 
 					"<p>" + product.model + "</p>" +
 					"<div class=\"ui-li-aside\">" +
-							"<p>" + product.instantPrice + "</p>" +
+							"<p> $" + product.instantPrice + "</p>" +
 							"<p>10 bids</p>" +
 							"<p>7d 10h</p>" +
 						"</div></a>" +
-        				"<a href=\"#purchase\" data-rel=\"popup\" data-position-to=\"window\" data-theme=\"b\" data-transition=\"pop\">Add to cart</a>" +
+        				"<a href=\"#purchase\" data-rel=\"popup\" data-position-to=\"window\" data-theme=\"b\" data-transition=\"pop\" data-icon=\"cart\">Add to cart</a>" +
     				"</li>");
 					
 				// list.append("<li class=\"ui-screen-hidden\" ><a onclick=GetProduct(" + product.id + ")>" + 
@@ -96,13 +96,16 @@ $(document).on('pagebeforeshow', "#homePage", function( event, ui ) {
 	});
 });
 
-$(document).on('pagebeforeshow', "#product-view", function( event, ui ) {
+$(document).on('pagebeforeshow', "#myAccount", function( event, ui ) {
 	// currentProduct has been set at this point
-	$("#upd-name").html(currentProduct.name);
-	$("#upd-model").html(currentProduct.model);
-	$("#upd-bidPrice").html(currentProduct.bidPrice);
-	$("#upd-instantPrice").html(currentProduct.instantPrice);
-	$("#upd-description").html(currentProduct.description);
+	$("#headerHello").html("Hello "+ currentUser.firstName);
+	$("#account-name").html(currentUser.firstName + currentUser.lastName);
+	$("#account-street").html(currentUser.streetMailingAddress);
+	$("#account-state").html(currentUser.stateMailingAddress);
+	$("#account-city").html(currentUser.cityMailingAddress);
+    $("#account-zip").html(currentUser.zipMailingAddress);
+    $("#account-telephone").html(currentUser.telephone);
+    $("#account-email").html(currentUser.email);
 	
 });
 
@@ -154,7 +157,7 @@ function SaveReview(){
     console.log("New Product: " + JSON.stringify(newProduct));
     var newProductJSON = JSON.stringify(newProduct);
     $.ajax({
-        url : "http://localhost:3412/ProjectServer/products",
+        url : "http://localhost:3412/ProjectServer/review",
         method: 'post',
         data : newProductJSON,
         contentType: "application/json",
@@ -162,7 +165,7 @@ function SaveReview(){
         success : function(data, textStatus, jqXHR){
             console.log("textStatus: " + textStatus);
             $.mobile.loading("hide");
-            $.mobile.navigate("#homePage");
+            $.mobile.navigate("#main");
         },
         error: function(data, textStatus, jqXHR){
             console.log("textStatus: " + textStatus);
@@ -198,6 +201,8 @@ function GetProduct(id){
 		}
 	});
 }
+
+
 
 function UpdateProduct(){
 	$.mobile.loading("show");

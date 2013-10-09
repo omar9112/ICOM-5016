@@ -19,7 +19,7 @@
           <div data-role="header" data-theme="b" data-position="fixed">
                 <a data-role="button" data-rel="back" href="#homePage">Cancel</a>
                 <h1>Review</h1>
-                <a data-role="button" data-rel="back">Save</a>
+                <a data-role="button" data-rel="back" onclick="SaveProduct()">Save</a>
             </div>
             <div align="center">
                 <h2>Enter your review</h2>
@@ -31,7 +31,7 @@
                         <li><label for="user"> <input id="user" name="user" type="text" placeholder="Name"data-clear-btn="true"/></label></li>
                         <li><label for="subject"> <input id="subject" name="subject" type="text" placeholder="Subject"data-clear-btn="true"/></label></li>
                         <li>
-                            <div id="star"><div id="hint"></div></div>
+                            <div id="star"></div>
                             
                             <script type="text/javascript">
                                 $(function() {
@@ -50,7 +50,7 @@
                                           starHalf : 'star-half-big.png',
                                           starOff  : 'star-off-big.png',
                                           starOn   : 'star-on-big.png',
-                                          target    : '#hint',
+                                          target    : '#score',
                                           targetType: 'number',
                                           targetKeep: true,
                                       }
@@ -59,6 +59,7 @@
                                 })();
                             </script>
                         </li>
+                        <li><label for="score"><input name="score" id="score" disabled="disabled"></label></li>
                         <li><label for="comentary"><input name="comentary" id="comentary" placeholder="Comentaries"></label></li>
                         
                    </ul>

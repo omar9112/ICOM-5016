@@ -23,15 +23,11 @@
 			<div data-role="header" data-position="fixed" data-theme="b">
   				<div class="ui-btn-left">
                     <img border="0" src="images/header_logo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline"/>
-                    <a id="showMenu" href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext">Categories</a>
-                    <a data-role="button" data-icon="add" data-iconpos="notext" href="#add-product"></a>
+                    <a href="index.html" data-role="button" data-icon="arrow-l" data-iconpos="notext">Cancel</a>
+                    
                 </div>
   				<h1></h1>
-  				<div class="ui-btn-right">
-    				<a href="#" data-role="button" data-icon="search" data-iconpos="notext">Search</a>
-    				<a href="#" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a>
-    				<a href="#popupMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
-  				</div>
+  				
 			</div> <!-- /header -->
 			<div data-role="content">
 				<h4>Step 1: Personal information</h4>
@@ -99,7 +95,7 @@
 	     				<input type="email" placeholder="Email Address" data-mini="true" name="email" id="email" value="" class="required email">
 	    			</div>
 					<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b">
-						<input type="submit" data-mini="true" value="Continue to next step"/>
+						<input type="submit" onclick="window.location='#registerPage2'" data-mini="true" value="Continue to next step"/>
     					<!-- <a href="#registerPage2" data-role="button" align="center" data-inline="true" data-shadow="false" data-transition="slide" data-mini="true">Continue to next step</a>   			 -->    			
     				</div>
     			</form>
@@ -112,12 +108,8 @@
   				<div class="ui-btn-left">
   					<img border="0" src="images/header_logo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline"/>
     				<!-- <a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext">Back</a> -->  				</div>
-  				<h1>Store</h1>
-  				<div class="ui-btn-right">
-    				<a href="#" data-role="button" data-icon="search" data-iconpos="notext">Search</a>
-    				<a href="#" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a>
-    				<a href="#popupMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
-  				</div>
+  				<h1></h1>
+  				
 			</div> <!-- /header -->
 			<div data-role="content">
 				<h4>Step 2: User ID and Password</h4>
@@ -134,6 +126,7 @@
 	         			<label for="password2">Re-enter password</label>
 	         			<input type="password" data-clear-btn="true" data-mini="true" name="password2" id="password2" value="" class="required">
 	    			</div>
+	    			<button type="submit" onclick="window.location='index.html'" data-theme="b">Submit</button>
 	    		</form>
 			</div>
 	</div>

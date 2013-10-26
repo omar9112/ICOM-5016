@@ -1,3 +1,8 @@
+.ui-page.ui-body-c{
+background:url(images/bg.png);
+box-shadow:  0px 0px 30px 5px rgba(107, 105, 105, 0.3) inset,
+ 0px 0px 0px 1px rgba(107, 105, 105, 0.4) inset;
+
 /*
  * Error label to validate input
  */
@@ -134,6 +139,21 @@ html body .ui-group-theme-a a {
 	font-weight: normal;
 }
 
+/* <a> tag button */
+.custom-btn {
+    background: #0166AE !important;
+}
+.custom-btn .ui-btn-inner .ui-btn-text {
+    color: #FFFFFF !important;
+}
+/* <input> tag button */
+#wrapper .ui-btn {
+    background: orange;    
+}
+#wrapper .ui-btn .ui-btn-inner .ui-btn-text {
+    color: #FFFFFF;   
+}
+
 /*.ui-listview. .ui-li-aside {
 	position: absolute;
 	top: .3em;
@@ -141,3 +161,15 @@ html body .ui-group-theme-a a {
 	margin: 0;
 	text-align: right;
 }*/
+
+/*.ui-icon-cart:after {
+		    background-image: url('images/cart.png') no-repeat;
+		   }*/
+
+.ui-page .ui-header {
+    background: #222222 !important;
+}
+
+.ui-page{
+	background: #E5E5E5;
+	background-size:cover;

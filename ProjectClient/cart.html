@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Kiwi.net</title>
+		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+
+		<!-- the three things that jQuery Mobile needs to work -->
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<link rel="stylesheet" href="css/jquery.mobile-1.4.0-beta.1.min.css">
+		<script src="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.min.js"></script>
+		
+		<!--############ CSS ############-->
+			<link rel="stylesheet" href="css/style.css">
+			
+			<style>
+				/* Basic styles */
+.rwd-example .ui-body {
+    text-align: left;
+    border-color: #ddd;
+}
+.rwd-example p {
+    color: #777;
+    line-height: 140%
+}
+/* Stack all blocks to start */
+.rwd-example .ui-block-a,
+.rwd-example .ui-block-b,
+.rwd-example .ui-block-c {
+    width: 100%;
+    float: none;
+}
+/* Collapsing borders */
+.rwd-example > div + div .ui-body {
+    border-top-width: 0;
+}
+/* 1st breakpoint - Float B and C, leave A full width on top */
+@media all and (min-width: 42em) {
+    .rwd-example {
+        overflow: hidden; /* Use this or a "clearfix" to give the container height */
+    }
+    .rwd-example .ui-body {
+       min-height: 14em;
+    }
+    .rwd-example .ui-block-b,
+    .rwd-example .ui-block-c {
+      float: left;
+      width: 49.95%;
+    }
+    .rwd-example .ui-block-b p,
+    .rwd-example .ui-block-c p {
+      font-size: .8em;
+    }
+    .rwd-example > div + div .ui-body {
+        border-top-width: 1px;
+    }
+    .rwd-example > div:first-child .ui-body {
+        border-bottom-width: 0;
+    }
+    .rwd-example > div:last-child .ui-body {
+        border-left-width: 0;
+    }
+}
+/* 2nd breakpoint - Float all, 50/25/25 */
+@media all and (min-width: 55em) {
+    .rwd-example .ui-body {
+       min-height: 18em;
+    }
+    .rwd-example .ui-block-a,
+    .rwd-example .ui-block-c {
+      float: left;
+      width: 49.95%;
+    }
+    .rwd-example .ui-block-b,
+    .rwd-example .ui-block-c {
+      float: left;
+      width: 24.925%;
+    }
+    .rwd-example > div:first-child .ui-body {
+        border-bottom-width: 1px;
+    }
+    .rwd-example > div + div .ui-body {
+        border-left-width: 0;
+    }
+}
+/* 3rd breakpoint - Bump up font size at very wide screens */
+@media all and (min-width: 75em) {
+    .rwd-example .ui-body {
+      font-size: 125%;
+    }
+    .rwd-example .ui-block-a,
+    .rwd-example .ui-block-c {
+      float: left;
+      width: 49.95%;
+    }
+    .rwd-example .ui-block-b,
+    .rwd-example .ui-block-c {
+      float: left;
+      width: 24.925%;
+    }
+}
+			</style>
+	</head>
+	<body>
+		<!--###################################### SHOPPING CART ######################################-->
+		<div id="shoppingCart" data-role="page" class="simpleCart_shelfItem">
+			<!-- leftPanel -->
+			<div id="leftPanel" data-role="panel"  data-theme="b" data-position="left" data-display="push" data-rel="back">
+				<h3>Categories</h3>
+				<div data-role="collapsible-set" data-inset="false" data-collapsed-icon="arrow-d"  data-expanded-icon="arrow-u" data-iconpos="right" data-corners="false" data-theme="b">
+					<div data-role="collapsible" >
+						<h3>Books</h3>
+						<ul data-role="listview" data-theme="a">
+							<li><a href="#categories">Children</a></li>
+							<li><a href="#categories">Fiction</a></li>
+							<li><a href="#categories">Technology</a></li>
+							<li><a href="#categories">Business</a></li>
+							<li><a href="#categories">Others</a></li>
+						</ul>
+					</div>
+					<div data-role="collapsible">
+        				<h3>Electronics</h3>
+       	 				<ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a href="#categories">TV</a></li>
+							<li><a href="#categories">Audio</a></li>
+							<li><a href="#categories">Phones</a></li>
+							<li><a href="#categories">Cameras</a></li>
+							<li><a href="#categories">Video</a></li>
+							<li><a href="#categories">Others</a></li>
+        				</ul>
+    				</div>
+				    <div data-role="collapsible">
+				        <h3>Computers</h3>
+				        <ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a href="#categories">Laptops</a></li>
+							<li><a href="#categories">Desktops</a></li>
+							<li><a href="#categories">Tablets</a></li>
+							<li><a href="#categories">Printers</a></li>
+							<li><a href="#categories">Others</a></li>
+				        </ul>
+				    </div>
+				    <div data-role="collapsible">
+				        <h3>Clothing</h3>
+				        <ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a href="#categories">Children</a></li>
+				            <li><a href="#categories">Men</a></li>
+				            <li><a href="#categories">Women</a></li>
+				            <li><a href="#categories">Dresses</a></li>
+				            <li><a href="#categories">Shirts</a></li>
+				            <li><a href="#categories">Pants</a></li>
+				            <li><a href="#categories">Socks</a></li>
+				        </ul>
+				    </div>
+				    <div data-role="collapsible">
+				        <h3>Shoes</h3>
+				        <ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a href="#categories">Children</a></li>
+							<li><a href="#categories">Women</a></li>
+							<li><a href="#categories">Men</a></li>
+				        </ul>
+				    </div>
+				    <div data-role="collapsible">
+				        <h3>Sports</h3>
+					 	<ul data-role="listview" data-inset="false" data-theme="a">
+				            <li><a href="#categories">Bicycles</a></li>
+							<li><a href="#categories">Fishing</a></li>
+							<li><a href="#categories">Baseball</a></li>
+							<li><a href="#categories">Golf</a></li>
+							<li><a href="#categories">Basketball</a></li>
+				        </ul>
+				    </div>
+				</div>
+			</div> <!-- /leftPanel -->
+			<!-- Shopping Cart header -->
+			<div data-role="header" data-position="fixed" data-theme="b">
+  				<div class="ui-btn-left">
+  					<a data-rel="back"> <img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 5px"/> </a>
+  					<a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext">Categories</a>
+  				</div>
+  				
+  				<h1>Cart</h1>
+  				
+  				<div class="ui-btn-right">
+    				<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext">Search</a>
+    				<!-- <a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext"</span>>My Cart</a> -->
+    				<a href="#cartMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
+  				</div>
+			</div> <!-- /Home Page header -->
+			<div data-role="content" class="simpleCart_items"></div>
+						
+			<div data-role="content"> 
+				<ul data-role="listview" data-inset="true">
+				    <li>
+				        <div class="rwd-example">
+    <!-- Lead story block -->
+    <div class="ui-block-a">
+        <div class="ui-body ui-body-d">
+            <h2>Apple schedules 'iPad Mini' event for October 23</h2>
+            <p>One of the worst-kept secrets in tech has been confirmed: Apple will hold an event October 23 in San Jose, California, at which the company is widely expected to unveil a smaller, cheaper version of its popular iPad called "Mini".</p>
+        </div>
+    </div>
+    <!-- secondary story block #1 -->
+    <div class="ui-block-b">
+        <div class="ui-body ui-body-d">
+            <h4>Microsoft Surface tablet goes on sale for $499</h4>
+            <p>The Microsoft Surface tablet picture has come into focus. The Redmond giant filled in the blanks on the new tablet's availability and specs.</p>
+        </div>
+    </div>
+    <!-- secondary story block #2 -->
+    <div class="ui-block-c">
+        <div class="ui-body ui-body-d">
+            <h4>AOL unveils Alto, an email service that syncs 5 accounts</h4>
+            <p>AOL, struggling to shed its outdated image, is reimagining one of the most visibly aging parts of its platform: Its email service. </p>
+        </div>
+    </div>
+</div><!-- /rwd-example -->
+				    </li>
+				    <li><a href="#">
+				        <img src="images/cd-02.jpg">
+				    <h2>Warning</h2>
+				    <p>Hot Chip</p></a>
+				    </li>
+				    <li><a href="#">
+				        <img src="images/cd-03.jpg">
+				    <h2>Wolfgang Amadeus Phoenix</h2>
+				    <p>Phoenix</p></a>
+				    </li>
+				</ul>
+
+				<!-- <label>Items (<div style="display: inline-block" class="simpleCart_quantity"></div>)</label>
+				<label>Shipping <div style="display: inline-block" class="simpleCart_shipping"></div></label>
+				<hr/>
+				<label>Cart subtotal <div style="display: inline-block" class="simpleCart_grandTotal"></div></label>
+				<br />
+				
+				<label for="paymentMethod">Check out with: </label>
+            	<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b">
+            		<input data-theme="b" data-mini="true" href="javascript:;" class="simpleCart_checkout" type="button" value="Paypal">
+            		<a data-theme="b" data-mini="true" href="#creditCard" data-role="button">Credit Card</a>
+                </div> -->
+            </div>
+            <!-- popupMenu Search Page-->
+			<div data-role="popup" id="cartMenu" data-theme="a">
+        		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
+            		<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
+            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
+        		</ul>
+			</div><!-- /popupMenu -->
+		</div> <!-- /SHOPPING CART -->
+	</body>
+</html>

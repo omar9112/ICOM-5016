@@ -67,13 +67,13 @@ $(document).on('pagebeforeshow', function( event, ui ) {
 			var product;
 			for (var i=0; i < len; ++i){
 				product = productList[i];
-				list.append("<li class=\"ui-screen-hidden simpleCart_shelfItem\" ><a onclick=GetProduct(" + product.id + ") >" + 
-					"<img class=\"item_image\" src=\"images/products/"+ product.id+ "/0.jpg\"/>" +
-					"<h2 class=\"item_name\">" + product.name + "</h2>" + 
-					"<p>" + product.brand + "</p>" +
-					"<p>" + product.model + "</p>" +
+				list.append("<li class=\"ui-screen-hidden simpleCart_shelfItem\" ><a onclick=GetProduct(" + product.pid + ") >" + 
+					"<img class=\"item_image\" src=\"images/products/"+ product.pid+ "/0.jpg\"/>" +
+					"<h2 class=\"item_name\">" + product.pname + "</h2>" + 
+					"<p>" + product.pbrand + "</p>" +
+					"<p>" + product.pmodel + "</p>" +
 					"<div class=\"ui-li-aside\">" +
-							"<p class=\"item_price\">" + "$" + product.price + "</p>" +
+							"<p class=\"item_price\">" + "$" + product.pprice + "</p>" +
 							"<p>10 bids</p>" +
 							"<p>7d 10h</p>" +
 						"</div></a>" +
@@ -235,13 +235,13 @@ function SortingCategories (event) {
             var product;
             for (var i=0; i < len; ++i){
                 product = productlist[i];
-                List.append("<li class=\"simpleCart_shelfItem\" ><a onclick=GetProduct(" + product.id + ") >" + 
-					"<img class=\"item_image\" src=\"images/products/"+ product.id+ "/0.jpg\"/>" +
-					"<h2 class=\"item_name\">" + product.name + "</h2>" + 
-					"<p>" + product.brand + "</p>" +
-					"<p>" + product.model + "</p>" +
+                List.append("<li class=\"simpleCart_shelfItem\" ><a onclick=GetProduct(" + product.pid + ") >" + 
+					"<img class=\"item_image\" src=\"images/products/"+ product.pid+ "/0.jpg\"/>" +
+					"<h2 class=\"item_name\">" + product.pname + "</h2>" + 
+					"<p>" + product.pbrand + "</p>" +
+					"<p>" + product.pmodel + "</p>" +
 					"<div class=\"ui-li-aside\">" +
-							"<p class=\"item_price\">" + "$" + product.price + "</p>" +
+							"<p class=\"item_price\">" + "$" + product.pprice + "</p>" +
 							"<p>10 bids</p>" +
 							"<p>7d 10h</p>" +
 						"</div></a>" +
@@ -351,6 +351,21 @@ function ConverToJSON(formData){
     return o;
 }
 
+//TODO 
+function convertProduct(dbModel){
+	var cliModel = {};
+	cliModel.id = dbModel.pid;
+	cliModel.name = dbModel.pname;
+	cliModel.model = dbModel.pmodel;
+	cliModel.brand = dbModel.pbrand;
+	cliModel.category = dbModel.pcategory;
+	cliModel.condition = dbModel.pcondition;
+	cliModel.priceMethod = dbModel.ppricemethod;
+	cliModel.price = dbModel.pprice;
+	cliModel.description = dbModel.pdescription;
+	return cliModel;
+}
+
 function SaveProduct(){
 	$.mobile.loading("show");
 	var form = $("#product-form");
@@ -390,9 +405,9 @@ function GetProduct(id){
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
-		async: false,
+		async: true,
 		success : function(data, textStatus, jqXHR){
-			currentProduct = data.product;		
+			currentProduct = convertProduct(data.product);		
 			$.mobile.loading("hide");
 			$.mobile.navigate("#product-view");
 		},
@@ -413,7 +428,7 @@ function GetProduct(id){
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
-		async: false,
+		async: true,
 		success : function(data, textStatus, jqXHR){
 			currentUser = data.user;
 			 // $.mobile.loading("hide");
@@ -430,9 +445,48 @@ function GetProduct(id){
 			}
 		}
 	});
-	
-	
-	
+}
+
+//TODO
+function GetProductByCategory(category){
+	$.mobile.loading("show");
+	console.log("testing");
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/categories/" + category,
+		method: 'get',
+		contentType: "application/json",
+		success : function(data, textStatus, jqXHR){
+			
+			var productList = data.categories;
+			var len = productList.length;
+			var list = $("#categoryList");
+			list.empty();
+			var product;
+			for (var i=0; i < len; ++i){
+				product = productList[i];
+				list.append("<li class=\"simpleCart_shelfItem\" ><a onclick=GetProduct(" + product.pid + ") >" + 
+					"<img class=\"item_image\" src=\"images/products/"+ product.pid+ "/0.jpg\"/>" +
+					"<h2 class=\"item_name\">" + product.pname + "</h2>" + 
+					"<p>" + product.pbrand + "</p>" +
+					"<p>" + product.pmodel + "</p>" +
+					"<div class=\"ui-li-aside\">" +
+							"<p class=\"item_price\">" + "$" + product.pprice + "</p>" +
+							"<p>10 bids</p>" +
+							"<p>7d 10h</p>" +
+						"</div></a>" +
+        				"<a class=\"item_add\" href=\"javascript:;\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+    				"</li>");
+			}
+			
+			list.listview("refresh");
+			$.mobile.loading("hide");
+			$.mobile.navigate("#categoryPage");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			alert("Data not found!");
+		}
+	});
 }
 
 function GetSeller(id){

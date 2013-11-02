@@ -264,12 +264,17 @@ $(document).on('pagebeforeshow', "#myAccount", function( event, ui ) {
 	
 });
 
+$(document).on('pagebeforeshow', "#order-confirmation", function( event, ui ) {
+	// currentUser has been set at this point
+	$("#order-street").html("Street Address: "+ currentUser.streetMailingAddress);
+	$("#order-state").html("State: "+ currentUser.stateMailingAddress);
+	$("#order-city").html("City: "+ currentUser.cityMailingAddress);
+    $("#order-zip").html("Zip Code: "+ currentUser.zipMailingAddress);
+});
+
 $(document).on('pagebeforeshow', "#review-page", function( event, ui ) {
 	// currentUser has been set at this point
 	$("#review-username").html(currentUser.username);
-
-
-	
 });
 
 $(document).on('pagebeforeshow', "#product-view", function productName() {

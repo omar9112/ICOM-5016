@@ -104,13 +104,13 @@ $(document).on('pagebeforeshow', "#product-view", function( event, ui ) {
 	$("#upd-price").html(currentProduct.priceMethod +" price: "+currentProduct.price);
 	$("#upd-seller").html("Seller: "+currentUser.firstName);
 	$("#upd-description").html("Description: "+currentProduct.description);
-	if(currentProduct.priceMethod=="instant")
+	if(currentProduct.priceMethod.toLowerCase()=="instant")
 	{
 		$("#upd-bidButton").hide();
 		$("#upd-butItNowButton").show();
 		$("#upd-addToCartButton").show();
 	}
-	else if(currentProduct.priceMethod=="bid")
+	else if(currentProduct.priceMethod.toLowerCase()=="bid")
 	{
 		$("#upd-bidButton").show();
 		$("#upd-butItNowButton").hide();
@@ -510,8 +510,8 @@ function GetUser(id){
 		dataType:"json",
 		success : function(data, textStatus, jqXHR){
 			currentUser = data.user;
-			 // $.mobile.loading("hide");
-			 // $.mobile.navigate("#myAccount");
+			  $.mobile.loading("hide");
+			  $.mobile.navigate("#myAccount");
 		},
 		error: function(data, textStatus, jqXHR){
 			console.log("textStatus: " + textStatus);

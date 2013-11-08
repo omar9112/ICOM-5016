@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Kiwi.net</title>
+		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+
+		<!-- the three things that jQuery Mobile needs to work -->
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<link rel="stylesheet" href="css/jquery.mobile-1.4.0-beta.1.min.css">
+		<script src="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.min.js"></script>
+		
+		
+	</head>
+	<body>
+		<!--###################################### Main page ######################################-->
+        <div id="signIn" data-role="page">
+        	<!-- Home Page header -->
+            <div data-role="header" data-position="fixed" data-theme="b">
+            	<div class="ui-btn-left">
+                	<a href="#signIn"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:left; display:inline; margin-top: 5px"/></a>                        
+                </div>
+                    <h1>Welcome!</h1>
+            </div>
+
+            <div data-role="content"> 
+            	<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b">
+                	<a href="#popupLogin" data-rel="popup" data-position-to="window" data-role="button" data-mini="true" data-transition="pop">Sign in</a>
+                    <a href="#registerPage" data-role="button" data-shadow="false" data-transition="slide" data-mini="true">Register</a>
+                </div>
+            </div>
+            <!-- Sign in -->
+            <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
+                <form action="http://localhost:3412/login" method="post">
+                    <div style="padding:10px 20px;">
+                        <h3>Please sign in</h3>
+                        <label for="username" class="ui-hidden-accessible">Username:</label>
+                        <input type="text" name="username" id="username" value="" placeholder="username" data-mini="true" data-theme="a">
+                        <label for="password" class="ui-hidden-accessible">Password:</label>
+                        <input type="password" name="password" id="password" value="" placeholder="password" data-mini="true" data-theme="a">
+                        <button id="loginSubmit" type="submit" data-mini="true" data-theme="b">Sign in</button>
+                    </div>
+                </form>
+            </div><!-- /Sign in -->
+        </div>
+	</body>
+</html>

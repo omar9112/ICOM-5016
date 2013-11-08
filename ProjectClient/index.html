@@ -127,9 +127,9 @@
 		
 	</head>
 	<body>	
-		<!--###################################### Main page ######################################-->
+		<!-- <!--###################################### Main page ######################################--
         <div id="signIn" data-role="page">
-        	<!-- Home Page header -->
+        	<!-- Home Page header --
             <div data-role="header" data-position="fixed" data-theme="b">
             	<div class="ui-btn-left">
                 	<a href="#signIn"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:left; display:inline; margin-top: 5px"/></a>                        
@@ -143,7 +143,7 @@
                     <a href="#registerPage" data-role="button" data-shadow="false" data-transition="slide" data-mini="true">Register</a>
                 </div>
             </div>
-            <!-- Sign in -->
+            <!-- Sign in --
             <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
                 <form method="PUT" action="#homePage">
                     <div style="padding:10px 20px;">
@@ -155,8 +155,8 @@
                         <button id="loginSubmit" type="submit" onclick="window.location='#homePage'" data-mini="true" data-theme="b">Sign in</button>
                     </div>
                 </form>
-            </div><!-- /Sign in -->
-        </div>
+            </div><!-- /Sign in --
+        </div> -->
             
 		<!--###################################### HOME PAGE ######################################-->
 		<div id="homePage" data-role="page">
@@ -224,7 +224,7 @@
         		<ul data-role="listview" data-position="right" data-inset="true" style="min-width:150px;">
             		<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
             		<li data-icon="info"><a href="#settings-page">Settings</a></li>
-            		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
+            		<li data-icon="delete"><a action="http://localhost:3412/logout" method="get">Sign Out</a></li>
         		</ul>
 			</div><!-- /popupMenu -->
 		</div>

@@ -57,7 +57,7 @@ var productlist, List;
 $(document).on('pagebeforeshow', function( event, ui ) {
 	console.log("TESTING");
 	$.ajax({
-		url : "http://localhost:3412/ProjectServer/products",
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/products",
 		contentType: "application/json",
 		success : function(data, textStatus, jqXHR){
 			var productList = data.products;
@@ -123,7 +123,7 @@ $(document).on('pagebeforeshow', "#product-view", function( event, ui ) {
 $(document).on('pagebeforeshow', "#categories", function( event, ui ) {
 	console.log("TESTING");
 	$.ajax({
-		url : "http://localhost:3412/ProjectServer/products",
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/products",
 		contentType: "application/json",
 		success : function(data, textStatus, jqXHR){
 			var productList = data.products;
@@ -406,7 +406,7 @@ var currentSeller = {};
 function GetProduct(id){
 	$.mobile.loading("show");
 	$.ajax({
-		url : "http://localhost:3412/ProjectServer/products/" + id,
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/products/" + id,
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
@@ -429,7 +429,7 @@ function GetProduct(id){
 	});
 	
 	$.ajax({
-		url : "http://localhost:3412/ProjectServer/users/" + 0,
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/users/" + 0,
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
@@ -457,7 +457,7 @@ function GetProductByCategory(category){
 	$.mobile.loading("show");
 	console.log("testing");
 	$.ajax({
-		url : "http://localhost:3412/ProjectServer/categories/" + category,
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/categories/" + category,
 		method: 'get',
 		contentType: "application/json",
 		success : function(data, textStatus, jqXHR){
@@ -504,7 +504,7 @@ function GetSeller(id){
 function GetUser(id){
 	$.mobile.loading("show");
 	$.ajax({
-		url : "http://localhost:3412/ProjectServer/users/" + id,
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/users/" + id,
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
@@ -529,7 +529,7 @@ function GetUser(id){
 function GetSeller(id){
 	$.mobile.loading("show");
 	$.ajax({
-		url : "http://localhost:3412/ProjectServer/users/" + id,
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/users/" + id,
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
@@ -561,7 +561,7 @@ function UpdateProduct(){
 	console.log("Updated Product: " + JSON.stringify(updProduct));
 	var updProductJSON = JSON.stringify(updProduct);
 	$.ajax({
-		url : "http://localhost:3412/ProjectServer/products/" + updProduct.id,
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/products/" + updProduct.id,
 		method: 'put',
 		data : updProductJSON,
 		contentType: "application/json",
@@ -587,7 +587,7 @@ function DeleteProduct(){
 	$.mobile.loading("show");
 	var id = currentProduct.id;
 	$.ajax({
-		url : "http://localhost:3412/ProjectServer/products/" + id,
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/products/" + id,
 		method: 'delete',
 		contentType: "application/json",
 		dataType:"json",

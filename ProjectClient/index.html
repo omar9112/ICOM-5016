@@ -170,7 +170,7 @@
   				
   				<div class="ui-btn-right">
     				<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;" >Search</a>
-    				<a href="#shoppingCart" data-role="button" data-icon="cart" style="background-color: transparent;box-shadow: none; border: none;"><span class="simpleCart_quantity" >2</span></a>
+    				<a href="#shoppingCart" data-role="button" data-icon="cart" style="background-color: transparent;box-shadow: none; border: none;"></a>
     				<a href="#popupMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Menu</a>
   				</div>
 			</div> <!-- /Home Page header -->
@@ -327,7 +327,7 @@
 		    </ul>
 		  </div>
 	
-		  <div class="simpleCart_shelfItem" id="product-view-form">
+		  <div id="product-view-form">
 		  	 <label class="labelText" for="upd-name" ><span span  class="item_name" id="upd-name" name="name"></span></label>
 		     <ul data-role="listview">
 			      <li id = "upd-model"></li>
@@ -336,7 +336,7 @@
 			      <li class="item_price" id = "upd-price"></li>
 		          <li><a id = "upd-seller" href="#seller-page">Seller: </a></li>
 			      <li id = "upd-description"></li>
-			      <li><a href = "#bidderList-page"> Bidder List</a></li>
+			      <li id = "upd-bidderListLink"><a href = "#bidderList-page"> Bidder List</a></li>
 			      <div data-role="content" data-theme="b">
 			   		<a class="custom-btn " id="upd-bidButton" href="#placeBidAlert" data-rel="popup" data-position-to="window" data-transition="pop" data-role="button">Place a Bid</a>
 					<a class="custom-btn " id="upd-butItNowButton"href="#creditCard" data-role="button">Buy it Now</a>
@@ -624,7 +624,7 @@
   				</div>
   				<h1>Search</h1>
   				<div class="ui-btn-right">
-    				<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" <span class="simpleCart_quantity"></span>>My Cart</a>
+    				<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" >My Cart</a>
     				<a href="#searchMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
   				</div>
 			</div> <!-- /header -->
@@ -719,7 +719,7 @@
   				</div>
   				<h1>Search</h1>
   				<div class="ui-btn-right">
-    				<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" <span class="simpleCart_quantity"></span>>My Cart</a>
+    				<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" >My Cart</a>
     				<a href="#searchMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
   				</div>
 			</div> <!-- /header -->
@@ -739,113 +739,37 @@
 		</div> <!-- /SEARCHPAGE -->
 		
 		<!--###################################### SHOPPING CART ######################################-->
-		<div id="shoppingCart" data-role="page" class="simpleCart_shelfItem">
-			<!-- leftPanel -->
-			<div id="leftPanel" data-role="panel"  data-theme="b" data-position="left" data-display="push" data-rel="back">
-				<h3>Categories</h3>
-				<div data-role="collapsible-set" data-inset="false" data-collapsed-icon="arrow-d"  data-expanded-icon="arrow-u" data-iconpos="right" data-corners="false" data-theme="b">
-					<div data-role="collapsible" >
-						<h3 >Books</h3>
-						<ul data-role="listview" data-theme="a">
-							<li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('fiction')">Fiction</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('technology')">Technology</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('business')">Business</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
-						</ul>
-					</div>
-					<div data-role="collapsible">
-        				<h3>Electronics</h3>
-       	 				<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('tv')">TV</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('audio')">Audio</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('phones')">Phones</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('cameras')">Cameras</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('video')">Video</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
-        				</ul>
-    				</div>
-				    <div data-role="collapsible">
-				        <h3>Computers</h3>
-				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('laptops')">Laptops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('desktops')">Desktops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('tablets')">Tablets</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('printers')">Printers</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
-				        </ul>
-				    </div>
-				    <div data-role="collapsible">
-				        <h3>Clothing</h3>
-				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('men')">Men</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('women')">Women</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('dresses')">Dresses</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('shirts')">Shirts</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('pants')">Pants</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('socks')">Socks</a></li>
-				        </ul>
-				    </div>
-				    <div data-role="collapsible">
-				        <h3>Shoes</h3>
-				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('women')">Women</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('men')">Men</a></li>
-				        </ul>
-				    </div>
-				    <div data-role="collapsible">
-				        <h3>Sports</h3>
-					 	<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('bicycles')">Bicycles</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('fishing')">Fishing</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('baseball')">Baseball</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('golf')">Golf</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('basketball')">Basketball</a></li>
-				        </ul>
-				    </div>
-				</div>
-			</div> <!-- /leftPanel -->
-			<!-- Shopping Cart header -->
-			<div data-role="header" data-position="fixed" data-theme="b">
-  				<div class="ui-btn-left">
-  					<a data-rel="back"> <img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 5px"/> </a>
-  					<a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext">Categories</a>
-  				</div>
-  				
-  				<h1>Cart</h1>
-  				
-  				<div class="ui-btn-right">
-    				<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext">Search</a>
-    				<!-- <a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext"</span>>My Cart</a> -->
-    				<a href="#cartMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
-  				</div>
-			</div> <!-- /Home Page header -->
-			<div data-role="content" class="simpleCart_items"></div>
-						
-			<div data-role="content"> 
-				<label>Items (<div style="display: inline-block" class="simpleCart_quantity"></div>)</label>
-				<label>Shipping <div style="display: inline-block" class="simpleCart_shipping"></div></label>
-				<hr/>
-				<label>Cart subtotal <div style="display: inline-block" class="simpleCart_grandTotal"></div></label>
-				<br />
-				
-				<label for="paymentMethod">Check out with: </label>
-            	<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b">
-            		<input data-theme="b" data-mini="true" href="javascript:;" class="simpleCart_checkout" type="button" value="Paypal">
-            		<a data-theme="b" data-mini="true" href="#creditCard" data-role="button">Credit Card</a>
-                </div>
-            </div>
-            <!-- popupMenu Search Page-->
-			<div data-role="popup" id="cartMenu" data-theme="a">
-        		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-            		<li data-icon="edit"><a onclick="GetUser(0)"  >My Account</a></li>
-            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
-            		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
-        		</ul>
-			</div><!-- /popupMenu -->
-		</div> <!-- /SHOPPING CART -->
+		<div id="shoppingCart" data-role="page"> 
+  		<!-- /left panel -->
+  	<div data-role="header" data-position="fixed" data-theme="b">
+	    <div class="ui-btn-left"> 
+	    	<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="main logo" style="float:right; display:inline; margin-top: 5px"/></a>
+	    </div>
+	    <h1></h1>
+	    <div class="ui-btn-right"> 
+	    	<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext">Search</a> 
+	    	<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a>
+	    	<a href="#bidderListMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a> </div>
+	  </div> <!-- /header -->
+  
+   <div><h2><center>Shopping Cart</center></h2></div>
+  
+    <ul class ="cartItems" data-role="listview">
+      
+    </ul>
+    
+    <div id = "upd-total"></div>
+    <div data-role="controlgroup" align="right" data-type="horizontal" data-theme="b">
+ 	<a data-theme="b" href="#creditCard" data-role="button">Proceed to Checkout</a></div>
+  <!-- popupMenu Bidder List Page-->
+		<div data-role="popup" id="bidderListMenu" data-theme="a">
+	      	<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
+	        	<li data-icon="edit"><a onclick="GetUser(0)"  >My Account</a></li>
+            	<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            	<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
+	        </ul>
+		</div><!-- /popupMenu -->
+</div> <!-- /SHOPPING CART -->
 		
 		<!--###################################### CREDIT CARD ######################################-->
 		<div id="creditCard" data-role="page">
@@ -901,7 +825,7 @@
         </div>
 		
 		<!--###################################### Order Confirmation Page ######################################-->
-        <div id="order-confirmation" data-role="page" class="simpleCart_shelfItem">
+        <div id="order-confirmation" data-role="page">
             <!-- Shopping Cart header -->
             <div data-role="header" data-position="fixed" data-theme="b">
                 <div class="ui-btn-left">

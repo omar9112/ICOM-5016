@@ -53,7 +53,6 @@ $(document).on("pageshow", "#registerPage", function() {
  * PRODUCTS
  * 
  */
-var productlist, List;
 $(document).on('pagebeforeshow', function( event, ui ) {
 	console.log("TESTING");
 	$.ajax({
@@ -68,7 +67,7 @@ $(document).on('pagebeforeshow', function( event, ui ) {
 			for (var i=0; i < len; ++i){
 				product = productList[i];
 				list.append("<li class=\"ui-screen-hidden simpleCart_shelfItem\" ><a onclick=GetProduct(" + product.pid + ") >" + 
-					"<img class=\"item_image\" src=\"images/products/"+ product.pid+ "/0.jpg\"/>" +
+					"<img class=\"item_image\" src=\"images/products/"+ product.pid + "/0.jpg\"/>" +
 					"<h2 class=\"item_name\">" + product.pname + "</h2>" + 
 					"<p>" + product.pbrand + "</p>" +
 					"<p>" + product.pmodel + "</p>" +
@@ -109,12 +108,14 @@ $(document).on('pagebeforeshow', "#product-view", function( event, ui ) {
 		$("#upd-bidButton").hide();
 		$("#upd-butItNowButton").show();
 		$("#upd-addToCartButton").show();
+		$("#upd-bidderListLink").hide();
 	}
 	else if(currentProduct.priceMethod.toLowerCase()=="bid")
 	{
 		$("#upd-bidButton").show();
 		$("#upd-butItNowButton").hide();
 		$("#upd-addToCartButton").hide();
+		$("#upd-bidderListLink").show();
 	}
 	
 });
@@ -158,12 +159,31 @@ $(document).on('pagebeforeshow', "#categories", function( event, ui ) {
 });
 
 $(document).on('pagebeforecreate', "#bidderList-page", function( event, ui ) {
-	// currentUser has been set at this point
-	for(var i = 5; i > 0 ; i--)
-	{
-		$("#upd-bidderList").append("<li class = \"ui-li\" style= \"height : 40px\">"+ currentUser.firstName +i*3+"<div class = \"ui-li-aside ui-li-desc\">"+
-		"<p><b>US $" + currentProduct.price+ i +"</b></p><p> 10:4"+(i+3)+"pm</p></div></li>" );
-	}
+	
+	console.log("TESTING");
+	$.ajax({
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/bidderList/"+currentProduct.id,
+		contentType: "application/json",
+		success : function(data, textStatus, jqXHR){
+			var bidderList = data.bidderList;
+			var len = 0;
+			len = bidderList.length;
+			var bidder;
+			// currentUser has been set at this point
+			for(var i = 0; i < len ; i++)
+			{
+				bidder = bidderList[i];
+				$("#upd-bidderList").append("<li class = \"ui-li\" style= \"height : 40px\">"+ bidder.username +"<div class = \"ui-li-aside ui-li-desc\">"+
+		"<p><b>US $" + bidder.userbidprice +"</b></p><p>"+ bidder.userbidtime +"</p></div></li>" );
+			} 
+
+			$("#upd-bidderList").listview("refresh");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			alert("Data not found!");
+		}
+	});
 	
 });
 
@@ -174,7 +194,7 @@ $(document).on('pagebeforeshow', "#askAQuestion-page", function( event, ui ) {
 });
 
 $(document).on('pagebeforecreate', "#recentFeedback-page", function( event, ui ) {
-	// currentUser has been set at this point
+	
 	for(var i = 7; i > 0 ; i--)
 	{
 		$("#upd-feedbackList").append("<li class = \"ui-li\" style= \"height : 50px\">"+ currentUser.firstName +i*3+"<div class = \"ui-li-aside ui-li-desc\">"+
@@ -331,6 +351,49 @@ $(document).on('pagebeforeshow', "#review-page", function( event, ui ) {
              });
         	}
 });
+
+
+
+$(document).on('pagebeforeshow', "#shoppingCart", function( event, ui ) {
+	
+	
+	console.log("TESTING");
+	$.ajax({
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/products",
+		contentType: "application/json",
+		success : function(data, textStatus, jqXHR){
+			var productList = data.products;
+			var len = 0;
+			var totalPrice = 0;
+			len = productList.length;
+			var list = $('ul.cartItems');
+			list.empty();
+			var product;
+			for (var i=0; i < len; ++i){
+				product = productList[i];
+				list.append("<li><a onclick=GetProduct(" + product.id + ") >" + 
+					"<img class=\"item_image\" src=\"images/products/"+ product.id+ "/0.jpg\"/>" +
+					"<h2 class=\"item_name\">" + product.name + "</h2>" + 
+					"<p>" + product.brand + "</p>" +
+					"<p>" + product.model + "</p>" +
+					"<div class=\"ui-li-aside\">" +
+							"<p class=\"item_price\">" + "$" + product.price + "</p></div></a>" + "<a data-theme=\"b\" data-role=\"button\" data-icon=\"remove\"</a>"
+    				+ "</li>");
+					
+				totalPrice += parseFloat(product.price);	
+			}
+			productlist = productList;
+            List = list;
+			list.listview("refresh");	
+			$("#upd-total").html("<h3>Items("+len+")</h3>  "+"<h3>Total price: $"+totalPrice+"</h3>");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			alert("Data not found!");
+		}
+	});
+	
+});
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /// Functions Called Directly from Buttons ///////////////////////
 
@@ -368,6 +431,7 @@ function convertProduct(dbModel){
 	cliModel.priceMethod = dbModel.ppricemethod;
 	cliModel.price = dbModel.pprice;
 	cliModel.description = dbModel.pdescription;
+	cliModel.description = dbModel.pseller;
 	return cliModel;
 }
 

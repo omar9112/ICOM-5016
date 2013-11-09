@@ -305,7 +305,7 @@ $(document).on('pagebeforeshow', "#product-view", function productName() {
 
 $(document).on('pagebeforeshow', "#seller-page", function( event, ui ) {
 	// currentProduct has been set at this point
-	$("#upd-userImage").html("<img src=\"images/sellers/0.png\"width=100% height=auto</img> ");
+	$("#upd-userImage").html("<img src=\"images/users/0.png\"width=100% height=auto</img> ");
 	$("#upd-sellerName").html("<h1>Cristian</h1>");
 	
 	$.fn.raty.defaults.path = 'images';

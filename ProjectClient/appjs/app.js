@@ -66,18 +66,36 @@ $(document).on('pagebeforeshow', function( event, ui ) {
 			var product;
 			for (var i=0; i < len; ++i){
 				product = productList[i];
-				list.append("<li class=\"ui-screen-hidden simpleCart_shelfItem\" ><a onclick=GetProduct(" + product.pid + ") >" + 
+				if(currentProduct.priceMethod.toLowerCase()=="bid")
+				{
+					list.append("<li class=\"ui-screen-hidden simpleCart_shelfItem\" ><a onclick=GetProduct(" + product.pid + ") >" + 
+					"<img class=\"item_image\" src=\"images/products/"+ product.pid + "/0.jpg\"/>" +
+					"<h2 class=\"item_name\">" + product.pname + "</h2>" + 
+					"<p>" + product.pbrand + "</p>" +
+					"<p>" + product.pmodel + "</p>" +
+					"<div class=\"ui-li-aside\">" +
+							"<p class=\"item_price\">" + "$" + product.currentbidprice + "</p>" +
+							"<p>"+product.numberofbids+"</p>" +
+							"<p>"+product.penddate+"</p>" +
+						"</div></a>" +
+        				"<a class=\"item_add\" href=\"javascript:;\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+    				"</li>");
+				}
+				else if(currentProduct.priceMethod.toLowerCase()=="price")
+				{
+					list.append("<li class=\"ui-screen-hidden simpleCart_shelfItem\" ><a onclick=GetProduct(" + product.pid + ") >" + 
 					"<img class=\"item_image\" src=\"images/products/"+ product.pid + "/0.jpg\"/>" +
 					"<h2 class=\"item_name\">" + product.pname + "</h2>" + 
 					"<p>" + product.pbrand + "</p>" +
 					"<p>" + product.pmodel + "</p>" +
 					"<div class=\"ui-li-aside\">" +
 							"<p class=\"item_price\">" + "$" + product.pprice + "</p>" +
-							"<p>10 bids</p>" +
-							"<p>7d 10h</p>" +
+							"<p>"+product.enddate+"</p>" +
 						"</div></a>" +
         				"<a class=\"item_add\" href=\"javascript:;\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
     				"</li>");
+				}
+				
 			}
 			productlist = productList;
             List = list;

@@ -127,6 +127,7 @@ $(document).on('pagebeforeshow', "#product-view", function( event, ui ) {
 		$("#upd-butItNowButton").show();
 		$("#upd-addToCartButton").show();
 		$("#upd-bidderListLink").hide();
+		$("#upd-price").html(currentProduct.priceMethod +" price: "+currentProduct.pprice);
 	}
 	else if(currentProduct.priceMethod.toLowerCase()=="bid")
 	{
@@ -134,6 +135,7 @@ $(document).on('pagebeforeshow', "#product-view", function( event, ui ) {
 		$("#upd-butItNowButton").hide();
 		$("#upd-addToCartButton").hide();
 		$("#upd-bidderListLink").show();
+		$("#upd-price").html(currentProduct.priceMethod +" price: "+currentProduct.currentbidprice);
 	}
 	
 });

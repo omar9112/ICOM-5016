@@ -11,8 +11,6 @@
 		
 		<!--############ CSS ############-->
 			<link rel="stylesheet" href="css/style.css">
-			<!-- Shopping Cart plugin-->		
-		 	<link rel="stylesheet" href="css/shoppingCart.css">
 		 	<!-- Flexslider plugin-->
 				<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
 			<!-- Credit card plugin -->
@@ -20,9 +18,7 @@
 				<link rel="stylesheet" href="css/fontawesome.css">  
 	 	
 	 	<!--############ JavaScript ############-->
-			<script src="appjs/app.js"></script>
-			<!-- Simple Cart plugin -->
-				<script src="js/simpleCart.js"></script>	
+			<script src="appjs/app.js"></script>	
 			<!-- Star Ratings  plugin -->
 		        <script type="text/javascript" src="js/jquery.raty.min.js"></script>
 			<!-- Form validation plugin-->
@@ -39,56 +35,6 @@
 		}
 		</style>
 		
-		<script>
-		  simpleCart({
-			// array representing the format and columns of the cart,
-			// see the cart columns documentation
-			cartColumns: [
-				{ attr: "image", label: "Image", view: "image"},
-				{ attr: "name", label: "Name"},
-				// { attr: "price", label: "Price"},
-				{ attr: "quantity", label: "Quantity", view: "input"},
-				{ attr: "total", label: "Subtotal", view: "currency"},
-				{ view: "remove" , label: false }
-				
-			],
-		
-			// "div" or "table" - builds the cart as a 
-			// table or collection of divs
-			cartStyle: "table", 
-		
-			// how simpleCart should checkout, see the 
-			// checkout reference for more info 
-			checkout: { 
-				type: "PayPal" , 
-				email: "chris.omar91@gmail.com" 
-			},
-		
-			// set the currency, see the currency 
-			// reference for more info
-			currency: "USD",
-		
-			// custom function to add shipping cost
-			shippingCustom: null,
-		
-			// flat rate shipping option
-			shippingFlatRate: 10,
-		
-			// added shipping based on this value 
-			// multiplied by the cart quantity
-			shippingQuantityRate: 0,
-		
-			// added shipping based on this value 
-			// multiplied by the cart subtotal
-			shippingTotalRate: 0,
-		
-			// tax rate applied to cart subtotal
-			taxRate: 0,
-		
-			// true if tax should be applied to shipping
-			taxShipping: false,
-});
-	</script>
     
     <!-- FlexSlider --> 
 	  <script defer src="js/jquery.flexslider.js"></script> 
@@ -119,11 +65,6 @@
 	      });
 	    });
 	  </script>
-	<!-- <script>
-		simpleCart.bind( 'afterAdd' , function( item ){
-    	alert( item_name + " has been added to the cart!");
-	}	);
-	</script> -->
 		
 	</head>
 	<body>	
@@ -179,7 +120,7 @@
 				<a href="#add-product" data-role="button" data-id="sell" data-mini = 'true' data-theme="b" class="custom-btn" >Sell an Item</a>
 				<div class="ui-grid-b">
                     <div class="ui-block-a">
-                    	<a  data-role="button" style="height: 15%" data-theme="b" onclick="GetProductByCategory('books')">
+                    	<a href="#categoryPage" data-role="button" style="height: 15%" data-theme="b" onclick="GetProductByCategory('books')">
                     	<img src="images/books.jpg" width=100% height=10%> <br/>Books</a>
                     </div>
                     <div class="ui-block-b">
@@ -191,7 +132,7 @@
                     	<img src="images/computers.jpg" width=100% height=10%> <br/>Computers</a>
                     </div>
                     <div class="ui-block-a">
-                    	<a href="#categoryPage" data-role="button" style="height: 15%" data-theme="b" onclick="GetProductByCategory('cloting')">
+                    	<a href="#categoryPage" data-role="button" style="height: 15%" data-theme="b" onclick="GetProductByCategory('clothing')">
                     	<img src="images/clothing.jpg" width=100% height=10%> <br/>Clothing</a>
                     </div>
                     <div class="ui-block-b">
@@ -206,24 +147,11 @@
  	
 			</div><!-- /content -->
 			
-			<div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
-    			<form>
-        			<div style="padding:10px 20px;">
-            			<h3>Please sign in</h3>
-            			<label for="un" class="ui-hidden-accessible">Username:</label>
-            			<input type="text" name="user" id="un" value="" placeholder="username" data-mini="true" data-theme="a">
-            			<label for="pw" class="ui-hidden-accessible">Password:</label>
-            			<input type="password" name="pass" id="pw" value="" placeholder="password" data-mini="true" data-theme="a">
-            			<button type="submit" onclick="window.location.assign("#homePage")" data-mini="true" data-theme="b">Sign in</button>
-        			</div>
-    			</form>
-			</div><!-- /sign in -->
-			
 			<!-- popupMenu Home Page-->
 			<div data-role="popup" id="popupMenu" data-theme="a">
         		<ul data-role="listview" data-position="right" data-inset="true" style="min-width:150px;">
-            		<li data-icon="edit"><a onclick="GetUser()" href="#myAccount" >My Account</a></li>
-            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            		<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
+            		<li data-icon="info"><a href="#about-page">About</a></li>
             		<li data-icon="delete"><a href="http://kiwi-server.herokuapp.com/logout">Sign Out</a></li>
         		</ul>
 			</div><!-- /popupMenu -->
@@ -327,8 +255,8 @@
 		    </ul>
 		  </div>
 	
-		  <div class="simpleCart_shelfItem" id="product-view-form">
-		  	 <label class="labelText" for="upd-name" ><span span  class="item_name" id="upd-name" name="name"></span></label>
+		  <div id="product-view-form">
+		  	 <label class="labelText" for="upd-name" ><span span id="upd-name" name="name"></span></label>
 		     <ul data-role="listview">
 			      <li id = "upd-model"></li>
 			      <li id = "upd-brand"></li>
@@ -340,7 +268,7 @@
 			      <div data-role="content" data-theme="b">
 			   		<a class="custom-btn " id="upd-bidButton" href="#placeBidAlert" data-rel="popup" data-position-to="window" data-transition="pop" data-role="button">Place a Bid</a>
 					<a class="custom-btn " id="upd-butItNowButton"href="#creditCard" data-role="button">Buy it Now</a>
-					<a class="custom-btn item_add" id="upd-addToCartButton" href="javascript:;" data-role="button"> Add to Cart </a>
+					<a class="custom-btn" id="upd-addToCartButton" data-role="button"> Add to Cart </a>
 			   	</div>
 			   	<li data-theme="b"><center>Sell one like this</center></li>
 			   	<li data-theme="b"><center>Find similar products</center></li>
@@ -351,8 +279,8 @@
 	  	<!-- popupMenu Product View Page-->
 		<div data-role="popup" id="productViewMenu" data-theme="a">
 	      	<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-	        		<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
-            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
+	        		<li data-icon="edit"><a  href="#myAccount" >My Account</a></li>
+            		<li data-icon="info"><a href="#about-page">About</a></li>
             		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
 	        </ul>
 		</div><!-- /popupMenu -->
@@ -368,7 +296,7 @@
 			</div>
 	</div>
     
-<!--###################################### SELLER PAGE ######################################-->    
+	<!--###################################### SELLER PAGE ######################################-->    
     <div id="seller-page" data-role="page"> 
 	  <!-- /left panel -->
 	  <div data-role="header" data-position="fixed" data-theme="b">
@@ -383,14 +311,14 @@
 	  </div> <!-- /header -->
 	  
       <div id = "upd-userImage"></div>
-      <div id = "upd-seller"></div>
+      <div id = "upd-sellerName"></div>
       
 	  <ul data-role="listview">
       <li id = "upd-rating">
       <div id="star">Rating:  </div>
       </li>
 	
-	   <li id = "itemsForSale"><a onclick="GetUser(0)" href="#review-page">Write a Review</a>
+	   <li id = "itemsForSale"><a href="#review-page">Write a Review</a>
       </li>
       <li id="upd-recentFeedback"><a href="#recentFeedback-page">Recent Feedback</a>
       </li>
@@ -405,8 +333,8 @@
      <!-- popupMenu Seller View Page-->
 		<div data-role="popup" id="sellerViewMenu" data-theme="a">
 	      	<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-	        	<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
-            	<li data-icon="info"><a href="#settings-page">Settings</a></li>
+	        	<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
+            	<li data-icon="info"><a href="#about-page">About</a></li>
             	<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
 	        </ul>
 		</div><!-- /popupMenu -->
@@ -436,8 +364,8 @@
   <!-- popupMenu Bidder List Page-->
 		<div data-role="popup" id="bidderListMenu" data-theme="a">
 	      	<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-	        	<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
-            	<li data-icon="info"><a href="#settings-page">Settings</a></li>
+	        	<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
+            	<li data-icon="info"><a href="#about-page">About</a></li>
             	<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
 	        </ul>
 		</div><!-- /popupMenu -->
@@ -465,8 +393,8 @@
   <!-- popupMenu Recent Feedback Page-->
 		<div data-role="popup" id="recentFeedbackMenu" data-theme="a">
 	      	<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-	        	<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
-            	<li data-icon="info"><a href="#settings-page">Settings</a></li>
+	        	<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
+            	<li data-icon="info"><a href="#about-page">About</a></li>
             	<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
 	        </ul>
 		</div><!-- /popupMenu -->
@@ -498,8 +426,8 @@
 	  <!-- popupMenuQuestion Page-->
 		<div data-role="popup" id="questionMenu" data-theme="a">
 	      	<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-	        	<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
-            	<li data-icon="info"><a href="#settings-page">Settings</a></li>
+	        	<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
+            	<li data-icon="info"><a href="#about-page">About</a></li>
             	<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
 	        </ul>
 		</div><!-- /popupMenu -->
@@ -550,69 +478,68 @@
       
 	<!--###################################### SEARCH PAGE ######################################-->
 	<div id="searchPage" data-role="page">
-		<!-- leftPanel -->
-			<div id="leftPanel" data-role="panel"  data-theme="b" data-position="left" data-display="push" data-rel="back">
+		<div id="leftPanel" data-role="panel"  data-theme="b" data-position="left" data-display="push" data-rel="back">
 				<h3>Categories</h3>
 				<div data-role="collapsible-set" data-inset="false" data-collapsed-icon="arrow-d"  data-expanded-icon="arrow-u" data-iconpos="right" data-corners="false" data-theme="b">
 					<div data-role="collapsible" >
 						<h3 >Books</h3>
 						<ul data-role="listview" data-theme="a">
-							<li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('fiction')">Fiction</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('technology')">Technology</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('business')">Business</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksChildren')">Children</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksFiction')">Fiction</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksTechnology')">Technology</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksBusiness')">Business</a></li>
 							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
 						</ul>
 					</div>
 					<div data-role="collapsible">
         				<h3>Electronics</h3>
        	 				<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('tv')">TV</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('audio')">Audio</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('phones')">Phones</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('cameras')">Cameras</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('video')">Video</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('electronicsTv')">TV</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsAudio')">Audio</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsPhones')">Phones</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsCameras')">Cameras</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsVideo')">Video</a></li>
 							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
         				</ul>
     				</div>
 				    <div data-role="collapsible">
 				        <h3>Computers</h3>
 				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('laptops')">Laptops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('desktops')">Desktops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('tablets')">Tablets</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('printers')">Printers</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('computersLaptops')">Laptops</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('computersDesktops')">Desktops</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('computersTablets')">Tablets</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('computersPrinters')">Printers</a></li>
 							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
 				        </ul>
 				    </div>
 				    <div data-role="collapsible">
 				        <h3>Clothing</h3>
 				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('men')">Men</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('women')">Women</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('dresses')">Dresses</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('shirts')">Shirts</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('pants')">Pants</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('socks')">Socks</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingChildren')">Children</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingMen')">Men</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingWomen')">Women</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingDresses')">Dresses</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingShirts')">Shirts</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingPants')">Pants</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingSocks')">Socks</a></li>
 				        </ul>
 				    </div>
 				    <div data-role="collapsible">
 				        <h3>Shoes</h3>
 				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('women')">Women</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('men')">Men</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('shoesChildren')">Children</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('shoesWomen')">Women</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('shoesMen')">Men</a></li>
 				        </ul>
 				    </div>
 				    <div data-role="collapsible">
 				        <h3>Sports</h3>
 					 	<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('bicycles')">Bicycles</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('fishing')">Fishing</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('baseball')">Baseball</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('golf')">Golf</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('basketball')">Basketball</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('sportsBicycles')">Bicycles</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsFishing')">Fishing</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsBaseball')">Baseball</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsGolf')">Golf</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsBasketball')">Basketball</a></li>
 				        </ul>
 				    </div>
 				</div>
@@ -636,8 +563,8 @@
 			<!-- popupMenu Search Page-->
 			<div data-role="popup" id="searchMenu" data-theme="a">
         		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-            		<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
-            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            		<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
+            		<li data-icon="info"><a href="#about-page">About</a></li>
             		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
         		</ul>
 			</div><!-- /popupMenu -->
@@ -645,69 +572,68 @@
 		
 	<!--###################################### CATEGORY PAGE ######################################-->
 	<div id="categoryPage" data-role="page">
-		<!-- leftPanel -->
-			<div id="leftPanel" data-role="panel"  data-theme="b" data-position="left" data-display="push" data-rel="back">
+		<div id="leftPanel" data-role="panel"  data-theme="b" data-position="left" data-display="push" data-rel="back">
 				<h3>Categories</h3>
 				<div data-role="collapsible-set" data-inset="false" data-collapsed-icon="arrow-d"  data-expanded-icon="arrow-u" data-iconpos="right" data-corners="false" data-theme="b">
 					<div data-role="collapsible" >
 						<h3 >Books</h3>
 						<ul data-role="listview" data-theme="a">
-							<li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('fiction')">Fiction</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('technology')">Technology</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('business')">Business</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksChildren')">Children</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksFiction')">Fiction</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksTechnology')">Technology</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksBusiness')">Business</a></li>
 							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
 						</ul>
 					</div>
 					<div data-role="collapsible">
         				<h3>Electronics</h3>
        	 				<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('tv')">TV</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('audio')">Audio</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('phones')">Phones</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('cameras')">Cameras</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('video')">Video</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('electronicsTv')">TV</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsAudio')">Audio</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsPhones')">Phones</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsCameras')">Cameras</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsVideo')">Video</a></li>
 							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
         				</ul>
     				</div>
 				    <div data-role="collapsible">
 				        <h3>Computers</h3>
 				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('laptops')">Laptops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('desktops')">Desktops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('tablets')">Tablets</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('printers')">Printers</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('computersLaptops')">Laptops</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('computersDesktops')">Desktops</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('computersTablets')">Tablets</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('computersPrinters')">Printers</a></li>
 							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
 				        </ul>
 				    </div>
 				    <div data-role="collapsible">
 				        <h3>Clothing</h3>
 				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('men')">Men</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('women')">Women</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('dresses')">Dresses</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('shirts')">Shirts</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('pants')">Pants</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('socks')">Socks</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingChildren')">Children</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingMen')">Men</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingWomen')">Women</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingDresses')">Dresses</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingShirts')">Shirts</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingPants')">Pants</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingSocks')">Socks</a></li>
 				        </ul>
 				    </div>
 				    <div data-role="collapsible">
 				        <h3>Shoes</h3>
 				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('women')">Women</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('men')">Men</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('shoesChildren')">Children</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('shoesWomen')">Women</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('shoesMen')">Men</a></li>
 				        </ul>
 				    </div>
 				    <div data-role="collapsible">
 				        <h3>Sports</h3>
 					 	<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('bicycles')">Bicycles</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('fishing')">Fishing</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('baseball')">Baseball</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('golf')">Golf</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('basketball')">Basketball</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('sportsBicycles')">Bicycles</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsFishing')">Fishing</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsBaseball')">Baseball</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsGolf')">Golf</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsBasketball')">Basketball</a></li>
 				        </ul>
 				    </div>
 				</div>
@@ -731,121 +657,113 @@
 			<!-- popupMenu Search Page-->
 			<div data-role="popup" id="searchMenu" data-theme="a">
         		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-            		<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
-            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            		<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
+            		<li data-icon="info"><a href="#about-page">About</a></li>
             		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
         		</ul>
 			</div><!-- /popupMenu -->
 		</div> <!-- /SEARCHPAGE -->
 		
-		<!--###################################### SHOPPING CART ######################################-->
-		<div id="shoppingCart" data-role="page" class="simpleCart_shelfItem">
-			<!-- leftPanel -->
-			<div id="leftPanel" data-role="panel"  data-theme="b" data-position="left" data-display="push" data-rel="back">
+		<!-- ########################SHOPPING CART########################## -->
+		<div id="shoppingCart" data-role="page"> 
+		  <div id="leftPanel" data-role="panel"  data-theme="b" data-position="left" data-display="push" data-rel="back">
 				<h3>Categories</h3>
 				<div data-role="collapsible-set" data-inset="false" data-collapsed-icon="arrow-d"  data-expanded-icon="arrow-u" data-iconpos="right" data-corners="false" data-theme="b">
 					<div data-role="collapsible" >
 						<h3 >Books</h3>
 						<ul data-role="listview" data-theme="a">
-							<li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('fiction')">Fiction</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('technology')">Technology</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('business')">Business</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksChildren')">Children</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksFiction')">Fiction</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksTechnology')">Technology</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksBusiness')">Business</a></li>
 							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
 						</ul>
 					</div>
 					<div data-role="collapsible">
         				<h3>Electronics</h3>
        	 				<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('tv')">TV</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('audio')">Audio</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('phones')">Phones</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('cameras')">Cameras</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('video')">Video</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('electronicsTv')">TV</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsAudio')">Audio</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsPhones')">Phones</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsCameras')">Cameras</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsVideo')">Video</a></li>
 							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
         				</ul>
     				</div>
 				    <div data-role="collapsible">
 				        <h3>Computers</h3>
 				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('laptops')">Laptops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('desktops')">Desktops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('tablets')">Tablets</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('printers')">Printers</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('computersLaptops')">Laptops</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('computersDesktops')">Desktops</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('computersTablets')">Tablets</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('computersPrinters')">Printers</a></li>
 							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
 				        </ul>
 				    </div>
 				    <div data-role="collapsible">
 				        <h3>Clothing</h3>
 				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('men')">Men</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('women')">Women</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('dresses')">Dresses</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('shirts')">Shirts</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('pants')">Pants</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('socks')">Socks</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingChildren')">Children</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingMen')">Men</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingWomen')">Women</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingDresses')">Dresses</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingShirts')">Shirts</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingPants')">Pants</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingSocks')">Socks</a></li>
 				        </ul>
 				    </div>
 				    <div data-role="collapsible">
 				        <h3>Shoes</h3>
 				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('women')">Women</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('men')">Men</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('shoesChildren')">Children</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('shoesWomen')">Women</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('shoesMen')">Men</a></li>
 				        </ul>
 				    </div>
 				    <div data-role="collapsible">
 				        <h3>Sports</h3>
 					 	<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('bicycles')">Bicycles</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('fishing')">Fishing</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('baseball')">Baseball</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('golf')">Golf</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('basketball')">Basketball</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('sportsBicycles')">Bicycles</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsFishing')">Fishing</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsBaseball')">Baseball</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsGolf')">Golf</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsBasketball')">Basketball</a></li>
 				        </ul>
 				    </div>
 				</div>
 			</div> <!-- /leftPanel -->
-			<!-- Shopping Cart header -->
 			<div data-role="header" data-position="fixed" data-theme="b">
-  				<div class="ui-btn-left">
-  					<a data-rel="back"> <img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 5px"/> </a>
-  					<a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext">Categories</a>
+  			<div class="ui-btn-left">
+  				<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 130px;"/></a>
+    			<a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext">Categories</a>  				
   				</div>
-  				
-  				<h1>Cart</h1>
-  				
+  				<h1>Shopping Cart</h1>
   				<div class="ui-btn-right">
-    				<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext">Search</a>
-    				<!-- <a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext"</span>>My Cart</a> -->
-    				<a href="#cartMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
+  					<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext">Search</a> 
+    				<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" <span class="simpleCart_quantity"></span>>My Cart</a>
+    				<a href="#bidderListMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext">Menu</a>
   				</div>
-			</div> <!-- /Home Page header -->
-			<div data-role="content" class="simpleCart_items"></div>
-						
-			<div data-role="content"> 
-				<label>Items (<div style="display: inline-block" class="simpleCart_quantity"></div>)</label>
-				<label>Shipping <div style="display: inline-block" class="simpleCart_shipping"></div></label>
-				<hr/>
-				<label>Cart subtotal <div style="display: inline-block" class="simpleCart_grandTotal"></div></label>
-				<br />
-				
-				<label for="paymentMethod">Check out with: </label>
-            	<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b">
-            		<input data-theme="b" data-mini="true" href="javascript:;" class="simpleCart_checkout" type="button" value="Paypal">
-            		<a data-theme="b" data-mini="true" href="#creditCard" data-role="button">Credit Card</a>
-                </div>
-            </div>
-            <!-- popupMenu Search Page-->
-			<div data-role="popup" id="cartMenu" data-theme="a">
-        		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-            		<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
-            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
-            		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
-        		</ul>
-			</div><!-- /popupMenu -->
-		</div> <!-- /SHOPPING CART -->
+			</div> <!-- /header -->
+		
+		  
+		   <div><h2><center>Shopping Cart</center></h2></div>
+		  
+		    <ul class ="cartItems" data-role="listview">
+		      
+		    </ul>
+		    
+		    <div id = "upd-total"></div>
+		    <div data-role="controlgroup" align="right" data-type="horizontal" data-theme="b">
+		  <a data-theme="b" href="#creditCard" data-role="button">Proceed to Checkout</a></div>
+		  <!-- popupMenu Bidder List Page-->
+		<div data-role="popup" id="bidderListMenu" data-theme="a">
+		      <ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
+		        <li data-icon="edit"><a onclick="GetUser(0)"  >My Account</a></li>
+		            <li data-icon="info"><a href="#about-page">About</a></li>
+		            <li data-icon="delete"><a href="#signIn">Sign Out</a></li>
+		       </ul>
+		</div><!-- /popupMenu -->
+		</div>
 		
 		<!--###################################### CREDIT CARD ######################################-->
 		<div id="creditCard" data-role="page">
@@ -888,13 +806,13 @@
                         <input type="text" data-mini="true" name="nameOnCard" id="nameOnCard" placeholder="Name on card">
                     </div>
 				</form>
-				<a data-theme="b" onclick="GetUser(0)" href="#order-confirmation" data-mini="true" data-role="button">Order Confirmation</a>
+				<a data-theme="b" href="#order-confirmation" data-mini="true" data-role="button">Order Confirmation</a>
 			</div>
 			<!-- popupMenu Credit Card Page-->
 			<div data-role="popup" id="creditMenu" data-theme="a">
         		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-            		<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
-            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            		<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
+            		<li data-icon="info"><a href="#about-page">About</a></li>
             		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
         		</ul>
 			</div><!-- /popupMenu -->
@@ -945,15 +863,15 @@
 			</div>
         </div>
 		
-	    <!--###################################### Settings Page ######################################-->
-	    <div id="settings-page" data-role="page">
+	    <!--###################################### About Page ######################################-->
+	    <div id="about-page" data-role="page">
 	        <div data-role="header" data-position="fixed" data-theme="b">
 	                
 	                <div class="ui-btn-left">
 	                    <a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline"/></a>
 	                </div>
 	                
-	                <h1>Settings</h1>
+	                <h1>About</h1>
 	        </div> <!-- /header -->
 	        
 	        <!-- Content -->
@@ -996,6 +914,7 @@
             
             <!-- Content -->
             <div data-role="content" class="my-page">
+            	<div id = "account-image"></div>
                 <center><h1 id="headerHello"></h1></center>
                  <ul data-role="listview">
                       <li id = "account-name"></li>
@@ -1005,14 +924,13 @@
                       <li id = "account-zip"></li>
                       <li id = "account-telephone"></li>
                       <li id = "account-email"></li>
-                      <a href="#add-product" data-role="button" data-theme="b">Sell an Item</a>
                 </ul>
             </div> <!-- /content -->
             <!-- popupMenu  Account Page-->
 			<div data-role="popup" id="accountMenu" data-theme="a">
         		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-            		<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
-            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            		<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
+            		<li data-icon="info"><a href="#about-page">About</a></li>
             		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
         		</ul>
 			</div><!-- /popupMenu -->
@@ -1027,62 +945,62 @@
 					<div data-role="collapsible" >
 						<h3 >Books</h3>
 						<ul data-role="listview" data-theme="a">
-							<li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('fiction')">Fiction</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('technology')">Technology</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('business')">Business</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksChildren')">Children</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksFiction')">Fiction</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksTechnology')">Technology</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksBusiness')">Business</a></li>
 							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
 						</ul>
 					</div>
 					<div data-role="collapsible">
         				<h3>Electronics</h3>
        	 				<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('tv')">TV</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('audio')">Audio</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('phones')">Phones</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('cameras')">Cameras</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('video')">Video</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('electronicsTv')">TV</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsAudio')">Audio</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsPhones')">Phones</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsCameras')">Cameras</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsVideo')">Video</a></li>
 							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
         				</ul>
     				</div>
 				    <div data-role="collapsible">
 				        <h3>Computers</h3>
 				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('laptops')">Laptops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('desktops')">Desktops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('tablets')">Tablets</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('printers')">Printers</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('computersLaptops')">Laptops</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('computersDesktops')">Desktops</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('computersTablets')">Tablets</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('computersPrinters')">Printers</a></li>
 							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
 				        </ul>
 				    </div>
 				    <div data-role="collapsible">
 				        <h3>Clothing</h3>
 				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('men')">Men</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('women')">Women</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('dresses')">Dresses</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('shirts')">Shirts</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('pants')">Pants</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('socks')">Socks</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingChildren')">Children</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingMen')">Men</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingWomen')">Women</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingDresses')">Dresses</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingShirts')">Shirts</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingPants')">Pants</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingSocks')">Socks</a></li>
 				        </ul>
 				    </div>
 				    <div data-role="collapsible">
 				        <h3>Shoes</h3>
 				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('women')">Women</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('men')">Men</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('shoesChildren')">Children</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('shoesWomen')">Women</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('shoesMen')">Men</a></li>
 				        </ul>
 				    </div>
 				    <div data-role="collapsible">
 				        <h3>Sports</h3>
 					 	<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('bicycles')">Bicycles</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('fishing')">Fishing</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('baseball')">Baseball</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('golf')">Golf</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('basketball')">Basketball</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('sportsBicycles')">Bicycles</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsFishing')">Fishing</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsBaseball')">Baseball</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsGolf')">Golf</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsBasketball')">Basketball</a></li>
 				        </ul>
 				    </div>
 				</div>
@@ -1109,8 +1027,8 @@
             <!-- popupMenu  categories Page-->
 			<div data-role="popup" id="categoriesMenu" data-theme="a">
         		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:100px;">
-            		<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
-            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            		<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
+            		<li data-icon="info"><a href="#about-page">About</a></li>
             		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
         		</ul>
 			</div><!-- /popupMenu -->
@@ -1128,69 +1046,68 @@
         
         <!--###################################### Categories Page ######################################-->
         <div id="categories2" data-role="page">
-        	<!-- leftPanel -->
-			<div id="leftPanel" data-role="panel"  data-theme="b" data-position="left" data-display="push" data-rel="back">
+        	<div id="leftPanel" data-role="panel"  data-theme="b" data-position="left" data-display="push" data-rel="back">
 				<h3>Categories</h3>
 				<div data-role="collapsible-set" data-inset="false" data-collapsed-icon="arrow-d"  data-expanded-icon="arrow-u" data-iconpos="right" data-corners="false" data-theme="b">
 					<div data-role="collapsible" >
 						<h3 >Books</h3>
 						<ul data-role="listview" data-theme="a">
-							<li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('fiction')">Fiction</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('technology')">Technology</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('business')">Business</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksChildren')">Children</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksFiction')">Fiction</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksTechnology')">Technology</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('booksBusiness')">Business</a></li>
 							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
 						</ul>
 					</div>
 					<div data-role="collapsible">
         				<h3>Electronics</h3>
        	 				<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('tv')">TV</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('audio')">Audio</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('phones')">Phones</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('cameras')">Cameras</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('video')">Video</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('electronicsTv')">TV</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsAudio')">Audio</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsPhones')">Phones</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsCameras')">Cameras</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsVideo')">Video</a></li>
 							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
         				</ul>
     				</div>
 				    <div data-role="collapsible">
 				        <h3>Computers</h3>
 				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('laptops')">Laptops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('desktops')">Desktops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('tablets')">Tablets</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('printers')">Printers</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('computersLaptops')">Laptops</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('computersDesktops')">Desktops</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('computersTablets')">Tablets</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('computersPrinters')">Printers</a></li>
 							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
 				        </ul>
 				    </div>
 				    <div data-role="collapsible">
 				        <h3>Clothing</h3>
 				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('men')">Men</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('women')">Women</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('dresses')">Dresses</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('shirts')">Shirts</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('pants')">Pants</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('socks')">Socks</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingChildren')">Children</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingMen')">Men</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingWomen')">Women</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingDresses')">Dresses</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingShirts')">Shirts</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingPants')">Pants</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingSocks')">Socks</a></li>
 				        </ul>
 				    </div>
 				    <div data-role="collapsible">
 				        <h3>Shoes</h3>
 				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('children')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('women')">Women</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('men')">Men</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('shoesChildren')">Children</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('shoesWomen')">Women</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('shoesMen')">Men</a></li>
 				        </ul>
 				    </div>
 				    <div data-role="collapsible">
 				        <h3>Sports</h3>
 					 	<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('bicycles')">Bicycles</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('fishing')">Fishing</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('baseball')">Baseball</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('golf')">Golf</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('basketball')">Basketball</a></li>
+				            <li><a href="#categoryPage" onclick="GetProductByCategory('sportsBicycles')">Bicycles</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsFishing')">Fishing</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsBaseball')">Baseball</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsGolf')">Golf</a></li>
+							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsBasketball')">Basketball</a></li>
 				        </ul>
 				    </div>
 				</div>
@@ -1217,8 +1134,8 @@
             <!-- popupMenu  categories Page-->
 			<div data-role="popup" id="categoriesMenu" data-theme="a">
         		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:100px;">
-            		<li data-icon="edit"><a onclick="GetUser(0)" href="#myAccount" >My Account</a></li>
-            		<li data-icon="info"><a href="#settings-page">Settings</a></li>
+            		<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
+            		<li data-icon="info"><a href="#about-page">About</a></li>
             		<li data-icon="delete"><a href="#signIn">Sign Out</a></li>
         		</ul>
 			</div><!-- /popupMenu -->

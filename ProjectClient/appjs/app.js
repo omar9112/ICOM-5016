@@ -44,6 +44,7 @@ var currentCategory = {};
  * PRODUCTS
  * 
  */
+<<<<<<< HEAD
  $(document).on('pagebeforeshow', function( event, ui ) {
 	 console.log("TESTING");
 	 $.ajax({
@@ -150,6 +151,74 @@ var currentCategory = {};
 	 }
  	
  });
+=======
+var productlist, List;
+$(document).on('pagebeforeshow', function( event, ui ) {
+	console.log("TESTING");
+	$.ajax({
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/products",
+		contentType: "application/json",
+		success : function(data, textStatus, jqXHR){
+			var productList = data.products;
+			var len = productList.length;
+			var list = $('ul.products');
+			list.empty();
+			var product;
+			for (var i=0; i < len; ++i){
+				product = productList[i];
+				list.append("<li class=\"ui-screen-hidden simpleCart_shelfItem\" ><a onclick=GetProduct(" + product.pid + ") >" + 
+					"<img class=\"item_image\" src=\"images/products/"+ product.pid+ "/0.jpg\"/>" +
+					"<h2 class=\"item_name\">" + product.pname + "</h2>" + 
+					"<p>" + product.pbrand + "</p>" +
+					"<p>" + product.pmodel + "</p>" +
+					"<div class=\"ui-li-aside\">" +
+							"<p class=\"item_price\">" + "$" + product.pprice + "</p>" +
+							"<p>10 bids</p>" +
+							"<p>7d 10h</p>" +
+						"</div></a>" +
+        				"<a class=\"item_add\" href=\"javascript:;\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+    				"</li>");
+			}
+			productlist = productList;
+            List = list;
+			list.listview("refresh");	
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			alert("Data not found!");
+		}
+	});
+});
+
+$(document).on('pagebeforeshow', "#product-view", function( event, ui ) {
+	// currentProduct has been set at this point
+	for(var i = 0; i < 3; i++)
+	{
+		$("#image"+i).html("<img src=\"images/products/" + currentProduct.id+"/"+i+".jpg\" />");
+	}
+	$("#upd-name").html("<h1>"+currentProduct.name+"</h1>");
+	$("#upd-model").html("Model: "+currentProduct.model);
+	$("#upd-brand").html("Brand: "+currentProduct.brand);
+	$("#upd-condition").html("Condition: "+ currentProduct.condition);
+	$("#upd-price").html(currentProduct.priceMethod +" price: "+currentProduct.price);
+	$("#upd-seller").html("Seller: "+currentUser.firstName);
+	$("#upd-description").html("Description: "+currentProduct.description);
+	if(currentProduct.priceMethod.toLowerCase()=="instant")
+	{
+		$("#upd-bidButton").hide();
+		$("#upd-butItNowButton").show();
+		$("#upd-addToCartButton").show();
+	}
+	else if(currentProduct.priceMethod.toLowerCase()=="bid")
+	{
+		$("#upd-bidButton").show();
+		$("#upd-butItNowButton").hide();
+		$("#upd-addToCartButton").hide();
+	}
+	
+});
+
+>>>>>>> 96b7a4f210be22910477e363153e96e5fc5bf36a
 
 $(document).on('pagebeforeshow', "#categories", function( event, ui ) {
 	console.log("TESTING");
@@ -568,6 +637,35 @@ function GetProductByCategory(category){
 		},
 		error: function(data, textStatus, jqXHR){
 			console.log("textStatus: " + textStatus);
+<<<<<<< HEAD
+=======
+			alert("Data not found!");
+		}
+	});
+}
+
+function GetSeller(id){
+	$.mobile.loading("show");
+				
+			$.mobile.loading("hide");
+			$.mobile.navigate("#seller-page");
+}
+
+function GetUser(id){
+	$.mobile.loading("show");
+	$.ajax({
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/users/" + id,
+		method: 'get',
+		contentType: "application/json",
+		dataType:"json",
+		success : function(data, textStatus, jqXHR){
+			currentUser = data.user;
+			  $.mobile.loading("hide");
+			  $.mobile.navigate("#myAccount");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+>>>>>>> 96b7a4f210be22910477e363153e96e5fc5bf36a
 			$.mobile.loading("hide");
 			 $("#categoryList").empty();
 			// alert("Data not found!");

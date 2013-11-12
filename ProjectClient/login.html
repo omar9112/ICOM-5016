@@ -17,7 +17,7 @@
         	<!-- Home Page header -->
             <div data-role="header" data-position="fixed" data-theme="b">
             	<div class="ui-btn-left">
-                	<a href="#signIn"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:left; display:inline; margin-top: 5px"/></a>                        
+                	<img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/>
                 </div>
                     <h1>Welcome!</h1>
             </div>
@@ -42,5 +42,193 @@
                 </form>
             </div><!-- /Sign in -->
         </div>
+        
+        <!--###################################### Register Page ######################################-->
+        <div id="registerPage" data-role="page">
+			<div data-role="header" data-position="fixed" data-theme="b">
+  				<div class="ui-btn-left">
+                    <img border="0" src="images/kiwiLogo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/>
+                </div>
+  				<h1>Register</h1>
+  				
+			</div> <!-- /header -->
+			<div data-role="content">
+				<h4>Step 1: User ID and Password</h4>
+				<form action="" id="registerForm">
+					<div>
+						<label for="username"></label>
+	         			<input type="text" data-clear-btn="true" data-mini="true" name="username" id="username" value="" placeholder="Username" class="required">
+	         		</div>
+	    			<div >
+	    				<label for="password"></label>
+	         			<input type="password" data-clear-btn="true" data-mini="true" name="password" id="password" value="" placeholder="Password" class="required">
+	    			</div>
+	    			
+	    			<h4>Step 2: Personal information</h4>
+	    			
+	    			<div>
+	         			<label for="firstName"></label>
+	         			<input type="text" placeholder="First name" data-clear-btn="true" data-mini="true" name="firstName" id="firstName" value="" class="required" placeholder="First name">
+	         		</div>
+	    			<div >
+	         			<label for="lastName"></label>
+	         			<input type="text" placeholder="Last name"data-clear-btn="true" data-mini="true" name="lastName" id="lastName" value="" class="required">
+	    			</div>
+	    			<h5>Mailing address</h5>
+	    			<div >
+	     				<label for="streetMailingAddress"></label>
+	     				<input type="text" placeholder="Street Address" data-mini="true" name="streetMailingAddress" id="streetMailingAddress" value="" class="required">
+	    			</div>
+	    			<div >
+	     				<label for="cityMailingAddress"></label>
+	     				<input type="text" placeholder="City" data-mini="true" name="cityMailingAddress" id="cityMailingAddress" value="" class="required">
+	    			</div>
+	    			<div >
+	    				<label for="stateMailingAddress">State</label>
+							<select name="stateMailingAddress" id="stateMailingAddress" data-native-menu="false" data-mini="true" class="required">
+								<!-- <option value="" data-placeholder="true">Select one</option> -->
+								<option value="puerto rico">Puerto Rico</option>	
+								<option value="alabama">Alabama</option>
+								<option value="alaska">Alaska</option>
+								<option value="arizona">Arizona</option>
+								<option value="arkansas">Arkansas</option>
+								<option value="california">California</option>
+								<option value="colorado">Colorado</option>
+								<option value="connecticut">Connecticut</option>
+								<option value="delaware">Delaware</option>
+								<option value="florida">Florida</option>
+								<option value="georgi">Georgia</option>
+								<option value="hawaii">Hawaii</option>
+								<option value="idaho">Idaho</option>
+								<option value="illinois">Illinois</option>
+								<option value="indiana">Indiana</option>
+								<option value="iowa">Iowa</option>
+								<option value="kansas">Kansas</option>
+								<option value="kentucky">Kentucky</option>
+								<option value="lousiana">Louisiana</option>
+								<option value="maine">Maine</option>
+								<option value="maryland">Maryland</option>
+								<option value="massachusetts">Massachusetts</option>
+								<option value="michigan">Michigan</option>
+								<option value="minnesota">Minnesota</option>
+								<option value="mississippi">Mississippi</option>
+								<option value="missouri">Missouri</option>
+								<option value="montana">Montana</option>
+								<option value="nebraska">Nebraska</option>
+								<option value="nevada">Nevada</option>
+								<option value="new hampshire">New Hampshire</option>
+								<option value="new jersey">New Jersey</option>
+								<option value="new mexico">New Mexico</option>
+								<option value="new york">New York</option>
+								<option value="north carolina">North Carolina</option>
+								<option value="north dakota">North Dakota</option>
+								<option value="ohio">Ohio</option>
+								<option value="oklahoma">Oklahoma</option>
+								<option value="oregon">Oregon</option>
+								<option value="pennsylvania">Pennsylvania</option>
+								<option value="phode island">Rhode Island</option>
+								<option value="south carolina">South Carolina</option>
+								<option value="south dakota">South Dakota</option>
+								<option value="tennessee">Tennessee</option>
+								<option value="texas">Texas</option>
+								<option value="utah">Utah</option>
+								<option value="vermont">Vermont</option>
+								<option value="virginia">Virginia</option>
+								<option value="washington">Washington</option>
+								<option value="west virginia">West Virginia</option>
+								<option value="wisconsing">Wisconsin</option>
+								<option value="wyoming">Wyoming</option>
+						</select>
+	    			</div>
+	    			<div>
+	     				<label for="zipMailingAddress"></label>
+	     				<input type="number" placeholder="ZIP Code" data-mini="true" name="zipMailingAddress" id="zipMailingAddress" value="" class="required" maxlength="5">
+	    			</div>
+	    			<h5>Billing address</h5>
+	    			<div >
+	     				<label for="streetBillingAddress"></label>
+	     				<input type="text" placeholder="Street Address" data-mini="true" name="streetBillingAddress" id="streetBillingAddress" value="" class="required">
+	    			</div>
+	    			<div >
+	     				<label for="cityBillingAddress"></label>
+	     				<input type="text" placeholder="City" data-mini="true" name="cityBillingAddress" id="cityBillingAddress" value="" class="required">
+	    			</div>
+	    			<div >
+	    				<label for="stateBillingAddress">State</label>
+							<select name="stateBillingAddress" id="stateBillingAddress" data-native-menu="false" data-mini="true" class="required">
+								<!-- <option value="" data-placeholder="true">Select one</option> -->
+								<option value="puerto rico">Puerto Rico</option>					    
+								<option value="alabama">Alabama</option>
+								<option value="alaska">Alaska</option>
+								<option value="arizona">Arizona</option>
+								<option value="arkansas">Arkansas</option>
+								<option value="california">California</option>
+								<option value="colorado">Colorado</option>
+								<option value="connecticut">Connecticut</option>
+								<option value="delaware">Delaware</option>
+								<option value="florida">Florida</option>
+								<option value="georgi">Georgia</option>
+								<option value="hawaii">Hawaii</option>
+								<option value="idaho">Idaho</option>
+								<option value="illinois">Illinois</option>
+								<option value="indiana">Indiana</option>
+								<option value="iowa">Iowa</option>
+								<option value="kansas">Kansas</option>
+								<option value="kentucky">Kentucky</option>
+								<option value="lousiana">Louisiana</option>
+								<option value="maine">Maine</option>
+								<option value="maryland">Maryland</option>
+								<option value="massachusetts">Massachusetts</option>
+								<option value="michigan">Michigan</option>
+								<option value="minnesota">Minnesota</option>
+								<option value="mississippi">Mississippi</option>
+								<option value="missouri">Missouri</option>
+								<option value="montana">Montana</option>
+								<option value="nebraska">Nebraska</option>
+								<option value="nevada">Nevada</option>
+								<option value="new hampshire">New Hampshire</option>
+								<option value="new jersey">New Jersey</option>
+								<option value="new mexico">New Mexico</option>
+								<option value="new york">New York</option>
+								<option value="north carolina">North Carolina</option>
+								<option value="north dakota">North Dakota</option>
+								<option value="ohio">Ohio</option>
+								<option value="oklahoma">Oklahoma</option>
+								<option value="oregon">Oregon</option>
+								<option value="pennsylvania">Pennsylvania</option>
+								<option value="phode island">Rhode Island</option>
+								<option value="south carolina">South Carolina</option>
+								<option value="south dakota">South Dakota</option>
+								<option value="tennessee">Tennessee</option>
+								<option value="texas">Texas</option>
+								<option value="utah">Utah</option>
+								<option value="vermont">Vermont</option>
+								<option value="virginia">Virginia</option>
+								<option value="washington">Washington</option>
+								<option value="west virginia">West Virginia</option>
+								<option value="wisconsing">Wisconsin</option>
+								<option value="wyoming">Wyoming</option>
+						</select>
+	    			</div>
+	    			<div>
+	     				<label for="zipBillingAddress"></label>
+	     				<input type="number" placeholder="ZIP Code" data-mini="true" name="zipBillingAddress" id="zipBillingAddress" value="" class="required" maxlength="5">
+	    			</div>
+	    			<div >
+	     				<label for="telephone"></label>
+	     				<input type="number"placeholder="Telephone number" data-mini="true" name="telephone" id="telephone" value="" class="required">
+	    			</div>
+	    			<div>
+	   	 				<label for="email"></label>
+	     				<input type="email" placeholder="Email Address" data-mini="true" name="email" id="email" value="" class="required email">
+	    			</div>
+	    			
+					<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b">
+						<button type="submit" onclick="SaveUser()" data-mini="true" value="Register">Register</button>
+    				</div>
+    			</form>
+    			
+			</div>
+		</div>
 	</body>
 </html>

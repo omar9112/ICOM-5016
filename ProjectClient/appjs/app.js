@@ -1,10 +1,11 @@
-// Validate register page
-
 var currentUser = {};
 var currentProduct = {};
 var currentProductSeller = {};
 var currentCategory = {};
+var totalPrice = 0;
+var itemTotal = 0;
 
+// Validate register page
  $(document).on("pageshow", "#registerPage", function() {
 	 $("#registerForm").validate({
 		 rules: {
@@ -59,29 +60,29 @@ var currentCategory = {};
 				 product = productList[i];
 				 if(product.ppricemethod.toLowerCase()=="bid")
 		         {
-		            list.append("<li class=\"ui-screen-hidden\" ><a onclick=\"GetProduct(" + product.pid + "," + product.uid + ")\" >" + 
-		            "<img class=\"item_image\" src=\"images/products/"+ product.pid + "/0.png\"/>" +
-		            "<h2 class=\"item_name\">" + product.pname + "</h2>" + 
+		            list.append("<li class=\"ui-screen-hidden\" ><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
+		            "<img src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<h2>" + product.pname + "</h2>" + 
 		            "<p>" + product.pbrand + "</p>" +
 		            "<p>" + product.pmodel + "</p>" +
 		            "<div class=\"ui-li-aside\">" +
 		                "<p class=\"item_price\">" + "$" + product.currentbidprice + "</p>" +
-		                "<p>"+ product.numberofbids+"</p>" +
-		                "<p>"+ product.penddate+"</p>" +
+		                "<p>"+ product.numberofbids + " bids</p>" +
+		                "<p>"+ product.penddate.substring(0, 10) + "</p>" +
 		              "</div></a>" +
 		                  "<a  href=\"#\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
 		              "</li>");
 		         }
 		         else if(product.ppricemethod.toLowerCase()=="instant")
 		         {
-		            list.append("<li class=\"ui-screen-hidden\" ><a onclick=\"GetProduct(" + product.pid + "," + product.uid + ")\" >" + 
-		            "<img class=\"item_image\" src=\"images/products/"+ product.pid + "/0.png\"/>" +
-		             "<h2 class=\"item_name\">" + product.pname + "</h2>" + 
+		            list.append("<li class=\"ui-screen-hidden\" ><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
+		            "<img src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		             "<h2>" + product.pname + "</h2>" + 
 		             "<p>" + product.pbrand + "</p>" +
 		             "<p>" + product.pmodel + "</p>" +
 		             "<div class=\"ui-li-aside\">" +
 		             "<p class=\"item_price\">" + "$" + product.pprice + "</p>" +
-		             "<p>"+product.enddate+"</p>" +
+		             "<p>"+product.penddate.substring(0, 10) +"</p>" +
 		               "</div></a>" +
 		                   "<a href=\"#\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
 		               "</li>");
@@ -118,99 +119,72 @@ var currentCategory = {};
 		 }
 	 });
  });
+ 
 //TODO - current bid price
  $(document).on('pagebeforeshow', "#product-view", function( event, ui ) {
 	  //currentProduct has been set at this point
 	 for(var i = 0; i < 3; i++)
 	 {
-		 $("#image"+i).html("<img src=\"images/products/" + currentProduct.id+"/"+i+".png\" />");
+		 $("#image" + i).html("<img src=\"images/products/" + currentProduct.pid + "/" + i + ".png\" />");
 	 }
-	 $("#upd-name").html("<h1>"+currentProduct.name+"</h1>");
-	 $("#upd-model").html("Model: "+currentProduct.model);
-	 $("#upd-brand").html("Brand: "+currentProduct.brand);
-	 $("#upd-condition").html("Condition: "+ currentProduct.condition);
-	 $("#upd-price").html(currentProduct.priceMethod +" price: "+currentProduct.price);
-	 $("#upd-seller").html("Seller: "+ currentProductSeller.fname);
-	 $("#upd-description").html("Description: "+currentProduct.description);
-	 if(currentProduct.priceMethod.toLowerCase()=="instant")
+	 $("#upd-name").html("<h1>" + currentProduct.pname+"</h1>");
+	 $("#upd-model").html("Model: " + currentProduct.pmodel);
+	 $("#upd-brand").html("Brand: " + currentProduct.pbrand);
+	 $("#upd-condition").html("Condition: " + currentProduct.pcondition);
+	 $("#upd-price").html(currentProduct.ppricemethod + " price: " + currentProduct.pprice);
+	 $("#upd-seller").html("Seller: " + currentProductSeller.fname);
+	 $("#upd-description").html("Description: " +currentProduct.pdescription);
+	 if(currentProduct.ppricemethod.toLowerCase()=="instant")
 	 {
 		 $("#upd-bidButton").hide();
 		 $("#upd-butItNowButton").show();
 		 $("#upd-addToCartButton").show();
 		 $("#upd-bidderListLink").hide();
-		 $("#upd-price").html(currentProduct.priceMethod +" price: "+currentProduct.price);
+		 $("#upd-price").html(currentProduct.ppricemethod + " price: "+ currentProduct.pprice);
 	 }
-	 else if(currentProduct.priceMethod.toLowerCase()=="bid")
+	 else if(currentProduct.ppricemethod.toLowerCase()=="bid")
 	 {
 		 $("#upd-bidButton").show();
 		 $("#upd-butItNowButton").hide();
 		 $("#upd-addToCartButton").hide();
 		 $("#upd-bidderListLink").show();
-		 $("#upd-price").html(currentProduct.priceMethod +" price: "+ currentProduct.currentbidprice);
+		 $("#upd-price").html(currentProduct.ppricemethod + " price: "+ currentProduct.currentbidprice);
 	 }
- 	
  });
 
-$(document).on('pagebeforeshow', "#categories", function( event, ui ) {
-	console.log("TESTING");
-	$.ajax({
-		url : "http://kiwi-server.herokuapp.com/ProjectServer/products",
-		contentType: "application/json",
-		success : function(data, textStatus, jqXHR){
-			var productList = data.products;
-			var len = productList.length;
-			var list = $('ul.categories');
-			list.empty();
-			var product;
-			for (var i=0; i < len; ++i){
-				product = productList[i];
-				list.append("<li class=\"simpleCart_shelfItem\" ><a onclick=\"GetProduct(" + product.pid + "," + product.uid + ")\" >" + 
-					"<img class=\"item_image\" src=\"images/products/"+ product.id+ "/0.jpg\"/>" +
-					"<h2 class=\"item_name\">" + product.name + "</h2>" + 
-					"<p>" + product.brand + "</p>" +
-					"<p>" + product.model + "</p>" +
-					"<div class=\"ui-li-aside\">" +
-							"<p class=\"item_price\">" + "$" + product.price + "</p>" +
-							"<p>10 bids</p>" +
-							"<p>7d 10h</p>" +
-						"</div></a>" +
-        				"<a class=\"item_add\" href=\"javascript:;\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
-    				"</li>");
-			}
-			productlist = productList;
-			list.listview("refresh");	
-		},
-		error: function(data, textStatus, jqXHR){
-			console.log("textStatus: " + textStatus);
-			alert("Data not found!");
-		}
-	});
+$(document).on('pageshow', "#product-view", function( event, ui ) {
+	//currentProduct has been set at this point
+	var slider = $('#slider').data('flexslider');   
+	slider.resize(); 
 });
 
- $(document).on('pagebeforecreate', "#bidderList-page", function( event, ui ) {
- 	
+ $(document).on('pagebeforeshow', "#bidderList-page", function( event, ui ) {
 	 console.log("TESTING");
 	 $.ajax({
-		 url : "http://kiwi-server.herokuapp.com/ProjectServer/bidderList/"+currentProduct.id,
+		 url : "http://kiwi-server.herokuapp.com/ProjectServer/bidderList/" + currentProduct.pid,
 		 contentType: "application/json",
 		 success : function(data, textStatus, jqXHR){
+		 	$("#bidderListMessage").html("");
 			 var bidderList = data.bidderList;
 			 var len = 0;
 			 len = bidderList.length;
 			 var bidder;
+			 var list = $("#upd-bidderList");
+			 list.empty();
 			 //currentUser has been set at this point
 			 for(var i = 0; i < len ; i++)
 			 {
 				 bidder = bidderList[i];
-				 $("#upd-bidderList").append("<li class = \"ui-li\" style= \"height : 40px\">"+ bidder.username +"<div class = \"ui-li-aside ui-li-desc\">"+
-		 "<p><b>US $" + bidder.userbidprice +"</b></p><p>"+ bidder.userbidtime +"</p></div></li>" );
+				 list.append("<li class = \"ui-li\" style= \"height : 40px\">"+ bidder.username +"<div class = \"ui-li-aside ui-li-desc\">"+
+		 "<p><b>US $" + bidder.userbidprice +"</b></p><p>"+ bidder.userbidtime.substring(0, 10) +"</p></div></li>" );
 			 } 
  
-			 $("#upd-bidderList").listview("refresh");
+			 list.listview("refresh");
 		 },
 		 error: function(data, textStatus, jqXHR){
 			 console.log("textStatus: " + textStatus);
-			 alert("Data not found!");
+			 $("#bidderListMessage").html("No recent bids");
+			 // alert("Data not found!");
 		 }
 	 });
  	
@@ -222,81 +196,61 @@ $(document).on('pagebeforeshow', "#categories", function( event, ui ) {
 	 ":</b></h2>");
  });
  
- $(document).on('pagebeforecreate', "#recentFeedback-page", function( event, ui ) {
+ $(document).on('pagebeforeshow', "#recentFeedback-page", function( event, ui ) {
 	  //currentUser has been set at this point
-	 for(var i = 7; i > 0 ; i--)
-	 {
-		 $("#upd-feedbackList").append("<li class = \"ui-li\" style= \"height : 50px\">"+ currentUser.firstName +i*3+"<div class = \"ui-li-aside ui-li-desc\">"+
-		 "<p id = star"+i+"></p><p> 10:4"+(i+2)+"pm</p></div></li>" );
-		  $.fn.raty.defaults.path = 'images';
-     $('#star'+i).raty(
-     	 {
-			 numberMax: 5,
-			 score    : Math.floor((Math.random()*5)+1),
-			 number   : 500,
-			 cancel   : false,
-			 cancelPlace: 'right',
-			 cancelOff: 'cancel-off.png',
-			 cancelOn : 'cancel-on.png',
-			 half     : true,
-			 size     : 15,
-			 starHalf : 'star-half.png',
-			 starOff  : 'star-off.png',
-			 starOn   : 'star-on.png',
-			 readOnly : 'true'
+	  
+	   $.ajax({
+		 url : "http://kiwi-server.herokuapp.com/ProjectServer/recentFeedback/" + currentProductSeller.uid,
+		 contentType: "application/json",
+		 success : function(data, textStatus, jqXHR){
+			 var recentFeedbackList = data.feedbackList;
+			 var len = 0;
+			 len = recentFeedbackList.length;
+			 var feedback;
+			 var list = $("#upd-feedbackList");
+			 list.empty();
+			 //currentUser has been set at this point
+			 for(var i = 0; i < len ; i++)
+			 {
+				 feedback = recentFeedbackList[i];
+				 
+				 list.append(
+				 	"<li data-role='list-divider' data-theme='b'>" + feedback.usernameg + "<div id = 'star" + i + "'" + "class='ui-li-aside'></div></li>" +
+				 	"<li data-role='list-divider'>" + feedback.ratedate + "</li>" +
+				 	"<li><h2>" + feedback.fnameg + "</h2>" +
+    				"<p><strong>" + feedback.subject + "</strong></p>" +
+    				"<p>" + feedback.feedback + "</p>" +
+        			"<p class='ui-li-aside'><strong>" + "</strong></p></li>"	
+				 );
+
+		  		$.fn.raty.defaults.path = 'images';
+    			$('#star'+i).raty(
+     	 		{
+					 numberMax: 5,
+					 score    : feedback.rating,
+					 number   : 500,
+					 cancel   : false,
+					 cancelPlace: 'right',
+					 cancelOff: 'cancel-off.png',
+					 cancelOn : 'cancel-on.png',
+					 half     : true,
+					 size     : 15,
+					 starHalf : 'star-half.png',
+					 starOff  : 'star-off.png',
+					 starOn   : 'star-on.png',
+					 readOnly : 'true'
+				}
+	 			);
+	 		}		 	
+			list.listview("refresh");   
+		 },
+		 error: function(data, textStatus, jqXHR){
+			 console.log("textStatus: " + textStatus);
+			 alert("Data not found!");
 		 }
-	 );
-	 }	
+	 });
  });
 
-function SortingCategories (event) {
-    
-    var sort_by = function(field, reverse, primer){
-
-       var key = function (x) {return primer ? primer(x[field]) : x[field];};
-       return function (a,b) {
-           var A = key(a), B = key(b);
-           return ((A < B) ? -1 : (A > B) ? +1 : 0) * [-1,1][+!!reverse];                  
-       };
-    };
-        
-    if(event == 'price'){
-        //Sorting by the product increasing price
-        console.log("Sorting by price");
-        productlist.sort(sort_by('price', true, parseInt));
-        
-    }
-    else if(event == 'brand'){
-       //Sorting by the product brand
-       console.log("Sorting by brand");
-       productlist.sort(sort_by('brand', true, function(a){return a.toUpperCase();}));
-    }
-    else if(event == 'name'){
-        //Sorting by the product name
-        console.log("Sorting by name");
-       productlist.sort(sort_by('name', true, function(a){return a.toUpperCase();}));
-    }
-            //Refresh the new list
-            var len = productlist.length;
-            List.empty();
-            var product;
-            for (var i=0; i < len; ++i){
-                product = productlist[i];
-                List.append("<li class=\"simpleCart_shelfItem\" ><a onclick=\"GetProduct(" + product.pid + "," + product.uid + ")\" >" + 
-					"<img class=\"item_image\" src=\"images/products/"+ product.pid+ "/0.png\"/>" +
-					"<h2 class=\"item_name\">" + product.pname + "</h2>" + 
-					"<p>" + product.pbrand + "</p>" +
-					"<p>" + product.pmodel + "</p>" +
-					"<div class=\"ui-li-aside\">" +
-							"<p class=\"item_price\">" + "$" + product.pprice + "</p>" +
-							"<p>10 bids</p>" +
-							"<p>7d 10h</p>" +
-						"</div></a>" +
-        				"<a class=\"item_add\" href=\"javascript:;\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
-    				"</li>");
-            }
-            List.listview("refresh"); 
-}
 
 $(document).on('pagebeforeshow', "#myAccount", function( event, ui ) {
 	// currentUser has been set at this point
@@ -309,6 +263,32 @@ $(document).on('pagebeforeshow', "#myAccount", function( event, ui ) {
     $("#account-zip").html("Zip Code: "+ currentUser.zipma);
     $("#account-telephone").html("Telephone: "+ currentUser.phonenumber);
     $("#account-email").html("Email: "+ currentUser.email);
+    
+    $.fn.raty.defaults.path = 'images';
+    $('#account-star').raty(
+        {
+            numberMax: 5,
+            score    : currentUser.rating,
+            number   : 500,
+            cancel   : false,
+            cancelPlace: 'right',
+            cancelOff: 'cancel-off.png',
+            cancelOn : 'cancel-on.png',
+            half     : true,
+            size     : 15,
+            starHalf : 'star-half.png',
+            starOff  : 'star-off.png',
+            starOn   : 'star-on.png',
+            readOnly : 'true'
+        }
+    );
+    
+    if(currentUser.administrator == "true"){
+    	$("#admin").show();
+    }
+    else{
+    	$("#admin").hide();
+    }
 	
 });
 
@@ -320,20 +300,20 @@ $(document).on('pagebeforecreate', "#shoppingCart", function( event, ui ) {
 		success : function(data, textStatus, jqXHR){
 			var productList = data.shoppingcart;
 			var len = 0;
-			var totalPrice = 0;
 			len = productList.length;
+			itemTotal = len;
 			var list = $('ul.cartItems');
 			list.empty();
 			var product;
 			for (var i=0; i < len; ++i) {
 			product = productList[i];
 				list.append("<li><a onclick=GetProduct(" + product.pid + ") >" + 
-				"<img class=\"item_image\" src=\"images/products/"+ product.pid+ "/0.png\"/>" +
-				"<h2 class=\"item_name\">" + product.pname + "</h2>" + 
+				"<img src=\"images/products/"+ product.pid+ "/0.png\"/>" +
+				"<h2>" + product.pname + "</h2>" + 
 				"<p>" + product.pbrand + "</p>" +
 				"<p>" + product.pmodel + "</p>" +
 				"<div class=\"ui-li-aside\">" +
-				"<p class=\"item_price\">" + "$" + product.pprice + "</p></div></a>" + "<a data-theme=\"b\" data-role=\"button\" data-icon=\"remove\"</a>"
+				"<p class=\"item_price\">" + "$" + product.pprice + "</p></div></a>" + "<a data-theme=\"b\" data-role=\"button\" data-icon=\"delete\"</a>"
 				    + "</li>");
 				totalPrice += parseFloat(product.pprice);
 			}
@@ -348,8 +328,17 @@ $(document).on('pagebeforecreate', "#shoppingCart", function( event, ui ) {
 	});
 });
 
+function buyItNow()
+{
+	totalPrice = currentProduct.pprice;
+	itemTotal =  1;
+	$.mobile.navigate("#order-confirmation");
+}
+
 $(document).on('pagebeforeshow', "#order-confirmation", function( event, ui ) {
 	// currentUser has been set at this point
+	$("#itemNumber").html("Items ("+ itemTotal+")");
+	$("#totalPrice").html("Total price: $"+ totalPrice);
 	$("#order-street").html("Street Address: "+ currentUser.streetma);
 	$("#order-state").html("State: "+ currentUser.statema);
 	$("#order-city").html("City: "+ currentUser.cityma);
@@ -366,6 +355,171 @@ $(document).on('pagebeforeshow', "#product-view", function productName() {
 	return currentProduct.name;
 	
 });
+
+$(document).on('pagebeforeshow', "#itemsForSalePage", function( event, ui ) {
+	console.log("TESTING");
+	$.ajax({
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/itemsforsale/" + currentProductSeller.uid,
+		contentType: "application/json",
+		success : function(data, textStatus, jqXHR){
+			var productList = data.itemsForSale;
+			var len = productList.length;
+			var list = $('#itemsforsalepagelist');
+			list.empty();
+			var product;
+			for (var i=0; i < len; ++i) {
+				product = productList[i];
+				if (product.ppricemethod.toLowerCase() == "bid")
+				{
+					list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
+				    "<img src=\"images/products/"+ product.pid + "/0.png\"/>" +
+				    "<h2>" + product.pname + "</h2>" + 
+				    "<p>" + product.pbrand + "</p>" +
+				    "<p>" + product.pmodel + "</p>" +
+				    "<div class=\"ui-li-aside\">" +
+				    "<p>" + "$" + product.currentbidprice + "</p>" +
+				    "<p>"+ product.numberofbids+"</p>" +
+				    "<p>"+ product.penddate.substring(0, 10) +"</p>" +
+				    "</div></a>" +
+				    "<a  href=\"#\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+				    "</li>");
+				 }
+				 else if(product.ppricemethod.toLowerCase() == "instant")
+				 {
+				 	list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
+				    "<img src=\"images/products/"+ product.pid + "/0.png\"/>" +
+				    "<h2>" + product.pname + "</h2>" + 
+				    "<p>" + product.pbrand + "</p>" +
+				    "<p>" + product.pmodel + "</p>" +
+				    "<div class=\"ui-li-aside\">" +
+				    "<p>" + "$" + product.pprice + "</p>" +
+				    "<p>"+product.penddate.substring(0, 10) +"</p>" +
+				    "</div></a>" +
+				    "<a href=\"#\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+				    "</li>");
+				 }
+			}
+			list.listview("refresh");
+		},
+		error: function(data, textStatus, jqXHR) {
+			console.log("textStatus: " + textStatus);
+			 $('#noHistoryItems').html("No items for sale.");
+			 list.empty();
+		}
+	});
+});
+
+$(document).on('pagebeforeshow', "#saleHistoryPage", function( event, ui ) {
+	console.log("TESTING");
+	$.ajax({
+		
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/saleHistory/" + currentProductSeller.uid,
+		contentType: "application/json",
+		success : function(data, textStatus, jqXHR){
+			$('#noHistorySale').html("");
+			var productList = data.saleHistory;
+			var len = productList.length;
+			var list = $('#saleHistoryList');
+			list.empty();
+			var product;
+			for (var i = 0; i < len; ++i) {
+				product = productList[i];
+				if (product.ppricemethod.toLowerCase() == "bid")
+				{
+					list.append("<li><a >" + 
+				    "<img src=\"images/products/"+ product.pid + "/0.png\"/>" +
+				    "<h2>" + product.pname + "</h2>" + 
+				    "<p>" + product.pbrand + "</p>" +
+				    "<p>" + product.pmodel + "</p>" +
+				    "<div class=\"ui-li-aside\">" +
+				    "<p>" + "$" + product.currentbidprice + "</p>" +
+				    "<p>"+ product.numberofbids+"</p>" +
+				    "<p>"+ product.penddate.substring(0, 10)+"</p>" +
+				    "</div></a>" +
+				    "<a  href=\"#\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+				    "</li>");
+				 }
+				 else if(product.ppricemethod.toLowerCase() == "instant")
+				 {
+				 	list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
+				    "<img src=\"images/products/"+ product.pid + "/0.png\"/>" +
+				    "<h2>" + product.pname + "</h2>" + 
+				    "<p>" + product.pbrand + "</p>" +
+				    "<p>" + product.pmodel + "</p>" +
+				    "<div class=\"ui-li-aside\">" +
+				    "<p>" + "$" + product.pprice + "</p>" +
+				    "<p>"+product.penddate.substring(0, 10)+"</p>" +
+				    "</div></a>" +
+				    "<a href=\"#\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+				    "</li>");
+				 }
+			}
+			list.listview("refresh");
+		},
+		error: function(data, textStatus, jqXHR) {
+			console.log("textStatus: " + textStatus);
+			$('#noHistorySale').html("No history sales.");
+			list.empty();
+			
+		}
+	});
+});
+
+$(document).on('pagebeforeshow', "#saleHistoryAccountPage", function( event, ui ) {
+	console.log("TESTING");
+	$.ajax({	
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/saleHistory/" + currentUser.uid,
+		contentType: "application/json",
+		success : function(data, textStatus, jqXHR){
+			$('#noHistoryAccountSale').html("");
+			var productList = data.saleHistory;
+			var len = productList.length;
+			var list = $('#saleHistoryAccountList');
+			list.empty();
+			var product;
+			for (var i = 0; i < len; ++i) {
+				product = productList[i];
+				if (product.ppricemethod.toLowerCase() == "bid")
+				{
+					list.append("<li><a >" + 
+				    "<img src=\"images/products/"+ product.pid + "/0.png\"/>" +
+				    "<h2>" + product.pname + "</h2>" + 
+				    "<p>" + product.pbrand + "</p>" +
+				    "<p>" + product.pmodel + "</p>" +
+				    "<div class=\"ui-li-aside\">" +
+				    "<p>" + "$" + product.currentbidprice + "</p>" +
+				    "<p>"+ product.numberofbids+"</p>" +
+				    "<p>"+ product.penddate.substring(0,10)+"</p>" +
+				    "</div></a>" +
+				    "<a  href=\"#\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+				    "</li>");
+				 }
+				 else if(product.ppricemethod.toLowerCase() == "instant")
+				 {
+				 	list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
+				    "<img src=\"images/products/"+ product.pid + "/0.png\"/>" +
+				    "<h2>" + product.pname + "</h2>" + 
+				    "<p>" + product.pbrand + "</p>" +
+				    "<p>" + product.pmodel + "</p>" +
+				    "<div class=\"ui-li-aside\">" +
+				    "<p>" + "$" + product.pprice + "</p>" +
+				    "<p>"+product.penddate.substring(0,10)+"</p>" +
+				    "</div></a>" +
+				    "<a href=\"#\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+				    "</li>");
+				 }
+			}
+			list.listview("refresh");
+		},
+		error: function(data, textStatus, jqXHR) {
+			console.log("textStatus: " + textStatus);
+			$('#noHistoryAccountSale').html("No history sales.");
+			list.empty();
+			
+		}
+	});
+});
+
 
 $(document).on('pagebeforeshow', "#seller-page", function( event, ui ) {
 	// currentProduct has been set at this point
@@ -437,21 +591,6 @@ function ConverToJSON(formData){
     return o;
 }
 
-function convertProduct(dbModel){
-	var cliModel = {};
-	cliModel.id = dbModel.pid;
-	cliModel.name = dbModel.pname;
-	cliModel.model = dbModel.pmodel;
-	cliModel.brand = dbModel.pbrand;
-	cliModel.condition = dbModel.pcondition;
-	cliModel.priceMethod = dbModel.ppricemethod;
-	cliModel.price = dbModel.pprice;
-	cliModel.description = dbModel.pdescription;
-	cliModel.uid = dbModel.uid;
-
-	return cliModel;
-}
-
 function SaveProduct(){
 	$.mobile.loading("show");
 	var form = $("#product-form");
@@ -480,7 +619,7 @@ function SaveProduct(){
 
 }
 
-function GetProduct(id, uid){
+function GetProduct(id, sellerid){
 	$.mobile.loading("show");
 	$.ajax({
 		url : "http://kiwi-server.herokuapp.com/ProjectServer/products/" + id,
@@ -489,7 +628,7 @@ function GetProduct(id, uid){
 		dataType:"json",
 		async: false,
 		success : function(data, textStatus, jqXHR){
-			currentProduct = convertProduct(data.product);		
+			currentProduct = data.product;		
 			$.mobile.loading("hide");
 			$.mobile.navigate("#product-view");
 		},
@@ -505,16 +644,13 @@ function GetProduct(id, uid){
 		}
 	});
 	$.ajax({
-		url : "http://kiwi-server.herokuapp.com/ProjectServer/currentProductSeller/" + uid,
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/currentProductSeller/" + sellerid,
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
 		async: false,
 		success : function(data, textStatus, jqXHR){
-			// currentProduct = convertProduct(data.product);	
 			currentProductSeller = data.seller;	
-			// $.mobile.loading("hide");
-			// $.mobile.navigate("#product-view");
 		},
 		error: function(data, textStatus, jqXHR){
 			console.log("textStatus: " + textStatus);
@@ -540,7 +676,6 @@ function GetProductByCategory(category){
 		success : function(data, textStatus, jqXHR){
 			var list = $("#categoryList");
 			list.empty();
-			alert(currentCategory);
 			var productList = data.category;
 			var len = productList.length;
 			// var list = $("#categoryList");
@@ -548,21 +683,39 @@ function GetProductByCategory(category){
 			var product;
 			for (var i=0; i < len; ++i){
 				product = productList[i];
-				list.append("<li class=\"simpleCart_shelfItem\" ><a onclick=\"GetProduct(" + product.pid + "," + product.uid + ")\" >" + 
-					"<img class=\"item_image\" src=\"images/products/"+ product.pid+ "/0.png\"/>" +
-					"<h2 class=\"item_name\">" + product.pname + "</h2>" + 
-					"<p>" + product.pbrand + "</p>" +
-					"<p>" + product.pmodel + "</p>" +
-					"<div class=\"ui-li-aside\">" +
-							"<p class=\"item_price\">" + "$" + product.pprice + "</p>" +
-							"<p>10 bids</p>" +
-							"<p>7d 10h</p>" +
-						"</div></a>" +
-        				"<a class=\"item_add\" href=\"javascript:;\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
-    				"</li>");
-			}
-			
-			list.listview("refresh");
+				if(product.ppricemethod.toLowerCase()=="bid")
+		         {
+		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
+		            "<img src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<h2>" + product.pname + "</h2>" + 
+		            "<p>" + product.pbrand + "</p>" +
+		            "<p>" + product.pmodel + "</p>" +
+		            "<div class=\"ui-li-aside\">" +
+		                "<p>" + "$" + product.currentbidprice + "</p>" +
+		                "<p>"+ product.numberofbids+" bids</p>" +
+		                "<p>"+ product.penddate.substring(0,10) +"</p>" +
+		              "</div></a>" +
+		                  "<a  href=\"#\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+		              "</li>");
+		         }
+		         else if(product.ppricemethod.toLowerCase()=="instant")
+		         {
+		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
+		            "<img src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		             "<h2>" + product.pname + "</h2>" + 
+		             "<p>" + product.pbrand + "</p>" +
+		             "<p>" + product.pmodel + "</p>" +
+		             "<div class=\"ui-li-aside\">" +
+		             "<p>" + "$" + product.pprice + "</p>" +
+		             "<p>"+product.penddate.substring(0,10)+"</p>" +
+		               "</div></a>" +
+		                   "<a href=\"#\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+		               "</li>");
+		         }
+			 }
+			 list.listview("refresh");
+				
+				
 			$.mobile.loading("hide");
 			$.mobile.navigate("#categoryPage");
 		},
@@ -575,32 +728,177 @@ function GetProductByCategory(category){
 	});
 }
 
-// function GetSeller(id){
-	// $.mobile.loading("show");
-	// $.ajax({
-		// url : "http://kiwi-server.herokuapp.com/ProjectServer/currentProductSeller/" + id,
-		// method: 'get',
-		// contentType: "application/json",
-		// dataType:"json",
-		// // async: true,
-		// success : function(data, textStatus, jqXHR){
-			// // currentProduct = convertProduct(data.product);	
-			// currentProductSeller = data.seller;	
-			// // $.mobile.loading("hide");
-			// // $.mobile.navigate("#product-view");
-		// },
-		// error: function(data, textStatus, jqXHR){
-			// console.log("textStatus: " + textStatus);
+function GetSimilarProduct(){
+	currentCategory = currentProduct.categoryname;
+	$.mobile.loading("show");
+	console.log("testing");
+	$.ajax({
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/categories/" + currentProduct.categoryname,
+		method: 'get',
+		contentType: "application/json",
+		success : function(data, textStatus, jqXHR){
+			var list = $("#categoryList");
+			list.empty();
+			var productList = data.category;
+			var len = productList.length;
+			// var list = $("#categoryList");
+			var product;
+			for (var i=0; i < len; ++i){
+				product = productList[i];
+				if(product.ppricemethod.toLowerCase()=="bid")
+		         {
+		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
+		            "<img src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<h2>" + product.pname + "</h2>" + 
+		            "<p>" + product.pbrand + "</p>" +
+		            "<p>" + product.pmodel + "</p>" +
+		            "<div class=\"ui-li-aside\">" +
+		                "<p>" + "$" + product.currentbidprice + "</p>" +
+		                "<p>"+ product.numberofbids+" bids</p>" +
+		                "<p>"+ product.penddate.substring(0,10) +"</p>" +
+		              "</div></a>" +
+		                  "<a  href=\"#\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+		              "</li>");
+		         }
+		         else if(product.ppricemethod.toLowerCase()=="instant")
+		         {
+		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
+		            "<img src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		             "<h2>" + product.pname + "</h2>" + 
+		             "<p>" + product.pbrand + "</p>" +
+		             "<p>" + product.pmodel + "</p>" +
+		             "<div class=\"ui-li-aside\">" +
+		             "<p>" + "$" + product.pprice + "</p>" +
+		             "<p>"+product.penddate.substring(0,10)+"</p>" +
+		               "</div></a>" +
+		                   "<a href=\"#\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+		               "</li>");
+		         }
+			 }
+			 list.listview("refresh");
+			$.mobile.loading("hide");
+			$.mobile.navigate("#categoryPage");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			$.mobile.loading("hide");
+			 $("#categoryList").empty();
+			// alert("Data not found!");
+		}
+	});
+}
+
+function sortCategoryBy(orderType){
+	console.log("testing");
+	$.ajax({
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/orderCategoryBy/" + currentCategory + "/" + orderType,
+		method: 'get',
+		contentType: "application/json",
+		success : function(data, textStatus, jqXHR){
+			var productList = data.orderType;
+			var len = productList.length;
+			var list = $("#categoryList");
+			list.empty();
+			var product;
+			for (var i=0; i < len; ++i){
+				product = productList[i];
+				if(product.ppricemethod.toLowerCase()=="bid")
+		         {
+		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
+		            "<img src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<h2>" + product.pname + "</h2>" + 
+		            "<p>" + product.pbrand + "</p>" +
+		            "<p>" + product.pmodel + "</p>" +
+		            "<div class=\"ui-li-aside\">" +
+		                "<p>" + "$" + product.currentbidprice + "</p>" +
+		                "<p>"+ product.numberofbids+" bids</p>" +
+		                "<p>"+ product.penddate.substring(0,10) +"</p>" +
+		              "</div></a>" +
+		                  "<a  href=\"#\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+		              "</li>");
+		         }
+		         else if(product.ppricemethod.toLowerCase()=="instant")
+		         {
+		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
+		            "<img src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		             "<h2>" + product.pname + "</h2>" + 
+		             "<p>" + product.pbrand + "</p>" +
+		             "<p>" + product.pmodel + "</p>" +
+		             "<div class=\"ui-li-aside\">" +
+		             "<p>" + "$" + product.pprice + "</p>" +
+		             "<p>"+product.penddate.substring(0,10)+"</p>" +
+		               "</div></a>" +
+		                   "<a href=\"#\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+		               "</li>");
+		         }
+			 }
+			 list.listview("refresh");
 			// $.mobile.loading("hide");
-			// if (data.status == 404){
-				// alert("Seller not found.");
-			// }
-			// else {
-				// alter("Internal Server Error.");
-			// }
-		// }
-	// });
-// }
+			// $.mobile.navigate("#categoryPage");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			$.mobile.loading("hide");
+			 $("#categoryList").empty();
+			// alert("Data not found!");
+		}
+	});
+}
+
+function sortSearchBy(orderType){
+	console.log("testing");
+	$.ajax({
+		url : "http://kiwi-server.herokuapp.com/ProjectServer/orderSearchPage/" + orderType,
+		method: 'get',
+		contentType: "application/json",
+		success : function(data, textStatus, jqXHR){
+			var productList = data.orderType;
+			var len = productList.length;
+			var list = $("#product-list");
+			list.empty();
+			var product;
+			for (var i=0; i < len; ++i){
+				product = productList[i];
+				if(product.ppricemethod.toLowerCase()=="bid")
+		         {
+		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
+		            "<img src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<h2>" + product.pname + "</h2>" + 
+		            "<p>" + product.pbrand + "</p>" +
+		            "<p>" + product.pmodel + "</p>" +
+		            "<div class=\"ui-li-aside\">" +
+		                "<p>" + "$" + product.currentbidprice + "</p>" +
+		                "<p>"+ product.numberofbids+" bids</p>" +
+		                "<p>"+ product.penddate.substring(0,10) +"</p>" +
+		              "</div></a>" +
+		                  "<a  href=\"#\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+		              "</li>");
+		         }
+		         else if(product.ppricemethod.toLowerCase()=="instant")
+		         {
+		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
+		            "<img src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		             "<h2>" + product.pname + "</h2>" + 
+		             "<p>" + product.pbrand + "</p>" +
+		             "<p>" + product.pmodel + "</p>" +
+		             "<div class=\"ui-li-aside\">" +
+		             "<p>" + "$" + product.pprice + "</p>" +
+		             "<p>"+product.penddate.substring(0,10)+"</p>" +
+		               "</div></a>" +
+		                   "<a href=\"#\" data-theme=\"b\" data-role=\"button\" data-icon=\"cart\" data-transition=\"pop\">Add to cart</a>" +
+		               "</li>");
+		         }
+			 }
+			 list.listview("refresh");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			$.mobile.loading("hide");
+			 $("#product-list").empty();
+			// alert("Data not found!");
+		}
+	});
+}
 
 function UpdateProduct(){
 	$.mobile.loading("show");
@@ -688,3 +986,39 @@ function SaveUser(){
 		}
 	});
 }
+
+
+ function GetReportsbyDate() {
+     var date=$('#reportDate').val();
+     console.log(date);
+     console.log("TESTING");
+     $.ajax({
+         url : "http://kiwi-server.herokuapp.com/ProjectServer/reportList/"+date,
+         contentType: "application/json",
+         success : function(data, textStatus, jqXHR){
+             //alert(a);
+             var reportList = data.reportList;
+             var len = 0;
+             len = reportList.length;
+             var report;
+             //currentUser has been set at this point
+             $("#noReports").html("");
+             $("#reports-list").empty();
+             for(var i = 0; i < len ; i++)
+             {
+                 report = reportList[i];
+                 $("#reports-list").append("<li class = \"ui-li\" style= \"height : 40px\">"+ report.pname + "<p>Payment: " + report.paymentoption + "</p>" +"<div class = \"ui-li-aside ui-li-desc\">"+
+         "<p><b>Status: " + report.status +"</b></p><p>S&H: "+ report.shippingoption +"</p></div></li>" );
+             } 
+ 
+             $("#reports-list").listview("refresh");
+         },
+         error: function(data, textStatus, jqXHR){
+             console.log("textStatus: " + textStatus);
+             $("#noReports").html("No records on this date");
+             $("#reports-list").empty();
+             $("#reports-list").listview("refresh");
+         }
+     });
+    
+ };

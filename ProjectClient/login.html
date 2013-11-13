@@ -9,6 +9,12 @@
 		<link rel="stylesheet" href="css/jquery.mobile-1.4.0-beta.1.min.css">
 		<script src="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.min.js"></script>
 		
+		<script type="text/javascript">
+    $.getJSON('http://localhost:3412/vit?callback=?',function  (data) {
+    	// ConverToJSON(data);
+       console.log(data) ;
+    });
+</script>
 		
 	</head>
 	<body>
@@ -30,7 +36,7 @@
             </div>
             <!-- Sign in -->
             <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
-                <form action="http://kiwi-server.herokuapp.com/login" method="post">
+                <form action="http://localhost:3412/login?jsoncallback=?" method="post">
                     <div style="padding:10px 20px;">
                         <h3>Please sign in</h3>
                         <label for="username" class="ui-hidden-accessible">Username:</label>

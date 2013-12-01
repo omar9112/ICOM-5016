@@ -1,0 +1,398 @@
+
+.ui-page.ui-page-theme-a.ui-page-active {
+	background-color: #F0EFF4;
+}
+
+/*
+ * Error label to validate input
+ */
+label.error {
+    /*float: left;*/ 
+    color: red; 
+    font-size: 14px;
+    font-weight: bold;
+    /*line-height: 1;*/    
+    /*margin-top: 0.5em;*/   
+     /*width: 100%;*/
+}
+
+span.spanText {
+	font-size: 13px;
+}
+		
+/* Remove border from input buttons */
+.ui-input-text, .ui-input-search{
+    border: none !important;
+    box-shadow: none !important; 
+}
+
+.ui-input-listview {
+  margin-top: -1em !important;
+  margin-bottom: -1em !important;
+  margin-left: -0.5em !important; /* If you want to fix left as well */
+  margin-right: -0.5em !important; /* If you want to fix right as well*/
+}
+
+
+.ui-focus {
+ -moz-box-shadow: none !important;
+ -webkit-box-shadow: none !important;
+ box-shadow: none !important;
+}
+
+body {
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 300;
+}
+
+h3 a,
+h2 a {
+    color: #333;
+}
+
+h3 a:hover,
+h2 a:hover {
+    color: #000;
+}
+
+/* Remove header border */
+.ui-bar-a, .ui-page-theme-a .ui-bar-inherit,
+html .ui-bar-a .ui-bar-inherit,
+html .ui-body-a .ui-bar-inherit,
+html body .ui-group-theme-a .ui-bar-inherit {
+	border: none;
+}
+
+.ui-header .ui-title {
+    font-size: 13px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: lighter;
+	letter-spacing: 1px;
+    color: #FFFFFF;
+    text-shadow: 0px 0px 0 #fff;
+    text-transform: uppercase;
+    border: none;
+    white-space : nowrap;
+}
+
+.ui-listview>li h2 {
+    font-size: 12px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+	font-weight: 500;
+	letter-spacing: 1px;
+    color: #4F4F4F;
+    text-shadow: 0px 0px 0 #fff;
+    white-space : normal;
+}
+
+h2 {
+    font-size: 17px;
+    font-family: "HelveticaNeue-Light"; 
+	/*font-weight: 600;*/	
+	letter-spacing: 1px;
+    color: #555555;
+    text-shadow: 0px 0px 0 #fff;
+}
+
+h3 {
+    font-size: 12px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+	font-weight: lighter;
+	letter-spacing: 1px;
+    color: #4F4F4F;
+    text-shadow: 0px 0px 0 #fff;
+    text-transform: uppercase;
+}
+
+h4 {
+	margin: 0 0 .2em 0;
+    font-size: 13px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+	font-weight: lighter;
+	letter-spacing: 1px;
+    color: #96a0ad;
+    text-shadow: 0px 0px 0 #fff;
+    text-transform: uppercase;
+}
+
+h5 {
+    font-size: 13px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+	font-weight: bold;
+    color: #96a0ad;
+    text-shadow: 0px 0px 0 #fff;
+    text-transform: uppercase;
+}
+
+h6 {
+	margin: 0 0 .2em 0;
+    font-size: 22px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+	font-weight: lighter;
+	letter-spacing: 1px;
+    color: #96a0ad;
+    text-shadow: 0px 0px 0 #fff;
+}
+/* Listview text */
+.ui-listview>.ui-li-static {
+	font-size: 13px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+	font-weight: lighter;
+	color: #555;
+}
+
+.ui-page-theme-a .ui-btn {
+	color: #555;
+}
+
+/* Button up */
+.ui-overlay-a .ui-btn,
+.ui-page-theme-a .ui-btn,
+html .ui-bar-a .ui-btn,
+html .ui-body-a .ui-btn,
+html body .ui-group-theme-a .ui-btn,
+html head + body .ui-btn.ui-btn-a,
+
+/* Button visited */
+.ui-overlay-a .ui-btn:visited,
+.ui-page-theme-a .ui-btn:visited,
+html .ui-bar-a .ui-btn:visited,
+html .ui-body-a .ui-btn:visited,
+html body .ui-group-theme-a .ui-btn:visited,
+html head + body .ui-btn.ui-btn-a:visited {
+	background: 			#fff /*{a-body-background-color}*/;
+	border-color:	 		#ddd /*{a-body-border}*/;
+	color: 					#111 /*{a-body-color}*/;
+	font-size: 10px;
+	text-shadow: 0 /*{a-body-shadow-x}*/ 0px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ 	#eee /*{a-body-shadow-color}*/;
+}
+
+.ui-page-theme-a .ui-btn.ui-btn-active, html .ui-bar-a .ui-btn.ui-btn-active{
+	color: #55A244;
+	text-shadow: 0 0px 0 #059;
+}
+/* Button up */
+#alt-list .ui-btn,
+#alt-list .ui-page-theme-a .ui-btn,
+html #alt-list .ui-bar-a .ui-btn,
+html #alt-list .ui-body-a .ui-btn,
+html body #alt-list .ui-group-theme-a .ui-btn,
+html head + body  #alt-list .ui-btn.ui-btn-a,
+
+/* Button visited */
+#alt-list .ui-overlay-a .ui-btn:visited,
+#alt-list .ui-btn-active,
+#alt-list .ui-page-theme-a .ui-btn:visited,
+html  #alt-list .ui-bar-a .ui-btn:visited,
+html #alt-list .ui-body-a .ui-btn:visited,
+html body #alt-list .ui-group-theme-a .ui-btn:visited,
+html head + body #alt-list .ui-btn.ui-btn-a:visited {
+	background: 			#F6F6F6 /*{a-body-background-color}*/;
+	border-color:	 		#ddd /*{a-body-border}*/;
+	color: 					#111 /*{a-body-color}*/;
+	text-shadow: 0 /*{a-body-shadow-x}*/ 0px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ 	#eee /*{a-body-shadow-color}*/;
+}
+
+/* Button up */
+.ui-overlay-b .ui-btn,
+.ui-page-theme-b .ui-btn,
+html .ui-bar-b .ui-btn,
+html .ui-body-b .ui-btn,
+html body .ui-group-theme-b .ui-btn,
+html head + body .ui-btn.ui-btn-b,
+
+/* Button visited */
+.ui-overlay-b .ui-btn:visited,
+.ui-page-theme-b .ui-btn:visited,
+html .ui-bar-b .ui-btn:visited,
+html .ui-body-b .ui-btn:visited,
+html body .ui-group-theme-b .ui-btn:visited,
+html head + body .ui-btn.ui-btn-b:visited {
+	background: 			#55A244 /*{a-body-background-color}*/;
+	border-color:	 		#ddd /*{a-body-border}*/;
+	color: 					#fff /*{a-body-color}*/;
+	text-shadow: 0 /*{a-body-shadow-x}*/ 0px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ 	#eee /*{a-body-shadow-color}*/;
+}
+
+/* Links */
+.ui-overlay-a a,
+.ui-page-theme-a a,
+html .ui-bar-a a,
+html .ui-body-a a,
+html body .ui-group-theme-a a {
+	color: #0066ff /*{a-link-color}*/;
+	font-weight: normal;
+}
+
+/* <a> tag button */
+/*45A278*/
+.custom-btn {
+    background: #55A244 !important;
+    border: #FFFFFF;
+    color: #FFFFFF;
+}
+.custom-btn .ui-btn-inner .ui-btn-text {
+    color: #FFFFFF !important;
+}
+
+.ui-page-theme-a .ui-btn.ui-btn-active, html .ui-bar-a .ui-btn.ui-btn-active{
+	background-color: #FFFFFF;
+   
+}
+#wrapper .ui-btn .ui-btn-inner .ui-btn-text {
+    color: #FFFFFF;   
+}
+.banner {
+	height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.footer .ui-page-theme-a .ui-btn, html .footer .ui-bar-a .ui-btn, html .footer .ui-body-a .ui-btn {
+	font-size: 10px; !important;
+}
+
+#account-image {
+    width: 100px !important;
+    height: 100px !important;
+    border-radius: 50% !important;
+    background: 50% 50% no-repeat;
+    background-size: 100px 100px;
+    background: center center no-repeat;
+}
+
+#seller-image {
+    width: 90px !important;
+    height: 90px !important;
+    border-radius: 50% !important;
+    background: 45% 45% no-repeat;
+    background-size: 90px 90px;
+    background: center center no-repeat;
+}
+
+#seller-feedback-image {
+    width: 100px !important;
+    height: 100px !important;
+    border-radius: 50% !important;
+    background: 50% 50% no-repeat;
+    background-size: 100px 100px;
+    background: center center no-repeat;
+}
+
+#account-profile-image {
+    width: 100px !important;
+    height: 100px !important;
+    border-radius: 50% !important;
+    background: 50% 50% no-repeat;
+    background-size: 100px 100px;
+    background: center center no-repeat;
+}
+
+#login-image {
+    width: 90px !important;
+    height: 90px !important;
+    border-radius: 50% !important;
+    background: 50% 50% no-repeat;
+    background-size: 90px 90px;
+    background: center center no-repeat;
+    
+}
+
+#register-image {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 50% !important;
+    background: 40% 40% no-repeat;
+    background-size: 60px 60px;
+    background: center center no-repeat;
+    
+}
+
+#administrator-image {
+    width: 256px !important;
+    height: 256px !important;
+    border-radius: 50% !important;
+    background: 50% 50% no-repeat;
+    background-size: 256px 256px;
+    background: center center no-repeat;
+    
+}
+.account-info {
+	font-size: 13px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+	font-weight: lighter;
+	letter-spacing: 1px;
+    color: #96a0ad;
+    text-shadow: 0px 0px 0 #fff;
+}   
+
+.account-info-user {
+	font-size: 13px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+	font-weight: bold;
+	letter-spacing: 1px;
+    color: #55A244;
+    text-shadow: 0px 0px 0 #fff;
+}  
+
+.order-page {
+	font-size: 14px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+	font-weight: lighter;
+	letter-spacing: 1px;
+    color: #96a0ad;
+    text-shadow: 0px 0px 0 #fff;
+}   
+
+p {
+	margin: 1px;
+}
+
+/* Radio button color*/
+.ui-page-theme-a .ui-radio-on::after,
+html .ui-bar-a .ui-radio-on::after,
+html .ui-body-a .ui-radio-on::after,
+html body .ui-group-theme-a .ui-radio-on::after,
+.ui-btn.ui-radio-on.ui-btn-a::after {
+	border-color: #55A244; }
+
+/* Radio button margin */
+.ui-btn.ui-checkbox-off::after, .ui-btn.ui-checkbox-on::after, .ui-btn.ui-radio-off::after, .ui-btn.ui-radio-on::after {margin: -9px 0px 0 0px;}
+
+/* Radio button border */
+.review .ui-btn, label.ui-btn {
+	 border-width: 0px;
+	border-style: none; }
+
+textarea#product-description.ui-input-text.ui-shadow-inset.ui-body-inherit.ui-corner-all {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+	color: #555555;
+	
+img.listImg {
+    position:absolute; !important;
+    top:0; !important;
+    bottom:0; !important;
+    margin:auto; !important;
+}
+
+#order {
+	margin: 0; !important;
+}
+
+.ui-radio .ui-btn.ui-radio-on::after {
+	border-style: none !important;
+	border-width: 0;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+	
+}
+
+.seller-feedback .ui-listview>.ui-li-has-icon>.ui-btn,
+.ui-listview>.ui-li-static.ui-li-has-icon {
+	border: none;
+}
+
+.ui-listview .ui-btn-up-a {
+    background: rgba(0,0,0,0.2);
+}

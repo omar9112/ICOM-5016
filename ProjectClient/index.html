@@ -11,7 +11,10 @@
 		<script src="http://code.jquery.com/mobile/1.4.0-rc.1/jquery.mobile-1.4.0-rc.1.min.js"></script>
 		
 		<!--############ CSS ############-->
-			<link rel="stylesheet" href="css/style.css">
+			<link rel="stylesheet" href="css/style2.css">
+			<link rel="stylesheet" href="css/categories.css">
+			<link rel="stylesheet" href="css/administrator.css">
+			<link rel="stylesheet" href="css/panel.css">
 		 	<!-- Flexslider plugin-->
 				<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
 			<!-- Credit card plugin -->
@@ -25,152 +28,249 @@
 			<!-- Form validation plugin-->
 				<script language="javascript" type="text/javascript" src="js/jquery.validate.min.js"></script>
 				<script language="javascript" type="text/javascript" src="js/additional-methods.min.js"></script>
+				<script language="javascript" type="text/javascript" src="js/jquery.creditCardValidator.js"></script>
 			<!-- Credit card plugin -->
 				<script type="text/javascript" src="js/jquery.creditCardValidator.js"></script>
 				<script type="text/javascript" src="appjs/demo.js"></script>
 				
+				<!-- <script>
+            $(document).on("mobileinit",function() {
+                $.mobile.autoInitializePage = false;
+            });        
+        </script> -->
+					
 		<style type="text/css">
 		    .ui-icon-cart:after {
 		    background: url('images/cart.png') no-repeat;
 		    background-size: 18px 18px;
 		    }
-		     /*.ui-icon-delete:after {
-		    background: url('images/delete.png') no-repeat;
-		    background-size: 18px 18px;
-			}*/
 		</style>
 		
-    
-    <!-- FlexSlider --> 
-	  <script defer src="js/jquery.flexslider.js"></script> 
-	  <script type="text/javascript">
-	    $(function(){
-	      SyntaxHighlighter.all();
-	    });
-	    $(window).load(function(){
-	      $('#carousel').flexslider({
-	        animation: "slide",
-	        controlNav: false,
-	        animationLoop: false,
-	        slideshow: false,
-	        itemWidth: 210,
-	        itemMargin: 5,
-	        asNavFor: '#slider'
-	      });
-	
-	      $('#slider').flexslider({
-	        animation: "slide",
-	        controlNav: false,
-	        animationLoop: false,
-	        slideshow: false,
-	        sync: "#carousel",
-	        start: function(slider){
-	          $('body').removeClass('loading');
-	        }
-	      });
-	    });
-	  </script>
-		
 	</head>
-	<body>	
-		<!--###################################### Main page ######################################-->
-        <div id="login" data-role="page">
-        	<!-- Home Page header -->
-            <div data-role="header" data-position="fixed" data-theme="b">
-            	<div class="ui-btn-left">
-                	<img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/>
-                </div>
-                    <h1>Welcome!</h1>
-            </div>
+	<body>
+		<!--###################################### HOME PAGE ######################################-->
+		<div data-role="page" id="home-page" data-title="Home">
+    		<div  id="header" data-role="header" style="background: #1D8D55" data-position="fixed">
+				<div class="ui-btn-left">
+			    	<a href="#home-page"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
+				    <a href="#left-panel" data-role="button" class="ui-nodisc-icon" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false" style="background-color: transparent;box-shadow: none; border: none; margin-top: 4px;"></a>
+				</div>
+			    <h1></h1>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			  		<a href="#search-page" data-role="button"  data-icon="search" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none; margin-top: 4px;">Search</a>
+			    	<a href="#cart-page" data-role="button" data-icon="shop" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;  margin-top: 4px;">My Cart</a>
+			    	<a href="#popupMenu" data-role="button" data-rel="popup" data-inline="true" data-transition="slide" data-icon="gear" data-iconpos="notext" data-position-to="#origin" style="background-color: transparent;box-shadow: none; border: none;  margin-top: 4px;">Menu</a>
+			  	</div>
+			</div><!-- /home-page header -->
 
-            <div data-role="content"> 
-            	<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b">
-                	<a href="#popupLogin" data-rel="popup" data-position-to="window" data-role="button" data-mini="true" data-transition="pop">Sign in</a>
-                    <a href="#registerPage" data-role="button" data-shadow="false" data-transition="slide" data-mini="true">Register</a>
-                </div>
-            </div>
-            <!-- Sign in -->
-            <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
-                <form action="http://localhost:3412/login?jsoncallback=?" method="post">
-                    <div style="padding:10px 20px;">
-                        <h3>Please sign in</h3>
-                        <label for="username" class="ui-hidden-accessible">Username:</label>
-                        <input type="text" name="username" id="username" value="" placeholder="username" data-mini="true" data-theme="a">
-                        <label for="password" class="ui-hidden-accessible">Password:</label>
-                        <input type="password" name="password" id="password" value="" placeholder="password" data-mini="true" data-theme="a">
-                        <button id="loginSubmit" type="submit" data-mini="true" data-theme="b">Sign in</button>
+			<div class="banner" style="position:relative;">
+				<img src="images/banner1.png" width=100%/>
+				<a id="signIn" href="#login-page" data-theme="b" data-role="button" data-icon="user"
+					class="ui-nodisc-icon" style="position:absolute; bottom:0; left:0; width: 100%;
+					background: #55A244; text-align: left; text-indent: 30px; background: rgba(88,161,73,.8);
+					border: none; margin: 0; padding: 5px; border-radius: 0;">Welcome! Log in</a>
+			</div>
+			<div style="margin: 0px">
+				<ul id="myNavbar" data-role="listview" style="margin-bottom: 15px;">
+                    <li style="padding: 0 ">
+                		<div data-role="navbar" data-iconpos="bottom">
+							<ul class="ui-nodisc-icon ui-alt-icon">
+								<li><a class="account-info" href="#cart-page" style="background-color: transparent;box-shadow: none; border-bottom: none; border-left: none; border-top: none; border-color: #ADADAD; color: #55A244">Cart<h1 id="cartCount"></h1></a></li>
+							    <li><a class="account-info" href="#order-history-page" style="background-color: transparent;box-shadow: none; border-bottom: none; border-top: none; border-color: #ADADAD; margin: 0; color: #55A244;">Buying<h1 id="buyingCount">1</h1></a></li>
+							    <li><a class="account-info" href="#account-items-sale-page" style="background-color: transparent;box-shadow: none; border-bottom: none; border-right: none; border-top: none; border-color: #ADADAD; color: #55A244;">Selling<h1 id="sellingCount"></h1></a></li>
+							</ul>
+						</div><!-- /panel home-page navbar -->
+                    </li>
+                </ul>	
+               <ul data-role="listview" class="ui-nodisc-icon ui-alt-icon" id="seller">
+                	<li><a href="#sell-page"><img src="images/icons/14-tag.png" class="ui-li-icon ui-corner-none"/>Sell an Item</a></li>
+                	<li><a href="#administrator-page"><img src="images/icons/157-wrench.png" class="ui-li-icon ui-corner-none"/>Administrate</a></li>
+               </ul>
+			</div>
+			<div data-role="content" class="ui-content my-page">
+				<h4>Categories</h4>
+		        <ul data-role="listview" data-inset="true" class="trans" style="margin: 0 auto">
+		            <li><a href="#category-page" onclick="GetProductByCategory('books')">
+		                <img src="images/books1.jpg" class="ui-li-thumb">
+		                <p class="trans">Children, Fiction, Technology, others</p>
+		                <p class="ui-li-aside">Books</p>
+		            </a></li>
+		            <li class="my-page"><a href="#category-page" onclick="GetProductByCategory('electronics')">
+		                <img src="images/electronics.jpg" class="ui-li-thumb">
+		                <p>TV, Audio, Phones, Video, others</p>
+		                <p class="ui-li-aside">Electronics</p>
+		            </a></li>
+		            <li><a href="#category-page" onclick="GetProductByCategory('computers')">
+		                <img src="images/computers1.jpg" class="ui-li-thumb">
+		                <p>Laptops, Desktops, Tablets, others</p>
+		                <p class="ui-li-aside">Computers</p>
+		            </a></li>
+		            <li><a href="#category-page" onclick="GetProductByCategory('clothing')">
+		                <img src="images/clothing1.jpg" class="ui-li-thumb">
+		                <p>Children, Men, Women, others</p>
+		                <p class="ui-li-aside">Clothing</p>
+		            </a></li>
+		            <li><a href="#category-page" onclick="GetProductByCategory('shoes')">
+		                <img src="images/shoes1.jpg" class="ui-li-thumb">
+		                <p>Children, Men, Women</p>
+		                <p class="ui-li-aside">Shoes</p>
+		            </a></li>
+		            <li><a href="#category-page" onclick="GetProductByCategory('sports')">
+		                <img src="images/sports1.jpg" class="ui-li-thumb">
+		                <p>Basketbal, Bycicles, Golf, others</p>
+		                <p class="ui-li-aside">Sports</p>
+		            </a></li>
+		        </ul>
+    		</div><!-- /content -->
+    		<div data-role="content">
+    			<ul data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+                	<li><a id= "userli" href="#account-info-page"><img src="images/icons/111-user.png" class="ui-li-icon ui-corner-none"/><span id="user"></span></a></li>
+                	<br />
+               </ul>
+    		</div>
+			<div data-role="panel" id="left-panel" style="background: #F0EFF4" class="panel" data-position-fixed="true">
+				<ul class="jqm-list ui-nodisc-icon ui-listview" data-role="listview" >
+			    	<li style="margin-top: -1.7em !important; margin-bottom: -1em !important; background: #1C8957">
+			        	<div data-role="navbar">
+							<ul class="ui-nodisc-icon">
+								<li><a data-icon="home" data-iconpos="notext" href="#home-page" style="background-color: transparent;box-shadow: none; border-bottom: none; border-left: none; border-top: none; border-color: #ADADAD; "></a></li>
+							    <li><a data-icon="user" data-iconpos="notext" href="#account-page" style="background-color: transparent;box-shadow: none; border-bottom: none; border-left: none; border-top: none; border-color: #ADADAD;"></a></li>
+							    <li><a data-icon="info" data-iconpos="notext" href="#aboutPage" style="background-color: transparent;box-shadow: none; border-bottom: none; border-left: none; border-right: none; border-top: none; border-color: #ADADAD;"></a></li>
+							</ul>
+						</div><!-- /panel home-page navbar -->
+					</li>
+			        <li data-role="list-divider">Categories</li>
+			        <li data-role="collapsible" data-inset="false" data-iconpos="right" data-collapsed-icon="carat-d"  data-expanded-icon="carat-u" class="ui-nodisc-icon ui-alt-icon">
+			        	<h3>Books </h3>
+			            <ul data-role="listview" data-theme="a" class="ui-alt-icon">
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('booksChildren')"><img src="images/icons/76-baby.png" class="ui-li-icon ui-corner-none"/>Children</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('booksFiction')"><img src="images/icons/27-planet.png" class="ui-li-icon ui-corner-none"/>Fiction</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('booksTechnology')"><img src="images/icons/107-widescreen.png" class="ui-li-icon ui-corner-none"/>Technology</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('booksBusiness')"><img src="images/icons/37-suitcase.png" class="ui-li-icon ui-corner-none"/>Business</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('books')">Others</a></li>
+						</ul>
+			        </li><!-- /collapsible -->
+			        <li data-role="collapsible" data-inset="false" data-iconpos="right" data-collapsed-icon="carat-d"  data-expanded-icon="carat-u" class="ui-nodisc-icon ui-alt-icon">
+			        	<h3>Electronics</h3>
+			            <ul data-role="listview" data-inset="false" data-theme="a" class="ui-alt-icon">
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('electronicsTv')"><img src="images/icons/70-tv.png" class="ui-li-icon ui-corner-none"/>TV</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('electronicsAudio')"><img src="images/icons/120-headphones.png" class="ui-li-icon ui-corner-none"/>Audio</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('electronicsPhones')"><img src="images/icons/32-iphone.png" class="ui-li-icon ui-corner-none"/>Phones</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('electronicsCameras')"><img src="images/icons/86-camera.png" class="ui-li-icon ui-corner-none"/>Cameras</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('electronicsVideo')"><img src="images/icons/43-film-roll.png" class="ui-li-icon ui-corner-none"/>Video</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('electronics')">Others</a></li>
+        				</ul>
+			        </li><!-- /collapsible -->
+			        <li data-role="collapsible" data-inset="false" data-iconpos="right" data-collapsed-icon="carat-d"  data-expanded-icon="carat-u" class="ui-nodisc-icon ui-alt-icon">
+			        	<h3>Computers</h3>
+              			<ul data-role="listview" data-inset="false" data-theme="a">
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('computersLaptops')"><img src="images/icons/175-macbook.png" class="ui-li-icon ui-corner-none"/>Laptops</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('computersDesktops')"><img src="images/icons/174-imac.png" class="ui-li-icon ui-corner-none"/>Desktops</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('computersTablets')"><img src="images/icons/176-ipad.png" class="ui-li-icon ui-corner-none"/>Tablets</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('computersPrinters')"><img src="images/icons/185-printer.png" class="ui-li-icon ui-corner-none"/>Printers</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('computers')">Others</a></li>
+				        </ul>
+		            </li><!-- /collapsible -->
+		            <li data-role="collapsible" data-inset="false" data-iconpos="right" data-collapsed-icon="carat-d"  data-expanded-icon="carat-u" class="ui-nodisc-icon ui-alt-icon">
+              			<h3>Clothing</h3>
+              			<ul data-role="listview" data-inset="false" data-theme="a">
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('clothingChildren')"><img src="images/icons/76-baby.png" class="ui-li-icon ui-corner-none"/>Children</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('clothingMen')"><img src="" class="ui-li-icon ui-corner-none"/>Men</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('clothingWomen')"><img src="" class="ui-li-icon ui-corner-none"/>Women</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('clothingDresses')"><img src="images/icons/118-coat-hanger.png" class="ui-li-icon ui-corner-none"/>Dresses</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('clothingShirts')"><img src="images/icons/67-tshirt.png" class="ui-li-icon ui-corner-none"/>Shirts</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('clothingPants')"><img src="" class="ui-li-icon ui-corner-none"/>Pants</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('clothingSocks')"><img src="images/icons/127-sock.png" class="ui-li-icon ui-corner-none"/>Socks</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('clothing')"><img src="" class="ui-li-icon ui-corner-none"/>Others</a></li>
+
+				        </ul>
+		            </li><!-- /collapsible -->
+		            <li data-role="collapsible" data-inset="false" data-iconpos="right" data-collapsed-icon="carat-d"  data-expanded-icon="carat-u" class="ui-nodisc-icon ui-alt-icon">
+              			<h3>Shoes</h3>
+              			<ul data-role="listview" data-inset="false" data-theme="a">
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('shoesChildren')"><img src="" class="ui-li-icon ui-corner-none"/>Children</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('shoesWomen')"><img src="" class="ui-li-icon ui-corner-none"/>Women</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('shoesMen')"><img src="" class="ui-li-icon ui-corner-none"/>Men</a></li>
+				        </ul>
+            		<li data-role="collapsible" data-inset="false" data-iconpos="right" data-collapsed-icon="carat-d"  data-expanded-icon="carat-u" class="ui-nodisc-icon ui-alt-icon">
+              			<h3>Sports</h3>
+              			<ul data-role="listview" data-inset="false" data-theme="a">
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('sportsBicycles')"><img src="" class="ui-li-icon ui-corner-none"/>Bicycles</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('sportsFishing')"><img src="" class="ui-li-icon ui-corner-none"/>Fishing</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('sportsBaseball')"><img src="" class="ui-li-icon ui-corner-none"/>Baseball</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('sportsGolf')"><img src="images/icons/129-golf.png" class="ui-li-icon ui-corner-none"/>Golf</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('sportsBasketball')"><img src="" class="ui-li-icon ui-corner-none"/>Basketball</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('sports')"><img src="" class="ui-li-icon ui-corner-none"/>Others</a></li>
+				        </ul>
+            		</li><!-- /collapsible -->
+        		</ul>
+    		</div><!-- /home-page panel -->   
+		</div>
+        
+        <!--###################################### LOGIN PAGE ######################################-->
+        <div id="login-page" data-role="page" >
+        	<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-rel="back" data-role="button" style="background-color: transparent;box-shadow: none; border: none; ">Cancel</a>
+				</div>
+			    <h3>Log In</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a data-theme="b" href="#register-page" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Register</a>
+			  	</div>
+			</div><!-- /login-page header -->
+
+            <div data-role="content">
+            	<!-- <a  id="popup" onclick="$("#popupLogin").popup("open");" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Sign in</a> -->
+				<div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all" data-dismissible="false" style="background: rgba(25,25,0,.8); border: none;">
+				        <div style="padding:20px 20px;" align="center">
+				        	<img class="listImg" width='25' height'25' src="images/loading.gif" />
+				            <h3 style="color: #FFFFFF">Loggin in</h3>
+				        </div>
+				</div>   	
+            	<form method="post">
+                    <div>
+                        <div align="center">
+                        	<div id="login-image" style="background-size: 90px 90px; background-image: url('https://ssl.gstatic.com/accounts/ui/avatar_2x.png')"></div>
+                        </div>
+                         <br />
+                        <ul data-mini="true" data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+                        	<li style="width: 115px; background: transparent; border: none;">
+                        	</li>
+                			<li data-mini="true">
+                				<img src="images/icons/111-user.png" class="ui-li-icon ui-corner-none"/>                       
+                				<input onkeydown="if(event.keyCode==13)$('#loginSubmit').trigger('click');"   type="text" name="username" id="username" value="" placeholder="Username" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<img src="images/icons/54-lock.png" class="ui-li-icon ui-corner-none"/>                      
+                				<input onkeydown="if(event.keyCode==13)$('#loginSubmit').trigger('click');" type="password" name="password" id="password" value="" placeholder="Password" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<br /> <br />
+               			</ul>
+               			<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
+                			<a id="loginSubmit" class="ui-btn ui-mini ui-btn-inline custom-btn"  href="#home" data-role="button" style="width: 150px;">Log in</a>
+               			</div>
                     </div>
                 </form>
-            </div><!-- /Sign in -->
+				<div data-role="popup" id="popupDialogLogin" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				    <div role="main" class="ui-content" align="center">
+				        <h2 class="account-info-user" style="font-size: 13px;"><center>We're sorry</center></h2>
+				    	<p class="account-info" style="white-space: normal; text-align: center; color: #555555">The email and password combination did not match our login records.</p>
+				    	<hr />
+				        <a style="background: transparent; padding: 0; border: none;" data-rel="back"><p class="account-info-user">OK</p></a>
+				    </div>
+				</div>
+    		</div>  
         </div>
-            
-		<!--###################################### HOME PAGE ######################################-->
-		<div id="homePage" data-role="page">
-			<!-- Home Page header -->
-			<div data-role="header" data-position="fixed" data-theme="b">
-  				<div class="ui-btn-left">
-  					<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-  				</div>
-  				
-  				<h1></h1>
-  				
-  				<div class="ui-btn-right">
-    				<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;" >Search</a>
-    				<a href="#shoppingCart" data-role="button" data-icon="cart" style="background-color: transparent;box-shadow: none; border: none;"></a>
-    				<a href="#popupMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Menu</a>
-  				</div>
-			</div> <!-- /Home Page header -->
-			<img src="images/main2.jpg" width=100%/>
-			<div data-role="content">	
-				<a href="#add-product" data-role="button" data-id="sell" data-mini = 'true' data-theme="b" class="custom-btn" >Sell an Item</a>
-				<div class="ui-grid-b">
-                    <div class="ui-block-a">
-                    	<a href="#categoryPage" data-role="button" style="height: 15%" data-theme="b" onclick="GetProductByCategory('books')">
-                    	<img src="images/books.jpg" width=100% height=10%> <br/>Books</a>
-                    </div>
-                    <div class="ui-block-b">
-                    	<a href="#categoryPage" data-role="button" style="height: 15%" data-theme="b" onclick="GetProductByCategory('electronics')">
-                    	<img src="images/electronics.jpg" width=100% height=10%> <br/>Electronics</a>
-                    </div>
-                    <div class="ui-block-c">
-                    	<a href="#categoryPage" data-role="button" style="height: 15%" data-theme="b" onclick="GetProductByCategory('computers')">
-                    	<img src="images/computers.jpg" width=100% height=10%> <br/>Computers</a>
-                    </div>
-                    <div class="ui-block-a">
-                    	<a href="#categoryPage" data-role="button" style="height: 15%" data-theme="b" onclick="GetProductByCategory('clothing')">
-                    	<img src="images/clothing.jpg" width=100% height=10%> <br/>Clothing</a>
-                    </div>
-                    <div class="ui-block-b">
-                    	<a href="#categoryPage" data-role="button" style="height: 15%" data-theme="b" onclick="GetProductByCategory('shoes')">
-                    	<img src="images/shoes.jpg" width=100% height=10%> <br/>Shoes</a>
-                    </div>
-                    <div class="ui-block-c">
-                    	<a href="#categoryPage" data-role="button" style="height: 15%" data-theme="b" onclick="GetProductByCategory('sports')">
-                    	<img src="images/sports.jpg" width=100% height=10%> <br/>Sports</a>
-                    </div>
-                </div>
- 	
-			</div><!-- /content -->
-			
-			<!-- popupMenu Home Page-->
-			<div data-role="popup" id="popupMenu" data-theme="a">
-        		<ul data-role="listview" data-position="right" data-inset="true" style="min-width:150px;">
-            		<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
-            		<li data-icon="info"><a href="#about-page">About</a></li>
-            		<li data-icon="delete"><a href="http://kiwi-server.herokuapp.com/logout">Sign Out</a></li>
-        		</ul>
-			</div><!-- /popupMenu -->
-		</div>
 	
-    <!--###################################### ADD PRODUCT ######################################-->
-    <div id="add-product" data-role="page">
-        <div data-role="header" data-position="fixed" data-theme="b">
+    <!--###################################### SELL PRODUCT PAGE ######################################-->
+    <div id="sell-page" data-role="page">
+        <div data-role="header" data-position="fixed" data-theme="b" data-position="fixed">
 	    	<div class="ui-btn-left">
-	    		<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-	    		<a data-role="button" data-rel="back" href="#homePage" data-icon="delete" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a>
+	    		<a href="#home-page"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
+	    		<a data-role="button" data-rel="back" href="#home-page" data-icon="delete" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a>
 	    	</div>
 		   		<h1></h1>
-		    <div class="ui-btn-right"> <a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Search</a>
+		    <div class="ui-btn-right"> <a href="#search-page" data-role="button" data-icon="search" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Search</a>
 		    	<!-- <a href="#" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a> -->
 		    	<a data-role="button" data-rel="back" onclick="SaveProduct()" style="background-color: transparent;box-shadow: none; border: none;">Save</a> 
 		    </div>
@@ -239,543 +339,955 @@
             
     </div>
 	
-	<!--###################################### PRODUCT VIEW ######################################-->
-	<div id="product-view" data-role="page"> 
-		<div data-role="header" data-position="fixed" data-theme="b">
-	    	<div class="ui-btn-left"> 
-	    		<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-	    	</div>
-	    	<h1>Product</h1>
-		    <div class="ui-btn-right"> 
-		    	<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Search</a> 
-		    	<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">My Cart</a>
-		    	<a href="#productViewMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Menu</a> </div>
-			</div> <!-- /header -->
-		  <div data-role="content">
-		  	<div id="slider" class="flexslider ">
-		    <ul class="slides">
-		      <li id = "image0"></li>
-		      <li id = "image1"></li>
-		      <li id = "image2"></li>
-		    </ul>
-		  </div>
-	
-		  <div id="product-view-form">
-		  	 <label class="labelText" for="upd-name" ><span span id="upd-name" name="name"></span></label>
-		     <ul data-role="listview">
-			      <li id = "upd-model"></li>
-			      <li id = "upd-brand"></li>
-			      <li id = "upd-condition"></li>
-			      <li class="item_price" id = "upd-price"></li>
-		          <li><a id = "upd-seller" href="#seller-page">Seller: </a></li>
-			      <li id = "upd-description"></li>
-			      <li id="upd-bidderListLink"><a href = "#bidderList-page"> Bidder List</a></li>
-			      <div data-role="content" data-theme="b">
-			   		<a class="custom-btn " id="upd-bidButton" href="#placeBidAlert" data-rel="popup" data-position-to="window" data-transition="pop" data-role="button">Place a Bid</a>
-					<a class="custom-btn " onclick="buyItNow()" id="upd-butItNowButton" data-role="button">Buy it Now</a>
-					<a class="custom-btn" id="upd-addToCartButton" data-role="button"> Add to Cart </a>
-			   	</div>
-			   	<!--<li data-theme="b"><center>Sell one like this</center></li>-->
-			   	<li data-theme="b" onclick="GetSimilarProduct()"><center>Find similar products</center></li>
-		   	</ul>
-		   	
-		  </div>
-	  </div> <!-- /content -->
-	  	<!-- popupMenu Product View Page-->
-		<div data-role="popup" id="productViewMenu" data-theme="a">
-	      	<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-	        		<li data-icon="edit"><a  href="#myAccount" >My Account</a></li>
-            		<li data-icon="info"><a href="#about-page">About</a></li>
-            		<li data-icon="delete"><a href="http://kiwi-server.herokuapp.com/logout">Sign Out</a></li>
-	        </ul>
-		</div><!-- /popupMenu -->
-		
-		<div data-role="popup" id="placeBidAlert" data-theme="a" class="ui-corner-all">
-    			<form action="#homePage">
-        			<div style="padding:10px 20px;">
-            			<center><h3>Confirm bid</h3></center>
-            			<input type="number"/ placeholder="$" value="">
-            			<button type="submit" onclick="window.location='#product-view'" data-mini="true" data-theme="b">Place Bid</button>
-        			</div>
-        		</form>	
-			</div>
-	</div>
-    
-	<!--###################################### SELLER PAGE ######################################-->    
-    <div id="seller-page" data-role="page"> 
-	  <!-- /left panel -->
-	  <div data-role="header" data-position="fixed" data-theme="b">
-	    <div class="ui-btn-left"> 
-	    	<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-	    </div>
-	    <h1>Seller</h1>
-	    <div class="ui-btn-right"> 
-	    	<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Search</a> 
-	    	<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">My Cart</a>
-	    	<a href="#sellerViewMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Menu</a> </div>
-	  </div> <!-- /header -->
-	  
-      <div id = "upd-userImage"></div>
-      <div id = "upd-sellerName"></div>
-      
-	  <ul data-role="listview">
-      <li id = "upd-rating">
-      <div id="star">Rating:  </div>
-      </li>
-	
-	   <li ><a href="#review-page">Write a Review</a>
-      </li>
-      <li id="upd-recentFeedback"><a href="#recentFeedback-page">Recent Feedback</a>
-      </li>
-      <li id = "upd-askAQuestion"><a href="#askAQuestion-page">Ask a Question</a>
-      </li>
-      <li id = "itemsForSale"><a href="#itemsForSalePage">Item for Sale</a>
-      </li>
-      <li id = "itemHistory"><a href="#saleHistoryPage">Sale History</a>
-      </li>
-    </ul>
-    
-     <!-- popupMenu Seller View Page-->
-		<div data-role="popup" id="sellerViewMenu" data-theme="a">
-	      	<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-	        	<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
-            	<li data-icon="info"><a href="#about-page">About</a></li>
-            	<li data-icon="delete"><a href="http://kiwi-server.herokuapp.com/logout">Sign Out</a></li>
-	        </ul>
-		</div><!-- /popupMenu -->
-	    
-	</div>
-	 
-	<!--###################################### BIDDER LIST PAGE ######################################--> 
-    <div id="bidderList-page" data-role="page"> 
-  		<!-- /left panel -->
-  	<div data-role="header" data-position="fixed" data-theme="b">
-	    <div class="ui-btn-left"> 
-	    	<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-	    </div>
-	    <h1>Bidder List</h1>
-	    <div class="ui-btn-right"> 
-	    	<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Search</a> 
-	    	<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">My Cart</a>
-	    	<a href="#bidderListMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Menu</a> </div>
-	  </div> <!-- /header -->
-  
-   <div><h2><center>Recent Bids</center></h2></div>
-  	<p id="bidderListMessage"></p>
-    <ul id ="upd-bidderList" data-role="listview">
-      
-    </ul>
- 
-  <!-- popupMenu Bidder List Page-->
-		<div data-role="popup" id="bidderListMenu" data-theme="a">
-	      	<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-	        	<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
-            	<li data-icon="info"><a href="#about-page">About</a></li>
-            	<li data-icon="delete"><a href="http://kiwi-server.herokuapp.com/logout">Sign Out</a></li>
-	        </ul>
-		</div><!-- /popupMenu -->
-</div>
-
-	<!--###################################### ITEMS FOR SALE PAGE ######################################--> 
-	<div id="itemsForSalePage" data-role="page">
-		<div data-role="header" data-position="fixed" data-theme="b">
-			<div class="ui-btn-left">
-		  		<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-		    	<a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext">Categories</a>  
-		  	</div>
-		  	<h1>Items for Sale</h1>
-		  		<div class="ui-btn-right">
-			    	<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Cart</a>
-			    	<a href="#itemsMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Menu</a>
-			  </div>
-		</div> <!-- /header -->
-		<div data-role="content">
-			<p id="noHistoryItems" align="center"></p>
-			<ul id="itemsforsalepagelist" data-role="listview">
-				<!-- Products added dynamically  -->
-			</ul>
-		</div> <!-- /content -->
-		<!-- popupMenu Search Page-->
-		<div data-role="popup" id="itemsMenu" data-theme="a">
-			<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-				<li data-icon="edit"><a href="#myAccount">My Account</a></li>
-			    <li data-icon="info"><a href="#about-page">About</a></li>
-			    <li data-icon="delete"><a href="http://kiwi-server.herokuapp.com/logout">Sign Out</a></li>
-			</ul>
-		</div><!-- /popupMenu -->
-	</div>
-	
-	<!--###################################### SALE HISTORY PAGE ######################################--> 
-	<div id="saleHistoryPage" data-role="page">
-		<div data-role="header" data-position="fixed" data-theme="b">
-			<div class="ui-btn-left">
-		  		<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-		    	<a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Categories</a>  
-		  	</div>
-		  	<h1>Sale History</h1>
-		  		<div class="ui-btn-right">
-			    	<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Cart</a>
-			    	<a href="#historyMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Menu</a>
-			  </div>
-		</div> <!-- /header -->
-		<div data-role="content">
-			<p id="noHistorySale" align="center"></p>
-			<ul id="saleHistoryList" data-role="listview">
-				<!-- Products added dynamically  -->
-			</ul>
-		</div> <!-- /content -->
-		<!-- popupMenu Search Page-->
-		<div data-role="popup" id="historyMenu" data-theme="a">
-			<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-				<li data-icon="edit"><a href="#myAccount">My Account</a></li>
-			    <li data-icon="info"><a href="#about-page">About</a></li>
-			    <li data-icon="delete"><a href="http://kiwi-server.herokuapp.com/logout">Sign Out</a></li>
-			</ul>
-		</div><!-- /popupMenu -->
-	</div>
-	
-	<!--###################################### SALE HISTORY ACCOUNT PAGE ######################################--> 
-	<div id="saleHistoryAccountPage" data-role="page">
-		<div data-role="header" data-position="fixed" data-theme="b">
-			<div class="ui-btn-left">
-		  		<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-		    	<a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Categories</a>  
-		  	</div>
-		  	<h1>Sale History</h1>
-		  		<div class="ui-btn-right">
-			    	<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Cart</a>
-			    	<a href="#historyAccountMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Menu</a>
-			  </div>
-		</div> <!-- /header -->
-		<div data-role="content">
-			<p id="noHistoryAccountSale" align="center"></p>
-			<ul id="saleHistoryAccountList" data-role="listview">
-				<!-- Products added dynamically  -->
-			</ul>
-		</div> <!-- /content -->
-		<!-- popupMenu Search Page-->
-		<div data-role="popup" id="historyAccountMenu" data-theme="a">
-			<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-				<li data-icon="edit"><a href="#myAccount">My Account</a></li>
-			    <li data-icon="info"><a href="#about-page">About</a></li>
-			    <li data-icon="delete"><a href="http://kiwi-server.herokuapp.com/logout">Sign Out</a></li>
-			</ul>
-		</div><!-- /popupMenu -->
-	</div>
-	
-	<!--###################################### RECENT FEEDBACK PAGE ######################################--> 
-    <div id="recentFeedback-page" data-role="page"> 
-		<div data-role="header" data-position="fixed" data-theme="b">
-		    <div class="ui-btn-left"> 
-		    	<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-		    </div>
-		    <h1>Recent fedback</h1>
-		    <div class="ui-btn-right"> 
-		    	<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Search</a> 
-		    	<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">My Cart</a>
-		    	<a href="#recentFeedbackMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Menu</a> </div>
-		</div> <!-- /header -->
-  		<div><h2><center>Recent Feedback</center></h2></div>
-  		<div data-role="content">
-	 	<ul data-role="listview" id ="upd-feedbackList" data-inset="false">
-	 		<!-- Products added dynamically  -->
-	   </ul>  
-	  </div>
-	 	<!-- popupMenu Recent Feedback Page-->
-		<div data-role="popup" id="recentFeedbackMenu" data-theme="a">
-			<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-		    	<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
-	            <li data-icon="info"><a href="#about-page">About</a></li>
-	            <li data-icon="delete"><a href="http://kiwi-server.herokuapp.com/logout">Sign Out</a></li>
-		    </ul>
-		</div><!-- /popupMenu -->
-	</div>    
-
-	<!--###################################### ASK A QUESTION PAGE ######################################-->    
-    <div id="askAQuestion-page" data-role="page"> 
-	  <!-- /left panel -->
-	  <div data-role="header" data-position="fixed" data-theme="b">
-	    <div class="ui-btn-left"> 
-	    	<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-	    </div>
-	    <h1>Ask a question</h1>
-	    <div class="ui-btn-right"> 
-	    	<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Search</a> 
-	    	<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">My Cart</a>
-	    	<a href="#questionMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Menu</a> </div>
-	  </div> <!-- /header -->
-	  
-      
-<div id = upd-sellerNameQ></div>	 
-<textarea name="textarea" id="textarea-a" value placeholder="What would you like to say?" style="height:100px">
-</textarea>
-	    <fieldset class="ui-grid-a">
-	<div class="ui-block-a"><a href = "#seller-page" data-role= button>Cancel</a></div>
-	<div class="ui-block-b"><a href = "#seller-page" data-role= button>Submit</a></div>
-	  </fieldset>
-	  
-	  <!-- popupMenuQuestion Page-->
-		<div data-role="popup" id="questionMenu" data-theme="a">
-	      	<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-	        	<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
-            	<li data-icon="info"><a href="#about-page">About</a></li>
-            	<li data-icon="delete"><a href="http://kiwi-server.herokuapp.com/logout">Sign Out</a></li>
-	        </ul>
-		</div><!-- /popupMenu -->
-      
-     </div>
-	
-    <!--###################################### REVIEW PAGE ######################################-->
-    <div id="review-page" data-role="page">
-    	<div data-role="header" data-theme="b" data-position="fixed">
-        	<a data-role="button" data-rel="back" href="#homePage" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a>
-            <h1>Review</h1>
-            <a data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Save</a>
-        </div>
-        <div data-role="content">
-        	<center><h2 class="review">Enter your review for</h2></center>
-        	<center><h4 class="review" id="review-username"></h4></center>
-        </div>
-        <div data-role="content">
-        	
-            <form id="review-form">
-            	<ul data-role="listview">
-                   	<li>
-                   		<label for="subject">
-                    	<input id="subject" name="subject" type="text" placeholder="Subject"data-clear-btn="true"/></label>
-                   	</li>
-                   	<li>
-                   		<label for="comentary">
-                		<input name="comentary" id="comentary" placeholder="Enter your feedback here..."></label>
-                   	</li>
-                   	<li>
-                   		<span>Accurate description?</span><div id="star0" style="float: right"></div> <input type="hidden" id="hint0"/>
-                   	</li>
-                   	<li>
-                   		<span>Shipping speed?</span><div id="star2" style="float: right"></div> <input type="hidden" id="hint2"/>
-                   	</li>
-                   	<li>
-                   		<span>Reasonable shipping cost?</span><div id="star3" style="float: right"></div> <input type="hidden" id="hint3"/>
-                   	</li>
-                   	
-            	</ul>  
-            	<br /> 
-            	<a data-theme="b" id = "reviewButton" data-rel="back" data-role="button">Leave review</a> 
-           	</form>  
-           	
-           	  
-        </div>
-    </div>
-      
-	<!--###################################### SEARCH PAGE ######################################-->
-	<div id="searchPage" data-role="page">
-		<div id="leftPanel" data-role="panel"  data-theme="b" data-position="left" data-display="push" data-rel="back">
-				<h3>Categories</h3>
-				<div data-role="collapsible-set" data-inset="false" data-collapsed-icon="arrow-d"  data-expanded-icon="arrow-u" data-iconpos="right" data-corners="false" data-theme="b">
-					<div data-role="collapsible" >
-						<h3 >Books</h3>
-						<ul data-role="listview" data-theme="a">
-							<li><a href="#categoryPage" onclick="GetProductByCategory('booksChildren')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('booksFiction')">Fiction</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('booksTechnology')">Technology</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('booksBusiness')">Business</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
-						</ul>
-					</div>
-					<div data-role="collapsible">
-        				<h3>Electronics</h3>
-       	 				<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('electronicsTv')">TV</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsAudio')">Audio</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsPhones')">Phones</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsCameras')">Cameras</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsVideo')">Video</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
-        				</ul>
-    				</div>
-				    <div data-role="collapsible">
-				        <h3>Computers</h3>
-				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('computersLaptops')">Laptops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('computersDesktops')">Desktops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('computersTablets')">Tablets</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('computersPrinters')">Printers</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
-				        </ul>
-				    </div>
-				    <div data-role="collapsible">
-				        <h3>Clothing</h3>
-				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingChildren')">Children</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingMen')">Men</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingWomen')">Women</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingDresses')">Dresses</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingShirts')">Shirts</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingPants')">Pants</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingSocks')">Socks</a></li>
-				        </ul>
-				    </div>
-				    <div data-role="collapsible">
-				        <h3>Shoes</h3>
-				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('shoesChildren')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('shoesWomen')">Women</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('shoesMen')">Men</a></li>
-				        </ul>
-				    </div>
-				    <div data-role="collapsible">
-				        <h3>Sports</h3>
-					 	<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('sportsBicycles')">Bicycles</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsFishing')">Fishing</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsBaseball')">Baseball</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsGolf')">Golf</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsBasketball')">Basketball</a></li>
-				        </ul>
-				    </div>
+		<!--###################################### PRODUCT VIEW PAGE ######################################-->
+		<div id="product-view" data-role="page"> 
+			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<div class="ui-btn-left">
 				</div>
-			</div> <!-- /leftPanel -->
-		<div data-role="header" data-position="fixed" data-theme="b">
-  			<div class="ui-btn-left">
-  				<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-    			<a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Categories</a>  				
-  				</div>
-  				<h1>Search</h1>
-  				<div class="ui-btn-right">
-  					<!--<a href="#sortSearchBy" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="" style="background-color: transparent;box-shadow: none; border: none;">Filter</a> -->
-    				<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" <span class="simpleCart_quantity" style="background-color: transparent;box-shadow: none; border: none;"></span>>My Cart</a>
-    				<a href="#searchMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Menu</a>
-  				</div>
-			</div> <!-- /header -->
+			    <h3 style="white-space: nowrap;" id="product-name"></h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			  		<a href="#" data-role="button"  data-icon="search" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none; margin-top: 4px;">Buy It Now</a>
+			    	<a href="#" data-role="button" data-icon="shop" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;  margin-top: 4px;">Add to cart</a>
+			  	</div>
+			</div><!-- /product-page header -->
 			<div data-role="content">
-				<ul class="products" id="product-list" data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Search products..." data-inset="false">
-				<!-- Products added dynamically  -->
-				</ul>		
-			</div> <!-- /content -->
-			<!-- popupMenu Search Page-->
-			<div data-role="popup" id="searchMenu" data-theme="a">
-        		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-            		<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
-            		<li data-icon="info"><a href="#about-page">About</a></li>
-            		<li data-icon="delete"><a href="http://kiwi-server.herokuapp.com/logout">Sign Out</a></li>
-        		</ul>
-			</div><!-- /popupMenu -->
-			<!-- popupMenu  sortBy Menu-
-			<div data-role="popup" id="sortSearchBy" data-theme="a">
-        		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:100px;">
-            		<li><a onclick="sortSearchBy('pname')">Name</a></li>
-            		<li><a onclick="sortSearchBy('pbrand')">Brand</a></li>
-            		<li><a onclick="sortSearchBy('price')">Price $</a></li>
-        		</ul>
-			</div><!-- /popupMenu -->
-		</div> <!-- /SEARCHPAGE -->
+				<div id="slider" class="flexslider ">
+			    	<ul class="slides" style="width: 100px;">
+				    	<li id = "image0"></li>
+				      	<li id = "image1"></li>
+				      	<li id = "image2"></li>
+			    	</ul>
+			  	</div>
 		
-		<!-- ######################## SHOPPING CART########################## -->
-		<div id="shoppingCart" data-role="page"> 
-		  <div id="leftPanel" data-role="panel"  data-theme="b" data-position="left" data-display="push" data-rel="back">
-				<h3>Categories</h3>
-				<div data-role="collapsible-set" data-inset="false" data-collapsed-icon="arrow-d"  data-expanded-icon="arrow-u" data-iconpos="right" data-corners="false" data-theme="b">
-					<div data-role="collapsible" >
-						<h3 >Books</h3>
-						<ul data-role="listview" data-theme="a">
-							<li><a href="#categoryPage" onclick="GetProductByCategory('booksChildren')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('booksFiction')">Fiction</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('booksTechnology')">Technology</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('booksBusiness')">Business</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
-						</ul>
-					</div>
-					<div data-role="collapsible">
-        				<h3>Electronics</h3>
-       	 				<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('electronicsTv')">TV</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsAudio')">Audio</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsPhones')">Phones</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsCameras')">Cameras</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsVideo')">Video</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
-        				</ul>
-    				</div>
-				    <div data-role="collapsible">
-				        <h3>Computers</h3>
-				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('computersLaptops')">Laptops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('computersDesktops')">Desktops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('computersTablets')">Tablets</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('computersPrinters')">Printers</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
-				        </ul>
-				    </div>
-				    <div data-role="collapsible">
-				        <h3>Clothing</h3>
-				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingChildren')">Children</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingMen')">Men</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingWomen')">Women</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingDresses')">Dresses</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingShirts')">Shirts</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingPants')">Pants</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingSocks')">Socks</a></li>
-				        </ul>
-				    </div>
-				    <div data-role="collapsible">
-				        <h3>Shoes</h3>
-				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('shoesChildren')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('shoesWomen')">Women</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('shoesMen')">Men</a></li>
-				        </ul>
-				    </div>
-				    <div data-role="collapsible">
-				        <h3>Sports</h3>
-					 	<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('sportsBicycles')">Bicycles</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsFishing')">Fishing</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsBaseball')">Baseball</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsGolf')">Golf</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsBasketball')">Basketball</a></li>
-				        </ul>
+			  	<div id="product-view-form">
+			  		<br />
+			  		<h6 id="product-header" style="margin-bottom: 15px;"></h6>
+			    	<ul data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+			    		<li>
+				    	 	<div data-role="navbar">
+							    <ul>
+							        <li style="width: 150px; background: transparent;">
+							        	<p id="product-pmethod" class="account-info"  style="margin-top: 0; margin-bottom: 0; font-size: 11px;"></p>
+							        	<p class="account-info" style="font-size: 11px;">Time Left:</p>
+							        	<p class="account-info" style="font-size: 11px;">Location:</p>
+							        </li>
+							        <li>
+							        	<p id="product-price" class="account-info-user" style="margin-top: 0; margin-bottom: 0; font-weight: bold; font-size: 11px;"></p>
+							        	<p id="product-time" class="account-info" style="font-size: 11px;">Soon</p>
+							        	<p id="product-location" class="account-info" style="font-size: 11px;"></p>
+							        </li>
+							    </ul>
+							</div><!-- /product-navbar -->	
+				    	 </li>
+				    	 <li id="upd-bidderListLink"><a href = "#bidder-list-page" style="font-size: 12px;">Bidder List</a></li>
+				    	 <li><a id = "product-seller" href="#seller-page" style="font-size: 12px;"></a></li>
+				    </ul>
+				    <br />
+				    <h3 style="margin-top:15px; margin-bottom: 20px">Product Highlights</h3>
+				    <ul data-role="listview">
+				   		<li style="font-size: 12px;" id = "product-model"></li>
+				      	<li style="font-size: 12px;" id = "product-brand"></li>
+					    <li style="font-size: 12px;" id = "product-condition"></li> 
+			   		</ul>
+			   		<br />
+			   		<h3 style="margin-top:15px; margin-bottom: 20px">Product Description</h3>
+				    <ul data-role="listview">
+				    	<li><textarea id="product-description" name="description" readonly="readonly" style="margin: 0"></textarea></li>
+				   	</ul>
+			   		<br />
+			   		
+			   		<div  align="center">
+			   			<a id="upd-bidButton" class="custom-btn" href="#placeBidAlert" data-rel="popup" data-position-to="window" data-transition="pop" data-role="button" style="color: white;" >Place a Bid</a>
+						<a id="upd-butItNowButton" class="custom-btn " onclick="buyItNow()" data-role="button" style="color: white;">Buy it Now</a>
+						<a id="upd-addToCartButton"class="custom-btn" data-role="button" style="color: white;">Add to Cart</a>
+               		</div>
+			   		<br />
+				    <ul data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+				   		<li><a style="font-size: 12px;"><center>Sell one like this</center></a></li>
+				   		<li><a href="#category-page" style="font-size: 12px;" onclick="GetSimilarProduct()"><center>Find similar products</center></a></li>
+			   		</ul>
+			   		<br /><br />
+		 		</div>
+	  		</div> <!-- /product-content -->
+
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+			
+		
+			<div data-role="popup" id="placeBidAlert" data-theme="a" class="ui-corner-all">
+	    		<form action="#home-page">
+	        		<div style="padding:10px 20px;">
+	            		<center><h3>Confirm bid</h3></center>
+	            		<input type="number"/ placeholder="$" value="">
+	            		<button type="submit" onclick="window.location='#product-view'" data-mini="true" data-theme="b">Place Bid</button>
+	        		</div>
+	        	</form>	
+			</div>
+				<div data-role="popup" id="popupDialogProduct" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				    <div role="main" class="ui-content" align="center">
+				        <h2 class="account-info-user" style="font-size: 13px;"><center>We're sorry</center></h2>
+				    	<p class="account-info" style="white-space: normal; text-align: center; color: #555555">Product not found.</p>
+				    	<hr />
+				        <a style="background: transparent; padding: 0; border: none;" data-rel="back"><p class="account-info-user">OK</p></a>
 				    </div>
 				</div>
-			</div> <!-- /leftPanel -->
-			<div data-role="header" data-position="fixed" data-theme="b">
-  			<div class="ui-btn-left">
-  				<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-    			<a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Categories</a>  				
-  				</div>
-  				<h1>Shopping Cart</h1>
-  				<div class="ui-btn-right">
-  					<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Search</a> 
-    				<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">My Cart</a>
-    				<a href="#shoppingCartMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Menu</a>
-  				</div>
-			</div> <!-- /header -->
-		
-		  
-		   <div><h2><center>Shopping Cart</center></h2></div>
-		  
-		    <ul class ="cartItems" data-role="listview">
-		      
-		    </ul>
-		    
-		    <div id = "upd-total"></div>
-		    <div data-role="controlgroup" align="right" data-type="horizontal" data-theme="b">
-		  <a data-theme="b" href="#creditCard" data-role="button">Proceed to Checkout</a></div>
-		  <!-- popupMenu Bidder List Page-->
-		<div data-role="popup" id="shoppingCartMenu" data-theme="a">
-		      <ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-		        <li data-icon="edit"><a href="#myAccount"  >My Account</a></li>
-		            <li data-icon="info"><a href="#about-page">About</a></li>
-		            <li data-icon="delete"><a href="http://kiwi-server.herokuapp.com/logout">Sign Out</a></li>
-		       </ul>
-		</div><!-- /popupMenu -->
 		</div>
+    
+		<!--###################################### SELLER PAGE ######################################-->    
+	    <div id="seller-page" data-role="page"> 
+	    	<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<div class="ui-btn-left">
+					
+				</div>
+				    <h3>Seller</h3>
+				<div class="ui-btn-right ui-nodisc-icon">
+	
+				</div>
+			</div><!-- /seller-page header -->
+			<div data-role="content">
+				<h6 id="seller-header" style="margin-bottom: 15px;"></h6>
+			    <ul data-role="listview" style="padding: 0">
+			    	 <li>
+			    	 	<div data-role="navbar">
+						    <ul>
+						        <li style="width: 110px; background: transparent;"><div data-role="button" id="seller-image" style="background-size: 90px 90px;"></div></li>
+						        <li>
+						        	<p id="seller-username" class="account-info-user" style="font-size: 11px; font-weight: bold; margin-top: 15px"></p>
+						        	<p class="account-info" style="font-size: 11px;">Rating: <span id="seller-rating"></span></p>
+						        	<p id="seller-state" class="account-info" style="font-size: 11px;"></p>
+						        	<p id="seller-phone" class="account-info" style="font-size: 11px;"></p>
+						        </li>
+						    </ul>
+						</div><!-- /seller-navbar -->	
+			    	 </li>
+			    </ul>
+			    <br />
+				<h3 style="margin-top:15px; margin-bottom: 20px">Seller Sales</h3>
+				<ul data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+				    <li id = "itemsForSale"><a href="#items-sale-page">Items for Sale</a></li>
+				    <li id = "itemHistory"><a href="#sale-history-page">Sale History</a></li>
+				</ul>
+				<br />
+				<h3 style="margin-top:15px; margin-bottom: 20px">Seller Feedback</h3>
+				<ul data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+					<li ><a href="#review-page">Write a Review</a></li>
+				    <li id = "upd-askAQuestion"><a href="#ask-question-page">Ask seller a question</a></li>
+				    <li id = "upd-recentFeedback"><a href="#recent-feedback-page">Recent Feedback</a></li>
+				</ul>
+				<br />
+				<h3 style="margin-bottom: 20px">Detailed Seller Ratings</h3>
+				<ul data-role="listview">
+					<!-- Detailed seller ratings added dynamically -->
+					<li>
+						<p class="account-info" style="font-size: 11px; color: #555; margin-top: 4px; margin-bottom: 2px;">Item as described</p>
+						<p class="account-info" style="font-size: 11px; color: #555; margin-bottom: 3px;">Communication</p>
+						<p class="account-info" style="font-size: 11px; color: #555; margin-bottom: 3px;">Shipping time</p>
+						<p class="account-info" style="font-size: 11px; color: #555; margin-bottom: 3px;">Shipping charges</p>
+						<div class="ui-li-aside" style="padding: 0;">
+							<p><span id="seller-described" style="padding: 0;"></span><span class="account-info" style="font-size: 11px; color: #555;" id="seller-tdescribed"></span></p>
+							<p><span id="seller-communication"></span><span class="account-info" style="font-size: 11px; color: #555; " id="seller-tcommunication"></span></p>
+							<p><span id="seller-stime"></span><span class="account-info" style="font-size: 11px; color: #555; " id="seller-tstime"></span></p>
+							<p><span id="seller-scharges"></span><span class="account-info" style="font-size: 11px; color: #555; " id="seller-tscharges"></span></p>
+						</div>
+					</li>
+				</ul>
+				<br />
+				<h3 style="margin-bottom: 20px">Recent Feedback ratings</h3>
+			 	<ul data-role="listview" id ="upd-feedbackList" data-inset="false" class="seller-feedback">
+			 		<!-- Recent Feedback ratings added dynamically  -->
+			 		<li class="seller-feedback account-info" style="border-bottom: none !important; font-size: 12px; color: #555;">
+			 			<img src="images/icons/add116.png" class="ui-li-icon ui-corner-none"/>Positive
+						<span class="account-info" style="font-size: 12px; color: #55A244; margin-left: 76px;" id="seller-positive"></span>
+			 		</li>
+			 		<li class="seller-feedback account-info" style="border: none !important; font-size: 12px; color: #555;">
+			 			<img src="images/icons/neutralicon.png" class="ui-li-icon ui-corner-none"/>Neutral
+			 			<span class="account-info" style="font-size: 12px; color: #555; margin-left: 80px;" id="seller-neutral"></span>
+			 		</li>
+			 		<li class="seller-feedback account-info" style="border-top: none !important; font-size: 12px; color: #555;">
+			 			<img src="images/icons/redminus.png" class="ui-li-icon ui-corner-none"/>Negative
+			 			<span class="account-info" style="font-size: 12px; color: red; margin-left: 72px;" id="seller-negative"></span>
+			 		</li>	
+		   		</ul>
+		   		<br />
+			</div>	
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div>
+	 
+		<!--###################################### BIDDER LIST PAGE ######################################--> 
+	    <div id="bidder-list-page" data-role="page"> 
+        	<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<div class="ui-btn-left">
+					<!-- <a data-theme="b" data-rel="back" data-role="button" style="background-color: transparent;box-shadow: none; border: none; ">Cancel</a> -->
+				</div>
+			    <h3>Bidding Activity</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<!-- <a data-theme="b" href="#register-page" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Register</a> -->
+			  	</div>
+			</div><!-- /bidder-list-page header -->
+			<div data-role="content">
+				<ul data-role="listview">
+					<li id="loadingBidderList" style="margin-top: 30px;">
+						<div align="center">
+							<img class="listImg" width='25' height'25' src="images/loading.gif" />
+							<p class="account-info" style="font-size: 12px;">Loading...</p>
+						</div>
+					</li>
+					<li style="margin-bottom: 30px;" id="bidder-list-header"></li>
+				</ul>
+				<h3 id="bidderListSummary" style="margin-bottom: 20px;">Summary</h3>
+				<ul id="bidder-list-summary" data-role="listview">
+					<!--Bidder summary added dynamically -->
+				</ul>
+				<br />
+				<h3 id="bidderListRecent" style="margin-bottom: 20px;">Most Recent bids</h3>
+				<ul id ="upd-bidderList" data-role="listview">
+	      			<!-- Bids added dynamically -->
+	      		</ul>
+			</div> <!-- /bidder-list-page-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>			
+	  	  	<p id="bidderListMessage"></p> <!-- error message -->
+		</div> <!-- /bidder-list-page -->
+		
+		<!--###################################### ITEMS FOR SALE PAGE ######################################-->
+		<div id="items-sale-page" data-role="page">
+			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<h3>Items for Sale</h3>
+				<div data-role="navbar">
+			        <ul>
+			            <li><a onclick="sortItemsSalesBy('pname')"><h3 style="font-size: 13px; color: #55A244; margin: 0">Name</h3></a></li>
+			            <li><a onclick="sortItemsSalesBy('pbrand')"><h3 style="font-size: 13px; color: #55A244; margin: 0">Brand</h3></a></li>
+			            <li><a  onclick="sortItemsSalesBy('pprice')"><h3 style="font-size: 13px; color: #55A244; margin: 0">Price</h3></a></li>
+			        </ul>
+		    	</div><!-- /items-sale-page-navbar -->
+			</div><!-- /item-sales-page header -->
+			<div data-role="content">
+				<h6>Items for sale by user</h6>
+				<p id="items-sale-username" class="account-info-user"></p>
+			</div>
+			<div data-role="content" style="background-color: #FFFFFF; padding-top: 0;">
+				<p id="noHistoryItems" align="center"></p>
+				<ul id="items-sale-list" data-role="listview" data-filter="true"  data-filter-placeholder="Search this products" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
+				<!-- Products added dynamically  -->
+				</ul>
+			</div> <!-- /items-sale-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /items-sale-page -->
+		
+		<!--###################################### ACCOUNT ITEMS FOR SALE PAGE ######################################-->
+		<div id="account-items-sale-page" data-role="page">
+			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<h3>Selling Items</h3>
+				<div data-role="navbar">
+			        <ul>
+			            <li><a onclick="sortAccountItemsSalesBy('pname')"><h3 style="font-size: 13px; color: #55A244; margin: 0">Name</h3></a></li>
+			            <li><a onclick="sortAccountItemsSalesBy('pbrand')"><h3 style="font-size: 13px; color: #55A244; margin: 0">Brand</h3></a></li>
+			            <li><a  onclick="sortAccountItemsSalesBy('pprice')"><h3 style="font-size: 13px; color: #55A244; margin: 0">Price</h3></a></li>
+			        </ul>
+		    	</div><!-- /account-items-sale-page-navbar -->
+			</div><!-- /account-item-sales-page header -->
+			<div data-role="content">
+				<h6 id="account-items-sale-header"></h6>
+				<p class="account-info-user" style="font-weight: lighter">You are currently selling this products</p>
+			</div>
+			<div data-role="content" style="background-color: #FFFFFF; padding-top: 0;">
+				<p id="noHistoryItems" align="center"></p>
+				<ul id="account-items-sale-list" data-role="listview" data-filter="true"  data-filter-placeholder="Search this products" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
+				<!-- Products added dynamically  -->
+				</ul>
+			</div> <!-- /account-items-sale-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /account-items-sale-page -->
+		
+		<!--###################################### SALE HISTORY PAGE ######################################-->
+		<div id="sale-history-page" data-role="page">
+			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<h3>Sale History</h3>
+			</div><!-- /sale-history-page header -->
+			<div data-role="content">
+				<h6>Items sold by user</h6>
+				<p id="sale-history-username" class="account-info-user"></p>
+			</div>
+			<div data-role="content" style="background-color: #FFFFFF; padding-top: 0;">
+				<p id="noHistorySale" align="center"></p>
+				<ul id="sale-history-list" data-role="listview" data-filter="true"  data-filter-placeholder="Search this products" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
+				<!-- Products added dynamically  -->
+				</ul>
+			</div> <!-- /sale-history-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /sale-history-page -->
+		
+		<!--###################################### ACCOUNT SALE HISTORY PAGE ######################################-->
+		<div id="account-sale-history-page" data-role="page">
+			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<h3>Items sold</h3>
+			</div><!-- /account-sale-history-page header -->
+			<div data-role="content">
+				<h6 id="account-sale-history-header"></h6>
+				<p class="account-info-user" style="font-weight: lighter">You sold this products:</p>
+			</div>
+			<div data-role="content" style="background-color: #FFFFFF; padding-top: 0;">
+				<p id="noHistoryAccountSale" align="center"></p>
+				<ul id="account-sale-history-list" data-role="listview" data-filter="true"  data-filter-placeholder="Search this products" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
+				<!-- Products added dynamically  -->
+				</ul>
+			</div> <!-- /account-sale-history-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /account-sale-history-page -->
+		
+		<!--###################################### ORDER HISTORY PAGE ######################################-->
+		<div id="order-history-page" data-role="page">
+			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<h3>Your Orders</h3>
+			</div><!-- /order-history-page header -->
+			<div data-role="content" style="padding-top: 0;">
+				<h6 id="order-history-header"></h6>
+				<p class="account-info-user" style="font-weight: lighter; margin-bottom: 15px; margin-top: 15px;">You ordered this products:</p>
+				<h3 style="margin-bottom: 20px">Complete Orders</h3>
+				<ul id="order-history-list" data-role="listview" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
+					<li>
+						<div align="center">
+							<img  class="listImg" width='25' height'25' src="images/loading.gif" />
+						</div>
+					</li>
+					<li style="background-color: transparent; border-bottom-width: 0;"><h3 style="padding: auto; font-weight: lighter;">Loading Orders...</h3></li>
+					<!-- Orders added dynamically  -->
+				</ul>
+			</div> <!-- /order-history-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /order-history-page -->
+		
+		<!--###################################### ORDER VIEW PAGE ######################################-->
+		<div id="order-view-page" data-role="page">
+			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<h3>View Order</h3>
+			</div><!-- /order-view-page header -->
+			<div data-role="content">
+				<h6 id="order-view-header"></h6>
+			</div>
+			<div data-role="content">
+				<ul id="order-info-list" data-role="listview">
+					<li style="padding: 1">
+						<div align="center">
+							<img  class="listImg" width='25' height'25' src="images/loading.gif" />
+						</div>
+						</li>
+						<li style="background-color: transparent; border-bottom-width: 0;"><h3 style="padding: auto; font-weight: lighter;">Loading Order...</h3></li>
+					<!-- Info added dynamically -->
+				</ul>
+				<br />
+				<h3 id="order-ship-header" style="margin-bottom: 20px"></h3>
+				<ul id="order-mailing-list" data-role="listview">
+					<!-- Info added dynamically -->
+				</ul>
+				<br />
+				<h3 id="order-shipped-header" style="margin-bottom: 20px;"></h3>
+				<ul id="order-view-list" data-role="listview" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
+				<!-- Products added dynamically  -->
+				</ul>
+				<br />
+				<h3 id="order-payment-header" style="margin-bottom: 20px"></h3>
+				<ul id="order-payment-list" data-role="listview">
+					<!-- Info added dynamically -->
+				</ul>
+				<br />
+				<h3 id="order-paymentinfo-header" style="margin-bottom: 20px"></h3>
+				<ul id="order-total-list" data-role="listview">
+					<!-- Info added dynamically -->
+				</ul>
+			</div> <!-- /order-view-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /order-view-page -->
+
+		<!--###################################### PAYMENT INFO PAGE ######################################-->
+		<div id="payment-info-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<h3>Payment Info</h3>
+			</div><!-- /payment-info-page header -->
+			<div data-role="content" style="padding-top: 0;">
+				<h6 id="payment-info-header"></h6>
+				<h3 style="margin-bottom: 20px">Credit Cards</h3>
+				<ul id="payment-info-list" data-role="listview" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
+					<li>
+						<div align="center">
+							<img  class="listImg" width='25' height'25' src="images/loading.gif" />
+						</div>
+					</li>
+					<li style="background-color: transparent; border-bottom-width: 0;"><h3 style="padding: auto; font-weight: lighter;">Loading Cards...</h3></li>
+					<!-- Cards added dynamically  -->
+					<li id ="">
+                		<img src="images/icons/111-user.png" class="ui-li-icon ui-corner-none"/  style="margin-top: 8px">
+                    	<h2 style="font-size: 14px;">Christian O. Montes</h2>
+                    	<hr />
+                    	                		<img src="images/icons/111-user.png" class="ui-li-icon ui-corner-none"/  style="margin-top: 8px">
+
+                    	<h2 style="font-size: 14px;">Urb. Rio Canas Calle Amazonas 2824</h2>
+                    	<p>Ponce, PR 00728</p>
+                    	<hr />
+                    	                		<img src="images/icons/111-user.png" class="ui-li-icon ui-corner-none"/  style="margin-top: 8px">
+
+                    	<p style="font-size: 14px;">Discover</p>
+                    	<p>0004</p>
+                    	<p>12/17</p>
+                    </li>
+				</ul>
+				<br />
+				<ul data-role="listview">
+					<li><a href="#add-payment-info-page"><center><h3 style="font-weight: lighter">Add credit card</h3></center></a></li>
+				</ul>
+			</div> <!-- /payment-info-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /payment-info-page -->
+
+		<!--###################################### ADD PAYMENT INFO PAGE ######################################-->
+		<div id="add-payment-info-page" data-role="page">
+			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<h3>Add Payment Info</h3>
+			</div><!-- /payment-info-page header -->
+			<div data-role="content" style="padding-top: 0;" class="demo">
+				<h6 id="add-payment-info-header"></h6>
+				<!-- <p class="account-info-user" style="font-weight: lighter; margin-bottom: 15px; margin-top: 15px;">You ordered this products:</p> -->
+				<h3 style="margin-bottom: 0px">Credit Card Information</h3>
+				<form method="post">
+					<ul id="cards" style="list-style-type: none; padding: 0;" class="cards">
+	                	<li class="visa">Visa</li>
+	                    <li class="visa_electron">Visa Electron</li>
+	                    <li class="mastercard">MasterCard</li>
+	                    <li class="maestro">Maestro</li>
+	                    <li class="discover">Discover</li>
+	                </ul>
+                    <div>                    	
+                        <br />
+                        <ul data-mini="true" data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+                			<li data-mini="true">
+                				<input  type="text" name="fistLastName" id="fistLastName" value="" placeholder="first and last name" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<input  type="text" name="card_number" id="card_number" value="" placeholder="card number" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<input  type="text" name="cardType" id="cardType" value="" placeholder="credit card type" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<input  type="date" name="cardExp" id="cardExp" value="" placeholder="expiration month/year" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+               			</ul>
+               			<br />
+                    </div>
+                </form>
+          		<h3 style="margin-bottom: 0px">Billing Address</h3>
+				<form method="post">
+                    <div>
+                        <br />
+                        <ul data-mini="true" data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+                			<li data-mini="true">
+                				<input type="tel" name="phoneNumber" id="phoneNumber" value="" placeholder="phone number" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<input type="text" name="addressBa" id="addressBa" value="" placeholder="billing address" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<input type="text" name="streetBa" id="streetBa" value="" placeholder="billing address continued" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<input type="date" name="cityBa" id="cityBa" value="" placeholder="city" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<input type="text" name="stateBa" id="stateBa" value="" placeholder="state" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<br />
+               			</ul>
+               			<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
+                			<a id="paymentSubmit" class="ui-btn ui-mini ui-btn-inline custom-btn"  href="#" data-role="button" style="width: 150px;">SAVE</a>
+               			</div>
+                    </div>
+                </form>
+
+			</div> <!-- /add-payment-info-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /add-payment-info-page -->
+		
+		<!--###################################### SELLER FEEDBACK PAGE ######################################--> 
+	    <div id="seller-feedback-page" data-role="page"> 
+			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<div class="ui-btn-left">
+			    	<!-- <a id="" data-theme="b" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a> -->
+				</div>
+			    <h3>Seller Profile</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	
+			  	</div>
+			</div><!-- /seller-feedback-page header -->
+			<div data-role="content">
+				<br />
+			    <ul data-role="listview" style="padding: 0">
+			    	<!-- Seller info added dynamically -->
+			    	 <li>
+			    	 	<div data-role="navbar">
+						    <ul>
+						        <li style="width: 150px; background: transparent;">
+						        	<div data-role="button" id="seller-feedback-image" style="background-size: 100px 100px;"></div>
+						        </li>
+						        <li>
+						        	<p id="seller-feedback-username" class="account-info-user" style="font-size: 12px; font-weight: bold;"></p>
+						        	<p class="account-info" style="font-size: 12px;">Rating: <span id="seller-feedback-rating"></span></p>
+						        	<p id="seller-feedback-state" class="account-info" style="font-size: 12px;"></p>
+						        	<p id="seller-feedback-phone" class="account-info" style="font-size: 12px;"></p>
+						        </li>
+						    </ul>
+						</div><!-- /seller-feedback-navbar -->	
+			    	 </li>
+			    </ul>
+			    <br />
+				<h3 style="margin-bottom: 20px">Detailed Seller Ratings</h3>
+				<ul data-role="listview">
+					<!-- Detailed seller ratings added dynamically -->
+					<li>
+						<p class="account-info" style="font-size: 12px; color: #555; margin-bottom: 3px;">Item as described</p>
+						<p class="account-info" style="font-size: 12px; color: #555; margin-bottom: 3px;">Communication</p>
+						<p class="account-info" style="font-size: 12px; color: #555; margin-bottom: 3px;">Shipping time</p>
+						<p class="account-info" style="font-size: 12px; color: #555; margin-bottom: 3px;">Shipping charges</p>
+						<div class="ui-li-aside" style="padding: 0;">
+							<p><span id="seller-feedback-described" style="padding: 0;"></span><span class="account-info" style="font-size: 12px; color: #555; margin-top: 0; margin-bottom: 3px;" id="seller-total-tdescribed"></span></p>
+							<p><span id="seller-feedback-communication"></span><span class="account-info" style="font-size: 12px; color: #555; margin-bottom: 3px;" id="seller-total-tcommunication"></span></p>
+							<p><span id="seller-feedback-stime"></span><span class="account-info" style="font-size: 12px; color: #555; margin-bottom: 3px;" id="seller-total-tstime"></span></p>
+							<p><span id="seller-feedback-scharges"></span><span class="account-info" style="font-size: 12px; color: #555; margin-bottom: 3px;" id="seller-total-tscharges"></span></p>
+						</div>
+					</li>
+				</ul>
+				<br />
+				<h3 style="margin-bottom: 20px">Recent Feedback ratings</h3>
+			 	<ul data-role="listview" id ="upd-feedbackList" data-inset="false" class="seller-feedback">
+			 		<!-- Recent Feedback ratings added dynamically  -->
+			 		<li class="seller-feedback account-info" style="border-bottom: none !important; font-size: 12px; color: #555;">
+			 			<img src="images/icons/add116.png" class="ui-li-icon ui-corner-none"/>Positive
+						<span class="account-info" style="font-size: 12px; color: #55A244; margin-left: 77px;" id="seller-feedback-positive"></span>
+			 		</li>
+			 		<li class="seller-feedback account-info" style="border: none !important; font-size: 12px; color: #555;">
+			 			<img src="images/icons/neutralicon.png" class="ui-li-icon ui-corner-none"/>Neutral
+			 			<span class="account-info" style="font-size: 12px; color: #555; margin-left: 80px;" id="seller-feedback-neutral"></span>
+			 		</li>
+			 		<li class="seller-feedback account-info" style="border-top: none !important; font-size: 12px; color: #555;">
+			 			<img src="images/icons/redminus.png" class="ui-li-icon ui-corner-none"/>Negative
+			 			<span class="account-info" style="font-size: 12px; color: red; margin-left: 72px;" id="seller-feedback-negative"></span>
+			 		</li>	
+		   		</ul> 
+			</div> <!-- seller-feedback-page-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- seller-feedback-page --> 
+		
+		<!--###################################### RECENT FEEDBACK PAGE ######################################--> 
+	    <div id="recent-feedback-page" data-role="page"> 
+			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<div class="ui-btn-left">
+			    	<!-- <a id="" data-theme="b" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a> -->
+				</div>
+			    <h3 id="recent-feedback-header"></h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Filter</a>
+			  	</div>
+			</div><!-- /recent-feedback-page header -->
+			<div data-role="content">
+				<h3 style="margin-bottom: 20px">Recent Feedback</h3>
+			 	<ul data-role="listview" id ="recent-feedback-list" data-inset="false">
+		 			<!-- Feedbacks added dynamically  -->
+		   		</ul> 
+			</div> <!-- recent-feedback-page-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- recent-feedback-page --> 
+
+		<!--###################################### ASK A QUESTION PAGE ######################################-->    
+	    <div id="ask-question-page" data-role="page"> 
+			<div data-role="header" style="background: #1D8D55" data-position="fixed">
+				<div class="ui-btn-left">
+			    	<a id="" data-theme="b" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a>
+				</div>
+			    <h3>Ask Seller</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Send</a>
+			  	</div>
+			</div><!-- /ask-question-page header -->
+	  		<div data-role="content">
+				<ul data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+					<li id="question-seller-username"></li>
+					<li><a>Subject: General question about this item</a></li>
+				</ul>
+				<br />
+				<br />
+	  			<h6 id="question-buyer-name"></h6>
+	  			<p class="account-info-user">What would you like to say?</p>
+	  			<br />
+				<ul data-role="listview">
+					<li><textarea id="" name="question-message" style="padding: 0;"></textarea></li>
+				</ul>
+	  		</div><!-- /ask-question-page-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /ask-question-page -->
+	
+	    <!--###################################### REVIEW PAGE ######################################-->
+	    <div id="review-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" data-position="fixed">
+				<div class="ui-btn-left">
+			    	<a id="" data-theme="b" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a>
+				</div>
+			    <h3>Leave Feedback</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Submit</a>
+			  	</div>
+			</div><!-- /review-page header -->
+	        <div data-role="content">
+	        	<h3  style="margin-bottom: 20px">Review for</h3>
+	        	<ul data-role="listview" style="margin-bottom: 20px" class="ui-alt-icon ui-nodisc-icon">
+	        		<li><a href="#seller-feedback-page" id="review-for"></a></li>
+	        	</ul>
+	        	<br />
+	        	
+	            <form id="review-form">
+	            	<ul data-role="listview">
+	            		<li style="padding: 0;">
+	            			<div data-role="navbar" align="center" class="review" >
+	            				<ul style="width: 95%; padding: 0; margin: 0;">
+	            					<li>
+	            					<label class="account-info" style="font-weight: lighter; font-size: 11px;">
+        								<input type="radio" name="radio-choice-0" id="radio-choice-0a">Positive
+    								</label>
+	            				</li>
+	            				<li>
+	            					<label class="account-info" style="font-weight: lighter; font-size: 11px">
+        								<input type="radio" name="radio-choice-0" id="radio-choice-1a">Neutral
+    								</label>
+	            				</li>
+	            				<li>
+	            					<label class="account-info" style="font-weight: lighter; font-size: 11px">
+        								<input type="radio" name="radio-choice-0" id="radio-choice-1a">Negative
+    								</label>
+	            				</li>
+	            				</ul>
+	            			</div>
+	            		</li>
+	                   	<li>
+	                   		Accurate description?<div id="star0" style="float: right"></div> <input type="hidden" id="hint0"/>
+	                   	</li>
+	                   	<li>
+	                   		Seller's communication?<div id="star1" style="float: right"></div> <input type="hidden" id="hint1"/>
+	                   	</li>
+	                   	<li>
+	                   		Shipping speed?<div id="star2" style="float: right"></div> <input type="hidden" id="hint2"/>
+	                   	</li>
+	                   	<li>
+	                   		Reasonable shipping cost?<div id="star3" style="float: right"></div> <input type="hidden" id="hint3"/>
+	                   	</li>
+	                   	<li>
+	                   		<textarea id="review-comment" name="review-comment" placeholder="Enter your feedback here..." style="margin: 0"></textarea>
+	                   	</li>
+	            	</ul>  
+	            	<br /> 
+	            	<a data-theme="b" id = "reviewButton" data-rel="back" data-role="button">Leave review</a> 
+	           	</form>  
+	           	
+	           	  
+	        </div>
+	    </div>
+    
+		<!--###################################### SEARCH PAGE ######################################-->
+		<div id="search-page" data-role="page">
+			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<h3>Search</h3>
+				<ul data-role="listview">
+					<li>
+						<form id="search-value">
+							<label for="search"></label>
+							<input type="search"  onkeydown="if(event.keyCode==13)$('#submit-search').trigger('click');" name="search" id="search-bar" value="" placeholder=" Search in Kiwi" data-mini="true" data-clear-btn="true" class="ui-input-listview" >
+							<a data-role="button" type="submit" href="#search-results-page" name="UpdateButton" value="Update" id="submit-search"></a>
+						</form>              		
+					</li>
+				</ul>
+			</div><!-- /search-page header -->
+			<div data-role="content">
+				<ul id="category-list" data-role="listview" class="ui-alt-icon ui-nodisc-icon">
+				<!-- Categories added dynamically  -->
+				</ul>		
+			</div> <!-- /search-page-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li><a class="ui-btn-active" href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /search-page -->
+		
+		<!--###################################### SEARCH RESULTS PAGE ######################################-->
+		<div id="search-results-page" data-role="page">
+			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<h3>Search</h3>
+				<div data-role="navbar">
+			        <ul>
+			            <li><a onclick="sortSearchBy('pname')"><h3 style="font-size: 13px; color: #55A244; margin: 0">Name</h3></a></li>
+			            <li><a onclick="sortSearchBy('pbrand')"><h3 style="font-size: 13px; color: #55A244; margin: 0">Brand</h3></a></li>
+			            <li><a  onclick="sortSearchBy('pprice')"><h3 style="font-size: 13px; color: #55A244; margin: 0">Price</h3></a></li>
+			        </ul>
+		    	</div><!-- /search-results-page-navbar -->
+			</div><!-- /search-results-page header -->
+			<br />
+			<div data-role="content" style="background-color: #FFFFFF; padding-top: 0;">
+				<ul id="product-list" data-role="listview" data-filter="true"  data-filter-placeholder="Search this products" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
+				<!-- Products added dynamically  -->
+				</ul>
+			</div> <!-- /search-results-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li><a class="ui-btn-active" href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /search-results-page -->
+		
+		<!--###################################### CATEGORY PAGE ######################################-->
+		<div id="category-page" data-role="page">
+			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<h3>Search</h3>
+				<div data-role="navbar">
+			        <ul>
+			            <li><a onclick="sortCategoryBy('pname')"><h3 style="font-size: 13px; color: #55A244; margin: 0">Name</h3></a></li>
+			            <li><a onclick="sortCategoryBy('pbrand')"><h3 style="font-size: 13px; color: #55A244; margin: 0">Brand</h3></a></li>
+			            <li><a  onclick="sortCategoryBy('pprice')"><h3 style="font-size: 13px; color: #55A244; margin: 0">Price</h3></a></li>
+			        </ul>
+		    	</div><!-- /category-page-navbar -->
+			</div><!-- /category-page-header -->
+			<br />
+			<div data-role="content" style="background-color: #FFFFFF; padding-top: 0;">
+				<ul id="category-search-list" data-role="listview" data-filter="true"  data-filter-placeholder="Search this products" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
+				<!-- Products added dynamically  -->
+				</ul>
+			</div> <!-- /category-content -->
+			<br />
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li><a class="ui-btn-active" href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /category-page -->
+		
+		<!--###################################### CART PAGE ######################################-->
+		<div id="cart-page" data-role="page" data-title="Cart"> 
+			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<div class="ui-btn-left">
+					<a id="cart-edit" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Edit</a>
+					<a id="cart-done" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Done</a>
+				</div>
+			    <h3>Cart</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			  	</div>
+			</div><!-- /cart-page-header -->
+			
+				<ul data-role="listview">
+					<li id="cart-clear" data-icon="false"><a><h3 style="font-weight: lighter; padding: 0; margin: 0;"><center>Clear all</center> </h3></a></li>
+				</ul>
+			<div data-role="content">
+				<ul id="cart-list" data-role="listview" class="ui-alt-icon ui-nodisc-icon">
+					<li id="loadingCart" style="margin-top: 30px;">
+						<div align="center">
+							<img class="listImg" width='25' height'25' src="images/loading.gif" />
+							<p class="account-info" style="font-size: 12px;">Loading...</p>
+						</div>
+					</li>
+					<!-- Products dded dynamically -->
+				</ul>
+				<div id="cart-empty" align="center">
+					<img src="images/icons/cart256.png" style="position: absolute; 
+					 height: 256px;
+   					 width: 256px;
+    				 top:calc(50% - 256px/2);
+    				 left:calc(50% - 256px/2);" />
+					<p class="account-info" style="position: absolute; 
+					 margin-top: 265px;
+					 height: 256px;
+   					 width: 256px;
+    				 top:calc(50% - 256px/2);
+    				 left:calc(50% - 256px/2);">Your cart is currently empty.</p>
+				</div>
+			</div>
+			<div data-role="content">
+				<div id = "upd-total"></div>
+				<h3 style="margin: 0" id="cart-subtotal"></h3>
+				<h3 style="margin: 0" id="cart-shipping"></h3>
+				<hr id="cart-line" style="margin: 0"/>
+				<h3 id="cart-grandtotal"></h3>
+				<a id="cart-checkout" class="custom-btn" href="#creditCard" data-role="button" style="color: white;" >Start Checkout</a>
+			</div>
+			<!-- /cart-page-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a  href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li><a class="ui-btn-active" href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /cart-page -->
 		
 		<!--###################################### CREDIT CARD ######################################-->
 		<div id="creditCard" data-role="page">
-        	<div data-role="header" data-position="fixed" data-theme="b">
+        	<div data-role="header" data-position="fixed" data-theme="b" >
   				<div class="ui-btn-left">
-                    <a data-rel="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
+                    <a data-rel="#home-page"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
                     
                 </div>
   				<h1></h1>
@@ -814,14 +1326,6 @@
 				</form>
 				<a data-theme="b" href="#order-confirmation" data-mini="true" data-role="button">Order Confirmation</a>
 			</div>
-			<!-- popupMenu Credit Card Page-->
-			<div data-role="popup" id="creditMenu" data-theme="a">
-        		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-            		<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
-            		<li data-icon="info"><a href="#about-page">About</a></li>
-            		<li data-icon="delete"><a href="http://kiwi-server.herokuapp.com/logout">Sign Out</a></li>
-        		</ul>
-			</div><!-- /popupMenu -->
         </div>
 		
 		<!--###################################### Order Confirmation Page ######################################-->
@@ -829,7 +1333,7 @@
             <!-- Shopping Cart header -->
             <div data-role="header" data-position="fixed" data-theme="b">
                 <div class="ui-btn-left">
-                    <a href="#homePage"> <img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
+                    <a href="#home-page"> <img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
                 </div>
                 
                 <h1>Order</h1>
@@ -855,22 +1359,22 @@
             </div>
             
             <div data-role="popup" id="orderAlert" data-theme="a" class="ui-corner-all">
-    			<form action="#homePage">
+    			<form action="#home-page">
         			<div style="padding:10px 20px;">
             			<center><h3>Thank You!</h3></center>
             			<p>Your order has been placed.</p>
-            			<button type="submit" onclick="window.location='#homePage'" data-mini="true" data-theme="b">Place Order</button>
+            			<button type="submit" onclick="window.location='#home-page'" data-mini="true" data-theme="b">Place Order</button>
         			</div>
         		</form>	
 			</div>
         </div>
 		
-	    <!--###################################### About Page ######################################-->
+	    <!--###################################### ABOUT PAGE ######################################-->
 	    <div id="about-page" data-role="page">
 	        <div data-role="header" data-position="fixed" data-theme="b">
 	                
 	                <div class="ui-btn-left">
-	                    <a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
+	                    <a href="#home-page"><img border="0" src="images/kiwiLogo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
 	                </div>
 	                
 	                <h1>About</h1>
@@ -899,232 +1403,339 @@
 	        </div>
     	</div>
     	
-        <!--###################################### Account Page ######################################-->
-        <div id="myAccount" data-role="page">
-			
-			<div data-role="header" data-position="fixed" data-theme="b">
-  				<div class="ui-btn-left">
-                    <a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-                </div>
-  				<h1>My Account</h1>
-  				<div class="ui-btn-right">
-                	<a href="#searchPage" data-role="button" data-icon="search" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Search</a>
-    				<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Cart</a>
-    				<a href="#accountMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Menu</a>
-  				</div>
-  			</div>
+    	<!--###################################### MY ACCOUNT PAGE ######################################-->
+        <div id="account-page" data-role="page" data-title="My Account">
+			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<div class="ui-btn-left">
+				</div>
+			    <h3>My Account</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="logInButton" data-theme="b" href="#login-page" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Log In</a>
+			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Logout</a>
+			  	</div>
+			</div><!-- /account-page header -->
             
             <!-- Content -->
-            <div data-role="content" class="my-page">
-            	<div id = "account-image"></div>
-                <center><h1 id="headerHello"></h1></center>
-                 <ul data-role="listview">
-                      <li id = "account-name"></li>
-                      <li id = "account-street"></li>
-                      <li id = "account-state"></li>
-                      <li id = "account-city"></li>
-                      <li id = "account-zip"></li>
-                      <li id = "account-telephone"></li>
-                      <li id = "account-email"></li>
-                </ul>
-            </div> <!-- /content -->
-            <div>
-                 <ul data-role="listview" data-theme="b">
-                      <li id = "account-rating">
-                        <div id="account-star">Rating:  </div>
-                      </li>
-                      <li id = "account-itemHistory"><a href="#saleHistoryAccountPage">Sale History</a>
-                      </li>
-                      <li id = "admin" data-icon="edit"><a href="#administrator-page">Administrator</a>
-                      </li>
-                    </ul>
-             </div>
-            <!-- popupMenu  Account Page-->
-			<div data-role="popup" id="accountMenu" data-theme="a">
-        		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-            		<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
-            		<li data-icon="info"><a href="#about-page">About</a></li>
-            		<li data-icon="delete"><a href="http://kiwi-server.herokuapp.com/logout">Sign Out</a></li>
-        		</ul>
-			</div><!-- /popupMenu -->
-        </div>
-            
-<!--###################################### CATEGORY PAGE ######################################-->
-	<div id="categoryPage" data-role="page">
-		<div id="leftPanel" data-role="panel"  data-theme="b" data-position="left" data-display="push" data-rel="back">
-				<h3>Categories</h3>
-				<div data-role="collapsible-set" data-inset="false" data-collapsed-icon="arrow-d"  data-expanded-icon="arrow-u" data-iconpos="right" data-corners="false" data-theme="b">
-					<div data-role="collapsible" >
-						<h3 >Books</h3>
-						<ul data-role="listview" data-theme="a">
-							<li><a href="#categoryPage" onclick="GetProductByCategory('booksChildren')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('booksFiction')">Fiction</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('booksTechnology')">Technology</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('booksBusiness')">Business</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
-						</ul>
-					</div>
-					<div data-role="collapsible">
-        				<h3>Electronics</h3>
-       	 				<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('electronicsTv')">TV</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsAudio')">Audio</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsPhones')">Phones</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsCameras')">Cameras</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('electronicsVideo')">Video</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
-        				</ul>
-    				</div>
-				    <div data-role="collapsible">
-				        <h3>Computers</h3>
-				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('computersLaptops')">Laptops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('computersDesktops')">Desktops</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('computersTablets')">Tablets</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('computersPrinters')">Printers</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('others')">Others</a></li>
-				        </ul>
-				    </div>
-				    <div data-role="collapsible">
-				        <h3>Clothing</h3>
-				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingChildren')">Children</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingMen')">Men</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingWomen')">Women</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingDresses')">Dresses</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingShirts')">Shirts</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingPants')">Pants</a></li>
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('clothingSocks')">Socks</a></li>
-				        </ul>
-				    </div>
-				    <div data-role="collapsible">
-				        <h3>Shoes</h3>
-				        <ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('shoesChildren')">Children</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('shoesWomen')">Women</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('shoesMen')">Men</a></li>
-				        </ul>
-				    </div>
-				    <div data-role="collapsible">
-				        <h3>Sports</h3>
-					 	<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li><a href="#categoryPage" onclick="GetProductByCategory('sportsBicycles')">Bicycles</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsFishing')">Fishing</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsBaseball')">Baseball</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsGolf')">Golf</a></li>
-							<li><a href="#categoryPage" onclick="GetProductByCategory('sportsBasketball')">Basketball</a></li>
-				        </ul>
-				    </div>
-				</div>
-			</div> <!-- /leftPanel -->
-		<div data-role="header" data-position="fixed" data-theme="b">
-  			<div class="ui-btn-left">
-  				<a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-    			<a href="#leftPanel" data-role="button" data-icon="bars" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Categories</a>  				
-  				</div>
-  				<h1>Search</h1>
-  				<div class="ui-btn-right">
-  					<a href="#sortCategoriesBy" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="" style="background-color: transparent;box-shadow: none; border: none;">Filter</a>
-    				<a href="#shoppingCart" data-role="button" data-icon="cart" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">My Cart</a>
-    				<a href="#categoryMenu" data-role="button" data-rel="popup"data-inline="true" data-transition="slidedown" data-icon="gear" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Menu</a>
-  				</div>
-			</div> <!-- /header -->
-			<div data-role="content">
-				<ul id="categoryList" data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Search products..." data-inset="false">
-				<!-- Products added dynamically  -->
-				</ul>		
-			</div> <!-- /content -->
-			<!-- popupMenu Search Page-->
-			<div data-role="popup" id="categoryMenu" data-theme="a">
-        		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
-            		<li data-icon="edit"><a href="#myAccount" >My Account</a></li>
-            		<li data-icon="info"><a href="#about-page">About</a></li>
-            		<li data-icon="delete"><a href="http://kiwi-server.herokuapp.com/logout">Sign Out</a></li>
-        		</ul>
-			</div><!-- /popupMenu -->
-			<!-- popupMenu  sortBy Menu-->
-			<div data-role="popup" id="sortCategoriesBy" data-theme="a">
-        		<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:100px;">
-            		<li><a onclick="sortCategoryBy('pname')">Name</a></li>
-            		<li><a onclick="sortCategoryBy('pbrand')">Brand</a></li>
-            		<li><a onclick="sortCategoryBy('price')">Price $</a></li>
-        		</ul>
-			</div><!-- /popupMenu -->
-		</div> <!-- /SEARCHPAGE -->
-        
-        
-		
-		<!--###################################### Administrator ######################################-->
-        <div id="administrator-page" data-role="page">
-        	 <!-- Home Page header -->
-                        <div data-role="header" data-position="fixed" data-theme="b">
-                                  <div class="ui-btn-left">
-                                          <a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-                                  </div>
-                                  
-                                  <h1></h1>
-                                  
-                                  <div class="ui-btn-right">
-                                    
-                                  </div>
-                        </div> <!-- /Home Page header -->
-                        <h1><center><strong>Administrator</strong></center></h1>
-                        <div data-role="content">        
-                                <div class="ui-grid-b">
-                    <div class="ui-block-a">
-                            <a data-role="button" style="height: 15%" data-theme="b">
-                            <img src="images/addCategory.png" width=100% height=10%></br>Add<br>Category </a>
-                    </div>
-                    <div class="ui-block-b">
-                            <a data-role="button" style="height: 15%" data-theme="b">
-                            <img src="images/editCategoryPainted.png" width=100% height=10%><br/>Modify<br>Category</a>
-                    </div>
-                    <div class="ui-block-c">
-                            <a data-role="button" style="height: 15%" data-theme="b">
-                            <img src="images/removeCategory.png" width=100% height=10%></br>Remove<br>Category</a>
-                    </div>
-                    <div class="ui-block-a">
-                            <a  data-role="button" style="height: 15%" data-theme="b">
-                            <img src="images/AddUser.png" width=100% height=10%></br>Add<br>User</a>
-                    </div>
-                    <div class="ui-block-b">
-                            <a  data-role="button" style="height: 15%" data-theme="b">
-                            <img src="images/editUser.png" width=100% height=10%><br/> Modify<br> User</a>
-                    </div>
-                    <div class="ui-block-c">
-                            <a  data-role="button" style="height: 15%" data-theme="b">
-                            <img src="images/removeUser.png" width=100% height=10%> <br/>Remove<br> User</a>
-                    </div>
-                    <div class="ui-block-a">
-                            <a href="#reports-page" data-role="button" style="height: 15%" data-theme="b">
-                            <img src="images/reports.png" width=100% height=10%> <br/>Reports</a>
-                </div>
-                 </div><!-- /content -->
-                        
-                        
-                </div>
-                </div>
+            <div data-role="content">
+            	<div id="account-logout">
+            		<h2 style="#535353">Hello!</h2>
+            		<h3 style="margin-bottom: 5px">Please log in or register</h3>
+            		<p style="margin-top: 0px; margin-bottom: 25px; font-size: 14px">Access these features by logging in</p>
+            	</div>
+            	
+            	<div id="account-login">
+            		<center><h2 id="account-greeting"></h2></center>
+            		<h5 style="margin-bottom: 5px">You are logged in as</h5>
+            		<p id="account-username" style="margin-top: 0px; margin-bottom: 25px; font-size: 12px; color: #55A244" class="account-info"></p>
+            	</div>
+            	
+                <ul data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+                    <li id =""><a id="account-info">
+                    	<img src="images/icons/111-user.png" class="ui-li-icon ui-corner-none"/ style="margin-top: 8px">
+                      	<h2 style="font-size: 16px;">Account Info</h2>
+                      	<p style="color: #555555">Name, e-mail and password</p></a>
+                    </li>
+                    <li id =""><a id="account-profile">
+                    	<img src="images/icons/111-user.png" class="ui-li-icon ui-corner-none"/ style="margin-top: 8px">
+                      	<h2 style="font-size: 16px;">Recent Feedback</h2>
+                      	<p style="color: #555555">Name, e-mail and password</p></a>
+                    </li>
+                	<li id =""><a id="account-order">
+                		<img src="images/icons/33-cabinet.png" class="ui-li-icon ui-corner-none"/  style="margin-top: 8px">
+                    	<h2 style="font-size: 16px;">Order History</h2>
+                      	<p style="color: #555555">View of all your orders</p></a>
+                    </li>
+                    <li id =""><a id="account-selling">
+                    	<img src="images/icons/111-user.png" class="ui-li-icon ui-corner-none"/ style="margin-top: 8px">
+                      	<h2 style="font-size: 16px;">Items Selling</h2>
+                      	<p style="color: #555555">Name, e-mail and password</p></a>
+                    </li>
+                    <li id =""><a id="account-history">
+                    	<img src="images/icons/111-user.png" class="ui-li-icon ui-corner-none"/ style="margin-top: 8px">
+                      	<h2 style="font-size: 16px;">Sale History</h2>
+                      	<p style="color: #555555">Name, e-mail and password</p></a>
+                    </li>
+                    <li id =""><a id="account-shipping">
+                    	<img src="images/icons/07-map-marker.png" class="ui-li-icon ui-corner-none"/ style="margin-top: 8px">
+                      	<h2 style="font-size: 16px;">Shipping Addresses</h2>
+                      	<p style="color: #555555">Manage your stored addresses</p></a>
+                    </li>
+                    <li id =""><a id="account-payment">
+                    	<img src="images/icons/192-credit-card.png" class="ui-li-icon ui-corner-none"/ style="margin-top: 8px">
+                      	<h2 style="font-size: 16px;">Payment Info</h2>
+                      	<p style="color: #555555">Manage your stored payment info</p></a>
+                    </li>
+                    <li id =""><a id="account-admin">
+                    	<img src="images/icons/111-user.png" class="ui-li-icon ui-corner-none"/ style="margin-top: 8px">
+                      	<h2 style="font-size: 16px;">Administrate</h2>
+                      	<p style="color: #555555">Name, e-mail and password</p></a>
+                    </li>
+               </ul>
+               <br />
                 
-                <!--###################################### Reports ######################################-->
+            </div> <!-- /account-page-content -->
+            
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li><a class="ui-btn-active" href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+        </div>
+
+		<!--###################################### ACCOUNT PROFILE PAGE ######################################--> 
+	    <div id="account-profile-page" data-role="page"> 
+			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<div class="ui-btn-left">
+			    	<!-- <a id="" data-theme="b" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a> -->
+				</div>
+			    <h3 id="account-profile-header"></h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	
+			  	</div>
+			</div><!-- /account-profile-page header -->
+			<div data-role="content">
+				<br />
+			    <ul data-role="listview" style="padding: 0">
+			    	<!-- Seller info added dynamically -->
+			    	 <li>
+			    	 	<div data-role="navbar">
+						    <ul>
+						        <li style="width: 150px; background: transparent;">
+						        	<div data-role="button" id="account-profile-image" style="background-size: 100px 100px;"></div>
+						        </li>
+						        <li>
+						        	<p id="account-profile-username" class="account-info-user" style="font-size: 12px; font-weight: bold;"></p>
+						        	<p class="account-info" style="font-size: 12px;">Rating: <span id="account-profile-rating"></span></p>
+						        	<p id="account-profile-state" class="account-info" style="font-size: 12px;"></p>
+						        	<p id="account-profile-phone" class="account-info" style="font-size: 12px;"></p>
+						        </li>
+						    </ul>
+						</div><!-- /account-profile-navbar -->	
+			    	 </li>
+			    </ul>
+			    <br />
+				<h3 style="margin-bottom: 20px">Detailed Ratings</h3>
+				<ul data-role="listview">
+					<!-- Detailed seller ratings added dynamically -->
+					<li>
+						<p class="account-info" style="font-size: 12px; color: #555; margin-bottom: 3px;">Item as described</p>
+						<p class="account-info" style="font-size: 12px; color: #555; margin-bottom: 3px;">Communication</p>
+						<p class="account-info" style="font-size: 12px; color: #555; margin-bottom: 3px;">Shipping time</p>
+						<p class="account-info" style="font-size: 12px; color: #555; margin-bottom: 3px;">Shipping charges</p>
+						<div class="ui-li-aside" style="padding: 0;">
+							<p><span id="account-profile-described" style="padding: 0;"></span><span class="account-info" style="font-size: 12px; color: #555; margin-top: 0; margin-bottom: 3px;" id="account-total-tdescribed"></span></p>
+							<p><span id="account-profile-communication"></span><span class="account-info" style="font-size: 12px; color: #555; margin-bottom: 3px;" id="account-total-tcommunication"></span></p>
+							<p><span id="account-profile-stime"></span><span class="account-info" style="font-size: 12px; color: #555; margin-bottom: 3px;" id="account-total-tstime"></span></p>
+							<p><span id="account-profile-scharges"></span><span class="account-info" style="font-size: 12px; color: #555; margin-bottom: 3px;" id="account-total-tscharges"></span></p>
+						</div>
+					</li>
+				</ul>
+				<br />
+				<h3 style="margin-bottom: 20px">Recent Feedback ratings</h3>
+			 	<ul data-role="listview" id ="upd-feedbackList" data-inset="false" class="account-profile">
+			 		<!-- Recent Feedback ratings added dynamically  -->
+			 		<li class="account-profile account-info" style="border-bottom: none !important; font-size: 12px; color: #555;">
+			 			<img src="images/icons/add116.png" class="ui-li-icon ui-corner-none"/>Positive
+						<span class="account-info" style="font-size: 12px; color: #55A244; margin-left: 77px;" id="account-profile-positive"></span>
+			 		</li>
+			 		<li class="account-profile account-info" style="border: none !important; font-size: 12px; color: #555;">
+			 			<img src="images/icons/neutralicon.png" class="ui-li-icon ui-corner-none"/>Neutral
+			 			<span class="account-info" style="font-size: 12px; color: #555; margin-left: 80px;" id="account-profile-neutral"></span>
+			 		</li>
+			 		<li class="account-profile account-info" style="border-top: none !important; font-size: 12px; color: #555;">
+			 			<img src="images/icons/redminus.png" class="ui-li-icon ui-corner-none"/>Negative
+			 			<span class="account-info" style="font-size: 12px; color: red; margin-left: 72px;" id="account-profile-negative"></span>
+			 		</li>	
+		   		</ul> 
+			</div> <!-- account-profile-page-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- account-profile-page --> 
+    	
+        <!--###################################### ACCOUNT INFO PAGE ######################################-->
+        <div id="account-info-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<div class="ui-btn-left">
+				</div>
+			    <h3>Account Info</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Logout</a>
+			  	</div>
+			</div><!-- /account-info-page-header -->
+            
+            <!-- Content -->
+            <div data-role="content">
+            <h6 id="account-info-header" style="margin-bottom: 15px;"></h6>
+			    <div data-role="navbar">
+				    <ul>
+				        <li style="width: 115px; background: transparent;"><div data-role="button" id="account-image" style="background-size: 100px 100px;"></div></li>
+				        <li>
+				        	<p id="account-info-username" class="account-info-user" style="margin-top: 0; font-size: 12px;"></p>
+				        	<p class="account-info" style="font-size: font-size: 12px;">Rating: <span id="account-info-rating"></span></p>
+				        	<p id="account-info-state" class="account-info" style="font-size: font-size: 12px;"></p>
+				        	<p id="account-info-phone" class="account-info" style="font-size: font-size: 12px;"></p>
+				        </li>
+				    </ul>
+				</div><!-- /account-info-page-navbar -->
+                <h3 style="margin-top:15px; margin-bottom: 0px">Name and email</h3>
+                <form method="post">
+                    <div>
+                        <br />
+                        <ul data-mini="true" data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+                			<li>
+                				<input readonly="readonly" type="text" name="account-name" id="account-name" value="" placeholder="" data-mini="true" class="ui-input-listview" >
+                			</li>
+                			<li data-mini="true">
+                				<input  type="email" name="account-email" id="account-email" value="" placeholder="" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<br />
+               			</ul>
+						<h3 style="margin-top:10px; margin-bottom: 18px">Password</h3>
+                        <ul data-mini="true" data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+                			<li data-mini="true">
+                				<input  type="password" name="current-password" id="current-password" value="" placeholder="current password" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<input  type="password" name="upd-password" id="upd-password" value="" placeholder="new password" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<br /> <br />
+               			</ul>
+               			<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
+                			<a id="upd-password-btn" class="ui-btn ui-mini ui-btn-inline custom-btn"  href="#home" data-role="button" style="width: 150px;">Save changes</a>
+               			</div>
+                    </div>
+                </form>
+            </div> <!-- /account-info-page-content -->
+            
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li><a class="ui-btn-active" href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+        </div>
+		
+		<!--###################################### ADMINISTRATOR PAGE ######################################-->
+        <div id="administrator-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" data-position="fixed">
+				<div class="ui-btn-left ui-nodisc-icon">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+				</div>
+			    <h3>Administrator</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Logout</a>
+			  	</div>
+			</div><!-- /administrator-page-header -->
+            <div data-role="content" class="ui-content admin">
+            	<div align="center">
+				<ul data-role="listview" data-inset="true" class="trans" style="margin-left: 5%;">
+		            <li><a href="#" onclick="">
+		                <img src="images/addCategory.png" class="ui-li-thumb" style="position: absolute; 
+					 		height: 100px;
+   					 		width: 100px;
+    				 		top:calc(50% - 100px/2);
+    				 		left:calc(50% - 100px/2);">
+		                <p class="ui-li-aside">Category</p>
+		            </a></li>
+		            <li><a href="#" onclick="">
+		                <img src="images/editCategoryPainted.png" class="ui-li-thumb" style="position: absolute; 
+					 		height: 100px;
+   					 		width: 100px;
+    				 		top:calc(50% - 100px/2);
+    				 		left:calc(50% - 100px/2);">
+		                <p class="ui-li-aside">Modify Category</p>
+		            </a></li>
+		            <li><a href="#category-page" onclick="">
+		                <img src="images/removeCategory.png" class="ui-li-thumb" style="position: absolute; 
+					 		height: 100px;
+   					 		width: 100px;
+    				 		top:calc(50% - 100px/2);
+    				 		left:calc(50% - 100px/2);">
+		                <p class="ui-li-aside" style="font-size: 12px">Remove Category</p>
+		            </a></li>
+		            <li><a href="#" onclick="">
+		                <img src="images/AddUser.png" class="ui-li-thumb" style="position: absolute; 
+					 		height: 100px;
+   					 		width: 100px;
+    				 		top:calc(50% - 100px/2);
+    				 		left:calc(50% - 100px/2);">
+		                <p class="ui-li-aside">Add User</p>
+		            </a></li>
+		            <li><a href="#" onclick="">
+		                <img src="images/editUser.png" class="ui-li-thumb" style="position: absolute; 
+					 		height: 100px;
+   					 		width: 100px;
+    				 		top:calc(50% - 100px/2);
+    				 		left:calc(50% - 100px/2);">
+		                <p class="ui-li-aside">Edit User</p>
+		            </a></li>
+		            <li><a href="#" onclick="">
+		                <img src="images/removeUser.png" class="ui-li-thumb" style="position: absolute; 
+					 		height: 100px;
+   					 		width: 100px;
+    				 		top:calc(50% - 100px/2);
+    				 		left:calc(50% - 100px/2);">
+		                <p class="ui-li-aside">Remove User</p>
+		            </a></li>
+		            <li><a href="#reports-page">
+		                <img src="images/reports.png" class="ui-li-thumb" style="position: absolute; 
+					 		height: 100px;
+   					 		width: 100px;
+    				 		top:calc(50% - 100px/2);
+    				 		left:calc(50% - 100px/2);">
+		                <p class="ui-li-aside">Reports</p>
+		            </a></li>
+		        </ul>    </div>
+            </div><!-- /content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li><a class="ui-btn-active" href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+        </div>
+                
+        <!--###################################### REPORTS PAGE ######################################-->
         <div id="reports-page" data-role="page">
-                        <!-- Home Page header -->
-                        <div data-role="header" data-position="fixed" data-theme="b">
-                                  <div class="ui-btn-left">
-                                          <a href="#homePage"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-                                  </div>
-                                  
-                                  <h1></h1>
-                                  
-                                  <div class="ui-btn-right">
-                                   
-                                  </div>
-                        </div> <!-- /Home Page header -->
-                        <h1><center><strong>Reports</strong></center></h1>
-                        <div data-role="content"> 
-                            <form>
-                                 <label for="reportDate">Search by date:</label>
-                                 <input type="date" placeholder="YYYY-MM-DD" data-clear-btn="true" name="reportDate" id="reportDate" value="">
-                           </form>
+			<div data-role="header" style="background: #1D8D55" data-position="fixed">
+				<div class="ui-btn-left ui-nodisc-icon">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+				</div>
+			    <h3>Reports</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Logout</a>
+			  	</div>
+			</div><!-- /reports-page-header -->
+            <div data-role="content"> 
+            	<form>
+                	<label for="reportDate">Search by date:</label>
+                    <input type="date" placeholder="YYYY-MM-DD" data-clear-btn="true" name="reportDate" id="reportDate" value="">
+                </form>
                           <button onclick="GetReportsbyDate()" data-mini="true" data-theme="b">Search</button>
           
                         </div>
@@ -1136,50 +1747,58 @@
                               </ul>
                           </div> 
                 </div>
-          <!--###################################### Register Page ######################################-->
-        <div id="registerPage" data-role="page">
-			<div data-role="header" data-position="fixed" data-theme="b">
-  				<div class="ui-btn-left">
-                    <img border="0" src="images/kiwiLogo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/>
-                </div>
-  				<h1>Register</h1>
-  				
-			</div> <!-- /header -->
+
+        <!--###################################### REGISTER PAGE ######################################-->
+        <div id="register-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" data-position="fixed">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-rel="back" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a>
+				</div>
+			    <h4>Register</h4>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a data-theme="b" href="#login-page" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Log In</a>
+			  	</div>
+			</div><!-- /register-page header -->
 			<div data-role="content">
-				<h4>Step 1: User ID and Password</h4>
+				<h3 style="margin-bottom: 20px;">Account</h3>
 				<form action="" id="registerForm">
-					<div>
-						<label for="username"></label>
-	         			<input type="text" data-clear-btn="true" data-mini="true" name="username" id="username" value="" placeholder="Username" class="required">
-	         		</div>
-	    			<div >
-	    				<label for="password"></label>
-	         			<input type="password" data-clear-btn="true" data-mini="true" name="password" id="password" value="" placeholder="Password" class="required">
-	    			</div>
-	    			
-	    			<h4>Step 2: Personal information</h4>
-	    			
-	    			<div>
-	         			<label for="firstName"></label>
-	         			<input type="text" placeholder="First name" data-clear-btn="true" data-mini="true" name="firstName" id="firstName" value="" class="required" placeholder="First name">
-	         		</div>
-	    			<div >
-	         			<label for="lastName"></label>
-	         			<input type="text" placeholder="Last name"data-clear-btn="true" data-mini="true" name="lastName" id="lastName" value="" class="required">
-	    			</div>
-	    			<h5>Mailing address</h5>
-	    			<div >
-	     				<label for="streetMailingAddress"></label>
-	     				<input type="text" placeholder="Street Address" data-mini="true" name="streetMailingAddress" id="streetMailingAddress" value="" class="required">
-	    			</div>
-	    			<div >
-	     				<label for="cityMailingAddress"></label>
-	     				<input type="text" placeholder="City" data-mini="true" name="cityMailingAddress" id="cityMailingAddress" value="" class="required">
-	    			</div>
-	    			<div >
-	    				<label for="stateMailingAddress">State</label>
-							<select name="stateMailingAddress" id="stateMailingAddress" data-native-menu="false" data-mini="true" class="required">
-								<!-- <option value="" data-placeholder="true">Select one</option> -->
+					<ul data-role="listview" style="padding: 0">
+				    	 <li>
+				    	 	<div data-role="navbar">
+							    <ul>
+							        <li style="width: 100px; background: transparent;">
+							        	<div data-role="button" align="center" id="register-image" style="background-size: 60px 60px; margin-left: 15px; background-image: url('https://ssl.gstatic.com/accounts/ui/avatar_2x.png'); margin-top: 6px;">
+							        	</div>
+							        </li>
+							        <li style="width: 16px">
+							        	<p style="margin-top: 15px; margin-bottom: 15px"><img src="images/icons/111-user.png" style="width: 14px" /></p>
+							        	<p><img src="images/icons/54-lock.png" style="width: 12px" /></p>
+							        </li>
+							        <li>
+										<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="text" style="font-size: 12px;" data-mini="true" name="username" id="usernameReg" value="" placeholder="username" class="required account-info " >
+										<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="password" style="font-size: 12px;" data-mini="true" name="password" id="passwordReg" value="" placeholder="password" class="required account-info">
+							        </li>
+							    </ul>
+							</div><!-- /register-page-navbar -->	
+				    	 </li>
+				    </ul>
+				    <br />
+	    			<h3 style="margin-bottom: 20px;">Profile</h3>
+	    			<ul data-role="listview" style="padding: 0">
+				    	 <li>
+				    	 	<img src="images/icons/70-tv.png" class="ui-li-icon ui-corner-none"/>
+	         				<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="text" placeholder="first name" data-mini="true" name="firstName" id="firstName" value="" class="required account-info ui-input-listview">
+				    	 </li>
+				    	 <li>
+				    	 	<img src="images/icons/70-tv.png" class="ui-li-icon ui-corner-none"/>
+				    	 	<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="text" placeholder="last name"  data-mini="true" name="lastName" id="lastName" value="" class="required account-info ui-input-listview">
+				    	 </li>
+				    	 <li>
+				    	 	<img src="images/icons/70-tv.png" class="ui-li-icon ui-corner-none"/>
+				    	 	<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="email" placeholder="email Address" data-mini="true" name="email" id="email" value="" class="required email account-info ui-input-listview">
+				    	 </li>
+				    </ul>
+							<!-- <select name="stateMailingAddress" id="stateMailingAddress" data-native-menu="false" data-mini="true" class="required">
 								<option value="puerto rico">Puerto Rico</option>	
 								<option value="alabama">Alabama</option>
 								<option value="alaska">Alaska</option>
@@ -1231,97 +1850,51 @@
 								<option value="west virginia">West Virginia</option>
 								<option value="wisconsing">Wisconsin</option>
 								<option value="wyoming">Wyoming</option>
-						</select>
-	    			</div>
-	    			<div>
-	     				<label for="zipMailingAddress"></label>
-	     				<input type="number" placeholder="ZIP Code" data-mini="true" name="zipMailingAddress" id="zipMailingAddress" value="" class="required" maxlength="5">
-	    			</div>
-	    			<h5>Billing address</h5>
-	    			<div >
-	     				<label for="streetBillingAddress"></label>
-	     				<input type="text" placeholder="Street Address" data-mini="true" name="streetBillingAddress" id="streetBillingAddress" value="" class="required">
-	    			</div>
-	    			<div >
-	     				<label for="cityBillingAddress"></label>
-	     				<input type="text" placeholder="City" data-mini="true" name="cityBillingAddress" id="cityBillingAddress" value="" class="required">
-	    			</div>
-	    			<div >
-	    				<label for="stateBillingAddress">State</label>
-							<select name="stateBillingAddress" id="stateBillingAddress" data-native-menu="false" data-mini="true" class="required">
-								<!-- <option value="" data-placeholder="true">Select one</option> -->
-								<option value="puerto rico">Puerto Rico</option>					    
-								<option value="alabama">Alabama</option>
-								<option value="alaska">Alaska</option>
-								<option value="arizona">Arizona</option>
-								<option value="arkansas">Arkansas</option>
-								<option value="california">California</option>
-								<option value="colorado">Colorado</option>
-								<option value="connecticut">Connecticut</option>
-								<option value="delaware">Delaware</option>
-								<option value="florida">Florida</option>
-								<option value="georgi">Georgia</option>
-								<option value="hawaii">Hawaii</option>
-								<option value="idaho">Idaho</option>
-								<option value="illinois">Illinois</option>
-								<option value="indiana">Indiana</option>
-								<option value="iowa">Iowa</option>
-								<option value="kansas">Kansas</option>
-								<option value="kentucky">Kentucky</option>
-								<option value="lousiana">Louisiana</option>
-								<option value="maine">Maine</option>
-								<option value="maryland">Maryland</option>
-								<option value="massachusetts">Massachusetts</option>
-								<option value="michigan">Michigan</option>
-								<option value="minnesota">Minnesota</option>
-								<option value="mississippi">Mississippi</option>
-								<option value="missouri">Missouri</option>
-								<option value="montana">Montana</option>
-								<option value="nebraska">Nebraska</option>
-								<option value="nevada">Nevada</option>
-								<option value="new hampshire">New Hampshire</option>
-								<option value="new jersey">New Jersey</option>
-								<option value="new mexico">New Mexico</option>
-								<option value="new york">New York</option>
-								<option value="north carolina">North Carolina</option>
-								<option value="north dakota">North Dakota</option>
-								<option value="ohio">Ohio</option>
-								<option value="oklahoma">Oklahoma</option>
-								<option value="oregon">Oregon</option>
-								<option value="pennsylvania">Pennsylvania</option>
-								<option value="phode island">Rhode Island</option>
-								<option value="south carolina">South Carolina</option>
-								<option value="south dakota">South Dakota</option>
-								<option value="tennessee">Tennessee</option>
-								<option value="texas">Texas</option>
-								<option value="utah">Utah</option>
-								<option value="vermont">Vermont</option>
-								<option value="virginia">Virginia</option>
-								<option value="washington">Washington</option>
-								<option value="west virginia">West Virginia</option>
-								<option value="wisconsing">Wisconsin</option>
-								<option value="wyoming">Wyoming</option>
-						</select>
-	    			</div>
-	    			<div>
-	     				<label for="zipBillingAddress"></label>
-	     				<input type="number" placeholder="ZIP Code" data-mini="true" name="zipBillingAddress" id="zipBillingAddress" value="" class="required" maxlength="5">
-	    			</div>
-	    			<div >
-	     				<label for="telephone"></label>
-	     				<input type="number"placeholder="Telephone number" data-mini="true" name="telephone" id="telephone" value="" class="required">
-	    			</div>
-	    			<div>
-	   	 				<label for="email"></label>
-	     				<input type="email" placeholder="Email Address" data-mini="true" name="email" id="email" value="" class="required email">
-	    			</div>
+						</select> -->
 	    			
-					<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b">
-						<button type="submit" onclick="SaveUser()" data-mini="true" value="Register">Register</button>
-    				</div>
-    			</form>
-    			
+						<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin-top: 25px">
+                			<a id="registerSubmit" class="ui-btn ui-mini ui-btn-inline custom-btn"  href="#home-page" data-role="button" style="width: 150px;">Register</a>
+               			</div>
+    			</form> <!--register-page-form -->
 			</div>
-		</div>      
+		</div> 
+		
+		<div data-role="popup" id="popupMenu" data-theme="a" class="ui-nodisc-icon ui-alt-icon">
+        	<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">
+            	<li data-icon="edit" ><a href="#account-page" >My Account</a></li>
+            	<li data-icon="info"><a href="#about-page">About</a></li>
+            	<li data-icon="delete"><a id="logout">Sign Out</a></li>
+        	</ul>
+		</div><!-- /popup Menu -->
+		
+		<!-- FlexSlider --> 
+	  	<script defer src="js/jquery.flexslider.js"></script> 
+	  	<script type="text/javascript">
+		    $(function(){
+		      SyntaxHighlighter.all();
+		    });
+		    $(window).load(function(){
+		      $('#carousel').flexslider({
+		        animation: "slide",
+		        controlNav: false,
+		        animationLoop: false,
+		        slideshow: false,
+		        itemWidth: 210,
+		        itemMargin: 5,
+		        asNavFor: '#slider'
+		      });
+		
+		      $('#slider').flexslider({
+		        animation: "slide",
+		        controlNav: false,
+		        animationLoop: false,
+		        slideshow: false,
+		        sync: "#carousel",
+		        start: function(slider){
+		          $('body').removeClass('loading');
+		        }
+		      });
+		    });
+	  	</script>     
 	</body>
 </html>

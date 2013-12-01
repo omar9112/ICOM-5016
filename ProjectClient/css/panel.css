@@ -1,0 +1,112 @@
+       	/* Adjust the width of the left reveal menu. */
+#home-page #left-panel.ui-panel {
+    width: 15em;
+}
+#home-page #left-panel.ui-panel-closed {
+    width: 0;
+}
+#home-page .ui-panel-page-content-position-left,
+.ui-panel-dismiss-open.ui-panel-dismiss-position-left {
+    left: 15em;
+    right: -15em;
+}
+#home-page .ui-panel-animate.ui-panel-page-content-position-left.ui-panel-page-content-display-reveal {
+    left: 0;
+    right: 0;
+    -webkit-transform: translate3d(15em,0,0);
+    -moz-transform: translate3d(15em,0,0);
+    transform: translate3d(15em,0,0);
+}
+/* Listview with collapsible list items. */
+.ui-listview > li .ui-collapsible-heading {
+  margin: 0;
+}
+.ui-collapsible.ui-li-static {
+  padding: 0;
+  border: none !important;
+}
+.ui-collapsible + .ui-collapsible > .ui-collapsible-heading > .ui-btn {
+  border-top: none !important;
+}
+/* Nested list button colors */
+.ui-listview .ui-listview .ui-btn {
+    background: #fff;
+}
+.ui-listview .ui-listview .ui-btn:hover {
+    background: #f5f5f5;
+}
+.ui-listview .ui-listview .ui-btn:active {
+    background: #f1f1f1;
+}
+/* Reveal panel shadow on top of the listview menu (only to be used if you don't use fixed toolbars) */
+#home-page .ui-panel-display-reveal {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+#home-page .ui-panel-page-content-position-left {
+    -webkit-box-shadow: -5px 0px 5px rgba(0,0,0,.15);
+    -moz-box-shadow: -5px 0px 5px rgba(0,0,0,.15);
+    box-shadow: -5px 0px 5px rgba(0,0,0,.15);
+}
+/* Setting a custom background image. */
+#home-page.ui-page-theme-a,
+#home-page .ui-panel-wrapper {
+    background-color: #F0EFF4;
+    background-image: url(../_assets/img/bg-pattern.png);
+    background-repeat: repeat-x;
+    background-position: left bottom;
+}
+
+.ui-content .ui-listview .ui-li-divider{font-style: italic; font-size:3em;}
+
+/*List divider*/
+.ui-listview>.ui-li-divider {
+	/*font-size: 15px;*/	
+	font-weight: 200;		
+	letter-spacing: 1px;
+	font-family: 'HelveticaNeue-Light', 'Helvetica Neue UltraLight', 'Helvetica Neue';
+    font-size: 13px;
+    color: #96a0ad;
+    /*text-shadow: 1px 1px 0 #fff;*/
+    text-transform: uppercase;
+
+}
+.jqm-demos .jqm-list .ui-btn{
+	font-family: 'Open Sans', sans-serif;
+font-weight: 300;
+text-shadow: none !important;
+}
+
+.panel .ui-header .ui-title, .ui-footer .ui-title {
+	/*font-size: 15px;*/	
+	font-weight: 100;		
+	letter-spacing: 1px;
+		font-family: 'Helvetica Neue UltraLight', 'HelveticaNeue-Light', 'Helvetica Neue';
+    font-size: 16px;
+    color: #FFFFFF;
+    /*text-shadow: 1px 1px 0 #fff;*/
+    /*text-transform: uppercase;*/}
+
+.ui-page-theme-a a,
+html .ui-bar-a a,
+html .ui-body-a a,
+html body .ui-group-theme-a a {
+	color: #3388cc /*{a-link-color}*/;
+	font-weight: lighter;
+}
+
+.ui-page-theme-b a,
+html .ui-bar-b a,
+html .ui-body-b a,
+html body .ui-group-theme-b a {
+	color: #3388cc /*{a-link-color}*/;
+	font-weight: lighter;
+}
+
+@media all and (min-width:769px) {
+
+    /* Fix for issue with buttons and form elements
+    if CSS columns are used on a page with a panel. */
+
+}

@@ -58,8 +58,7 @@
     background-position: left bottom;
 }
 
-.ui-content .ui-listview .ui-li-divider{font-style: italic; font-size:3em;}
-
+/*.ui-content .ui-listview .ui-li-divider{font-style: italic; font-size:3em;}*/
 /*List divider*/
 .ui-listview>.ui-li-divider {
 	/*font-size: 15px;*/	

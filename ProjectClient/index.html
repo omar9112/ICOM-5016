@@ -2,7 +2,6 @@
 <html>
 	<head>
 		<title>Kiwi.net</title>
-		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
 		<link rel="icon" type="image/png" href="images/kiwiLogoIcon.png">
 		
 		<!-- the three things that jQuery Mobile needs to work -->
@@ -62,7 +61,6 @@
 			    	<a href="#popupMenu" data-role="button" data-rel="popup" data-inline="true" data-transition="slide" data-icon="gear" data-iconpos="notext" data-position-to="#origin" style="background-color: transparent;box-shadow: none; border: none;  margin-top: 4px;">Menu</a>
 			  	</div>
 			</div><!-- /home-page header -->
-
 			<div class="banner" style="position:relative;">
 				<img src="images/banner1.png" width=100%/>
 				<a id="signIn" href="#login-page" data-theme="b" data-role="button" data-icon="user"
@@ -75,9 +73,12 @@
                     <li style="padding: 0 ">
                 		<div data-role="navbar" data-iconpos="bottom">
 							<ul class="ui-nodisc-icon ui-alt-icon">
-								<li><a class="account-info" href="#cart-page" style="background-color: transparent;box-shadow: none; border-bottom: none; border-left: none; border-top: none; border-color: #ADADAD; color: #55A244">Cart<h1 id="cartCount"></h1></a></li>
-							    <li><a class="account-info" href="#order-history-page" style="background-color: transparent;box-shadow: none; border-bottom: none; border-top: none; border-color: #ADADAD; margin: 0; color: #55A244;">Buying<h1 id="buyingCount">1</h1></a></li>
-							    <li><a class="account-info" href="#account-items-sale-page" style="background-color: transparent;box-shadow: none; border-bottom: none; border-right: none; border-top: none; border-color: #ADADAD; color: #55A244;">Selling<h1 id="sellingCount"></h1></a></li>
+								<li><a class="account-info" href="#cart-page" style="font-size: 10px; background-color: transparent;box-shadow: none; border-bottom: none; border-left: none; border-top: none; border-color: #ADADAD; color: #55A244">
+									Cart<h1 id="cartCount" style="font-size: 14px;"></h1></a></li>
+							    <li><a class="account-info" href="#order-history-page" style="font-size: 10px; background-color: transparent;box-shadow: none; border-bottom: none; border-top: none; border-color: #ADADAD; margin: 0; color: #55A244;">
+							    	Buying<h1 style="font-size: 14px"; id="buyingCount">1</h1></a></li>
+							    <li><a class="account-info" href="#account-items-sale-page" style="font-size: 10px; background-color: transparent;box-shadow: none; border-bottom: none; border-right: none; border-top: none; border-color: #ADADAD; color: #55A244;">
+							    	Selling<h1 style="font-size: 14px"; id="sellingCount"></h1></a></li>
 							</ul>
 						</div><!-- /panel home-page navbar -->
                     </li>
@@ -209,7 +210,7 @@
         
         <!--###################################### LOGIN PAGE ######################################-->
         <div id="login-page" data-role="page" >
-        	<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+        	<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
 				<div class="ui-btn-left">
 					<a data-theme="b" data-rel="back" data-role="button" style="background-color: transparent;box-shadow: none; border: none; ">Cancel</a>
 				</div>
@@ -222,10 +223,10 @@
             <div data-role="content">
             	<!-- <a  id="popup" onclick="$("#popupLogin").popup("open");" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Sign in</a> -->
 				<div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all" data-dismissible="false" style="background: rgba(25,25,0,.8); border: none;">
-				        <div style="padding:20px 20px;" align="center">
-				        	<img class="listImg" width='25' height'25' src="images/loading.gif" />
-				            <h3 style="color: #FFFFFF">Loggin in</h3>
-				        </div>
+					<div style="padding:20px 20px;" align="center">
+				    	<img class="listImg" width='25' height'25' src="images/loading.gif" />
+				        <h3 style="color: #FFFFFF">Loggin in</h3>
+					</div>
 				</div>   	
             	<form method="post">
                     <div>
@@ -247,7 +248,7 @@
                 			<br /> <br />
                			</ul>
                			<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
-                			<a id="loginSubmit" class="ui-btn ui-mini ui-btn-inline custom-btn"  href="#home" data-role="button" style="width: 150px;">Log in</a>
+                			<a id="loginSubmit" class="ui-btn ui-mini ui-btn-inline custom-btn" data-role="button" style="width: 150px;">Log in</a>
                			</div>
                     </div>
                 </form>
@@ -259,85 +260,134 @@
 				        <a style="background: transparent; padding: 0; border: none;" data-rel="back"><p class="account-info-user">OK</p></a>
 				    </div>
 				</div>
+				
+				<div data-role="popup" id="popupLoginMissing" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				    <div role="main" class="ui-content" align="center">
+				        <h2 class="account-info-user" style="font-size: 13px;"><center>Login Errors</center></h2>
+				    	<p class="account-info" style="white-space: normal; text-align: center; color: #555555">Must include all fields.</p>
+				    	<hr />
+				        <a style="background: transparent; padding: 0; border: none;" data-rel="back"><p class="account-info-user">OK</p></a>
+				    </div>
+				</div>
     		</div>  
         </div>
 	
-    <!--###################################### SELL PRODUCT PAGE ######################################-->
-    <div id="sell-page" data-role="page">
-        <div data-role="header" data-position="fixed" data-theme="b" data-position="fixed">
-	    	<div class="ui-btn-left">
-	    		<a href="#home-page"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-	    		<a data-role="button" data-rel="back" href="#home-page" data-icon="delete" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a>
-	    	</div>
-		   		<h1></h1>
-		    <div class="ui-btn-right"> <a href="#search-page" data-role="button" data-icon="search" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;">Search</a>
-		    	<!-- <a href="#" data-role="button" data-icon="cart" data-iconpos="notext">My Cart</a> -->
-		    	<a data-role="button" data-rel="back" onclick="SaveProduct()" style="background-color: transparent;box-shadow: none; border: none;">Save</a> 
-		    </div>
-	  	</div>
-	  	<div data-role="content">
-	  		<center><h3>Enter the new product info</h3></center>
-            <form id="product-form">
-                <fieldset  data-theme="a">
-                        <label for="photo">Image:</label><input type="file" data-clear-btn="true" name="photo" id="photo" value="">
-                        <label for="name"> <input id="name" name="name" type="text" placeholder="Title"data-clear-btn="true"/></label>
-                        <label for="brand"> <input id="brand" name="brand" type="text" placeholder="Brand"data-clear-btn="true"/></label>
-                        <label for="model"> <input id="model" name="model" type="text" placeholder="Model"data-clear-btn="true"/></label>
-                            <label for="category" ></label>
-                                <select name="category" id="category" multiple="multiple" data-native-menu="false" data-icon="arrow-d" data-iconpos="right">
-                                    <option>Categories</option>
-                                    <optgroup label="Books">
-                                        <option value="children">Children</option>
-                                        <option value="fiction">Fiction</option>
-                                        <option value="technology">Technology</option>
-                                        <option value="business">Business</option>
-                                    </optgroup>
-                                    <optgroup label="Electronics">
-                                        <option value="tv">TV</option>
-                                        <option value="audio">Audio</option>
-                                        <option value="phones">Phones</option>
-                                        <option value="cameras">Cameras</option>
-                                        <option value="video">Video</option>
-                                    </optgroup>
-                                    <optgroup label="Computers">
-                                        <option value="laptops">Laptops</option>
-                                        <option value="desktops">Desktops</option>
-                                        <option value="tablets">Tablets</option>
-                                        <option value="printers">Printers</option>
-                                    </optgroup>
-                                    <optgroup label="Clothing">
-                                        <option value="men">Men</option>
-                                        <option value="women">Women</option>
-                                        <option value="children">Children</option>
-                                        <option value="shoes">Shoes</option>
-                                    </optgroup>
-                                    <optgroup label="Sports">
-                                        <option value="bicycles">Bicycles</option>
-                                        <option value="fishing">Fishing</option>
-                                        <option value="baseball">Baseball</option>
-                                        <option value="golf">Golf</option>
-                                        <option value="basketball">Basketball</option>
-                                    </optgroup>
-                                </select>
-                            <label for="condition">Condition:</label>
-                            <select name="condition" id="condition" data-mini="true" data-inline="true" data-native-menu="false">
-                                <option value="New">New</option>
-                                <option value="Manufacturer Refurbished">Manufacturer Refurbished</option>
-                                <option value="Used">Used</option>
-                                <option value="For parts or not working">For parts or not working</option>
-                            </select>
-                            <label for="priceMethod">Select price method:</label>
-                            <select name="priceMethod" id="priceMethod" data-mini="true" data-inline="true" data-native-menu="false">
-                                <option value="Instant">Instant</option>
-                                <option value="Bid">Bid</option>
-                            </select>
-                        <label for="price"> <input id="price" name="price" type="number" placeholder="Price $$"/></label>    
-                        <label for="description"><input  id="description" name="description" type="text" placeholder="Description"></label>
-             </fieldset>
-            </form>
-	  	</div>
-            
-    </div>
+    	<!--###################################### SELL PRODUCT PAGE ######################################-->
+    	<div id="sell-page" data-role="page">
+        	<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-rel="back" data-role="button" style="background-color: transparent;box-shadow: none; border: none; ">Cancel</a>
+				</div>
+			    <h3>Listing</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a data-theme="b" href="#" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Sell</a>
+			  	</div>
+			</div><!-- /sell-page header -->
+		  	<div data-role="content">
+		  		<h3 style="margin-bottom: 20px;">Product info</h3>
+	            <form id="product-form">
+	                <fieldset>
+	                	<ul data-role="listview" style="padding: 0; margin-bottom: 40px;">
+	                		<li>
+	                			<a>Photos</a>
+	                		</li>
+				    		<li>
+		         				<input type="text" placeholder="Title" data-mini="true" name="productName" id="productName" value="" class="required account-info ui-input-listview">
+					    	</li>
+					    	<li>
+					    	 	<input type="text" placeholder="Brand"  data-mini="true" name="productBrand" id="productBrand" value="" class="required account-info ui-input-listview">
+					    	 </li>
+					    	 <li>
+					    	 	<input  type="text" placeholder="Model" data-mini="true" name="productModel" id="productModel" value="" class="required account-info ui-input-listview">
+				    		</li>
+				    	</ul>
+	                	<ul data-role="listview" style="padding: 0; margin-bottom: 40px;" class="ui-alt-icon ui-nodisc-icon">
+	                		<li style="padding: 0;">
+	                        	<select name="category" id="category" multiple="multiple" data-native-menu="false" data-icon="arrow-d" data-iconpos="right" class="ui-input-listview sell">
+	                            	<option>Categories</option>
+	                                    <optgroup id='selectSell' label="Books" class="sell" style="font-size: 10px;">
+	                                        <option value="children">Children</option>
+	                                        <option value="fiction">Fiction</option>
+	                                        <option value="technology">Technology</option>
+	                                        <option value="business">Business</option>
+	                                    </optgroup>
+	                                    <optgroup label="Electronics">
+	                                        <option value="tv">TV</option>
+	                                        <option value="audio">Audio</option>
+	                                        <option value="phones">Phones</option>
+	                                        <option value="cameras">Cameras</option>
+	                                        <option value="video">Video</option>
+	                                    </optgroup>
+	                                    <optgroup label="Computers">
+	                                        <option value="laptops">Laptops</option>
+	                                        <option value="desktops">Desktops</option>
+	                                        <option value="tablets">Tablets</option>
+	                                        <option value="printers">Printers</option>
+	                                    </optgroup>
+	                                    <optgroup label="Clothing">
+	                                        <option value="men">Men</option>
+	                                        <option value="women">Women</option>
+	                                        <option value="children">Children</option>
+	                                        <option value="shoes">Shoes</option>
+	                                    </optgroup>
+	                                    <optgroup label="Sports">
+	                                        <option value="bicycles">Bicycles</option>
+	                                        <option value="fishing">Fishing</option>
+	                                        <option value="baseball">Baseball</option>
+	                                        <option value="golf">Golf</option>
+	                                        <option value="basketball">Basketball</option>
+	                                    </optgroup>
+	                                </select>
+	                		</li>
+				    		<li  style="padding: 0;">
+							<div data-role="collapsible" data-mini="true" id="custom-collapsible">
+							    <h3>Heading</h3>
+							    <ul data-role="listview">
+							        <li style="padding: 0;">
+							        	<div class="ui-field-contain">
+										    <fieldset data-role="controlgroup">
+										        <input type="checkbox" name="checkbox-v-1a" id="checkbox-v-1a">
+										        <label for="checkbox-v-1a">New</label>
+										        <input type="checkbox" name="checkbox-v-1b" id="checkbox-v-1b">
+										        <label for="checkbox-v-1b">Manufacturer Refurbished</label>
+										        <input type="checkbox" name="checkbox-v-1c" id="checkbox-v-1c">
+										        <label for="checkbox-v-1c">Used</label>
+										        <input type="checkbox" name="checkbox-v-1s" id="checkbox-v-1d">
+										        <label for="checkbox-v-1d">For parts or not working</label>
+										    </fieldset>
+										</div>
+							        </li>
+							    </ul>
+							</div>
+	                            <!-- <select name="condition" id="condition" data-mini="true" data-inline="true" data-native-menu="false" class="ui-input-listview sell">
+	                                <option value="New">New</option>
+	                                <option value="Manufacturer Refurbished">Manufacturer Refurbished</option>
+	                                <option value="Used">Used</option>
+	                                <option value="For parts or not working">For parts or not working</option>
+	                            </select> -->
+					    	</li>
+					    	<li>
+					    	 	<input type="text" placeholder="Description"  data-mini="true" name="productBrand" id="productBrand" value="" class="required account-info ui-input-listview">
+					    	 </li>
+				    	</ul>
+	                	<ul data-role="listview" style="padding: 0; margin-bottom: 40px;"  class="ui-alt-icon ui-nodisc-icon">
+	                		<li style="padding: 0">
+								<select name="priceMethod" id="priceMethod" data-mini="true" data-inline="true" data-native-menu="false" class="required ui-input-listview">
+	                                <option value="Instant">Instant</option>
+	                                <option value="Bid">Bid</option>
+	                            </select>		         				
+	                		</li>
+				    		<li>
+		         				<input type="text" placeholder="Price" data-mini="true" name="productPrice" id="productPrice" value="" class="required account-info ui-input-listview">
+					    	</li>
+					    	<li>
+					    	 	<input type="text" placeholder="Shipping"  data-mini="true" name="productBrand" id="productBrand" value="" class="required account-info ui-input-listview">
+					    	 </li>
+				    	</ul>
+	             </fieldset>
+	            </form>
+		  	</div>   
+    	</div>
 	
 		<!--###################################### PRODUCT VIEW PAGE ######################################-->
 		<div id="product-view" data-role="page"> 
@@ -347,7 +397,7 @@
 			    <h3 style="white-space: nowrap;" id="product-name"></h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
 			  		<a href="#" data-role="button"  data-icon="search" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none; margin-top: 4px;">Buy It Now</a>
-			    	<a href="#" data-role="button" data-icon="shop" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;  margin-top: 4px;">Add to cart</a>
+			    	<a onclick="AddtoShoppingCart()" data-role="button" data-icon="shop" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;  margin-top: 4px;">Add to cart</a>
 			  	</div>
 			</div><!-- /product-page header -->
 			<div data-role="content">
@@ -398,8 +448,8 @@
 			   		
 			   		<div  align="center">
 			   			<a id="upd-bidButton" class="custom-btn" href="#placeBidAlert" data-rel="popup" data-position-to="window" data-transition="pop" data-role="button" style="color: white;" >Place a Bid</a>
-						<a id="upd-butItNowButton" class="custom-btn " onclick="buyItNow()" data-role="button" style="color: white;">Buy it Now</a>
-						<a id="upd-addToCartButton"class="custom-btn" data-role="button" style="color: white;">Add to Cart</a>
+						<a id="upd-butItNowButton" onclick="buyItNow()" class="custom-btn " onclick="buyItNow()" data-role="button" style="color: white;">Buy it Now</a>
+						<a id="upd-addToCartButton" onclick="AddtoShoppingCart()" class="custom-btn" data-role="button" style="color: white;">Add to Cart</a>
                		</div>
 			   		<br />
 				    <ul data-role="listview" class="ui-nodisc-icon ui-alt-icon">
@@ -421,25 +471,60 @@
 				    </ul>
 			    </div>
 			</div>
-			
-		
-			<div data-role="popup" id="placeBidAlert" data-theme="a" class="ui-corner-all">
-	    		<form action="#home-page">
-	        		<div style="padding:10px 20px;">
-	            		<center><h3>Confirm bid</h3></center>
-	            		<input type="number"/ placeholder="$" value="">
-	            		<button type="submit" onclick="window.location='#product-view'" data-mini="true" data-theme="b">Place Bid</button>
-	        		</div>
-	        	</form>	
-			</div>
-				<div data-role="popup" id="popupDialogProduct" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+			<div data-role="popup" id="placeBidAlert" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:300px; background: rgba(255,255,255,.8); border: none;">
+				<form id="bidForm">
 				    <div role="main" class="ui-content" align="center">
-				        <h2 class="account-info-user" style="font-size: 13px;"><center>We're sorry</center></h2>
-				    	<p class="account-info" style="white-space: normal; text-align: center; color: #555555">Product not found.</p>
-				    	<hr />
-				        <a style="background: transparent; padding: 0; border: none;" data-rel="back"><p class="account-info-user">OK</p></a>
+				        <h2 class="account-info-user" style="font-size: 13px;"><center><h3 style="color: #55A244">Place Bid</h3></center></h2>
+						<div data-role="navbar" data-grid="b">
+							<ul class="ui-alt-icon">
+								<li class="ui-nodisc-icon" style="width: 60%; margin-top: 5px;">
+							    	<p class="account-info" style="font-size: 11px; color: #4F4F4F">Enter your max bid</p>
+							        <p class="account-info" style="font-size: 11px; color: #4F4F4F">(US $600 or more)</p>
+							    </li>
+							    <li class="ui-nodisc-icon" style="width: 30%">
+							    	<input id="userbidprice" type="text" pattern="[0-9]*" placeholder="$">
+							     </li>
+							</ul>
+					   	</div>
+					    <hr />
+					    <div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
+                			<a style="background: transparent; padding: 0; border: none;" data-rel="back" class="ui-btn-inline"><p class="account-info-user">Cancel</p></a>
+                			<a onclick="bidOnProduct()" style="background: transparent; padding: 0; border: none;" class="ui-btn-inline"><p class="account-info-user">Confirm</p></a>
+                			<!-- <a id="paymentSubmit" class="ui-btn ui-mini ui-btn-inline custom-btn"  href="#" data-role="button" style="width: 150px;">SAVE</a> -->
+                		</div>				        
 				    </div>
+				</form>	
+			</div>
+			<div data-role="popup" id="popupDialogProduct" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+					<h2 class="account-info-user" style="font-size: 13px;"><center>We're sorry</center></h2>
+				    <p class="account-info" style="white-space: normal; text-align: center; color: #555555">Product not found.</p>
+				    <hr />
+				    <a style="background: transparent; padding: 0; border: none;" data-rel="back"><p class="account-info-user">OK</p></a>
 				</div>
+			</div>
+			<div data-role="popup" id="popupBidPrice" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+					<h2 class="account-info-user" style="font-size: 13px;"><center>We're sorry</center></h2>
+				    <p id="bidPriceMessage" class="account-info" style="white-space: normal; text-align: center; color: #555555"></p>
+				    <hr />
+				    <a style="background: transparent; padding: 0; border: none;" data-rel="back"><p class="account-info-user">OK</p></a>
+				</div>
+			</div>
+			<div data-role="popup" id="popupBidder" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+					<h2 class="account-info-user" style="font-size: 13px;"><center>Congratulations!</center></h2>
+				    <p id="bidPriceMessage" class="account-info" style="white-space: normal; text-align: center; color: #555555">You are the higher bidder.</p>
+				    <hr />
+				    <a style="background: transparent; padding: 0; border: none;" data-rel="back"><p class="account-info-user">OK</p></a>
+				</div>
+			</div>
+			<div data-role="popup" id="popupAddToCart" data-theme="a" class="ui-corner-all" data-dismissible="false" style="background: rgba(25,25,0,.8); border: none;">
+				<div style="padding:20px 20px;" align="center">
+				    <img class="listImg" width='25' height'25' src="images/loading.gif" />
+				    <h3 style="color: #FFFFFF">Adding to Cart</h3>
+				</div>
+			</div>  
 		</div>
     
 		<!--###################################### SELLER PAGE ######################################-->    
@@ -915,6 +1000,112 @@
 			</div>
 		</div> <!-- /add-payment-info-page -->
 		
+		<!--###################################### SHIPPING INFO PAGE ######################################-->
+		<div id="shipping-info-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<h3>Shipping Address</h3>
+			</div><!-- /payment-info-page header -->
+			<div data-role="content" style="padding-top: 0;">
+				<h6 id="payment-info-header"></h6>
+				<h3 style="margin-bottom: 20px">Shipping Addresses</h3>
+				<ul id="payment-info-list" data-role="listview" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
+					<li>
+						<div align="center">
+							<img  class="listImg" width='25' height'25' src="images/loading.gif" />
+						</div>
+					</li>
+					<li style="background-color: transparent; border-bottom-width: 0;"><h3 style="padding: auto; font-weight: lighter;">Loading Cards...</h3></li>
+					<!-- Addresses added dynamically  -->
+					<li id ="">
+                		<img src="images/icons/111-user.png" class="ui-li-icon ui-corner-none"/  style="margin-top: 8px">
+                    	<h2 style="font-size: 14px;">Christian O. Montes</h2>
+                    	<hr />
+                    	                		<img src="images/icons/111-user.png" class="ui-li-icon ui-corner-none"/  style="margin-top: 8px">
+
+                    	<h2 style="font-size: 14px;">Urb. Rio Canas Calle Amazonas 2824</h2>
+                    	<p>Ponce, PR 00728</p>
+                    	<hr />
+                    	                		<img src="images/icons/111-user.png" class="ui-li-icon ui-corner-none"/  style="margin-top: 8px">
+
+                    	<p style="font-size: 14px;">Discover</p>
+                    	<p>0004</p>
+                    	<p>12/17</p>
+                    </li>
+				</ul>
+				<br />
+				<ul data-role="listview">
+					<li><a href="#add-shipping-info-page"><center><h3 style="font-weight: lighter">Add shipping address</h3></center></a></li>
+				</ul>
+			</div> <!-- /shipping-info-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /shipping-info-page -->
+
+		<!--###################################### ADD SHIPPING INFO PAGE ######################################-->
+		<div id="add-shipping-info-page" data-role="page">
+			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<h3>Add Address</h3>
+			</div><!-- /add-shipping-info-page header -->
+			<div data-role="content" style="padding-top: 0;" class="demo">
+				<h6 id="add-payment-info-header"></h6>
+				<!-- <p class="account-info-user" style="font-weight: lighter; margin-bottom: 15px; margin-top: 15px;">You ordered this products:</p> -->
+          		<h3 style="margin-bottom: 0px">Shipping Address</h3>
+				<form method="post">
+                    <div>
+                        <br />
+                        <ul data-mini="true" data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+							<li data-mini="true">
+                				<input  type="text" name="fistLastName" id="fistLastNameMa" value="" placeholder="first and last name" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<input type="tel" name="phoneNumber" id="phoneNumberMa" value="" placeholder="phone number" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<input type="text" name="addressBa" id="addressMa" value="" placeholder="shipping address" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<input type="text" name="streetBa" id="streetMa" value="" placeholder="shipping address continued" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<input type="text" name="zipBa" id="zipMa" value="" placeholder="zip" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<input type="date" name="cityBa" id="cityMa" value="" placeholder="city" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<input type="text" name="stateBa" id="stateMa" value="" placeholder="state" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<br />
+               			</ul>
+               			<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
+                			<a id="shippingSubmit" class="ui-btn ui-mini ui-btn-inline custom-btn"  href="#" data-role="button" style="width: 150px;">SAVE</a>
+               			</div>
+                    </div>
+                </form>
+
+			</div> <!-- /add-shipping-info-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /add-shipping-info-page -->
+		
 		<!--###################################### SELLER FEEDBACK PAGE ######################################--> 
 	    <div id="seller-feedback-page" data-role="page"> 
 			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
@@ -1225,7 +1416,7 @@
 		<!--###################################### CART PAGE ######################################-->
 		<div id="cart-page" data-role="page" data-title="Cart"> 
 			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
-				<div class="ui-btn-left">
+				<div id="cart-delete" class="ui-btn-left">
 					<a id="cart-edit" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Edit</a>
 					<a id="cart-done" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Done</a>
 				</div>
@@ -1233,9 +1424,8 @@
 			    <div class="ui-btn-right ui-nodisc-icon">
 			  	</div>
 			</div><!-- /cart-page-header -->
-			
 				<ul data-role="listview">
-					<li id="cart-clear" data-icon="false"><a><h3 style="font-weight: lighter; padding: 0; margin: 0;"><center>Clear all</center> </h3></a></li>
+					<li id="cart-clear" data-icon="false"><a onclick="ClearCart()"><h3 style="font-weight: lighter; padding: 0; margin: 0;"><center>Clear all</center> </h3></a></li>
 				</ul>
 			<div data-role="content">
 				<ul id="cart-list" data-role="listview" class="ui-alt-icon ui-nodisc-icon">
@@ -1261,13 +1451,13 @@
     				 left:calc(50% - 256px/2);">Your cart is currently empty.</p>
 				</div>
 			</div>
-			<div data-role="content">
+			<div id="cart-info" data-role="content">
 				<div id = "upd-total"></div>
 				<h3 style="margin: 0" id="cart-subtotal"></h3>
 				<h3 style="margin: 0" id="cart-shipping"></h3>
 				<hr id="cart-line" style="margin: 0"/>
 				<h3 id="cart-grandtotal"></h3>
-				<a id="cart-checkout" class="custom-btn" href="#creditCard" data-role="button" style="color: white;" >Start Checkout</a>
+				<a id="cart-checkout" class="custom-btn" onclick="Checkout()" data-role="button" style="color: white;" >Start Checkout</a>
 			</div>
 			<!-- /cart-page-content -->
             <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
@@ -1405,7 +1595,7 @@
     	
     	<!--###################################### MY ACCOUNT PAGE ######################################-->
         <div id="account-page" data-role="page" data-title="My Account">
-			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
 				<div class="ui-btn-left">
 				</div>
 			    <h3>My Account</h3>
@@ -1438,7 +1628,7 @@
                     <li id =""><a id="account-profile">
                     	<img src="images/icons/111-user.png" class="ui-li-icon ui-corner-none"/ style="margin-top: 8px">
                       	<h2 style="font-size: 16px;">Recent Feedback</h2>
-                      	<p style="color: #555555">Name, e-mail and password</p></a>
+                      	<p style="color: #555555">Detailed view of your feedback</p></a>
                     </li>
                 	<li id =""><a id="account-order">
                 		<img src="images/icons/33-cabinet.png" class="ui-li-icon ui-corner-none"/  style="margin-top: 8px">
@@ -1448,12 +1638,12 @@
                     <li id =""><a id="account-selling">
                     	<img src="images/icons/111-user.png" class="ui-li-icon ui-corner-none"/ style="margin-top: 8px">
                       	<h2 style="font-size: 16px;">Items Selling</h2>
-                      	<p style="color: #555555">Name, e-mail and password</p></a>
+                      	<p style="color: #555555">View the items currently selling</p></a>
                     </li>
                     <li id =""><a id="account-history">
                     	<img src="images/icons/111-user.png" class="ui-li-icon ui-corner-none"/ style="margin-top: 8px">
                       	<h2 style="font-size: 16px;">Sale History</h2>
-                      	<p style="color: #555555">Name, e-mail and password</p></a>
+                      	<p style="color: #555555">View your past sales</p></a>
                     </li>
                     <li id =""><a id="account-shipping">
                     	<img src="images/icons/07-map-marker.png" class="ui-li-icon ui-corner-none"/ style="margin-top: 8px">
@@ -1468,11 +1658,10 @@
                     <li id =""><a id="account-admin">
                     	<img src="images/icons/111-user.png" class="ui-li-icon ui-corner-none"/ style="margin-top: 8px">
                       	<h2 style="font-size: 16px;">Administrate</h2>
-                      	<p style="color: #555555">Name, e-mail and password</p></a>
+                      	<p style="color: #555555">Add, Edit, Remove users and categories</p></a>
                     </li>
                </ul>
                <br />
-                
             </div> <!-- /account-page-content -->
             
             <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
@@ -1593,7 +1782,7 @@
 				    </ul>
 				</div><!-- /account-info-page-navbar -->
                 <h3 style="margin-top:15px; margin-bottom: 0px">Name and email</h3>
-                <form method="post">
+                <form id="update-user-form">
                     <div>
                         <br />
                         <ul data-mini="true" data-role="listview" class="ui-nodisc-icon ui-alt-icon">
@@ -1601,7 +1790,7 @@
                 				<input readonly="readonly" type="text" name="account-name" id="account-name" value="" placeholder="" data-mini="true" class="ui-input-listview" >
                 			</li>
                 			<li data-mini="true">
-                				<input  type="email" name="account-email" id="account-email" value="" placeholder="" data-mini="true" class="ui-input-listview" >                		
+                				<input type="email" name="updemail" id="updemail" value="" placeholder="" data-mini="true" class="ui-input-listview" >                		
                 			</li>
                 			<br />
                			</ul>
@@ -1611,12 +1800,163 @@
                 				<input  type="password" name="current-password" id="current-password" value="" placeholder="current password" data-mini="true" class="ui-input-listview" >                		
                 			</li>
                 			<li data-mini="true">
-                				<input  type="password" name="upd-password" id="upd-password" value="" placeholder="new password" data-mini="true" class="ui-input-listview" >                		
+                				<input  type="password" name="updpassword" id="updpassword" value="" placeholder="new password" data-mini="true" class="ui-input-listview" >                		
                 			</li>
                 			<br /> <br />
                			</ul>
                			<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
-                			<a id="upd-password-btn" class="ui-btn ui-mini ui-btn-inline custom-btn"  href="#home" data-role="button" style="width: 150px;">Save changes</a>
+                			<a id="update-account" onclick="UpdateUser()" class="ui-btn ui-mini ui-btn-inline custom-btn"  data-role="button" style="width: 150px;">Save changes</a>
+               			</div>
+                    </div>
+                </form>
+            </div> <!-- /account-info-page-content -->
+            
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li><a class="ui-btn-active" href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+        </div>
+		
+		<!--###################################### REMOVE USER PAGE ######################################-->
+        <div id="remove-user-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<div class="ui-btn-left">
+				</div>
+			    <h3>User Account Info</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Logout</a>
+			  	</div>
+			</div><!-- /account-info-page-header -->
+            
+            <!-- Content -->
+            <div data-role="content">
+            <h6 id="admin-account-info-header" style="margin-bottom: 15px;"></h6>
+			    <div data-role="navbar">
+				    <ul>
+				        <li style="width: 115px; background: transparent;"><div data-role="button" id="admin-account-image" style="background-size: 100px 100px;"></div></li>
+				        <li>
+				        	<p id="admin-account-info-username" class="account-info-user" style="margin-top: 0; font-size: 12px;"></p>
+				        	<p class="account-info" style="font-size: font-size: 12px;">Rating: <span id="admin-account-info-rating"></span></p>
+				        	<p id="admin-account-info-state" class="account-info" style="font-size: font-size: 12px;"></p>
+				        	<p id="admin-account-info-phone" class="account-info" style="font-size: font-size: 12px;"></p>
+				        </li>
+				    </ul>
+				</div><!-- /account-info-page-navbar -->
+                <h3 style="margin-top:15px; margin-bottom: 0px">Name and email</h3>
+                <form id="admin-update-user-form">
+                    <div>
+                        <br />
+                        <ul data-mini="true" data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+                			<li>
+                				<input readonly="readonly" type="text" name="admin-account-name" id="admin-account-name" value="" placeholder="" data-mini="true" class="ui-input-listview" >
+                			</li>
+                			<li data-mini="true">
+                				<input type="email" name="updemail" id="updemail" value="" placeholder="" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<br />
+               			</ul>
+						<h3 style="margin-top:10px; margin-bottom: 18px">Password</h3>
+                        <ul data-mini="true" data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+                			<li data-mini="true">
+                				<input  type="password" name="current-password" id="current-password" value="" placeholder="current password" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<input  type="password" name="updpassword" id="updpassword" value="" placeholder="new password" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<br /> <br />
+               			</ul>
+               			<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
+               			</div>
+                    </div>
+                </form>
+               <div  align="center">
+			   		<a class="custom-btn" href="#removeUserAlert" data-rel="popup" data-position-to="window" data-transition="pop" data-role="button" style="color: white; background-color: red" >Remove User</a>
+               	</div> 
+            </div> <!-- /account-info-page-content -->
+            
+            
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li><a class="ui-btn-active" href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+			
+			<div data-role="popup" id="removeUserAlert" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+			<div role="main" class="ui-content" align="center">
+				<h2 class="account-info-user" style="font-size: 13px;"><center>Remove User</center></h2>
+				<p class="account-info" style="white-space: normal; text-align: center; color: #555555">Are you sure you wish to remove user?</p>
+				<hr />
+				<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
+               		<a style="background: transparent; padding: 0; border: none;" data-rel="back" class="ui-btn-inline"><p class="account-info-user">Cancel</p></a>
+                	<a onclick ="AdminRemoveUser()" style="background: transparent; padding: 0; border: none;" class="ui-btn-inline"><p class="account-info-user">Remove</p></a>
+                </div>	
+			</div>
+			</div>
+        </div>
+        
+        <!--###################################### EDIT USER PAGE ######################################-->
+        <div id="edit-user-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<div class="ui-btn-left">
+				</div>
+			    <h3>User Account Info</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Logout</a>
+			  	</div>
+			</div><!-- /account-info-page-header -->
+            
+            <!-- Content -->
+            <div data-role="content">
+            <h6 id="admin-account-info-header" style="margin-bottom: 15px;"></h6>
+			    <div data-role="navbar">
+				    <ul>
+				        <li style="width: 115px; background: transparent;"><div data-role="button" id="admin-account-image" style="background-size: 100px 100px;"></div></li>
+				        <li>
+				        	<p id="admin-account-info-username" class="account-info-user" style="margin-top: 0; font-size: 12px;"></p>
+				        	<p class="account-info" style="font-size: font-size: 12px;">Rating: <span id="admin-account-info-rating"></span></p>
+				        	<p id="admin-account-info-state" class="account-info" style="font-size: font-size: 12px;"></p>
+				        	<p id="admin-account-info-phone" class="account-info" style="font-size: font-size: 12px;"></p>
+				        </li>
+				    </ul>
+				</div><!-- /account-info-page-navbar -->
+                <h3 style="margin-top:15px; margin-bottom: 0px">Name and email</h3>
+                <form id="admin-update-user-form">
+                    <div>
+                        <br />
+                        <ul data-mini="true" data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+                			<li>
+                				<input readonly="readonly" type="text" name="admin-account-name" id="admin-account-name" value="" placeholder="" data-mini="true" class="ui-input-listview" >
+                			</li>
+                			<li data-mini="true">
+                				<input type="email" name="updemail" id="updemail" value="" placeholder="" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<br />
+               			</ul>
+						<h3 style="margin-top:10px; margin-bottom: 18px">Password</h3>
+                        <ul data-mini="true" data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+                			<li data-mini="true">
+                				<input  type="password" name="current-password" id="current-password" value="" placeholder="current password" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<input  type="password" name="updpassword" id="updpassword" value="" placeholder="new password" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<br /> <br />
+               			</ul>
+               			<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
+                			<a id="update-admin-account" onclick="AdminUpdateUser()" class="ui-btn ui-mini ui-btn-inline custom-btn"  data-role="button" style="width: 150px;">Save changes</a>
                			</div>
                     </div>
                 </form>
@@ -1673,7 +2013,7 @@
     				 		left:calc(50% - 100px/2);">
 		                <p class="ui-li-aside" style="font-size: 12px">Remove Category</p>
 		            </a></li>
-		            <li><a href="#" onclick="">
+		            <li><a href="#add-user-page" onclick="">
 		                <img src="images/AddUser.png" class="ui-li-thumb" style="position: absolute; 
 					 		height: 100px;
    					 		width: 100px;
@@ -1681,7 +2021,7 @@
     				 		left:calc(50% - 100px/2);">
 		                <p class="ui-li-aside">Add User</p>
 		            </a></li>
-		            <li><a href="#" onclick="">
+		            <li><a href="#search-user-page" onclick="">
 		                <img src="images/editUser.png" class="ui-li-thumb" style="position: absolute; 
 					 		height: 100px;
    					 		width: 100px;
@@ -1689,7 +2029,7 @@
     				 		left:calc(50% - 100px/2);">
 		                <p class="ui-li-aside">Edit User</p>
 		            </a></li>
-		            <li><a href="#" onclick="">
+		            <li><a href="#search-user-to-remove-page" onclick="">
 		                <img src="images/removeUser.png" class="ui-li-thumb" style="position: absolute; 
 					 		height: 100px;
    					 		width: 100px;
@@ -1719,7 +2059,146 @@
 			    </div>
 			</div>
         </div>
-                
+        
+        <!--###################################### ADD USER PAGE ######################################-->
+        <div id="add-user-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" data-position="fixed">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-rel="back" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a>
+				</div>
+			    <h4>Add a User</h4>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a data-theme="b" href="#login-page" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Log In</a>
+			  	</div>
+			</div><!-- /register-page header -->
+			<div data-role="content">
+				<h3 style="margin-bottom: 20px;">Account</h3>
+				<form enctype="multipart/form-data" id="addUserForm">
+    
+					<ul data-role="listview" style="padding: 0">
+						<!-- <li>
+							<input id="file" type="file" name="file">
+						</li> -->
+				    	 <li>
+				    	 	<div data-role="navbar">
+							    <ul>
+							        <li style="width: 100px; background: transparent;">
+							        	<div data-role="button" align="center" id="register-image" style="background-size: 60px 60px; margin-left: 15px; background-image: url('https://ssl.gstatic.com/accounts/ui/avatar_2x.png'); margin-top: 6px;">
+							        	</div>
+							        </li>
+							        <li style="width: 16px">
+							        	<p style="margin-top: 15px; margin-bottom: 15px"><img src="images/icons/111-user.png" style="width: 14px" /></p>
+							        	<p><img src="images/icons/54-lock.png" style="width: 12px" /></p>
+							        </li>
+							        <li>
+										<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="text" style="font-size: 12px;" data-mini="true" name="username" id="username" placeholder="username" class="required account-info " >
+										<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="password" style="font-size: 12px;" data-mini="true" name="upassword" id="upassword" placeholder="password" class="required account-info">
+							        </li>
+							    </ul>
+							</div><!-- /register-page-navbar -->	
+				    	 </li>
+				    </ul>
+				    <br />
+	    			<h3 style="margin-bottom: 20px;">Profile</h3>
+	    			<ul data-role="listview" style="padding: 0">
+				    	 <li>
+				    	 	<img src="images/icons/123-id-card.png" class="ui-li-icon ui-corner-none"/>
+	         				<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="text" placeholder="first name" data-mini="true" name="fname" id="fname" class="required account-info ui-input-listview">
+				    	 </li>
+				    	 <li>
+				    	 	<img src="images/icons/123-id-card.png" class="ui-li-icon ui-corner-none"/>
+				    	 	<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="text" placeholder="last name"  data-mini="true" name="lname" id="lname" class="required account-info ui-input-listview">
+				    	 </li>
+				    	 <li>
+				    	 	<img src="images/icons/email.png" class="ui-li-icon ui-corner-none"/>
+				    	 	<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="email" placeholder="email Address" data-mini="true" name="email" id="email" class="required email account-info ui-input-listview">
+				    	 </li>
+				    </ul>
+						<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin-top: 25px">
+                			<a id="registerSubmit" onclick="AdminAddUser()" class="ui-btn ui-mini ui-btn-inline custom-btn" data-role="button" style="width: 150px;">Register</a>
+               			</div>
+    			</form> <!--register-page-form -->
+			</div>
+			<div data-role="popup" id="popupMissingFields" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+					<h2 class="account-info-user" style="font-size: 13px;"><center>Registration errors</center></h2>
+				   	<p class="account-info" style="white-space: normal; text-align: center; color: #555555">Missing fields.</p>
+				   	<hr />
+				    <a style="background: transparent; padding: 0; border: none;" data-rel="back"><p class="account-info-user">OK</p></a>
+				</div>
+			</div>
+			<div data-role="popup" id="popupExist" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+					<h2 class="account-info-user" style="font-size: 13px;"><center>We're sorry</center></h2>
+				   	<p class="account-info" style="white-space: normal; text-align: center; color: #555555">The provided username already has an account. Please try logging in.</p>
+				   	<hr />
+				    <a style="background: transparent; padding: 0; border: none;" data-rel="back"><p class="account-info-user">OK</p></a>
+				</div>
+			</div>
+			<div data-role="popup" id="popupRegister" data-theme="a" class="ui-corner-all" data-dismissible="false" style="background: rgba(25,25,0,.8); border: none;">
+				<div style="padding:20px 20px;" align="center">
+					<img class="listImg" width='25' height'25' src="images/loading.gif" />
+				    <h3 style="color: #FFFFFF">Registering</h3>
+				</div>
+				</div>   	
+		</div> <!-- add-user-page -->
+        
+        <!--###################################### SEARCH A USER PAGE ######################################-->
+        <div id="search-user-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" data-position="fixed">
+				<div class="ui-btn-left ui-nodisc-icon">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+				</div>
+			    <h3>Reports</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Logout</a>
+			  	</div>
+			</div><!-- /reports-page-header -->
+            <div data-role="content"> 
+            	<form method="post">
+                	<label for="searchUsername">User to modify:</label>
+                    <input type="text" placeholder="Username" data-clear-btn="true" id="searchUsername" value="">
+                </form>
+                          <button onclick="AdminGetUser()" data-mini="true" data-theme="b">Search</button>
+          
+                        </div>
+                        
+                        <div>
+                              <p id="noUsers" align="center"></p>
+                              <ul class="reportList" id="reports-list" data-role="listview" data-inset="false">
+                                <!-- Reports added dynamically  -->
+                              </ul>
+                          </div> 
+                </div>    
+        
+        <!--###################################### SEARCH USER TO REMOVE PAGE ######################################-->
+        <div id="search-user-to-remove-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" data-position="fixed">
+				<div class="ui-btn-left ui-nodisc-icon">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+				</div>
+			    <h3>Reports</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Logout</a>
+			  	</div>
+			</div><!-- /reports-page-header -->
+            <div data-role="content"> 
+            	<form method="post">
+                	<label for="searchUsernameToDelete">User to modify:</label>
+                    <input type="text" placeholder="Username" data-clear-btn="true" id="searchUsernameToDelete" value="">
+                </form>
+                          <button onclick="AdminGetUserToRemove()" data-mini="true" data-theme="b">Search</button>
+          
+                        </div>
+                        
+                        <div>
+                              <p id="noUsers" align="center"></p>
+                              <ul class="reportList" id="reports-list" data-role="listview" data-inset="false">
+                                <!-- Reports added dynamically  -->
+                              </ul>
+                          </div> 
+                </div>      
+        
         <!--###################################### REPORTS PAGE ######################################-->
         <div id="reports-page" data-role="page">
 			<div data-role="header" style="background: #1D8D55" data-position="fixed">
@@ -1761,8 +2240,12 @@
 			</div><!-- /register-page header -->
 			<div data-role="content">
 				<h3 style="margin-bottom: 20px;">Account</h3>
-				<form action="" id="registerForm">
+				<form enctype="multipart/form-data" id="registerForm">
+    
 					<ul data-role="listview" style="padding: 0">
+						<!-- <li>
+							<input id="file" type="file" name="file">
+						</li> -->
 				    	 <li>
 				    	 	<div data-role="navbar">
 							    <ul>
@@ -1775,8 +2258,8 @@
 							        	<p><img src="images/icons/54-lock.png" style="width: 12px" /></p>
 							        </li>
 							        <li>
-										<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="text" style="font-size: 12px;" data-mini="true" name="username" id="usernameReg" value="" placeholder="username" class="required account-info " >
-										<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="password" style="font-size: 12px;" data-mini="true" name="password" id="passwordReg" value="" placeholder="password" class="required account-info">
+										<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="text" style="font-size: 12px;" data-mini="true" name="username" id="username" placeholder="username" class="required account-info " >
+										<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="password" style="font-size: 12px;" data-mini="true" name="upassword" id="upassword" placeholder="password" class="required account-info">
 							        </li>
 							    </ul>
 							</div><!-- /register-page-navbar -->	
@@ -1786,78 +2269,64 @@
 	    			<h3 style="margin-bottom: 20px;">Profile</h3>
 	    			<ul data-role="listview" style="padding: 0">
 				    	 <li>
-				    	 	<img src="images/icons/70-tv.png" class="ui-li-icon ui-corner-none"/>
-	         				<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="text" placeholder="first name" data-mini="true" name="firstName" id="firstName" value="" class="required account-info ui-input-listview">
+				    	 	<img src="images/icons/123-id-card.png" class="ui-li-icon ui-corner-none"/>
+	         				<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="text" placeholder="first name" data-mini="true" name="fname" id="fname" class="required account-info ui-input-listview">
 				    	 </li>
 				    	 <li>
-				    	 	<img src="images/icons/70-tv.png" class="ui-li-icon ui-corner-none"/>
-				    	 	<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="text" placeholder="last name"  data-mini="true" name="lastName" id="lastName" value="" class="required account-info ui-input-listview">
+				    	 	<img src="images/icons/123-id-card.png" class="ui-li-icon ui-corner-none"/>
+				    	 	<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="text" placeholder="last name"  data-mini="true" name="lname" id="lname" class="required account-info ui-input-listview">
 				    	 </li>
 				    	 <li>
-				    	 	<img src="images/icons/70-tv.png" class="ui-li-icon ui-corner-none"/>
-				    	 	<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="email" placeholder="email Address" data-mini="true" name="email" id="email" value="" class="required email account-info ui-input-listview">
+				    	 	<img src="images/icons/email.png" class="ui-li-icon ui-corner-none"/>
+				    	 	<input onkeydown="if(event.keyCode==13)$('#registerSubmit').trigger('click');"  type="email" placeholder="email Address" data-mini="true" name="email" id="email" class="required email account-info ui-input-listview">
 				    	 </li>
 				    </ul>
-							<!-- <select name="stateMailingAddress" id="stateMailingAddress" data-native-menu="false" data-mini="true" class="required">
-								<option value="puerto rico">Puerto Rico</option>	
-								<option value="alabama">Alabama</option>
-								<option value="alaska">Alaska</option>
-								<option value="arizona">Arizona</option>
-								<option value="arkansas">Arkansas</option>
-								<option value="california">California</option>
-								<option value="colorado">Colorado</option>
-								<option value="connecticut">Connecticut</option>
-								<option value="delaware">Delaware</option>
-								<option value="florida">Florida</option>
-								<option value="georgi">Georgia</option>
-								<option value="hawaii">Hawaii</option>
-								<option value="idaho">Idaho</option>
-								<option value="illinois">Illinois</option>
-								<option value="indiana">Indiana</option>
-								<option value="iowa">Iowa</option>
-								<option value="kansas">Kansas</option>
-								<option value="kentucky">Kentucky</option>
-								<option value="lousiana">Louisiana</option>
-								<option value="maine">Maine</option>
-								<option value="maryland">Maryland</option>
-								<option value="massachusetts">Massachusetts</option>
-								<option value="michigan">Michigan</option>
-								<option value="minnesota">Minnesota</option>
-								<option value="mississippi">Mississippi</option>
-								<option value="missouri">Missouri</option>
-								<option value="montana">Montana</option>
-								<option value="nebraska">Nebraska</option>
-								<option value="nevada">Nevada</option>
-								<option value="new hampshire">New Hampshire</option>
-								<option value="new jersey">New Jersey</option>
-								<option value="new mexico">New Mexico</option>
-								<option value="new york">New York</option>
-								<option value="north carolina">North Carolina</option>
-								<option value="north dakota">North Dakota</option>
-								<option value="ohio">Ohio</option>
-								<option value="oklahoma">Oklahoma</option>
-								<option value="oregon">Oregon</option>
-								<option value="pennsylvania">Pennsylvania</option>
-								<option value="phode island">Rhode Island</option>
-								<option value="south carolina">South Carolina</option>
-								<option value="south dakota">South Dakota</option>
-								<option value="tennessee">Tennessee</option>
-								<option value="texas">Texas</option>
-								<option value="utah">Utah</option>
-								<option value="vermont">Vermont</option>
-								<option value="virginia">Virginia</option>
-								<option value="washington">Washington</option>
-								<option value="west virginia">West Virginia</option>
-								<option value="wisconsing">Wisconsin</option>
-								<option value="wyoming">Wyoming</option>
-						</select> -->
-	    			
 						<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin-top: 25px">
-                			<a id="registerSubmit" class="ui-btn ui-mini ui-btn-inline custom-btn"  href="#home-page" data-role="button" style="width: 150px;">Register</a>
+                			<a id="registerSubmit" onclick="SaveUser()" class="ui-btn ui-mini ui-btn-inline custom-btn" data-role="button" style="width: 150px;">Register</a>
                			</div>
     			</form> <!--register-page-form -->
 			</div>
-		</div> 
+			<div data-role="popup" id="popupMissingFields" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+					<h2 class="account-info-user" style="font-size: 13px;"><center>Registration errors</center></h2>
+				   	<p class="account-info" style="white-space: normal; text-align: center; color: #555555">Missing fields.</p>
+				   	<hr />
+				    <a style="background: transparent; padding: 0; border: none;" data-rel="back"><p class="account-info-user">OK</p></a>
+				</div>
+			</div>
+			<div data-role="popup" id="popupExist" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+					<h2 class="account-info-user" style="font-size: 13px;"><center>We're sorry</center></h2>
+				   	<p class="account-info" style="white-space: normal; text-align: center; color: #555555">The provided username already has an account. Please try logging in.</p>
+				   	<hr />
+				    <a style="background: transparent; padding: 0; border: none;" data-rel="back"><p class="account-info-user">OK</p></a>
+				</div>
+			</div>
+			<div data-role="popup" id="popupRegister" data-theme="a" class="ui-corner-all" data-dismissible="false" style="background: rgba(25,25,0,.8); border: none;">
+				<div style="padding:20px 20px;" align="center">
+					<img class="listImg" width='25' height'25' src="images/loading.gif" />
+				    <h3 style="color: #FFFFFF">Registering</h3>
+				</div>
+				</div>   	
+		</div> <!-- register-page -->
+		
+		<div data-role="popup" id="popupServer" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+			<div role="main" class="ui-content" align="center">
+				<h2 class="account-info-user" style="font-size: 13px;"><center>We're sorry</center></h2>
+				<p class="account-info" style="white-space: normal; text-align: center; color: #555555">Internal Server Error.</p>
+				<hr />
+				<a style="background: transparent; padding: 0; border: none;" data-rel="back"><p class="account-info-user">OK</p></a>
+			</div>
+		</div>
+		
+		<div data-role="popup" id="popupLoginMessage" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+			<div role="main" class="ui-content" align="center">
+				<h2 class="account-info-user" style="font-size: 13px;"><center>We're sorry</center></h2>
+				<p class="account-info" style="white-space: normal; text-align: center; color: #555555">Your Session has Expired or User not Logged In</p>
+				<hr />
+				<a id="okButton" style="background: transparent; padding: 0; border: none;"><p class="account-info-user">OK</p></a>
+			</div>
+		</div>
 		
 		<div data-role="popup" id="popupMenu" data-theme="a" class="ui-nodisc-icon ui-alt-icon">
         	<ul data-role="listview" data-icon="false" data-position="right" data-inset="true" style="min-width:150px;">

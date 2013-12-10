@@ -439,15 +439,16 @@ img.listImg {
 	padding-top: 0;
 	padding-bottom: 0;
 }*/
-#custom-collapsible {
-    width: 74% !important; 
-    margin-left: 9px !important; 
-    border-width: 0px !important; 
-    border: none;
-    background-color: white  !important;
-}
+span.ui-input-listview.sell{
+text-align: left; 
+margin-left: 5px;
+margin-top: 10px;
+margin-bottom: 0px;
+letter-spacing: 1px;}
 
-#custom-collapsible h3 a {
-    border-width: 0px !important; 
-    background: white  !important;
+.ui-collapsible-heading, .ui-collapsible-heading>.ui-btn {
+	border: none;
+}
+.ui-collapsible-inset .ui-collapsible-heading .ui-btn {
+	border-left-width: 0;
 }

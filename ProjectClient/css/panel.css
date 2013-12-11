@@ -53,7 +53,7 @@
 #home-page.ui-page-theme-a,
 #home-page .ui-panel-wrapper {
     background-color: #F0EFF4;
-    background-image: url(../_assets/img/bg-pattern.png);
+    /*background-image: url(../_assets/img/bg-pattern.png);*/
     background-repeat: repeat-x;
     background-position: left bottom;
 }

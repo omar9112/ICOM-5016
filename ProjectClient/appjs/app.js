@@ -8,6 +8,34 @@ var totalPrice = 0;
 var itemTotal = 0;
 var currentUserId;
 var orderSeller = {};
+var adminCurrentUser = {};
+
+function getDateTime() {
+    var now     = new Date(); 
+    var year    = now.getFullYear();
+    var month   = now.getMonth()+1; 
+    var day     = now.getDate();
+    var hour    = now.getHours();
+    var minute  = now.getMinutes();
+    var second  = now.getSeconds(); 
+    if(month.toString().length == 1) {
+        var month = '0'+month;
+    }
+    if(day.toString().length == 1) {
+        var day = '0'+day;
+    }   
+    if(hour.toString().length == 1) {
+        var hour = '0'+hour;
+    }
+    if(minute.toString().length == 1) {
+        var minute = '0'+minute;
+    }
+    if(second.toString().length == 1) {
+        var second = '0'+second;
+    }   
+    var dateTime = year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second;   
+    return dateTime;
+}
 
 // $(document).on('pagebeforecreate', '[data-role="page"]', function(){     
     // setTimeout(function(){
@@ -46,18 +74,96 @@ $( document ).on( "pagecreate", "#cart-page", function() {
     }
 });
 
+$(document).ready(function(){
+			
+				//First, we retrieve all the auction time divs and read their time values.
+				//The auctions array will contain all the auctions (or rather, the auction
+				//end time and the div which should be updated with remaining seconds.
+			 setInterval(function(){
+
+				var auctions = $([]);
+				$('.Countdown').each(function(){
+					var $this = $(this);
+					var auction = {
+						auctionEndTime: Date.parse($this.text()),
+						timeDiv: $this
+					};
+					auctions.push(auction);
+				});
+				
+				//The updateAuctionTimes method updates the time fields with the number of seconds left
+				//until the auctions closes.
+				var updateAuctionTimes = function(){
+					var now = new Date();
+					auctions.each(function(){
+						var secondsToFinishedAuction = Math.floor((this.auctionEndTime - now) / 1000);
+						if (secondsToFinishedAuction < 0) {
+							//alert(this.timeDiv.attr('id'));
+
+							this.timeDiv.text("Auction closed");
+							auctionTerminated(this.timeDiv.attr('id'));
+						}
+						else
+							this.timeDiv.text(secondsToFinishedAuction + " seconds remaining");
+					});
+				};
+				
+				//The updateEverySecond method executes the updateAuctionTimes method and then sets a timeout
+				//to call the updateEverySecond method again after one second.
+				var millisecondsBetweenUpdates = 1000;
+				var updateEverySecond = function(){
+					updateAuctionTimes();
+					
+					setTimeout(function(){
+						updateEverySecond();
+					}, millisecondsBetweenUpdates);
+				};
+				
+				//Starts the execution.
+				updateEverySecond();
+		 }, 1000);
+
+			});
+			
+			
+// setInterval(function(){
+// 	
+	// $('.Countdown').each(function(){
+					// var $this = $(this);
+					// alert($this.text());
+				// });
+// 	
+	// // var formData = form.serializeArray();
+	// // console.log("form Data: " + formData);
+	// // var newProduct = ConverToJSON(formData);
+	// // newProduct.sellerid = currentUser.uid;
+	// // console.log("New Product: " + JSON.stringify(newProduct));
+	// // var newProductJSON = JSON.stringify(newProduct);
+  // // if(key == 'value'){
+    // // alert('Ended');
+  // // }
+// }, 1000);
+
 $(document).on('click', '#loginSubmit', function(){
 	GetUser($('#username').val(), $('#password').val());
 	
 });   
 
 
+$(document).on('click', '#view-placed-order', function(){  
+	$.mobile.changePage('#order-history-page');
+});  
+
+$(document).on('click', '#continue-shopping', function(){  
+	$.mobile.changePage('#search-page');
+});     
+
 $(document).on('click', '#okButton', function(){  
 				setTimeout(function() {
     				$('#popupLoginMessage').popup("close");
 				},100);
 	$.mobile.changePage('#login-page');
-});     
+});        
 
 $(document).on('click', '#logout', function(){     
 	localStorage.removeItem('uid');
@@ -126,9 +232,176 @@ $(document).on('click', '#cart-done', function(){
 	$('#cart-edit').show();
 });  
 
+$(document).on('click', '#shipping-info-edit', function(){   
+	$('.shipping-list').css("margin-bottom", 0);
+	$('.shipping-info-btn').show();
+	$('#shipping-info-edit').hide();
+	$('#shipping-info-done').show();
+});  
+  
+$(document).on('click', '#shipping-info-done', function(){
+	$('.shipping-list').css("margin-bottom", '20px');
+	$('.shipping-info-btn').hide();
+	$('#shipping-info-done').hide();
+	$('#shipping-info-edit').show();
+});  
+
+$(document).on('click', '#payment-info-edit', function(){   
+	$('.payment-info-list').css("margin-bottom", 0);  
+	$('.payment-info-btn').show();
+	$('#payment-info-edit').hide();
+	$('#payment-info-done').show();
+});  
+  
+$(document).on('click', '#payment-info-done', function(){
+	('.payment-info-list').css("margin-bottom", '20px');
+	$('.payment-info-btn').hide();
+	$('#payment-info-done').hide();
+	$('#payment-info-edit').show();
+});  
+
+
+// Validation for add user page
+ $(document).on("pageshow", "#add-user-page", function() {
+	 $("#addUserForm").validate({
+		 rules: {
+			 zipMailingAddress: {
+				 required: true,
+				 digits: true,
+				 minlength: 5,
+				 maxlength: 5
+			 },
+ 			
+			 zipBillingAddress: {
+				 required: true,
+				 digits: true,
+				 minlength: 5,
+				 maxlength: 5
+			 },
+ 			
+			 telephone: {
+				 required: true,
+				 phoneUS: true,
+			 }
+		 }
+	 });
+ 	
+	 $("#addUserForm").validate({
+		 errorPlacement: function(error, element) {
+			 if ($(element).is("select")) {
+				 error.insertAfter($(element).parent());
+			 } else {
+				 error.insertAfter(element);
+			 }
+		 }	
+	 });	 
+ });
+ 
+$(document).on('pagebeforeshow', "#edit-user-page", function( event, ui ) {
+	var adminuid = localStorage.getItem('adminuid');
+	if(adminuid != null) {
+		AdminGetUserById(adminuid);
+		
+		// currentUser has been set at this point
+		$("#admin-edit-account-info-header").html("User Edit Mode");
+		document.getElementById("admin-edit-account-image").style.backgroundImage = "url('images/users/" + adminuid + ".png')";
+	    $("#admin-edit-account-info-username").html(adminCurrentUser.username);
+		$("#admin-edit-account-info-state").html("State: "+ adminCurrentUser.statema);	    
+	    $("#admin-edit-account-info-phone").html("Telephone: "+ adminCurrentUser.phonenumber);
+	    
+	    var name = adminCurrentUser.fname + " " + adminCurrentUser.lname;
+		$('#admin-edit-account-name').attr("value", name);
+		$('#edit-upd-email').attr("placeholder", adminCurrentUser.email);
+	    
+	    $.fn.raty.defaults.path = 'images/icons';
+	    $('#admin-edit-account-info-rating').raty(
+	        {
+	            numberMax: 5,
+	            score    : currentUser.rating,
+	            number   : 5,
+	            cancel   : false,
+	            cancelPlace: 'right',
+	            cancelOff: 'cancel-off.png',
+	            cancelOn : 'cancel-on.png',
+	            half     : true,
+	            size     : 16,
+	            starHalf : 'star-half.png',
+	            starOff  : 'star-off.png',
+	            starOn   : 'star-on.png',
+	            readOnly : 'true'
+	        }
+	    );
+	    
+	    $(document).on('click', '#logOutButton', function(){     
+			localStorage.removeItem('uid');
+			currentUser = undefined;
+			$.mobile.changePage('#home-page');
+			location.reload();
+		});
+	}
+	else {
+       $('#popupLoginMessage').popup();
+				setTimeout(function() {
+    				$('#popupLoginMessage').popup("open");
+				},100);
+    }
+});
+
+$(document).on('pagebeforeshow', "#remove-user-page", function( event, ui ) {
+	var adminuid = localStorage.getItem('adminuid');
+	if(adminuid != null) {
+		AdminGetUserById(adminuid);
+		
+		// currentUser has been set at this point
+		$("#admin-account-info-header").html("User Edit Mode");
+		document.getElementById("admin-account-image").style.backgroundImage = "url('images/users/" + adminuid + ".png')";
+	    $("#admin-account-info-username").html(adminCurrentUser.username);
+		$("#admin-account-info-state").html("State: "+ adminCurrentUser.statema);	    
+	    $("#admin-account-info-phone").html("Telephone: "+ adminCurrentUser.phonenumber);
+	    
+	    var name = adminCurrentUser.fname + " " +adminCurrentUser.lname;
+		$('#admin-account-name').attr("value", name);
+		$('#upd-email').attr("placeholder", adminCurrentUser.email);
+	    
+	    $.fn.raty.defaults.path = 'images/icons';
+	    $('#admin-account-info-rating').raty(
+	        {
+	            numberMax: 5,
+	            score    : currentUser.rating,
+	            number   : 5,
+	            cancel   : false,
+	            cancelPlace: 'right',
+	            cancelOff: 'cancel-off.png',
+	            cancelOn : 'cancel-on.png',
+	            half     : true,
+	            size     : 16,
+	            starHalf : 'star-half.png',
+	            starOff  : 'star-off.png',
+	            starOn   : 'star-on.png',
+	            readOnly : 'true'
+	        }
+	    );
+	    
+	    $(document).on('click', '#logOutButton', function(){     
+			localStorage.removeItem('uid');
+			currentUser = undefined;
+			$.mobile.changePage('#home-page');
+			location.reload();
+		});
+	}
+	else {
+       $('#popupLoginMessage').popup();
+				setTimeout(function() {
+    				$('#popupLoginMessage').popup("open");
+				},100);
+       // $.mobile.changePage("#login-page",false, true, true);
+    }
+	
+});
+
 $(document).on('click', '#view-order', function(){     
 	 $.ajax({
-		 url : "http://server-phase3.herokuapp.com/ProjectServer/recentOrder/" + currentUser.uid,
+		 url : "http://localhost:3412/ProjectServer/recentOrder/" + currentUser.uid,
 		 contentType: "application/json",
 		 success : function(data, textStatus, jqXHR){
 			 var orderid = data.order;
@@ -228,7 +501,7 @@ $(document).on('pagebeforeshow', "#home-page", function( event, ui ) {
  $(document).on('pagebeforeshow', '#search-page' ,function( event, ui ) {
 	 console.log("TESTING SEARCH");
 	 $.ajax({
-		 url : "http://server-phase3.herokuapp.com/ProjectServer/categories",
+		 url : "http://localhost:3412/ProjectServer/categories",
 		 contentType: "application/json",
 		 success : function(data, textStatus, jqXHR){
 			 var categoryList = data.categories;
@@ -239,7 +512,7 @@ $(document).on('pagebeforeshow', "#home-page", function( event, ui ) {
 			 for (var i=0; i < len; ++i) {
 				 category = categoryList[i];
 				 list.append("<li id='alt-list'><a href='#category-page' onclick=\"GetProductByCategory('" + category.categoryname + "')\">" +
-				  "<img src='images/icons/76-baby.png' class='ui-li-icon ui-corner-none'/>" + category.categoryname + "</a></li>"); 
+				  "<img src='images/icons/14-tag.png' class='ui-li-icon ui-corner-none'/>" + category.categoryname + "</a></li>"); 
 			 }
 			 list.listview("refresh");	
 		 },
@@ -260,6 +533,7 @@ $(document).on('pagebeforeshow', "#home-page", function( event, ui ) {
 	 }
 	
 	 $("#product-name").html(currentProduct.pname);
+	 $("#product-time").html(currentProduct.penddate.substring(0, 10));
 	 $("#product-location").html(currentProductSeller.statema);
 	 $("#product-seller").html("Seller: " + currentProductSeller.username);
 	 $("#product-header").html(currentProduct.pname);
@@ -313,7 +587,7 @@ $(document).on('pageshow', "#product-view", function( event, ui ) {
 	 $('#loadingBiddderList').show();
 	 $.ajax({
 	  	// currentProduct has been set at this point
-		 url : "http://server-phase3.herokuapp.com/ProjectServer/bidderListSummary/" + currentProduct.pid,
+		 url : "http://localhost:3412/ProjectServer/bidderListSummary/" + currentProduct.pid,
 		 contentType: "application/json",
 		 complete: function() {
         	// request is complete, regardless of error or success, so hide image
@@ -343,7 +617,7 @@ $(document).on('pageshow', "#product-view", function( event, ui ) {
 	 });
 	 
 	 $.ajax({
-		 url : "http://server-phase3.herokuapp.com/ProjectServer/bidderList/" + currentProduct.pid,
+		 url : "http://localhost:3412/ProjectServer/bidderList/" + currentProduct.pid,
 		 contentType: "application/json",
 		 success : function(data, textStatus, jqXHR){
 		 	$("#bidderListMessage").html("");
@@ -572,7 +846,7 @@ $(document).on('pagebeforeshow', "#recent-feedback-page", function( event, ui ) 
 	//currentUser has been set at this point
 	$('#recent-feedback-header').html(currentProductSeller.username);
     $.ajax({
-	 url : "http://server-phase3.herokuapp.com/ProjectServer/recentFeedback/" + currentProductSeller.uid,
+	 url : "http://localhost:3412/ProjectServer/recentFeedback/" + currentProductSeller.uid,
 	 contentType: "application/json",
 	 success : function(data, textStatus, jqXHR){
 		 var recentFeedbackList = data.feedbackList;
@@ -637,42 +911,42 @@ $(document).on('pagebeforeshow', "#account-page", function( event, ui ) {
 
 		//Account info
 		$(document).on('click', '#account-info', function(){     
-			$.mobile.changePage('#account-info-page', false, false, true);
+			$.mobile.changePage('#account-info-page', {transition: "slide", changeHash: true });
 		});  
 		
 		//Recent Feedback
 		$(document).on('click', '#account-profile', function(){     
-			$.mobile.changePage('#account-profile-page', false, false, true);
+			$.mobile.changePage('#account-profile-page', {transition: "slide", changeHash: true });
 		});  
 				
 		//Order History
 		$(document).on('click', '#account-order', function(){     
-			$.mobile.changePage('#order-history-page', false, false, true);
+			$.mobile.changePage('#order-history-page', {transition: "slide", changeHash: true });
 		});
 		
 		//Selling Items
 		$(document).on('click', '#account-selling', function(){
-			$.mobile.changePage('#account-items-sale-page', false, false, true);
+			$.mobile.changePage('#account-items-sale-page', {transition: "slide", changeHash: true });
 		});  
 
 		//Sale History
 		$(document).on('click', '#account-history', function(){     
-			$.mobile.changePage('#account-sale-history-page', false, false, true);
+			$.mobile.changePage('#account-sale-history-page', {transition: "slide", changeHash: true });
 		}); 
 		
 		//Shipping Addresses
 		$(document).on('click', '#account-shipping', function(){     
-			$.mobile.changePage('#shipping-info-page', false, false, true);
+			$.mobile.changePage('#shipping-info-page', {transition: "slide", changeHash: true });
 		});  
 		
 		//Payment Info
 		$(document).on('click', '#account-payment', function(){     
-			$.mobile.changePage('#payment-info-page', false, false, true);
+			$.mobile.changePage('#payment-info-page', {transition: "slide", changeHash: true });
 		});  
 		
 		//Administrator
 		$(document).on('click', '#account-admin', function(){     
-			$.mobile.changePage('#administrator-page', false, false, true);
+			$.mobile.changePage('#administrator-page', {transition: "slide", changeHash: true });
 		});   
 		
 		$(document).on('click', '#logOutButton', function(){     
@@ -702,36 +976,36 @@ $(document).on('pagebeforeshow', "#account-page", function( event, ui ) {
 
 		//Account info
 		$(document).on('click', '#account-info', function(){     
-			$.mobile.changePage('#login-page', false, false, true);
+			$.mobile.changePage('#login-page', {transition: "slide", changeHash: true });
 		});  
 
 		//Recent Feedback
 		$(document).on('click', '#account-profile', function(){     
-			$.mobile.changePage('#login-page', false, false, true);
+			$.mobile.changePage('#login-page', {transition: "slide", changeHash: true });
 		});  		
 		//Order History
 		$(document).on('click', '#account-order', function(){     
-			$.mobile.changePage('#login-page', false, false, true);
+			$.mobile.changePage('#login-page', {transition: "slide", changeHash: true });
 		});
 		
 		//Selling Items
 		$(document).on('click', '#account-selling', function(){     
-			$.mobile.changePage('#login-page', false, false, true);
+			$.mobile.changePage('#login-page', {transition: "slide", changeHash: true });
 		});  
 
 		//Sale History
 		$(document).on('click', '#account-history', function(){     
-			$.mobile.changePage('#login-page', false, false, true);
+			$.mobile.changePage('#login-page', {transition: "slide", changeHash: true });
 		}); 
 		
 		//Shipping Addresses
 		$(document).on('click', '#account-shipping', function(){     
-			$.mobile.changePage('#login-page', false, false, true);
+			$.mobile.changePage('#login-page', {transition: "slide", changeHash: true });
 		});  
 		
 		//Payment Info
 		$(document).on('click', '#account-payment', function(){     
-			$.mobile.changePage('#login-page', false, false, true);
+			$.mobile.changePage('#login-page', {transition: "slide", changeHash: true });
 		});  
 	}
 });
@@ -789,7 +1063,7 @@ $(document).on('pagebeforeshow', "#account-info-page", function( event, ui ) {
 	
 $(document).on('pagebeforeshow', "#shipping-info-page", function( event, ui ) {
 	$('#shipping-info-empty').hide();
-	$('#shipping-info-delete').hide();
+	// $('#shipping-info-delete').hide();
 	$('#shipping-info-done').hide();
 	$('#shipping-info-clear').hide();
 	$('#shipping-info-header').hide();
@@ -818,19 +1092,22 @@ $(document).on('pagebeforeshow', "#shipping-info-page", function( event, ui ) {
 			var address;
 			for (var i = 0; i < len; ++i) {
 			address = shippingList[i];
-			list.append("<li data-icon='start' id='shipping-name-li" + address.uid + "'>" +
+			list.append("<li id='shipping-info-list1-" + address.maddressid + "' data-icon='false'>" +
 						"<a style='padding-top: 0; padding-bottom: 0;' href='#edit-shipping-info-page' onclick='getShippingAddress(" + address.uid + ")' >" +
                 		"<img src='images/icons/111-user.png' class='ui-li-icon ui-corner-none'/>" +
                     	"<h3 style='font-size: 13px; font-weight: lighter'>" + address.namema + "</h3>" +
                     	"</a></li>" +
-                    	"<li style='margin-bottom: 20px;'>" +
+                    	"<li id='shipping-info-list2-" + address.maddressid + "' class='shipping-list' style='margin-bottom: 20px;'>" +
 						"<a href='#edit-shipping-info-page' onclick='getShippingAddress(" + address.uid + ")' >" +
                     	"<img src='images/icons/07-map-marker.png' class='ui-li-icon ui-corner-none'/>" +
                     	"<p class='account-info' style='font-size: 12px; color: #AAAAAA'>Urb. Rio Canas Calle Amazonas 2824</p>" +
                     	"<p class='account-info' style='font-size: 12px; color: #AAAAAA;'>" + address.cityma + ", " + address.statema + " " + address.zipma + "</p>" +
                     	"<p class='account-info' style='font-size: 12px; color: #AAAAAA; margin-bottom: 10px'>" + address.phonenumber + "</p>" +
-                    "</a></li>");
-			}			
+                    	"</a></li><li class='shipping-info-btn' id='shipping-info-btn-" + address.maddressid + "'style='margin-bottom: 20px; background-color: #FC3D38' data-icon='false'>" +
+                    	"<a onclick='deleteShippingAddress(" + address.maddressid + "," + uid + ")' data-role='bottom' style='background-color: #FC3D38; color: #FFFFFF; font-size: 14px; padding: 0' >" +
+                    	"<center>Delete</center></a></li>");
+			}
+			$('.shipping-info-btn').hide();			
 			list.listview("refresh");
 			$('#shipping-info-header').show();
 			$('#shipping-info--delete').show();
@@ -839,14 +1116,14 @@ $(document).on('pagebeforeshow', "#shipping-info-page", function( event, ui ) {
 			},
 		error: function(data, textStatus, jqXHR) {
 			if (data.status == 404){
-				alert("Shipping Address not found.");
 				console.log("textStatus 21: " + textStatus);
 				var list = $('#shipping-info-list');
 				list.empty();
+				$('#shipping-info-delete').hide();
 				$('#shipping-info-edit').hide();
-				$("#shipping--info").hide();
-				$('#shipping-info-header').hide();
-				$('#shipping-info-empty').show();
+				$('#shipping-info-done').hide();
+				$("#shipping-info-header").hide();
+				$("#shipping-info-empty").show();
 			}
 			else {
 				$('#popupServer').popup();
@@ -862,7 +1139,6 @@ $(document).on('pagebeforeshow', "#shipping-info-page", function( event, ui ) {
     				$('#popupLoginMessage').popup("open");
 				},100);
 	}
-	
 });
 
 $(document).on('pagebeforeshow', "#cart-page", function( event, ui ) {
@@ -878,7 +1154,7 @@ $(document).on('pagebeforeshow', "#cart-page", function( event, ui ) {
 		GetUserById(uid);
 		$('#loadingCart').show(); // show loading image, as request is about to start;
 		$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/currentUserCart/" + uid,
+		url : "http://localhost:3412/ProjectServer/currentUserCart/" + uid,
 		contentType: "application/json",
 		complete: function() {
         // request is complete, regardless of error or success, so hide image
@@ -894,8 +1170,14 @@ $(document).on('pagebeforeshow', "#cart-page", function( event, ui ) {
 			var product;
 			for (var i=0; i < len; ++i) {
 			product = productList[i];
+			if (product. pid > 17 ) {
+					image = 0;
+				}
+				else {
+					image = product.pid;
+				}
 			list.append("<li id='cart-list-" + product.pid + "'style='margin-top: 8px;'><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-			       		"<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+			       		"<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 			            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 			             "<p>Brand: " + product.pbrand + "</p>" +
 			             "<p>Model: " + product.pmodel + "</p>" +
@@ -938,10 +1220,15 @@ $(document).on('pagebeforeshow', "#cart-page", function( event, ui ) {
 
 $(document).on('pagebeforeshow', "#payment-info-page", function( event, ui ) {
 	$('#payment-info-empty').hide();
-	$('#payment-info-loading').show();
-	$('#payment-info-loading2').show();
+	$('#payment-info-done').hide();
+	$('#payment-info-clear').hide();
+	$('#payment-info-header').hide();
+	$('#payment-info').hide();
+	
 	var uid =  localStorage.getItem('uid');
 	if(uid != null) {
+		$('#payment-info-loading').show();
+		$('#payment-info-loading2').show();
 		$.ajax({
 		url : "http://localhost:3412/ProjectServer/getCreditCard/" + uid,
 		contentType: "application/json",
@@ -951,6 +1238,7 @@ $(document).on('pagebeforeshow', "#payment-info-page", function( event, ui ) {
 		},
 		success : function(data, textStatus, jqXHR){
 			$('#payment-info-header').show();
+			
 			var cardsList = data.creditcard;
 			var len = 0;
 			len = cardsList.length;
@@ -960,34 +1248,44 @@ $(document).on('pagebeforeshow', "#payment-info-page", function( event, ui ) {
 			var card;
 			for (var i = 0; i < len; ++i) {
 			card = cardsList[i];
-			list.append("<li data-icon='false' id='shipping-name-li" + card.uid + "' style='padding-top: 0; padding-bottom: 0;'>" +
+			list.append("<li id='payment-info-list1-" + card.cardid + "'data-icon='false' style='padding-top: 0; padding-bottom: 0;'>" +
 						"<a style='padding-top: 0; padding-bottom: 0;' href='#edit-payment-info-page' onclick='getCreditCard(" + card.uid + ")' >" +
                 		"<img src='images/icons/111-user.png' class='ui-li-icon ui-corner-none'/>" +
                     	"<h3 style='font-size: 13px; font-weight: lighter;'>" + card.nameba + "</h3>" +
                     	"</a></li>" +
-                    	"<li data-icon='false'>" +
+                    	"<li id='payment-info-list2-" + card.cardid + "' data-icon='false'>" +
 						"<a href='#edit-payment-info-page' onclick='getCreditCard(" + card.uid + ")' >" +
                     	"<img src='images/icons/07-map-marker.png' class='ui-li-icon ui-corner-none'/>" +
                     	"<p class='account-info' style='font-size: 12px; color: #AAAAAA'>Urb. Rio Canas Calle Amazonas 2824</p>" +
                     	"<p class='account-info' style='font-size: 12px; color: #AAAAAA;'>" + card.cityba + ", " + card.stateba + " " + card.zipba + "</p>" +
                     	"<p class='account-info' style='font-size: 12px; color: #AAAAAA;'>" + card.phonenumber + "</p>" +
                     	"</a></li>" +
-                    	"<li style='margin-bottom: 20px;'>" +
+                    	"<li id='payment-info-list3-" + card.cardid + "'>" +
 						"<a href='#edit-payment-info-page' onclick='getCreditCard(" + card.uid + ")' >" +
                     	"<img src='images/icons/" + card.cardtype.toLowerCase() + ".png' class='ui-li-icon ui-corner-none'/>" +
                     	"<p class='account-info-user' style='font-size: 12px; font-weight: bold;'>" + card.cardtype + "</p>" +
                     	"<p class='account-info' style='font-size: 12px; color: #AAAAAA;'> **** **** **** " + card.cardnumber.substring(12, 16) + "</p>" +
                     	"<p class='account-info' style='font-size: 12px; color: #AAAAAA; margin-bottom: 10px'>" + card.expirationdate + "</p>" +
-                    	"</a></li>");
+                    	"</a></li><li class='payment-info-btn' id='payment-info-btn-" + card.cardid + "'style='margin-bottom: 20px; background-color: #FC3D38' data-icon='false'>" +
+                    	"<a onclick='deleteCreditCard(" + card.cardid + "," + card.baddressid + "," + uid +")' data-role='bottom' style='background-color: #FC3D38; color: #FFFFFF; font-size: 14px; padding: 0' >" +
+                    	"<center>Delete</center></a></li>");
 			}			
+			$('.payment-info-btn').hide();			
 			list.listview("refresh");
+			$('#payment-info--delete').show();
+			$('#payment-info--edit').show();
+			$('#payment-info').show();
 			},
 		error: function(data, textStatus, jqXHR) {
 			if (data.status == 404){
-				alert("Credit Card not found.");
+				var list = $('#payment-info-list');
 				console.log("textStatus 21: " + textStatus);
-				$('#payment-info-header').hide();
-				$('#payment-info-empty').show();
+				list.empty();
+				$('#payment-info-delete').hide();
+				$('#payment-info-edit').hide();
+				$('#payment-info-done').hide();
+				$("#payment-info-header").hide();
+				$("#payment-info-empty").show();
 			}
 			else {
 				$('#popupServer').popup();
@@ -1013,7 +1311,7 @@ $(document).on('pagebeforeshow', "#order-history-page", function( event, ui ) {
 	var uid =  localStorage.getItem('uid');
 	if(uid != null) {
 		$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/orderHistory/" + uid,
+		url : "http://localhost:3412/ProjectServer/orderHistory/" + uid,
 		contentType: "application/json",
 		complete: function() {
 			$('#order-history-loading').hide();
@@ -1035,7 +1333,7 @@ $(document).on('pagebeforeshow', "#order-history-page", function( event, ui ) {
 		             "<p style='font-size: 11px;'><b>Order Date: </b>" + order.orderdate.substring(0, 10) + "</p>" + 
 		             "<p style='font-size: 11px;'><b>Recipient: </b>" + order.namema + "</p>" +
 		             "<p style='font-size: 11px;' ><b>Items Ordered: </b>" + order.orderitems + "</p></li>" +
-		              "<li><a href='#order-view-page' onclick=\"GetOrderView(" + order.orderid + ")\" data-role='bottom' style='font-size: 14px; color: #55A244; padding: 0'><center>View order</center></a></li><br />");
+		              "<li><a href='#order-view-page' onclick='GetOrderView(" + order.orderid + ")' data-role='bottom' style='font-size: 14px; color: #55A244; padding: 0'><center>View order</center></a></li><br />");
 			}			
 			list.listview("refresh");
 			},
@@ -1090,7 +1388,7 @@ $(document).on('pagebeforeshow', "#cart-page", function( event, ui ) {
 		GetUserById(uid);
 		$('#loadingCart').show(); // show loading image, as request is about to start;
 		$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/currentUserCart/" + uid,
+		url : "http://localhost:3412/ProjectServer/currentUserCart/" + uid,
 		contentType: "application/json",
 		complete: function() {
         // request is complete, regardless of error or success, so hide image
@@ -1106,8 +1404,14 @@ $(document).on('pagebeforeshow', "#cart-page", function( event, ui ) {
 			var product;
 			for (var i=0; i < len; ++i) {
 			product = productList[i];
+			if (product. pid > 17 ) {
+					image = 0;
+				}
+				else {
+					image = product.pid;
+				}
 			list.append("<li id='cart-list-" + product.pid + "'style='margin-top: 8px;'><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-			       		"<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+			       		"<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 			            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 			             "<p>Brand: " + product.pbrand + "</p>" +
 			             "<p>Model: " + product.pmodel + "</p>" +
@@ -1213,7 +1517,7 @@ $(document).on('pagebeforeshow', "#items-sale-page", function( event, ui ) {
 	//currentProductSeller has been set at this point
 	$("#items-sale-username").html(currentProductSeller.username);
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/itemsforsale/" + currentProductSeller.uid,
+		url : "http://localhost:3412/ProjectServer/itemsforsale/" + currentProductSeller.uid,
 		contentType: "application/json",
 		success : function(data, textStatus, jqXHR){
 			var productList = data.itemsForSale;
@@ -1223,11 +1527,17 @@ $(document).on('pagebeforeshow', "#items-sale-page", function( event, ui ) {
 			var product;
 			for (var i=0; i < len; ++i) {
 				product = productList[i];
+				if (product. pid > 17 ) {
+					image = 0;
+				}
+				else {
+					image = product.pid;
+				}
 				if(product.ppricemethod.toLowerCase()=="bid")
 		         {
 		         	if (product.numberofbids == 1) { bids = "1 bid";} else if (product.numberofbids == null) {bids = "0 bids";} else{ bids = product.numberofbids + " bids";};
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		            "<p>Brand: " + product.pbrand + "</p>" +
 		            "<p>Model: " + product.pmodel + "</p>" +
@@ -1240,7 +1550,7 @@ $(document).on('pagebeforeshow', "#items-sale-page", function( event, ui ) {
 		         else if(product.ppricemethod.toLowerCase()=="instant")
 		         {
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		             "<p>Brand: " + product.pbrand + "</p>" +
 		             "<p>Model: " + product.pmodel + "</p>" +
@@ -1265,7 +1575,7 @@ $(document).on('pagebeforeshow', "#account-items-sale-page", function( event, ui
 	//currentUser has been set at this point
 	$("#account-items-sale-header").html(currentUser.fname + " " + currentUser.lname);
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/itemsforsale/" + currentUser.uid,
+		url : "http://localhost:3412/ProjectServer/itemsforsale/" + currentUser.uid,
 		contentType: "application/json",
 		success : function(data, textStatus, jqXHR){
 			var productList = data.itemsForSale;
@@ -1275,11 +1585,17 @@ $(document).on('pagebeforeshow', "#account-items-sale-page", function( event, ui
 			var product;
 			for (var i=0; i < len; ++i) {
 				product = productList[i];
+				if (product. pid > 17 ) {
+					image = 0;
+				}
+				else {
+					image = product.pid;
+				}
 				if(product.ppricemethod.toLowerCase()=="bid")
 		         {
 		         	if (product.numberofbids == 1) { bids = "1 bid";} else if (product.numberofbids == null) {bids = "0 bids";} else{ bids = product.numberofbids + " bids";};
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		            "<p>Brand: " + product.pbrand + "</p>" +
 		            "<p>Model: " + product.pmodel + "</p>" +
@@ -1292,7 +1608,7 @@ $(document).on('pagebeforeshow', "#account-items-sale-page", function( event, ui
 		         else if(product.ppricemethod.toLowerCase()=="instant")
 		         {
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		             "<p>Brand: " + product.pbrand + "</p>" +
 		             "<p>Model: " + product.pmodel + "</p>" +
@@ -1314,11 +1630,10 @@ $(document).on('pagebeforeshow', "#account-items-sale-page", function( event, ui
 
 $(document).on('pagebeforeshow', "#sale-history-page", function( event, ui ) {
 	console.log("TESTING");
-	
 	//currentProductSeller has been set at this point
 	$("#sale-history-username").html(currentProductSeller.username);
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/saleHistory/" + currentProductSeller.uid,
+		url : "http://localhost:3412/ProjectServer/saleHistory/" + currentProductSeller.uid,
 		contentType: "application/json",
 		success : function(data, textStatus, jqXHR){
 			$('#noHistorySale').html("");
@@ -1329,11 +1644,17 @@ $(document).on('pagebeforeshow', "#sale-history-page", function( event, ui ) {
 			var product;
 			for (var i = 0; i < len; ++i) {
 				product = productList[i];
+				if (product. pid > 17 ) {
+					image = 0;
+				}
+				else {
+					image = product.pid;
+				}
 				if(product.ppricemethod.toLowerCase()=="bid")
 		         {
 		         	if (product.numberofbids == 1) { bids = "1 bid";} else if (product.numberofbids == null) {bids = "0 bids";} else{ bids = product.numberofbids + " bids";};
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		            "<p>Brand: " + product.pbrand + "</p>" +
 		            "<p>Model: " + product.pmodel + "</p>" +
@@ -1346,7 +1667,7 @@ $(document).on('pagebeforeshow', "#sale-history-page", function( event, ui ) {
 		         else if(product.ppricemethod.toLowerCase()=="instant")
 		         {
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		             "<p>Brand: " + product.pbrand + "</p>" +
 		             "<p>Model: " + product.pmodel + "</p>" +
@@ -1371,7 +1692,7 @@ $(document).on('pagebeforeshow', "#account-sale-history-page", function( event, 
 		//currentUser has been set at this point
 		$("#account-sale-history-header").html(currentUser.fname + " " + currentUser.lname);
 		$.ajax({	
-		url : "http://server-phase3.herokuapp.com/ProjectServer/saleHistory/" + currentUser.uid,
+		url : "http://localhost:3412/ProjectServer/saleHistory/" + currentUser.uid,
 		contentType: "application/json",
 		success : function(data, textStatus, jqXHR){
 			$('#noHistoryAccountSale').html("");
@@ -1382,11 +1703,17 @@ $(document).on('pagebeforeshow', "#account-sale-history-page", function( event, 
 			var product;
 			for (var i = 0; i < len; ++i) {
 				product = productList[i];
+				if (product. pid > 17 ) {
+					image = 0;
+				}
+				else {
+					image = product.pid;
+				}
 				if(product.ppricemethod.toLowerCase()=="bid")
 		         {
 		         	if (product.numberofbids == 1) { bids = "1 bid";} else if (product.numberofbids == null) {bids = "0 bids";} else{ bids = product.numberofbids + " bids";};
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		            "<p>Brand: " + product.pbrand + "</p>" +
 		            "<p>Model: " + product.pmodel + "</p>" +
@@ -1399,7 +1726,7 @@ $(document).on('pagebeforeshow', "#account-sale-history-page", function( event, 
 		         else if(product.ppricemethod.toLowerCase()=="instant")
 		         {
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		             "<p>Brand: " + product.pbrand + "</p>" +
 		             "<p>Model: " + product.pmodel + "</p>" +
@@ -1566,37 +1893,199 @@ function ConverToJSON(formData){
 }
 
 function SaveProduct(){
-	$.mobile.loading("show");
 	var form = $("#product-form");
 	var formData = form.serializeArray();
 	console.log("form Data: " + formData);
 	var newProduct = ConverToJSON(formData);
+	newProduct.sellerid = currentUser.uid;
 	console.log("New Product: " + JSON.stringify(newProduct));
 	var newProductJSON = JSON.stringify(newProduct);
+	
+	if (newProduct.productName == '' || newProduct.productBrand == '' || newProduct.productModel == '' ||
+		newProduct.productPrice == '' || newProduct.productShipping == '' || newProduct.productDescription == ''
+		|| newProduct.productCondition == '' || newProduct.productPriceMethod == '' || newProduct.productCategory == '' ||
+		newProduct.productPriceMethod == undefined || newProduct.productCategory == undefined || newProduct.productCondition == undefined) {
+		alert("Missing Fields");
+	} else{
+		setTimeout(function() {
+	    	$('#popupSaveProduct').popup("open");
+		},100);
+		
+		if(newProduct.productPriceMethod == 'Bid') {
+			$.ajax({
+				url : "http://localhost:3412/ProjectServer/products",
+				method: 'post',
+				data : newProductJSON,
+				contentType: "application/json",
+				dataType:"json",
+				complete: function() {
+		        	// request is complete, regardless of error or success, so hide image
+		        	setTimeout(function() {
+		    			$('#popupSaveProduct').popup("close");
+						},50);
+		   		},
+				success : function(data, textStatus, jqXHR){
+							$.ajax({
+									url : "http://localhost:3412/ProjectServer/productsAuction/" + data.pid,
+									method: 'post',
+									data : newProductJSON,
+									contentType: "application/json",
+									dataType:"json",
+									complete: function() {
+							        	// request is complete, regardless of error or success, so hide image
+							        	setTimeout(function() {
+							    			$('#popupSaveProduct').popup("close");
+											},50);
+							   		},
+									success : function(data, textStatus, jqXHR){
+										$.mobile.navigate("#home-page");
+									},
+									error: function(data, textStatus, jqXHR){
+										if (data.status == 400){
+											setTimeout(function() {
+							    			$('#popupMissingFieldsProduct').popup("open");
+											},10);	
+										}
+										else if (data.status == 500) {
+											setTimeout(function() {
+							    			$('#popupExist').popup("open");
+											},100);		
+										}
+										else {
+											$('#popupServer').popup();
+											setTimeout(function() {
+							    				$('#popupServer').popup("open");
+											},100);			}
+									}
+								});
+				},
+				error: function(data, textStatus, jqXHR){
+					if (data.status == 400){
+						setTimeout(function() {
+		    			$('#popupMissingFieldsProduct').popup("open");
+						},10);	
+					}
+					else if (data.status == 500) {
+						setTimeout(function() {
+		    			$('#popupExist').popup("open");
+						},100);		
+					}
+					else {
+						$('#popupServer').popup();
+						setTimeout(function() {
+		    				$('#popupServer').popup("open");
+						},100);			}
+				}
+			});
+		}
+		else if (newProduct.productPriceMethod == 'Instant') {
+			$.ajax({
+				url : "http://localhost:3412/ProjectServer/products",
+				method: 'post',
+				data : newProductJSON,
+				contentType: "application/json",
+				dataType:"json",
+				complete: function() {
+		        	// request is complete, regardless of error or success, so hide image
+		        	setTimeout(function() {
+		    			$('#popupSaveProduct').popup("close");
+						},50);
+		   		},
+				success : function(data, textStatus, jqXHR){
+						  $.ajax({
+									url : "http://localhost:3412/ProjectServer/productsSale/" + data.pid,
+									method: 'post',
+									data : newProductJSON,
+									contentType: "application/json",
+									dataType:"json",
+									complete: function() {
+							        	// request is complete, regardless of error or success, so hide image
+							        	setTimeout(function() {
+							    			$('#popupSaveProduct').popup("close");
+											},50);
+							   		},
+									success : function(data, textStatus, jqXHR){
+										$.mobile.navigate("#home-page");
+									},
+									error: function(data, textStatus, jqXHR){
+										if (data.status == 400){
+											setTimeout(function() {
+							    			$('#popupMissingFieldsProduct').popup("open");
+											},10);	
+										}
+										else if (data.status == 500) {
+											setTimeout(function() {
+							    			$('#popupExist').popup("open");
+											},100);		
+										}
+										else {
+											$('#popupServer').popup();
+											setTimeout(function() {
+							    				$('#popupServer').popup("open");
+											},100);			}
+									}
+								});
+				},
+				error: function(data, textStatus, jqXHR){
+					if (data.status == 400){
+						setTimeout(function() {
+		    			$('#popupMissingFieldsProduct').popup("open");
+						},10);	
+					}
+					else if (data.status == 500) {
+						setTimeout(function() {
+		    			$('#popupExist').popup("open");
+						},100);		
+					}
+					else {
+						$('#popupServer').popup();
+						setTimeout(function() {
+		    				$('#popupServer').popup("open");
+						},100);			}
+				}
+			});
+		}
+		
+	}
+}
+
+function getProductById(id){
+	var product = {};
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/products",
-		method: 'post',
-		data : newProductJSON,
+		url : "http://localhost:3412/ProjectServer/products/" + id,
+		method: 'get',
 		contentType: "application/json",
+		async: false,
 		dataType:"json",
+		// async: false,
 		success : function(data, textStatus, jqXHR){
-			$.mobile.loading("hide");
-			$.mobile.navigate("#home-page");
+			// alert(data.product.sellerid);
+			product = data.product;	
+			alert(data.product.sellerid);	
+			// $.mobile.loading("hide");
+			// $.mobile.navigate("#product-view");
 		},
 		error: function(data, textStatus, jqXHR){
-			console.log("textStatus 27: " + textStatus);
+			console.log("textStatus 28: " + textStatus);
 			$.mobile.loading("hide");
-			alert("Data could not be added!");
+			if (data.status == 404){
+				$('#popupDialogProduct').popup('open');
+			}
+			else {
+				$('#popupServer').popup();
+				setTimeout(function() {
+    				$('#popupServer').popup("open");
+				},100);
+			}
 		}
 	});
-
-
+	return product;
 }
 
 function GetProduct(id, sellerid){
 	$.mobile.loading("show");
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/products/" + id,
+		url : "http://localhost:3412/ProjectServer/products/" + id,
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
@@ -1621,7 +2110,7 @@ function GetProduct(id, sellerid){
 		}
 	});
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/currentUser/" + sellerid,
+		url : "http://localhost:3412/ProjectServer/currentUser/" + sellerid,
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
@@ -1647,7 +2136,7 @@ function GetProduct(id, sellerid){
 
 function GetProductBid(id, sellerid){
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/products/" + id,
+		url : "http://localhost:3412/ProjectServer/products/" + id,
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
@@ -1670,7 +2159,7 @@ function GetProductBid(id, sellerid){
 		}
 	});
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/currentUser/" + sellerid,
+		url : "http://localhost:3412/ProjectServer/currentUser/" + sellerid,
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
@@ -1694,6 +2183,30 @@ function GetProductBid(id, sellerid){
 	});
 }
 
+function auctionTerminated(pid) {
+	// alert(pid);
+	var product = getProductById(pid);
+	alert(product.pprice);
+	if (product.currentbidprice == 0) {
+		// means that the product was not sold
+		// añadirlo a la pagina del vendedor como producto no vendido
+		// eliminarlo de la tabla de auction
+		// darle la opcion al vendedor de volver a venderlo
+		// añadir un li arriba del producto diciendo Listing has ended
+		alert('No sold');
+		console.log('No sold');
+	} else if (product.currentbidprice > 0) {
+		alert('Sold');
+		console.log('sold');
+		// product was sold
+		// añadirlo a la pagina del comprador como producto a pagar
+		// eliminarlo de la tabla de auction, pero de alguna forma guardar el currentbidprice o usar el bid mas alto o 
+		// añadir el currentbidprice como pfinalprice en tabla product
+		// luego cuando el usuario lo vaya a pagar hacer un checkout con el pfinalprice
+		// añadir un li arriba del producto diciendo Listing has ended (no creo q en este caso sea necesario)
+	}
+}
+
 function GetUser(username, password) {
 	
 	if (username == '' || password == '') {
@@ -1705,7 +2218,7 @@ function GetUser(username, password) {
 		    	$('#popupLogin').popup("open");
 				},100);
 			$.ajax({
-				url : "http://server-phase3.herokuapp.com/ProjectServer/user/" + username + "/" + password,
+				url : "http://localhost:3412/ProjectServer/user/" + username + "/" + password,
 				method: 'get',
 				contentType: "application/json",
 				dataType:"json",
@@ -1749,7 +2262,7 @@ function GetUser(username, password) {
 
 function GetUserById(uid){
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/currentUser/" + uid,
+		url : "http://localhost:3412/ProjectServer/currentUser/" + uid,
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
@@ -1781,9 +2294,248 @@ function GetUserById(uid){
 	});
 }
 
+function AdminGetUserById(uid){
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/currentUser/" + uid,
+		method: 'get',
+		contentType: "application/json",
+		dataType:"json",
+		async: false,
+		success : function(data, textStatus, jqXHR){
+			adminCurrentUser = data.currentUser;	
+			// alert("currentUser.uid " + currentUser.uid + currentUser.username);
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			// $.mobile.loading("hide");
+			if (data.status == 404){
+				// alert("User not found.");
+			}
+			else {
+				$('#popupServer').popup();
+				setTimeout(function() {
+    				$('#popupServer').popup("open");
+				},100);
+			}
+		}
+	});
+}
+
+function AdminGetUser() 
+{
+	var username=$('#searchUsername').val();
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/user/" + username,
+		method: 'get',
+		contentType: "application/json",
+		dataType:"json",
+		complete: function() {
+        	// request is complete, regardless of error or success, so hide image
+        	setTimeout(function() {
+    			$('#popupLogin').popup("close");
+				},50);
+   		},
+		success : function(data, textStatus, jqXHR){
+			 alert(username + " " + password + "id = " + data.user.uid);
+              localStorage.setItem( 'adminuid', data.user.uid );
+			$.mobile.changePage("#edit-user-page");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			 console.log("textStatus: " + textStatus);
+             $("#noUsers").html("No users with that username found");
+		}
+	});
+}
+
+function AdminGetUserToRemove() 
+{
+	var username=$('#searchUsernameToDelete').val();
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/user/" + username,
+		method: 'get',
+		contentType: "application/json",
+		dataType:"json",
+		complete: function() {
+        	// request is complete, regardless of error or success, so hide image
+        	setTimeout(function() {
+    			$('#popupLogin').popup("close");
+				},50);
+   		},
+		success : function(data, textStatus, jqXHR){
+			// alert(username + " " + password + "id = " + data.user.uid);
+              localStorage.setItem( 'adminuid', data.user.uid );
+			$.mobile.changePage("#remove-user-page");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			 console.log("textStatus: " + textStatus);
+             $("#noUsers").html("No users with that username found");
+		}
+	});
+}
+
+function AddCategory() 
+{
+	var category=$('#categoryToBeAdded').val();
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/addCategory/" + category,
+		method: 'post',
+		contentType: "application/json",
+		dataType:"json",
+		complete: function() {
+        	// request is complete, regardless of error or success, so hide image
+        	setTimeout(function() {
+    			$('#popupLogin').popup("close");
+				},50);
+   		},
+		success : function(data, textStatus, jqXHR){
+			// alert(username + " " + password + "id = " + data.user.uid);
+			$.mobile.navigate("#addCategoryAlert");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			 console.log("textStatus: " + textStatus);
+             alert("Category could not be added");
+		}
+	});
+}
+
+function AdminAddUser(){
+	setTimeout(function() {
+    $('#popupRegister').popup("open");
+	},100);
+		
+	var form = $("#addUserForm");
+	var formData = form.serializeArray();
+	console.log("form Data: " + formData);
+	var newUser = ConverToJSON(formData);
+	console.log("New User: " + JSON.stringify(newUser));
+	var newUserJSON = JSON.stringify(newUser);
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/users",
+		method: 'post',
+		data : newUserJSON,
+		contentType: "application/json",
+		dataType:"json",
+		complete: function() {
+        	// request is complete, regardless of error or success, so hide image
+        	setTimeout(function() {
+    			$('#popupRegister').popup("close");
+				},50);
+   		},
+		success : function(data, textStatus, jqXHR){
+			$.mobile.navigate("#administrator-page");
+		},
+		error: function(data, textStatus, jqXHR){
+			if (data.status == 400){
+				setTimeout(function() {
+    			$('#popupMissingFields').popup("open");
+				},10);	
+			}
+			else if (data.status == 500) {
+				setTimeout(function() {
+    			$('#popupExist').popup("open");
+				},100);		
+			}
+			else {
+				$('#popupServer').popup();
+				setTimeout(function() {
+    				$('#popupServer').popup("open");
+				},100);			}
+		}
+	});
+}
+
+function AdminUpdateUser(){
+	var form = $("#admin-update-user-form");
+	var formData = form.serializeArray();
+	console.log("form Data: " + formData);
+	var updUser = ConverToJSON(formData);
+	updUser.uid = adminCurrentUser.uid;
+	console.log("Updated User: " + JSON.stringify(updUser));
+	var updUserJSON = JSON.stringify(updUser);
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/user/" + updUser.uid,
+		method: 'put',
+		data : updUserJSON,
+		contentType: "application/json",
+		dataType:"json",
+		success : function(data, textStatus, jqXHR){
+			alert("Success");
+			localStorage.removeItem('adminuid');
+			$.mobile.navigate("#administrator-page");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			if (data.status == 404){
+				alert("Data could not be updated!");
+			}
+			else {
+				$('#popupServer').popup();
+				setTimeout(function() {
+    				$('#popupServer').popup("open");
+				},100);	
+			}
+		}
+	});
+}
+
+function AdminRemoveUser(){
+	var form = $("#admin-update-user-form");
+	var formData = form.serializeArray();
+	console.log("form Data: " + formData);
+	var updUser = ConverToJSON(formData);
+	updUser.uid = adminCurrentUser.uid;
+	console.log("Updated User: " + JSON.stringify(updUser));
+	var updUserJSON = JSON.stringify(updUser);
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/user/delete/" + updUser.uid,
+		method: 'put',
+		data : updUserJSON,
+		contentType: "application/json",
+		dataType:"json",
+		success : function(data, textStatus, jqXHR){
+			alert("Success");
+			localStorage.removeItem('adminuid');
+			$.mobile.navigate("#administrator-page");
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus: " + textStatus);
+			if (data.status == 404){
+				alert("Data could not be updated!");
+			}
+			else {
+				$('#popupServer').popup();
+				setTimeout(function() {
+    				$('#popupServer').popup("open");
+				},100);	
+			}
+		}
+	});
+}
+
+function verifyCurrentPassword(uid, currPassword) {
+	var verify;
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/verifyCurrentPassword/" + uid + "/" + currPassword,
+		method: 'get',
+		contentType: "application/json",
+		async: false,
+		dataType:"json",
+		success : function(data, textStatus, jqXHR){
+					verify = 1;	
+		},
+		error: function(data, textStatus, jqXHR){
+			verify = 0;
+		}
+	});
+	return verify;
+}
+
 function GetSellerById(uid){
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/currentUser/" + uid,
+		url : "http://localhost:3412/ProjectServer/currentUser/" + uid,
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
@@ -1815,7 +2567,7 @@ function GetOrderView(orderId) {
 	 var uid =  localStorage.getItem('uid');
 	 if(uid != null) {
 		 $.ajax({
-			 url : "http://server-phase3.herokuapp.com/ProjectServer/orderView/" + uid + "/" + orderId,
+			 url : "http://localhost:3412/ProjectServer/orderView/" + uid + "/" + orderId,
 			 method: 'get',
 			 contentType: "application/json",
 			 success : function(data, textStatus, jqXHR){
@@ -1846,7 +2598,7 @@ function GetOrderView(orderId) {
 					order = orderList[i];
 					GetSellerById(order.sellerid);
 					list3.append("<li> " + 
-				            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/orders/"+ order.pid + "/0.png\"/>" +
+				            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ order.pid + "/0.png\"/>" +
 				            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + order.pname + "</h2>" + 
 				             "<p class='order-page'>Brand: " + order.pbrand + "</p>" +
 				             "<p class='order-page'>Model: " + order.pmodel + "</p>" +
@@ -1917,7 +2669,7 @@ function GetSearchResults(searchInput) {
 	 $.mobile.loading("show");
 	 console.log("TESTING search results");
 	 $.ajax({
-		 url : "http://server-phase3.herokuapp.com/ProjectServer/searchResults/" + searchInput,
+		 url : "http://localhost:3412/ProjectServer/searchResults/" + searchInput,
 		 method: 'get',
 		 contentType: "application/json",
 		 success : function(data, textStatus, jqXHR){
@@ -1928,11 +2680,17 @@ function GetSearchResults(searchInput) {
 			 var product;
 			 for (var i=0; i < len; ++i) {
 				 product = productList[i];
+				 if (product. pid > 17 ) {
+					image = 0;
+				}
+				else {
+					image = product.pid;
+				}
 				 if(product.ppricemethod.toLowerCase()=="bid")
 		         {
 		         	if (product.numberofbids == 1) { bids = "1 bid";} else if (product.numberofbids == null) {bids = "0 bids";} else{ bids = product.numberofbids + " bids";};
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		            "<p>Brand: " + product.pbrand + "</p>" +
 		            "<p>Model: " + product.pmodel + "</p>" +
@@ -1945,7 +2703,7 @@ function GetSearchResults(searchInput) {
 		         else if(product.ppricemethod.toLowerCase()=="instant")
 		         {
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		             "<p>Brand: " + product.pbrand + "</p>" +
 		             "<p>Model: " + product.pmodel + "</p>" +
@@ -1967,14 +2725,85 @@ function GetSearchResults(searchInput) {
 		 }
 	 });
  }
- 
+			
+function getCount(element, auctionEndTime) {
+	
+	
+	var timeDiv = document.getElementById(element);
+				//First, we retrieve all the auction time divs and read their time values.
+				//The auctions array will contain all the auctions (or rather, the auction
+				//end time and the div which should be updated with remaining seconds.
+				// var auctions = $([]);
+				// $('.Countdown').each(function(){
+					// var $this = $(this);
+					// var auction = {
+						// auctionEndTime: Date.parse($this.text()),
+						// timeDiv: $this
+					// };
+					// auctions.push(auction);
+				// });
+				
+				//The updateAuctionTimes method updates the time fields with the number of seconds left
+				//until the auctions closes.
+				var updateAuctionTimes = function(){
+					var now = new Date();
+						var secondsToFinishedAuction = Math.floor((this.auctionEndTime - now) / 1000);
+						if (secondsToFinishedAuction < 0)
+							timeDiv.text("Auction closed");
+						else
+							timeDiv.text(secondsToFinishedAuction + " seconds remaining");
+				};
+				
+				//The updateEverySecond method executes the updateAuctionTimes method and then sets a timeout
+				//to call the updateEverySecond method again after one second.
+				var millisecondsBetweenUpdates = 1000;
+				var updateEverySecond = function(){
+					updateAuctionTimes();
+					
+					setTimeout(function(){
+						updateEverySecond();
+					}, millisecondsBetweenUpdates);
+				};
+				
+				//Starts the execution.
+				updateEverySecond();
+ };
+     var interval;
+    // var minutes = 0;
+    // var seconds = 5;
+
+    function countdown(element, minutes, seconds) {
+        interval = setInterval(function() {
+            var el = document.getElementById(element);
+            if(seconds == 0) {
+                if(minutes == 0) {
+                    el.innerHTML = "countdown's over!";                    
+                    clearInterval(interval);
+                    return;
+                } else {
+                    minutes--;
+                    seconds = 60;
+                }
+            }
+            if(minutes > 0) {
+                var minute_text = minutes + (minutes > 1 ? ' minutes' : ' minute');
+            } else {
+                var minute_text = '';
+            }
+            var second_text = seconds > 1 ? 'seconds' : 'second';
+            el.innerHTML = minute_text + ' ' + seconds + ' ' + second_text + ' remaining';
+            seconds--;
+        }, 1000);
+    }
+
+
 
 function GetProductByCategory(category){
 	currentCategory = category;
 	$.mobile.loading("show");
 	console.log("testing");
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/categories/" + category,
+		url : "http://localhost:3412/ProjectServer/categories/" + category,
 		method: 'get',
 		contentType: "application/json",
 		success : function(data, textStatus, jqXHR){
@@ -1986,24 +2815,33 @@ function GetProductByCategory(category){
 			var bids;
 			for (var i=0; i < len; ++i){
 				product = productList[i];
+				var image;
+				if (product. pid > 17 ) {
+					image = 0;
+				}
+				else {
+					image = product.pid;
+				}
 				if(product.ppricemethod.toLowerCase()=="bid")
 		         {
 		         	if (product.numberofbids == 1) { bids = "1 bid";} else if (product.numberofbids == null) {bids = "0 bids";} else{ bids = product.numberofbids + " bids";};
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%'>" + product.pname + "</h2>" + 
 		            "<p>Brand: " + product.pbrand + "</p>" +
 		            "<p>Model: " + product.pmodel + "</p>" +
 		            "<div class=\"ui-li-aside\">" +
 		                "<p class='account-info-user' style='font-weight: bold';>" + "$" + product.currentbidprice + "</p>" +
 		                "<p>"+ bids + "</p>" +
-		                "<p>"+ product.penddate.substring(0,10) +"</p>" +
+		                "<span class='Countdown' id='" + product.pid + "'>" + product.penddate + "</span>" +
 		              "</div></a></li>");
+		              // getCount('countdown' + product.pid, "Apr 5, 2014 23:59:00");
+		              // countdown('countdown' + product.pid, product.penddate.substring(9, 10), 0);
 		         }
 		         else if(product.ppricemethod.toLowerCase()=="instant")
 		         {
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		             "<p>Brand: " + product.pbrand + "</p>" +
 		             "<p>Model: " + product.pmodel + "</p>" +
@@ -2033,7 +2871,7 @@ function GetSimilarProduct(){
 	$.mobile.loading("show");
 	console.log("testing");
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/categories/" + currentProduct.categoryname,
+		url : "http://localhost:3412/ProjectServer/categories/" + currentProduct.categoryname,
 		method: 'get',
 		contentType: "application/json",
 		success : function(data, textStatus, jqXHR){
@@ -2045,11 +2883,17 @@ function GetSimilarProduct(){
 			var product;
 			for (var i=0; i < len; ++i){
 				product = productList[i];
+				if (product. pid > 17 ) {
+					image = 0;
+				}
+				else {
+					image = product.pid;
+				}
 				if(product.ppricemethod.toLowerCase()=="bid")
 		         {
 		         	if (product.numberofbids == 1) { bids = "1 bid";} else if (product.numberofbids == null) {bids = "0 bids";} else{ bids = product.numberofbids + " bids";};
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		            "<p>Brand: " + product.pbrand + "</p>" +
 		            "<p>Model: " + product.pmodel + "</p>" +
@@ -2062,7 +2906,7 @@ function GetSimilarProduct(){
 		         else if(product.ppricemethod.toLowerCase()=="instant")
 		         {
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		             "<p>Brand: " + product.pbrand + "</p>" +
 		             "<p>Model: " + product.pmodel + "</p>" +
@@ -2088,7 +2932,7 @@ function GetSimilarProduct(){
 function sortCategoryBy(orderType){
 	console.log("testing");
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/orderCategoryBy/" + currentCategory + "/" + orderType,
+		url : "http://localhost:3412/ProjectServer/orderCategoryBy/" + currentCategory + "/" + orderType,
 		method: 'get',
 		contentType: "application/json",
 		success : function(data, textStatus, jqXHR){
@@ -2099,11 +2943,17 @@ function sortCategoryBy(orderType){
 			var product;
 			for (var i=0; i < len; ++i){
 				product = productList[i];
+				if (product. pid > 17 ) {
+					image = 0;
+				}
+				else {
+					image = product.pid;
+				}
 				if(product.ppricemethod.toLowerCase()=="bid")
 		         {
 		         	if (product.numberofbids == 1) { bids = "1 bid";} else if (product.numberofbids == null) {bids = "0 bids";} else{ bids = product.numberofbids + " bids";};
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		            "<p>Brand: " + product.pbrand + "</p>" +
 		            "<p>Model: " + product.pmodel + "</p>" +
@@ -2116,7 +2966,7 @@ function sortCategoryBy(orderType){
 		         else if(product.ppricemethod.toLowerCase()=="instant")
 		         {
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		             "<p>Brand: " + product.pbrand + "</p>" +
 		             "<p>Model: " + product.pmodel + "</p>" +
@@ -2142,7 +2992,7 @@ function sortCategoryBy(orderType){
 function sortSearchBy(orderType){
 	console.log("testing");
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/orderSearchPage/" + currentSearch + "/" + orderType,
+		url : "http://localhost:3412/ProjectServer/orderSearchPage/" + currentSearch + "/" + orderType,
 		method: 'get',
 		contentType: "application/json",
 		success : function(data, textStatus, jqXHR){
@@ -2153,11 +3003,17 @@ function sortSearchBy(orderType){
 			var product;
 			for (var i=0; i < len; ++i){
 				product = productList[i];
+				if (product. pid > 17 ) {
+					image = 0;
+				}
+				else {
+					image = product.pid;
+				}
 				if(product.ppricemethod.toLowerCase()=="bid")
 		         {
 		         	if (product.numberofbids == 1) { bids = "1 bid";} else if (product.numberofbids == null) {bids = "0 bids";} else{ bids = product.numberofbids + " bids";};
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		            "<p>Brand: " + product.pbrand + "</p>" +
 		            "<p>Model: " + product.pmodel + "</p>" +
@@ -2170,7 +3026,7 @@ function sortSearchBy(orderType){
 		         else if(product.ppricemethod.toLowerCase()=="instant")
 		         {
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		             "<p>Brand: " + product.pbrand + "</p>" +
 		             "<p>Model: " + product.pmodel + "</p>" +
@@ -2194,7 +3050,7 @@ function sortSearchBy(orderType){
 function sortItemsSalesBy(orderType){
 	console.log("testing");
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/itemsSalePage/" + currentProductSeller.uid + "/" + orderType,
+		url : "http://localhost:3412/ProjectServer/itemsSalePage/" + currentProductSeller.uid + "/" + orderType,
 		method: 'get',
 		contentType: "application/json",
 		success : function(data, textStatus, jqXHR){
@@ -2205,11 +3061,17 @@ function sortItemsSalesBy(orderType){
 			var product;
 			for (var i=0; i < len; ++i){
 				product = productList[i];
+				if (product. pid > 17 ) {
+					image = 0;
+				}
+				else {
+					image = product.pid;
+				}
 				if(product.ppricemethod.toLowerCase()=="bid")
 		         {
 		         	if (product.numberofbids == 1) { bids = "1 bid";} else if (product.numberofbids == null) {bids = "0 bids";} else{ bids = product.numberofbids + " bids";};
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		            "<p>Brand: " + product.pbrand + "</p>" +
 		            "<p>Model: " + product.pmodel + "</p>" +
@@ -2222,7 +3084,7 @@ function sortItemsSalesBy(orderType){
 		         else if(product.ppricemethod.toLowerCase()=="instant")
 		         {
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		             "<p>Brand: " + product.pbrand + "</p>" +
 		             "<p>Model: " + product.pmodel + "</p>" +
@@ -2245,7 +3107,7 @@ function sortItemsSalesBy(orderType){
 function sortAccountItemsSalesBy(orderType){
 	console.log("testing");
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/itemsSalePage/" + currentUser.uid + "/" + orderType,
+		url : "http://localhost:3412/ProjectServer/itemsSalePage/" + currentUser.uid + "/" + orderType,
 		method: 'get',
 		contentType: "application/json",
 		success : function(data, textStatus, jqXHR){
@@ -2256,11 +3118,17 @@ function sortAccountItemsSalesBy(orderType){
 			var product;
 			for (var i=0; i < len; ++i){
 				product = productList[i];
+				if (product. pid > 17 ) {
+					image = 0;
+				}
+				else {
+					image = product.pid;
+				}
 				if(product.ppricemethod.toLowerCase()=="bid")
 		         {
 		         	if (product.numberofbids == 1) { bids = "1 bid";} else if (product.numberofbids == null) {bids = "0 bids";} else{ bids = product.numberofbids + " bids";};
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img width='80' height'80' style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		            "<p>Brand: " + product.pbrand + "</p>" +
 		            "<p>Model: " + product.pmodel + "</p>" +
@@ -2273,7 +3141,7 @@ function sortAccountItemsSalesBy(orderType){
 		         else if(product.ppricemethod.toLowerCase()=="instant")
 		         {
 		            list.append("<li><a onclick=\"GetProduct(" + product.pid + "," + product.sellerid + ")\" >" + 
-		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ product.pid + "/0.png\"/>" +
+		            "<img style='position:absolute; !important; top:0; !important; bottom:0; !important; margin:auto; !important;' class='listImg' src=\"images/products/"+ image + "/0.png\"/>" +
 		            "<h2 style='font-size: 12px; color: #4F4F4F; font-weight: bold; width: 80%''>" + product.pname + "</h2>" + 
 		             "<p>Brand: " + product.pbrand + "</p>" +
 		             "<p>Model: " + product.pmodel + "</p>" +
@@ -2303,7 +3171,7 @@ function UpdateProduct(){
 	console.log("Updated Product: " + JSON.stringify(updProduct));
 	var updProductJSON = JSON.stringify(updProduct);
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/products/" + updProduct.id,
+		url : "http://localhost:3412/ProjectServer/products/" + updProduct.id,
 		method: 'put',
 		data : updProductJSON,
 		contentType: "application/json",
@@ -2332,7 +3200,7 @@ function DeleteProduct(){
 	$.mobile.loading("show");
 	var id = currentProduct.id;
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/products/" + id,
+		url : "http://localhost:3412/ProjectServer/products/" + id,
 		method: 'delete',
 		contentType: "application/json",
 		dataType:"json",
@@ -2372,7 +3240,7 @@ function SaveUser(){
 	console.log("New User: " + JSON.stringify(newUser));
 	var newUserJSON = JSON.stringify(newUser);
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/users",
+		url : "http://localhost:3412/ProjectServer/users",
 		method: 'post',
 		data : newUserJSON,
 		contentType: "application/json",
@@ -2420,7 +3288,6 @@ function UpdateUser(){
 			},100);	
 	}
 	else {
-		// alert(updUser.current-password);
 		if (updUser.updpassword != '' && updUser.updpassword2 == '') {
 			setTimeout(function() {
 	    		$('#popupUpdateConfirmPwd').popup("open");
@@ -2429,7 +3296,6 @@ function UpdateUser(){
 			setTimeout(function() {
 	    		$('#popupUpdateNewPwd').popup("open");
 			},100);	
-			
 		} else if (updUser.updpassword2 != updUser.updpassword) {
 			setTimeout(function() {
 	    		$('#popupUpdateNoMatch').popup("open");
@@ -2438,57 +3304,68 @@ function UpdateUser(){
 			setTimeout(function() {
 	    		$('#popupUpdateCurPwd').popup("open");
 			},100);	
-		} else if (updUser.oldpassword != currentUser.upassword) {
-			setTimeout(function() {
-	    		$('#popupUpdateCurNoMatch').popup("open");
-			},100);	
+		// } else if (updUser.oldpassword != currentUser.upassword) {
+			// setTimeout(function() {
+	    		// $('#popupUpdateCurNoMatch').popup("open");
+			// },100);	
 		}
 		else {
-			if (updUser.updemail == '') {
-			updUser.updemail = currentUser.email;
-			};
-			if (updUser.updpassword == '') {
-				updUser.updpassword = currentUser.upassword;
-			};
-			setTimeout(function() {
-	    		$('#popupUpdateUser').popup("open");
-			},100);			
-			var updUserJSON = JSON.stringify(updUser);
-			$.ajax({
-				url : "http://server-phase3.herokuapp.com/ProjectServer/user/" + updUser.uid,
-				method: 'put',
-				data : updUserJSON,
-				contentType: "application/json",
-				dataType:"json",
-				complete: function() {
-		        	// request is complete, regardless of error or success, so hide image
-		        	setTimeout(function() {
-		    			$('#popupUpdateUser').popup("close");
-						},20);
-		   		},
-				success : function(data, textStatus, jqXHR){
-					form.each(function(){
-					    this.reset();
-					});
-					setTimeout(function() {
-		    			history.back();
-						},50);	
-				},
-				error: function(data, textStatus, jqXHR){
-					console.log("textStatus 14: " + textStatus);
-					if (data.status == 404){
+			
+			var verify = verifyCurrentPassword(currentUser.uid, updUser.oldpassword);
+			alert(verify);
+			if (verify == 1) {
+				if (updUser.updemail == '') {
+					updUser.updemail = currentUser.email;
+				};
+				if (updUser.updpassword == '') {
+					updUser.updpassword = currentUser.upassword;
+				};
+				setTimeout(function() {
+		    		$('#popupUpdateUser').popup("open");
+				},100);
+							
+				var updUserJSON = JSON.stringify(updUser);
+				$.ajax({
+					url : "http://localhost:3412/ProjectServer/user/" + updUser.uid,
+					method: 'put',
+					data : updUserJSON,
+					contentType: "application/json",
+					dataType:"json",
+					complete: function() {
+			        	// request is complete, regardless of error or success, so hide image
+			        	setTimeout(function() {
+			    			$('#popupUpdateUser').popup("close");
+							},20);
+			   		},
+					success : function(data, textStatus, jqXHR){
+						form.each(function(){
+						    this.reset();
+						});
 						setTimeout(function() {
-					    $('#popupUpdateError').popup("open");
-						},100);
+			    			history.back();
+							},50);	
+					},
+					error: function(data, textStatus, jqXHR){
+						console.log("textStatus 14: " + textStatus);
+						if (data.status == 404){
+							setTimeout(function() {
+						    $('#popupUpdateError').popup("open");
+							},100);
+						}
+						else {
+							$('#popupServer').popup();
+							setTimeout(function() {
+			    				$('#popupServer').popup("open");
+							},100);	
+						}
 					}
-					else {
-						$('#popupServer').popup();
-						setTimeout(function() {
-		    				$('#popupServer').popup("open");
-						},100);	
-					}
-				}
-			});
+				});
+			}
+			else {
+				setTimeout(function() {
+	    			$('#popupUpdateCurNoMatch').popup("open");
+				},100);	
+			};
 		};
 	};
 }
@@ -2498,7 +3375,7 @@ function AddtoShoppingCart() {
 	if(uid != null) {
 		GetUserById(uid);
 		$.ajax({
-			url : "http://server-phase3.herokuapp.com/ProjectServer/shoppingcart/" + currentUser.uid + "/" + currentProduct.pid,
+			url : "http://localhost:3412/ProjectServer/shoppingcart/" + currentUser.uid + "/" + currentProduct.pid,
 			contentType: "application/json",
 			success : function(data, textStatus, jqXHR){
 				setTimeout(function() {
@@ -2508,7 +3385,7 @@ function AddtoShoppingCart() {
 			error: function(data, textStatus, jqXHR) {
 				if (data.status == 404) {
 					$.ajax({
-						url : "http://server-phase3.herokuapp.com/ProjectServer/shoppingcart/" + currentUser.uid + "/" + currentProduct.pid,
+						url : "http://localhost:3412/ProjectServer/shoppingcart/" + currentUser.uid + "/" + currentProduct.pid,
 						method: 'post',
 						contentType: "application/json",
 						dataType:"json",
@@ -2550,7 +3427,7 @@ function buyItNow() {
 	if(uid != null) {
 		GetUserById(uid);
 		$.ajax({
-			url : "http://server-phase3.herokuapp.com/ProjectServer/buyItNow/" + currentUser.uid + "/" + currentProduct.pid,
+			url : "http://localhost:3412/ProjectServer/buyItNow/" + currentUser.uid + "/" + currentProduct.pid,
 			contentType: "application/json",
 			success : function(data, textStatus, jqXHR){
 				setTimeout(function() {
@@ -2561,7 +3438,7 @@ function buyItNow() {
 			error: function(data, textStatus, jqXHR) {
 				if (data.status == 404) {
 					$.ajax({
-						url : "http://server-phase3.herokuapp.com/ProjectServer/shoppingcart/" + currentUser.uid + "/" + currentProduct.pid,
+						url : "http://localhost:3412/ProjectServer/shoppingcart/" + currentUser.uid + "/" + currentProduct.pid,
 						method: 'post',
 						contentType: "application/json",
 						dataType:"json",
@@ -2627,7 +3504,7 @@ function addMailingAddress() {
 			alert('No Updating poption');
 		}
 			$.ajax({
-				url : "http://server-phase3.herokuapp.com/ProjectServer/addMailingAddress/" + option,
+				url : "http://localhost:3412/ProjectServer/addMailingAddress/" + option,
 				method: 'post',
 				data : newAddressSON,
 				contentType: "application/json",
@@ -2724,7 +3601,7 @@ function addCreditCard() {
     		$('#popupCreditCard').popup("open");
 		},100);
 			$.ajax({
-				url : "http://server-phase3.herokuapp.com/ProjectServer/addCreditCard/" + option,
+				url : "http://localhost:3412/ProjectServer/addCreditCard/" + option,
 				method: 'post',
 				data : newCardJSON,
 				contentType: "application/json",
@@ -2783,7 +3660,7 @@ function Checkout(){
 		
 		console.log("New Order: " + JSON.stringify(userOrder));
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/customerOrder",
+		url : "http://localhost:3412/ProjectServer/customerOrder",
 		method: 'post',
 		data : newOrderJSON,
 		contentType: "application/json",
@@ -2795,12 +3672,17 @@ function Checkout(){
 				// },50);
    		},
 		success : function(data, textStatus, jqXHR){
+				setTimeout(function() {
+    				$('#popupOrderPlaced').popup("open");
+				},100);	
+				
 			var list = $('#cart-list');
 			list.empty();
 			list.listview('refresh');
 			$('#cart-empty').show();
 			$('#cart-edit').hide();
 			$("#cart-info").hide();
+			
 		},
 		error: function(data, textStatus, jqXHR){
 			// if (data.status == 400){
@@ -2862,7 +3744,7 @@ function CheckoutbuyItNow(){
 		
 	console.log("New Order: " + JSON.stringify(userOrder));
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/customerOrderbuyitnow",
+		url : "http://localhost:3412/ProjectServer/customerOrderbuyitnow",
 		method: 'post',
 		data : newOrderJSON,
 		contentType: "application/json",
@@ -2920,7 +3802,7 @@ function bidOnProduct(){
 		var userbidprice = $('#userbidprice').val();	
 		if (userbidprice  > currentProduct.currentbidprice) {
 			$.ajax({
-			url : "http://server-phase3.herokuapp.com/ProjectServer/bidonproduct/" + currentProduct.auctionid + "/" + currentUser.uid + "/" + userbidprice,
+			url : "http://localhost:3412/ProjectServer/bidonproduct/" + currentProduct.auctionid + "/" + currentUser.uid + "/" + userbidprice,
 			method: 'post',
 			contentType: "application/json",
 			dataType:"json",
@@ -2969,7 +3851,7 @@ function bidOnProduct(){
 
 function ClearCart(){
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/shoppingcart/" + currentUser.uid,
+		url : "http://localhost:3412/ProjectServer/shoppingcart/" + currentUser.uid,
 		method: 'delete',
 		contentType: "application/json",
 		dataType:"json",
@@ -3011,7 +3893,7 @@ function ClearCart(){
 			
 function deleteItemCart(pid){
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/deleteItemCart/" + currentUser.uid + "/" + pid,
+		url : "http://localhost:3412/ProjectServer/deleteItemCart/" + currentUser.uid + "/" + pid,
 		method: 'delete',
 		contentType: "application/json",
 		dataType:"json",
@@ -3044,9 +3926,11 @@ function deleteItemCart(pid){
 	});
 }
 
+
+
 function GetCartInfo() {
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/cartInfo/" + currentUser.uid,
+		url : "http://localhost:3412/ProjectServer/cartInfo/" + currentUser.uid,
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
@@ -3083,7 +3967,7 @@ function GetCartInfo() {
 
 function GetCheckoutInfo() {
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/cartInfo/" + currentUser.uid,
+		url : "http://localhost:3412/ProjectServer/cartInfo/" + currentUser.uid,
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
@@ -3119,7 +4003,7 @@ function GetCheckoutInfo() {
 
 function GetCreditCardCheckout() {
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/creditCard/" + currentUser.cardid,
+		url : "http://localhost:3412/ProjectServer/creditCard/" + currentUser.cardid,
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
@@ -3152,7 +4036,7 @@ function GetCreditCardCheckout() {
 
 function GetCreditCardBuyItNow() {
 	$.ajax({
-		url : "http://server-phase3.herokuapp.com/ProjectServer/creditCard/" + currentUser.cardid,
+		url : "http://localhost:3412/ProjectServer/creditCard/" + currentUser.cardid,
 		method: 'get',
 		contentType: "application/json",
 		dataType:"json",
@@ -3183,12 +4067,115 @@ function GetCreditCardBuyItNow() {
 	});
 }
 
+function deleteShippingAddress(maddressid, uid){
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/deleteShippingAddress/" + maddressid,
+		method: 'delete',
+		contentType: "application/json",
+		dataType:"json",
+		success : function(data, textStatus, jqXHR){
+			var list = $('#shipping-info-list');
+			$('#shipping-info-list1-' + maddressid).remove();
+			$('#shipping-info-list2-' + maddressid).remove();
+		    $('#shipping-info-btn-' + maddressid).remove();
+		    GetShippingInfo(uid);
+			list.listview('refresh');
+		},
+		error: function(data, textStatus, jqXHR){
+				$('#popupServer').popup();
+				setTimeout(function() {
+    				$('#popupServer').popup("open");
+				},100);
+		}
+	});
+}
+
+function GetShippingInfo(uid) {
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/getShippingAddresses/" + uid,
+		method: 'get',
+		contentType: "application/json",
+		dataType:"json",
+		error: function(data, textStatus, jqXHR) {
+			if (data.status == 404){
+				console.log("textStatus 21: " + textStatus);
+				var list = $('#shipping-info-list');
+				list.empty();
+				
+				$('#shipping-info-delete').hide();
+				$('#shipping-info-edit').hide();
+				$('#shipping-info-done').hide();
+				$("#shipping-info-header").hide();
+				$("#shipping-info-empty").show();
+			}
+			else {
+				$('#popupServer').popup();
+				setTimeout(function() {
+    				$('#popupServer').popup("open");
+				},100);
+			}
+		}
+	});
+}
+
+function deleteCreditCard(cardid, baddressid, uid){
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/deleteCreditCard/" + cardid +"/" + baddressid,
+		method: 'put',
+		contentType: "application/json",
+		dataType:"json",
+		success : function(data, textStatus, jqXHR){
+			var list = $('#shipping-info-list');
+			$('#payment-info-list1-' + cardid).remove();
+			$('#payment-info-list2-' + cardid).remove();
+			$('#payment-info-list3-' + cardid).remove();
+		    $('#payment-info-btn-' + cardid).remove();
+		    GetPaymentInfo(uid);
+			list.listview('refresh');
+		},
+		error: function(data, textStatus, jqXHR){
+				$('#popupServer').popup();
+				setTimeout(function() {
+    				$('#popupServer').popup("open");
+				},100);
+		}
+	});
+}
+
+function GetPaymentInfo(uid) {
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/getCreditCard/" + uid,
+		method: 'get',
+		contentType: "application/json",
+		dataType:"json",
+		error: function(data, textStatus, jqXHR) {
+			if (data.status == 404){
+				console.log("textStatus 21: " + textStatus);
+				var list = $('#payment-info-list');
+				list.empty();
+				
+				$('#payment-info-delete').hide();
+				$('#payment-info-edit').hide();
+				$('#payment-info-done').hide();
+				$("#payment-info-header").hide();
+				$("#payment-info-empty").show();
+			}
+			else {
+				$('#popupServer').popup();
+				setTimeout(function() {
+    				$('#popupServer').popup("open");
+				},100);
+			}
+		}
+	});
+}
+
  function GetReportsbyDate() {
      var date=$('#reportDate').val();
      console.log(date);
      console.log("TESTING");
      $.ajax({
-         url : "http://server-phase3.herokuapp.com/ProjectServer/reportList/"+ date,
+         url : "http://localhost:3412/ProjectServer/reportList/"+ date,
          contentType: "application/json",
          success : function(data, textStatus, jqXHR){
              //alert(a);
@@ -3217,3 +4204,126 @@ function GetCreditCardBuyItNow() {
      });
     
  };
+
+function AddCategory() 
+{
+	var category=$('#categoryToBeAdded').val();
+	var found = findCategory(category);
+	alert(found);
+	if(found==0)
+	{
+		$.ajax({
+			url : "http://localhost:3412/ProjectServer/addCategory/" + category,
+			method: 'post',
+			contentType: "application/json",
+			dataType:"json",
+			success : function(data, textStatus, jqXHR){
+				// alert(username + " " + password + "id = " + data.user.uid);
+				setTimeout(function() {
+	    			$('#addCategoryAlertSuccess').popup("open");
+					},50);
+			},
+			error: function(data, textStatus, jqXHR){
+				console.log("textStatus: " + textStatus);
+				 console.log("textStatus: " + textStatus);
+	             alert("Category could not be added");
+			}
+		});	
+	}
+	else if(found == 1)
+	{
+		setTimeout(function() {
+    			$('#existingCategoryAddAlert').popup("open");
+				},50);
+	}
+}
+
+function findCategory(category) 
+{
+	var found;
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/findCategory/" + category,
+		method: 'get',
+		contentType: "application/json",
+		async: false,
+		dataType:"json",
+		success : function(data, textStatus, jqXHR){
+					found = 1;	
+		},
+		error: function(data, textStatus, jqXHR){
+			found = 0;
+		}
+	});
+	return found;
+}
+
+function UpdateCategory()
+{
+	var categoryOld=$('#categoryToBeUpdated').val();
+	var foundOld = findCategory(categoryOld);
+	var categoryNew=$('#newCategory').val();
+	var foundNew = findCategory(categoryNew);
+	if(foundOld==0)
+	{
+		setTimeout(function() {
+    			$('#nonExistingCategoryUpdateAlert').popup("open");
+				},50);
+	}
+	if(foundNew==1)
+	{
+		setTimeout(function() {
+    			$('#existingCategoryUpdateAlert').popup("open");
+				},50);
+	}
+	alert(foundOld +"   " +foundNew);
+	if(foundOld==1 && foundNew ==0)
+	{
+		$.ajax({
+		url : "http://localhost:3412/ProjectServer/updateCategory/" + categoryOld + "/" + categoryNew,
+		method: 'put',
+		contentType: "application/json",
+		async: false,
+		dataType:"json",
+		success : function(data, textStatus, jqXHR){
+			setTimeout(function() {
+    			$('#updateCategoryAlertSuccess').popup("open");
+				},50);
+		},
+		error: function(data, textStatus, jqXHR){
+			alert("Category could not be updated");
+		}
+	});
+	}
+}
+
+function RemoveCategory() 
+{
+	var category=$('#categoryToBeRemoved').val();
+	var found = findCategory(category);
+	if(found==1)
+	{
+		alert(category);
+		$.ajax({
+			url : "http://localhost:3412/ProjectServer/removeCategory/" + category,
+			method: 'put',
+			contentType: "application/json",
+			dataType:"json",
+			success : function(data, textStatus, jqXHR){
+				// alert(username + " " + password + "id = " + data.user.uid);
+				setTimeout(function() {
+    			$('#removeCategoryAlertSuccess').popup("open");
+				},50);
+			},
+			error: function(data, textStatus, jqXHR){
+				console.log("textStatus: " + textStatus);
+	             alert("Category could not be removed");
+			}
+		});	
+	}
+	else if(found == 0)
+	{
+		setTimeout(function() {
+    			$('#nonExistingCategoryRemoveAlert').popup("open");
+				},50);
+	}
+}

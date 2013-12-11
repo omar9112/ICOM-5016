@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<title>Auction test page</title>
+		
+		<script type="text/javascript" language="javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.5.2.min.js"></script>
+		<script type="text/javascript" language="javascript">
+			$(document).ready(function(){
+			
+				//First, we retrieve all the auction time divs and read their time values.
+				//The auctions array will contain all the auctions (or rather, the auction
+				//end time and the div which should be updated with remaining seconds.
+				var auctions = $([]);
+				$('.Countdown').each(function(){
+					var $this = $(this);
+					var auction = {
+						auctionEndTime: Date.parse($this.text()),
+						timeDiv: $this
+					};
+					auctions.push(auction);
+				});
+				
+				//The updateAuctionTimes method updates the time fields with the number of seconds left
+				//until the auctions closes.
+				var updateAuctionTimes = function(){
+					var now = new Date();
+					auctions.each(function(){
+						var secondsToFinishedAuction = Math.floor((this.auctionEndTime - now) / 1000);
+						if (secondsToFinishedAuction < 0)
+							this.timeDiv.text("Auction closed");
+						else
+							this.timeDiv.text(secondsToFinishedAuction + " seconds remaining");
+					});
+				};
+				
+				//The updateEverySecond method executes the updateAuctionTimes method and then sets a timeout
+				//to call the updateEverySecond method again after one second.
+				var millisecondsBetweenUpdates = 1000;
+				var updateEverySecond = function(){
+					updateAuctionTimes();
+					
+					setTimeout(function(){
+						updateEverySecond();
+					}, millisecondsBetweenUpdates);
+				};
+				
+				//Starts the execution.
+				updateEverySecond();
+			});
+		</script>
+	</head>
+	<body>
+		<div class="AuctionContainer">
+		  <div class="ItemTitle">Item title 1</div>
+		  <!-- Update the time here to be a time in the future, in order to test the page -->
+		  <div class="Countdown">Apr 5, 2014 23:59:00</div>
+		  <div class="HighBidder">Highest bid 1</div>
+		  <div class="BidButton">---BidBUTTON---</div>
+		</div>
+		<div class="AuctionContainer">
+		  <div class="ItemTitle">Item title 2</div>
+		  <!-- Update the time here to be a time in the future, in order to test the page -->
+		  <div class="Countdown">Apr 5, 2011 23:24:00</div>
+		  <div class="HighBidder">Highest bid 2</div>
+		  <div class="BidButton">---BidBUTTON---</div>
+		</div>
+	</body>
+</html>

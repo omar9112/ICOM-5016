@@ -318,11 +318,11 @@ html body .ui-group-theme-a a {
 }
 
 #account-profile-image {
-    width: 100px !important;
-    height: 100px !important;
+    width: 90px !important;
+    height: 90px !important;
     border-radius: 50% !important;
-    background: 50% 50% no-repeat;
-    background-size: 100px 100px;
+    background: 45% 45% no-repeat;
+    background-size: 90px 90px;
     background: center center no-repeat;
 }
 
@@ -352,6 +352,16 @@ html body .ui-group-theme-a a {
     border-radius: 50% !important;
     background: 50% 50% no-repeat;
     background-size: 256px 256px;
+    background: center center no-repeat;
+    
+}
+
+#admin-edit-account-image {
+    width: 90px !important;
+    height: 90px !important;
+    border-radius: 50% !important;
+    background: 40% 40% no-repeat;
+    background-size: 90px 90px;
     background: center center no-repeat;
     
 }

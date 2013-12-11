@@ -45,6 +45,21 @@
 		    background: url('images/cart.png') no-repeat;
 		    background-size: 18px 18px;
 		    }
+		    
+		    #preview {
+            	width: 100%; max-width: 150px;
+                margin-left: auto;
+                margin-right: auto;
+                }
+                
+                #preview img {
+                    width: 100%;
+                    }
+                .hiddenfile {
+                     width: 0px;
+                     height: 0px;
+                     overflow: hidden;
+                    }
 		</style>
 		
 	</head>
@@ -93,32 +108,32 @@
 			<div data-role="content" class="ui-content my-page">
 				<h4>Categories</h4>
 		        <ul data-role="listview" data-inset="true" class="trans" style="margin: 0 auto">
-		            <li><a href="#category-page" onclick="GetProductByCategory('books')">
+		            <li><a href="#category-page" onclick="GetProductByCategory('Books')">
 		                <img src="images/books1.jpg" class="ui-li-thumb">
 		                <p class="trans">Children, Fiction, Technology, others</p>
 		                <p class="ui-li-aside">Books</p>
 		            </a></li>
-		            <li class="my-page"><a href="#category-page" onclick="GetProductByCategory('electronics')">
+		            <li class="my-page"><a href="#category-page" onclick="GetProductByCategory('Electronics')">
 		                <img src="images/electronics.jpg" class="ui-li-thumb">
 		                <p>TV, Audio, Phones, Video, others</p>
 		                <p class="ui-li-aside">Electronics</p>
 		            </a></li>
-		            <li><a href="#category-page" onclick="GetProductByCategory('computers')">
+		            <li><a href="#category-page" onclick="GetProductByCategory('Computers')">
 		                <img src="images/computers1.jpg" class="ui-li-thumb">
 		                <p>Laptops, Desktops, Tablets, others</p>
 		                <p class="ui-li-aside">Computers</p>
 		            </a></li>
-		            <li><a href="#category-page" onclick="GetProductByCategory('clothing')">
+		            <li><a href="#category-page" onclick="GetProductByCategory('Clothing')">
 		                <img src="images/clothing1.jpg" class="ui-li-thumb">
 		                <p>Children, Men, Women, others</p>
 		                <p class="ui-li-aside">Clothing</p>
 		            </a></li>
-		            <li><a href="#category-page" onclick="GetProductByCategory('shoes')">
+		            <li><a href="#category-page" onclick="GetProductByCategory('Shoes')">
 		                <img src="images/shoes1.jpg" class="ui-li-thumb">
 		                <p>Children, Men, Women</p>
 		                <p class="ui-li-aside">Shoes</p>
 		            </a></li>
-		            <li><a href="#category-page" onclick="GetProductByCategory('sports')">
+		            <li><a href="#category-page" onclick="GetProductByCategory('Sports')">
 		                <img src="images/sports1.jpg" class="ui-li-thumb">
 		                <p>Basketbal, Bycicles, Golf, others</p>
 		                <p class="ui-li-aside">Sports</p>
@@ -146,64 +161,64 @@
 			        <li data-role="collapsible" data-inset="false" data-iconpos="right" data-collapsed-icon="carat-d"  data-expanded-icon="carat-u" class="ui-nodisc-icon ui-alt-icon">
 			        	<h3>Books </h3>
 			            <ul data-role="listview" data-theme="a" class="ui-alt-icon">
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('booksChildren')"><img src="images/icons/76-baby.png" class="ui-li-icon ui-corner-none"/>Children</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('booksFiction')"><img src="images/icons/27-planet.png" class="ui-li-icon ui-corner-none"/>Fiction</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('booksTechnology')"><img src="images/icons/107-widescreen.png" class="ui-li-icon ui-corner-none"/>Technology</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('booksBusiness')"><img src="images/icons/37-suitcase.png" class="ui-li-icon ui-corner-none"/>Business</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('books')">Others</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Books-Children')"><img src="images/icons/76-baby.png" class="ui-li-icon ui-corner-none"/>Children</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Books-Fiction')"><img src="images/icons/27-planet.png" class="ui-li-icon ui-corner-none"/>Fiction</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Books-Technology')"><img src="images/icons/107-widescreen.png" class="ui-li-icon ui-corner-none"/>Technology</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Books-Business')"><img src="images/icons/37-suitcase.png" class="ui-li-icon ui-corner-none"/>Business</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Books')">Others</a></li>
 						</ul>
 			        </li><!-- /collapsible -->
 			        <li data-role="collapsible" data-inset="false" data-iconpos="right" data-collapsed-icon="carat-d"  data-expanded-icon="carat-u" class="ui-nodisc-icon ui-alt-icon">
 			        	<h3>Electronics</h3>
 			            <ul data-role="listview" data-inset="false" data-theme="a" class="ui-alt-icon">
-				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('electronicsTv')"><img src="images/icons/70-tv.png" class="ui-li-icon ui-corner-none"/>TV</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('electronicsAudio')"><img src="images/icons/120-headphones.png" class="ui-li-icon ui-corner-none"/>Audio</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('electronicsPhones')"><img src="images/icons/32-iphone.png" class="ui-li-icon ui-corner-none"/>Phones</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('electronicsCameras')"><img src="images/icons/86-camera.png" class="ui-li-icon ui-corner-none"/>Cameras</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('electronicsVideo')"><img src="images/icons/43-film-roll.png" class="ui-li-icon ui-corner-none"/>Video</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('electronics')">Others</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Electronics-Tv')"><img src="images/icons/70-tv.png" class="ui-li-icon ui-corner-none"/>TV</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Electronics-Audio')"><img src="images/icons/120-headphones.png" class="ui-li-icon ui-corner-none"/>Audio</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Electronics-Phones')"><img src="images/icons/32-iphone.png" class="ui-li-icon ui-corner-none"/>Phones</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Electronics-Cameras')"><img src="images/icons/86-camera.png" class="ui-li-icon ui-corner-none"/>Cameras</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Electronics-Video')"><img src="images/icons/43-film-roll.png" class="ui-li-icon ui-corner-none"/>Video</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Electronics')">Others</a></li>
         				</ul>
 			        </li><!-- /collapsible -->
 			        <li data-role="collapsible" data-inset="false" data-iconpos="right" data-collapsed-icon="carat-d"  data-expanded-icon="carat-u" class="ui-nodisc-icon ui-alt-icon">
 			        	<h3>Computers</h3>
               			<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('computersLaptops')"><img src="images/icons/175-macbook.png" class="ui-li-icon ui-corner-none"/>Laptops</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('computersDesktops')"><img src="images/icons/174-imac.png" class="ui-li-icon ui-corner-none"/>Desktops</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('computersTablets')"><img src="images/icons/176-ipad.png" class="ui-li-icon ui-corner-none"/>Tablets</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('computersPrinters')"><img src="images/icons/185-printer.png" class="ui-li-icon ui-corner-none"/>Printers</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('computers')">Others</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Computers-Laptops')"><img src="images/icons/175-macbook.png" class="ui-li-icon ui-corner-none"/>Laptops</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Computers-Desktops')"><img src="images/icons/174-imac.png" class="ui-li-icon ui-corner-none"/>Desktops</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Computers-Tablets')"><img src="images/icons/176-ipad.png" class="ui-li-icon ui-corner-none"/>Tablets</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Computers-Printers')"><img src="images/icons/185-printer.png" class="ui-li-icon ui-corner-none"/>Printers</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Computers')">Others</a></li>
 				        </ul>
 		            </li><!-- /collapsible -->
 		            <li data-role="collapsible" data-inset="false" data-iconpos="right" data-collapsed-icon="carat-d"  data-expanded-icon="carat-u" class="ui-nodisc-icon ui-alt-icon">
               			<h3>Clothing</h3>
               			<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('clothingChildren')"><img src="images/icons/76-baby.png" class="ui-li-icon ui-corner-none"/>Children</a></li>
-				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('clothingMen')"><img src="" class="ui-li-icon ui-corner-none"/>Men</a></li>
-				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('clothingWomen')"><img src="" class="ui-li-icon ui-corner-none"/>Women</a></li>
-				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('clothingDresses')"><img src="images/icons/118-coat-hanger.png" class="ui-li-icon ui-corner-none"/>Dresses</a></li>
-				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('clothingShirts')"><img src="images/icons/67-tshirt.png" class="ui-li-icon ui-corner-none"/>Shirts</a></li>
-				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('clothingPants')"><img src="" class="ui-li-icon ui-corner-none"/>Pants</a></li>
-				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('clothingSocks')"><img src="images/icons/127-sock.png" class="ui-li-icon ui-corner-none"/>Socks</a></li>
-				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('clothing')"><img src="" class="ui-li-icon ui-corner-none"/>Others</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Clothing-Children')"><img src="images/icons/76-baby.png" class="ui-li-icon ui-corner-none"/>Children</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Clothing-Men')"><img src="" class="ui-li-icon ui-corner-none"/>Men</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Clothing-Women')"><img src="" class="ui-li-icon ui-corner-none"/>Women</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Clothing-Dresses')"><img src="images/icons/118-coat-hanger.png" class="ui-li-icon ui-corner-none"/>Dresses</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Clothing-Shirts')"><img src="images/icons/67-tshirt.png" class="ui-li-icon ui-corner-none"/>Shirts</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Clothing-Pants')"><img src="" class="ui-li-icon ui-corner-none"/>Pants</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Clothing-Socks')"><img src="images/icons/127-sock.png" class="ui-li-icon ui-corner-none"/>Socks</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Clothing')"><img src="" class="ui-li-icon ui-corner-none"/>Others</a></li>
 
 				        </ul>
 		            </li><!-- /collapsible -->
 		            <li data-role="collapsible" data-inset="false" data-iconpos="right" data-collapsed-icon="carat-d"  data-expanded-icon="carat-u" class="ui-nodisc-icon ui-alt-icon">
               			<h3>Shoes</h3>
               			<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('shoesChildren')"><img src="" class="ui-li-icon ui-corner-none"/>Children</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('shoesWomen')"><img src="" class="ui-li-icon ui-corner-none"/>Women</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('shoesMen')"><img src="" class="ui-li-icon ui-corner-none"/>Men</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Shoes-Children')"><img src="" class="ui-li-icon ui-corner-none"/>Children</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Shoes-Women')"><img src="" class="ui-li-icon ui-corner-none"/>Women</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Shoes-Men')"><img src="" class="ui-li-icon ui-corner-none"/>Men</a></li>
 				        </ul>
             		<li data-role="collapsible" data-inset="false" data-iconpos="right" data-collapsed-icon="carat-d"  data-expanded-icon="carat-u" class="ui-nodisc-icon ui-alt-icon">
               			<h3>Sports</h3>
               			<ul data-role="listview" data-inset="false" data-theme="a">
-				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('sportsBicycles')"><img src="" class="ui-li-icon ui-corner-none"/>Bicycles</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('sportsFishing')"><img src="" class="ui-li-icon ui-corner-none"/>Fishing</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('sportsBaseball')"><img src="" class="ui-li-icon ui-corner-none"/>Baseball</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('sportsGolf')"><img src="images/icons/129-golf.png" class="ui-li-icon ui-corner-none"/>Golf</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('sportsBasketball')"><img src="" class="ui-li-icon ui-corner-none"/>Basketball</a></li>
-							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('sports')"><img src="" class="ui-li-icon ui-corner-none"/>Others</a></li>
+				            <li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Sports-Bicycles')"><img src="" class="ui-li-icon ui-corner-none"/>Bicycles</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Sports-Fishing')"><img src="" class="ui-li-icon ui-corner-none"/>Fishing</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Sports-Baseball')"><img src="" class="ui-li-icon ui-corner-none"/>Baseball</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Sports-Golf')"><img src="images/icons/129-golf.png" class="ui-li-icon ui-corner-none"/>Golf</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Sports-Basketball')"><img src="" class="ui-li-icon ui-corner-none"/>Basketball</a></li>
+							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Sports')"><img src="" class="ui-li-icon ui-corner-none"/>Others</a></li>
 				        </ul>
             		</li><!-- /collapsible -->
         		</ul>
@@ -255,7 +270,7 @@
 				<div data-role="popup" id="popupDialogLogin" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
 				    <div role="main" class="ui-content" align="center">
 				        <h2 class="account-info-user" style="font-size: 13px;"><center>We're sorry</center></h2>
-				    	<p class="account-info" style="white-space: normal; text-align: center; color: #555555">The email and password combination did not match our login records.</p>
+				    	<p class="account-info" style="white-space: normal; text-align: center; color: #555555">The username and password combination did not match our login records.</p>
 				    	<hr />
 				        <a style="background: transparent; padding: 0; border: none;" data-rel="back"><p class="account-info-user">OK</p></a>
 				    </div>
@@ -288,9 +303,44 @@
 	            <form id="product-form">
 	                <fieldset>
 	                	<ul data-role="listview" style="padding: 0; margin-bottom: 40px;">
-	                		<li class="ui-alt-icon ui-nodisc-icon">
-	                			<a>Photos</a>
-	                		</li>
+	                		<div id="preview" ></div>
+                <li class="ui-alt-icon ui-nodisc-icon">
+                <a id="chooseFile">Photos</a>
+                <div class="hiddenfile">
+                                  <input type="file" data-clear-btn="false" name="image" accept="image/*" capture>
+                                </div>
+                                <script>
+                                $('#sell-page').on('pageinit', function(){
+                                    $("#chooseFile").click(function(e){
+                                        e.preventDefault();
+                                        $("input[type=file]").trigger("click");
+                                    });
+                                    $("input[type=file]").change(function(){
+                                        var file = $("input[type=file]")[0].files[0];            
+                                        $("#preview").empty();
+                                        displayAsImage3(file, "preview");
+                                        
+                                    });
+                                });
+                            
+                                function displayAsImage3(file, containerid) {
+                                    if (typeof FileReader !== "undefined") {
+                                        var container = document.getElementById(containerid),
+                                            img = document.createElement("img"),
+                                            reader;
+                                        container.appendChild(img);
+                                        reader = new FileReader();
+                                        reader.onload = (function (theImg) {
+                                            return function (evt) {
+                                                theImg.src = evt.target.result;
+                                            };
+                                        }(img));
+                                        reader.readAsDataURL(file);
+                                    }
+                                }
+                                
+                                </script>
+               			 	</li>
 				    		<li>
 		         				<input type="text" placeholder="Title" data-mini="true" name="productName" id="productName" value="" class="required account-info ui-input-listview">
 					    	</li>
@@ -303,83 +353,76 @@
 				    	</ul>
 	                	<ul data-role="listview" style=" margin-bottom: 40px;" class="ui-alt-icon ui-nodisc-icon">
 	                		<li style="padding: 0; margin-right: -2px;">
-	                        	<select name="category" id="category" multiple="multiple" data-native-menu="false" data-icon="carat-d" data-iconpos="right" class="ui-input-listview sell ui-nodisc-icon">
+	                        	<select name="productCategory" id="productCategory" multiple="multiple" data-native-menu="false" data-icon="carat-d" data-iconpos="right" class="ui-input-listview sell ui-nodisc-icon">
 	                            	<option style="text-align: right;">Categories</option>
 	                                    <optgroup id='selectSell' label="Books" class="sell" style="font-size: 10px;">
-	                                        <option value="children">Children</option>
-	                                        <option value="fiction">Fiction</option>
-	                                        <option value="technology">Technology</option>
-	                                        <option value="business">Business</option>
+	                                        <option value="3">Children</option>
+	                                        <option value="4">Fiction</option>
+	                                        <option value="5">Technology</option>
+	                                        <option value="2">Business</option>
 	                                    </optgroup>
 	                                    <optgroup label="Electronics">
-	                                        <option value="tv">TV</option>
-	                                        <option value="audio">Audio</option>
-	                                        <option value="phones">Phones</option>
-	                                        <option value="cameras">Cameras</option>
-	                                        <option value="video">Video</option>
+	                                        <option value="23">TV</option>
+	                                        <option value="20">Audio</option>
+	                                        <option value="22">Phones</option>
+	                                        <option value="21">Cameras</option>
+	                                        <option value="24">Video</option>
 	                                    </optgroup>
 	                                    <optgroup label="Computers">
-	                                        <option value="laptops">Laptops</option>
-	                                        <option value="desktops">Desktops</option>
-	                                        <option value="tablets">Tablets</option>
-	                                        <option value="printers">Printers</option>
+	                                        <option value="16">Laptops</option>
+	                                        <option value="15">Desktops</option>
+	                                        <option value="18">Tablets</option>
+	                                        <option value="17">Printers</option>
 	                                    </optgroup>
 	                                    <optgroup label="Clothing">
-	                                        <option value="men">Men</option>
-	                                        <option value="women">Women</option>
-	                                        <option value="children">Children</option>
+	                                        <option value="27">Men</option>
+	                                        <option value="28">Women</option>
+	                                        <option value="26">Children</option>
 	                                        <option value="shoes">Shoes</option>
 	                                    </optgroup>
 	                                    <optgroup label="Sports">
-	                                        <option value="bicycles">Bicycles</option>
-	                                        <option value="fishing">Fishing</option>
-	                                        <option value="baseball">Baseball</option>
-	                                        <option value="golf">Golf</option>
-	                                        <option value="basketball">Basketball</option>
+	                                        <option value="32">Bicycles</option>
+	                                        <option value="33">Fishing</option>
+	                                        <option value="30">Baseball</option>
+	                                        <option value="34">Golf</option>
+	                                        <option value="31">Basketball</option>
 	                                    </optgroup>
 	                                </select>
 	                		</li>
-				    		<li  style="padding: 0;">
+	                		<li  style="padding: 0;">
 								<div data-role="collapsible" data-mini="true" style="margin: 0;" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
 								    <h2>Condition</h2>
 								    <ul data-role="listview">
 								        <li style="padding: 0;">
-								        	<div class="ui-field-contain">
-											    <fieldset data-role="controlgroup" style="border: none">
-											        <input type="checkbox" name="checkbox-v-1a" id="checkbox-v-1a">
-											        <label for="checkbox-v-1a" style="font-weight: lighter">New</label>
-											        <input type="checkbox" name="checkbox-v-1b" id="checkbox-v-1b">
-											        <label for="checkbox-v-1b" style="font-weight: lighter">Manufacturer Refurbished</label>
-											        <input type="checkbox" name="checkbox-v-1c" id="checkbox-v-1c">
-											        <label for="checkbox-v-1c" style="font-weight: lighter">Used</label>
-											        <input type="checkbox" name="checkbox-v-1s" id="checkbox-v-1d">
-											        <label for="checkbox-v-1d" style="font-weight: lighter">For parts or not working</label>
-											    </fieldset>
-											</div>
+											<fieldset data-role="controlgroup">
+										        <input type="radio" name="productCondition" id="newCondition" value="New">
+										        <label for="newCondition" style="font-weight: lighter">New</label>
+										        <input type="radio" name="productCondition" id="refCondition" value="Manufacturer Refurbishe">
+										        <label for="refCondition" style="font-weight: lighter">Manufacturer Refurbished</label>
+										        <input type="radio" name="productCondition" id="usedCondition" value="Used">
+										        <label for="usedCondition" style="font-weight: lighter">Used</label>
+										        <input type="radio" name="productCondition" id="workCondition" value="For parts or not working">
+										        <label for="workCondition" style="font-weight: lighter">For parts or not working</label>
+											</fieldset>
 								        </li>
 								    </ul>
 								</div>
 					    	</li>
 					    	<li>
-					    	 	<input type="text" placeholder="Description"  data-mini="true" name="productBrand" id="productBrand" value="" class="required account-info ui-input-listview">
+					    	 	<input type="text" placeholder="Description"  data-mini="true" name="productDescription" id="productDescription" value="" class="required account-info ui-input-listview">
 					    	 </li>
 				    	</ul>
-
-
-
 	                	<ul data-role="listview" style="padding: 0; margin-bottom: 40px;"  class="ui-alt-icon ui-nodisc-icon">
 	                		<div data-role="collapsible" data-mini="true" style="margin: 0;" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
 							    <h2>Price Method</h2>
 							    <ul data-role="listview">
 							        <li style="padding: 0;">
-							        	<div class="ui-field-contain">
-										    <fieldset data-role="controlgroup" style="border: none">
-										        <input type="checkbox" name="instant" id="instant">
-										        <label for="instant" style="font-weight: lighter">Instant</label>
-										        <input type="checkbox" name="bid" id="bid">
-										        <label for="bid" style="font-weight: lighter">Bid</label>
+										<fieldset data-role="controlgroup" style="border: none">
+											<input type="radio" name="productPriceMethod" id="instantPrice" value="Instant">
+										    <label for="instantPrice" style="font-weight: lighter">Instant</label>
+										    <input type="radio" name="productPriceMethod" id="bidPrice" value="Bid">
+										    <label for="bidPrice" style="font-weight: lighter">Bid</label>
 										    </fieldset>
-										</div>
 							        </li>
 							    </ul>
 							</div>
@@ -387,10 +430,16 @@
 		         				<input type="text" placeholder="Price" data-mini="true" name="productPrice" id="productPrice" value="" class="required account-info ui-input-listview">
 					    	</li>
 					    	<li>
-					    	 	<input type="text" placeholder="Shipping"  data-mini="true" name="productBrand" id="productBrand" value="" class="required account-info ui-input-listview">
+					    	 	<input type="text" placeholder="Shipping"  data-mini="true" name="productShipping" id="productShipping" value="" class="required account-info ui-input-listview">
+					    	 </li>
+					    	 <li>
+					    	 	<input type="text" placeholder="End date YYYY-MM-DD"  data-mini="true" name="productEndDate" id="productEndDate" value="" class="required account-info ui-input-listview">
 					    	 </li>
 				    	</ul>
 	             </fieldset>
+	             <div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
+                	<a id="submitProduct" onclick="SaveProduct()" class="ui-btn ui-mini ui-btn-inline custom-btn"  href="#" data-role="button" style="width: 150px;">SAVE</a>
+               	</div>
 	            </form>
 		  	</div>   
     	</div>
@@ -893,7 +942,14 @@
 		<!--###################################### PAYMENT INFO PAGE ######################################-->
 		<div id="payment-info-page" data-role="page">
 			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
-				<h3>Payment Info</h3>
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
+			    <h3>Payment Info</h3>
+			    <div id="payment-info-delete" class="ui-btn-right ui-nodisc-icon">
+			    	<a id="payment-info-edit" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Edit</a>
+					<a id="payment-info-done" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Done</a>
+			  	</div>
 			</div><!-- /payment-info-page header -->
 			<div data-role="content" style="padding-top: 0;">
 				<ul data-role="listview" style="margin-top: 20px;  margin-bottom: 20px;" class="ui-alt-icon ui-nodisc-icon">
@@ -1231,11 +1287,11 @@
 					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
 				</div>
 			    <h3>Shipping Adrress</h3>
-			    <div id="cart-delete" class="ui-btn-right ui-nodisc-icon">
-			    	<a id="payment-edit" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Edit</a>
-					<a id="payment-done" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Done</a>
+			    <div id="shipping-info-delete" class="ui-btn-right ui-nodisc-icon">
+			    	<a id="shipping-info-edit" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Edit</a>
+					<a id="shipping-info-done" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Done</a>
 			  	</div>
-			</div><!-- /payment-info-page header -->
+			</div><!-- /shipping-info-page header -->
 			<div data-role="content" style="padding-top: 0;">
 				<ul data-role="listview" style="margin-top: 20px; margin-bottom: 20px;">
 					<li class="ui-alt-icon ui-nodisc-icon">
@@ -1244,7 +1300,7 @@
 							<center><h3 style="font-weight: lighter; color: #55A244">Add shipping address</h3></center>
 						</a>
 					</li>
-				</ul>				
+				</ul>	
 				<h3 id="shipping-info-header" style="margin-bottom: 20px">Shipping Addresses</h3>
 				<ul id="shipping-info-list" data-role="listview" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
 					<li id="shipping-info-loading">
@@ -1256,6 +1312,19 @@
 					<!-- Addresses added dynamically  -->
 				</ul>
 				<br />
+				<div id="shipping-info-empty" align="center">
+					<img src="images/icons/addressbook2256.png" style="position: absolute; 
+					 height: 256px;
+   					 width: 256px;
+    				 top:calc(50% - 256px/2);
+    				 left:calc(50% - 256px/2);" />
+					<p class="account-info" style="position: absolute; 
+					 margin-top: 265px;
+					 height: 256px;
+   					 width: 256px;
+    				 top:calc(50% - 256px/2);
+    				 left:calc(50% - 256px/2);">No shipping address found.</p>
+				</div>
 			</div> <!-- /shipping-info-content -->
             <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;" data-tap-toggle="false">
 			    <div data-role="navbar" data-grid="d">
@@ -1814,14 +1883,16 @@
 				    </ul>
 			    </div>
 			</div>
-            <div data-role="popup" id="orderAlert" data-theme="a" class="ui-corner-all">
-    			<form action="#home-page">
-        			<div style="padding:10px 20px;">
-            			<center><h3>Thank You!</h3></center>
-            			<p>Your order has been placed.</p>
-            			<button type="submit" onclick="window.location='#home-page'" data-mini="true" data-theme="b">Place Order</button>
-        			</div>
-        		</form>	
+			<div data-role="popup" id="popupOrderPlaced" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+					<h2 class="account-info-user" style="font-size: 13px;"><center>Thank You!</center></h2>
+					<p class="account-info" style="white-space: normal; text-align: center; color: #555555">Your order has been placed..</p>
+					<hr />
+					<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
+	               		<a id='continue-shopping' style="background: transparent; padding: 0; border: none;" class="ui-btn-inline"><p class="account-info-user">Shop</p></a>
+	                	<a id='view-placed-order' tyle="background: transparent; padding: 0; border: none;" class="ui-btn-inline"><p class="account-info-user">View Orders</p></a>
+	                </div>	
+				</div>
 			</div>
         </div>
 
@@ -1878,11 +1949,11 @@
 		<div data-role="popup" id="popupBuyItNow" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
 			<div role="main" class="ui-content" align="center">
 				<h2 class="account-info-user" style="font-size: 13px;"><center>Thank You!</center></h2>
-				<p class="account-info" style="white-space: normal; text-align: center; color: #555555">Your order has been placed..</p>
+				<p class="account-info" style="white-space: normal; text-align: center; color: #555555">Your order has been placed.</p>
 				<hr />
 				<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
                		<a style="background: transparent; padding: 0; border: none;" href="#search-page" class="ui-btn-inline"><p class="account-info-user">Shop</p></a>
-                	<a id="order-view" tyle="background: transparent; padding: 0; border: none;" class="ui-btn-inline"><p class="account-info-user">View Order</p></a>
+                	<a href="#order-history-page" style="background: transparent; padding: 0; border: none;" class="ui-btn-inline"><p class="account-info-user">View Order</p></a>
                 </div>	
 			</div>
 		</div>
@@ -2033,11 +2104,11 @@
 			    	 <li>
 			    	 	<div data-role="navbar">
 						    <ul>
-						        <li style="width: 115px; background: transparent;">
-						        	<div data-role="button" id="account-profile-image" style="background-size: 100px 100px;"></div>
+						        <li style="width: 110px; background: transparent;">
+						        	<div data-role="button" id="account-profile-image" style="background-size: 90px 90px;"></div>
 						        </li>
 						        <li>
-						        	<p id="account-profile-username" class="account-info-user" style="font-size: 12px; font-weight: bold;"></p>
+						        	<p id="account-profile-username" class="account-info-user" style="font-size: 12px; font-weight: bold; margin-top: 15px;"></p>
 						        	<p class="account-info" style="font-size: 12px;">Rating: <span id="account-profile-rating"></span></p>
 						        	<p id="account-profile-state" class="account-info" style="font-size: 12px;"></p>
 						        	<p id="account-profile-phone" class="account-info" style="font-size: 12px;"></p>
@@ -2230,7 +2301,7 @@
 		
 		<!--###################################### ADMINISTRATOR PAGE ######################################-->
         <div id="administrator-page" data-role="page">
-			<div data-role="header" style="background: #1D8D55" data-position="fixed" data-tap-toggle="false">
+			<div data-role="header" class="headerTitle" style="background: #1D8D55" data-position="fixed" data-tap-toggle="false">
 				<div class="ui-btn-left ui-nodisc-icon">
 					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
 				</div>
@@ -2242,7 +2313,7 @@
             <div data-role="content" class="ui-content admin">
             	<div align="center">
 				<ul data-role="listview" data-inset="true" class="trans" style="margin-left: 5%;">
-		            <li><a href="#" onclick="">
+		            <li><a href="#add-category-page" onclick="">
 		                <img src="images/addCategory.png" class="ui-li-thumb" style="position: absolute; 
 					 		height: 100px;
    					 		width: 100px;
@@ -2250,7 +2321,7 @@
     				 		left:calc(50% - 100px/2);">
 		                <p class="ui-li-aside">Category</p>
 		            </a></li>
-		            <li><a href="#" onclick="">
+		            <li><a href="#update-category-page" onclick="">
 		                <img src="images/editCategoryPainted.png" class="ui-li-thumb" style="position: absolute; 
 					 		height: 100px;
    					 		width: 100px;
@@ -2258,7 +2329,7 @@
     				 		left:calc(50% - 100px/2);">
 		                <p class="ui-li-aside">Modify Category</p>
 		            </a></li>
-		            <li><a href="#category-page" onclick="">
+		            <li><a href="#remove-category-page" onclick="">
 		                <img src="images/removeCategory.png" class="ui-li-thumb" style="position: absolute; 
 					 		height: 100px;
    					 		width: 100px;
@@ -2266,7 +2337,7 @@
     				 		left:calc(50% - 100px/2);">
 		                <p class="ui-li-aside" style="font-size: 12px">Remove Category</p>
 		            </a></li>
-		            <li><a href="#" onclick="">
+		            <li><a href="#add-user-page" onclick="">
 		                <img src="images/AddUser.png" class="ui-li-thumb" style="position: absolute; 
 					 		height: 100px;
    					 		width: 100px;
@@ -2274,7 +2345,7 @@
     				 		left:calc(50% - 100px/2);">
 		                <p class="ui-li-aside">Add User</p>
 		            </a></li>
-		            <li><a href="#" onclick="">
+		            <li><a href="#edit-user-page" onclick="">
 		                <img src="images/editUser.png" class="ui-li-thumb" style="position: absolute; 
 					 		height: 100px;
    					 		width: 100px;
@@ -2282,7 +2353,7 @@
     				 		left:calc(50% - 100px/2);">
 		                <p class="ui-li-aside">Edit User</p>
 		            </a></li>
-		            <li><a href="#" onclick="">
+		            <li><a href="#search-user-to-remove-page" onclick="">
 		                <img src="images/removeUser.png" class="ui-li-thumb" style="position: absolute; 
 					 		height: 100px;
    					 		width: 100px;
@@ -2423,6 +2494,411 @@
 				</div>
 				</div>   	
 		</div> <!-- register-page -->
+
+		<!--###################################### REMOVE USER PAGE ######################################-->
+        <div id="remove-user-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<div class="ui-btn-left">
+				</div>
+			    <h3>User Account Info</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Logout</a>
+			  	</div>
+			</div><!-- /account-info-page-header -->
+            
+            <!-- Content -->
+            <div data-role="content">
+            <h6 id="admin-account-info-header" style="margin-bottom: 15px;"></h6>
+			    <div data-role="navbar">
+				    <ul>
+				        <li style="width: 115px; background: transparent;"><div data-role="button" id="admin-account-image" style="background-size: 100px 100px;"></div></li>
+				        <li>
+				        	<p id="admin-account-info-username" class="account-info-user" style="margin-top: 0; font-size: 12px;"></p>
+				        	<p class="account-info" style="font-size: font-size: 12px;">Rating: <span id="admin-account-info-rating"></span></p>
+				        	<p id="admin-account-info-state" class="account-info" style="font-size: font-size: 12px;"></p>
+				        	<p id="admin-account-info-phone" class="account-info" style="font-size: font-size: 12px;"></p>
+				        </li>
+				    </ul>
+				</div><!-- /account-info-page-navbar -->
+                <h3 style="margin-top:15px; margin-bottom: 0px">Name and email</h3>
+                <form id="admin-update-user-form">
+                    <div>
+                        <br />
+                        <ul data-mini="true" data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+                			<li>
+                				<input readonly="readonly" type="text" name="admin-account-name" id="admin-account-name" value="" placeholder="" data-mini="true" class="ui-input-listview" >
+                			</li>
+                			<li data-mini="true">
+                				<input type="email" name="updemail" id="updemail" value="" placeholder="" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<br />
+               			</ul>
+						<h3 style="margin-top:10px; margin-bottom: 18px">Password</h3>
+                        <ul data-mini="true" data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+                			<li data-mini="true">
+                				<input  type="password" name="current-password" id="current-password" value="" placeholder="current password" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<li data-mini="true">
+                				<input  type="password" name="updpassword" id="updpassword" value="" placeholder="new password" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<br /> <br />
+               			</ul>
+               			<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
+               			</div>
+                    </div>
+                </form>
+               <div  align="center">
+			   		<a class="custom-btn" href="#removeUserAlert" data-rel="popup" data-position-to="window" data-transition="pop" data-role="button" style="color: white; background-color: red" >Remove User</a>
+               	</div> 
+            </div> <!-- /account-info-page-content -->
+            
+            
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li><a class="ui-btn-active" href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+			
+			<div data-role="popup" id="removeUserAlert" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+			<div role="main" class="ui-content" align="center">
+				<h2 class="account-info-user" style="font-size: 13px;"><center>Remove User</center></h2>
+				<p class="account-info" style="white-space: normal; text-align: center; color: #555555">Are you sure you wish to remove user?</p>
+				<hr />
+				<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
+               		<a style="background: transparent; padding: 0; border: none;" data-rel="back" class="ui-btn-inline"><p class="account-info-user">Cancel</p></a>
+                	<a onclick ="AdminRemoveUser()" style="background: transparent; padding: 0; border: none;" class="ui-btn-inline"><p class="account-info-user">Remove</p></a>
+                </div>	
+			</div>
+			</div>
+        </div>
+        
+        <!--###################################### EDIT USER PAGE ######################################-->
+        <div id="edit-user-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
+				<div class="ui-btn-left">
+				</div>
+			    <h3>User Account Info</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Logout</a>
+			  	</div>
+			</div><!-- /account-info-page-header -->
+            
+            <!-- Content -->
+            <div data-role="content">
+            <h6 id="admin-edit-account-info-header" style="margin-bottom: 15px;"></h6>
+			    <div data-role="navbar">
+				    <ul>
+				        <li style="width: 115px; background: transparent;">
+				        	<div data-role="button" id="admin-edit-account-image" style="background-size: 90px 90px;"></div></li>
+				        <li>
+				        	<p id="admin-edit-account-info-username" class="account-info-user" style="margin-top: 0; font-size: 12px;"></p>
+				        	<p class="account-info" style="font-size: font-size: 12px;">Rating: <span id="admin-edit-account-info-rating"></span></p>
+				        	<p id="admin-edit-account-info-state" class="account-info" style="font-size: font-size: 12px;"></p>
+				        	<p id="admin-edit-account-info-phone" class="account-info" style="font-size: font-size: 12px;"></p>
+				        </li>
+				    </ul>
+				</div><!-- /account-info-page-navbar -->
+                <h3 style="margin-top:15px; margin-bottom: 0px">Name and email</h3>
+                <form id="admin-update-user-form">
+                    <div>
+                        <br />
+                        <ul data-mini="true" data-role="listview" class="ui-nodisc-icon ui-alt-icon">
+                			<li>
+                				<input readonly="readonly" type="text" name="admin-edit-account-name" id="admin-edit-account-name" value="" placeholder="" data-mini="true" class="ui-input-listview" >
+                			</li>
+                			<li data-mini="true">
+                				<input type="email" name="edit-updemail" id="edit-updemail" value="" placeholder="" data-mini="true" class="ui-input-listview" >                		
+                			</li>
+                			<br />
+               			</ul>
+               			<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
+                			<a id="edit-update-admin-account" onclick="AdminUpdateUser()" class="ui-btn ui-mini ui-btn-inline custom-btn"  data-role="button" style="width: 150px;">Save changes</a>
+               			</div>
+                    </div>
+                </form>
+            </div> <!-- /account-info-page-content -->
+            
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li><a class="ui-btn-active" href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+        </div>
+
+        <!--###################################### ADD USER PAGE ######################################-->
+        <div id="add-user-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" data-position="fixed">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-rel="back" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a>
+				</div>
+			    <h4>Add a User</h4>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a data-theme="b" href="#login-page" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Log In</a>
+			  	</div>
+			</div><!-- /register-page header -->
+			<div data-role="content">
+				<h3 style="margin-bottom: 20px;">Account</h3>
+				<form enctype="multipart/form-data" id="addUserForm">
+    
+					<ul data-role="listview" style="padding: 0">
+				    	 <li>
+				    	 	<div data-role="navbar">
+							    <ul>
+							        <li style="width: 100px; background: transparent;">
+							        	<div data-role="button" align="center" id="register-image" style="background-size: 60px 60px; margin-left: 15px; background-image: url('https://ssl.gstatic.com/accounts/ui/avatar_2x.png'); margin-top: 6px;">
+							        	</div>
+							        </li>
+							        <li style="width: 16px">
+							        	<p style="margin-top: 15px; margin-bottom: 15px"><img src="images/icons/111-user.png" style="width: 14px" /></p>
+							        	<p><img src="images/icons/54-lock.png" style="width: 12px" /></p>
+							        </li>
+							        <li>
+										<input onkeydown="if(event.keyCode==13)$('#registerSubmitAdmin').trigger('click');"  type="text" style="font-size: 12px;" data-mini="true" name="username" id="username" placeholder="username" class="required account-info " >
+										<input onkeydown="if(event.keyCode==13)$('#registerSubmitAdmin').trigger('click');"  type="password" style="font-size: 12px;" data-mini="true" name="upassword" id="upassword" placeholder="password" class="required account-info">
+							        </li>
+							    </ul>
+							</div><!-- /register-page-navbar -->	
+				    	 </li>
+				    </ul>
+				    <br />
+	    			<h3 style="margin-bottom: 20px;">Profile</h3>
+	    			<ul data-role="listview" style="padding: 0">
+				    	 <li>
+				    	 	<img src="images/icons/123-id-card.png" class="ui-li-icon ui-corner-none"/>
+	         				<input onkeydown="if(event.keyCode==13)$('#registerSubmitAdmin').trigger('click');"  type="text" placeholder="first name" data-mini="true" name="fname" id="fname" class="required account-info ui-input-listview">
+				    	 </li>
+				    	 <li>
+				    	 	<img src="images/icons/123-id-card.png" class="ui-li-icon ui-corner-none"/>
+				    	 	<input onkeydown="if(event.keyCode==13)$('#registerSubmitAdmin').trigger('click');"  type="text" placeholder="last name"  data-mini="true" name="lname" id="lname" class="required account-info ui-input-listview">
+				    	 </li>
+				    	 <li>
+				    	 	<img src="images/icons/email.png" class="ui-li-icon ui-corner-none"/>
+				    	 	<input onkeydown="if(event.keyCode==13)$('#registerSubmitAdmin').trigger('click');"  type="email" placeholder="email Address" data-mini="true" name="email" id="email" class="required email account-info ui-input-listview">
+				    	 </li>
+				    </ul>
+						<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin-top: 25px">
+                			<a id="registerSubmitAdmin" onclick="AdminAddUser()" class="ui-btn ui-mini ui-btn-inline custom-btn" data-role="button" style="width: 150px;">Register</a>
+               			</div>
+    			</form> <!--register-page-form -->
+			</div>
+			<div data-role="popup" id="popupMissingFields" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+					<h2 class="account-info-user" style="font-size: 13px;"><center>Registration errors</center></h2>
+				   	<p class="account-info" style="white-space: normal; text-align: center; color: #555555">Missing fields.</p>
+				   	<hr />
+				    <a style="background: transparent; padding: 0; border: none;" data-rel="back"><p class="account-info-user">OK</p></a>
+				</div>
+			</div>
+			<div data-role="popup" id="popupExist" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+					<h2 class="account-info-user" style="font-size: 13px;"><center>We're sorry</center></h2>
+				   	<p class="account-info" style="white-space: normal; text-align: center; color: #555555">The provided username already has an account. Please try logging in.</p>
+				   	<hr />
+				    <a style="background: transparent; padding: 0; border: none;" data-rel="back"><p class="account-info-user">OK</p></a>
+				</div>
+			</div>
+			<div data-role="popup" id="popupRegister" data-theme="a" class="ui-corner-all" data-dismissible="false" style="background: rgba(25,25,0,.8); border: none;">
+				<div style="padding:20px 20px;" align="center">
+					<img class="listImg" width='25' height'25' src="images/loading.gif" />
+				    <h3 style="color: #FFFFFF">Registering</h3>
+				</div>
+				</div>   	
+		</div> <!-- add-user-page -->
+        
+        <!--###################################### SEARCH A USER PAGE ######################################-->
+        <div id="search-user-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" data-position="fixed">
+				<div class="ui-btn-left ui-nodisc-icon">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+				</div>
+			    <h3>Search User</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Logout</a>
+			  	</div>
+			</div><!-- /reports-page-header -->
+            <div data-role="content"> 
+            	<h3>User to modify:</h3>
+            	<form method="post">
+                	<label for="searchUsername"></label>
+                	<ul data-role='listview'>
+                		<li>
+                			<input onkeydown="if(event.keyCode==13)$('#searchUSerSubmit').trigger('click');" type="text" placeholder="Username" data-clear-btn="true" id="searchUsername" value="">
+                		</li>
+                	</ul>
+                    
+                </form>
+                <button id="searchUSerSubmit" onclick="AdminGetUser()" data-mini="true" data-theme="b" class="custom-btn">Search</button>
+          
+                        </div>
+                        
+                        <div>
+                              <p id="noUsers" align="center"></p>
+                              <ul class="reportList" id="reports-list" data-role="listview" data-inset="false">
+                                <!-- Reports added dynamically  -->
+                              </ul>
+                          </div> 
+                </div>    
+        
+        <!--###################################### SEARCH USER TO REMOVE PAGE ######################################-->
+        <div id="search-user-to-remove-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" data-position="fixed">
+				<div class="ui-btn-left ui-nodisc-icon">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+				</div>
+			    <h3>Reports</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Logout</a>
+			  	</div>
+			</div><!-- /reports-page-header -->
+            <div data-role="content"> 
+            	<form method="post">
+                	<label for="searchUsernameToDelete">User to modify:</label>
+                    <input type="text" placeholder="Username" data-clear-btn="true" id="searchUsernameToDelete" value="">
+                </form>
+                          <button onclick="AdminGetUserToRemove()" data-mini="true" data-theme="b">Search</button>
+          
+                        </div>
+                        
+                        <div>
+                              <p id="noUsers" align="center"></p>
+                              <ul class="reportList" id="reports-list" data-role="listview" data-inset="false">
+                                <!-- Reports added dynamically  -->
+                              </ul>
+                          </div> 
+                </div> 
+        <!--###################################### ADD CATEGORY PAGE ######################################-->
+        <div id="add-category-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" data-position="fixed">
+				<div class="ui-btn-left ui-nodisc-icon">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+				</div>
+			    <h3>Add Category</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Logout</a>
+			  	</div>
+			</div><!-- /reports-page-header -->
+            <div data-role="content"> 
+            	<form method="post">
+                	<label for="categoryToBeAdded">Category to be Added</label>
+                    <input type="text" placeholder="Category" data-clear-btn="true" id="categoryToBeAdded" value="">
+                </form>
+                          <button id  ="addCategoryButton" onclick="AddCategory()" data-mini="true" data-theme="b">Add Category</button>
+          
+                        </div>
+                          
+            <div data-role="popup" id="addCategoryAlertSuccess" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+				<h2 class="account-info-user" style="font-size: 13px;"><center>Category has been added</center></h2>
+				<hr />
+					<a href = "#administrator-page" style="background: transparent; padding: 0; border: none;" class="ui-btn-inline"><p class="account-info-user">Ok</p></a>
+               	
+				</div>      
+        	</div>  
+        	<div data-role="popup" id="existingCategoryAddAlert" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+				<h2 class="account-info-user" style="font-size: 13px;"><center>Category already exists</center></h2>
+				<hr />
+					<a href = "#administrator-page" style="background: transparent; padding: 0; border: none;" class="ui-btn-inline"><p class="account-info-user">Ok</p></a>
+               	
+				</div>      
+        	</div>  
+       	</div>
+        <!--###################################### UPDATE CATEGORY PAGE ######################################-->
+        <div id="update-category-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" data-position="fixed">
+				<div class="ui-btn-left ui-nodisc-icon">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+				</div>
+			    <h3>Update Category</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Logout</a>
+			  	</div>
+			</div><!-- /reports-page-header -->
+            <div data-role="content"> 
+            	<form method="post">
+                    <input type="text" placeholder="Category to be Updated" data-clear-btn="true" id="categoryToBeUpdated" value="">
+                    <input type="text" placeholder="New Category" data-clear-btn="true" id="newCategory" value="">
+                </form>
+                          <button onclick="UpdateCategory()" data-mini="true" data-theme="b">Update Category</button>
+          
+                        </div>
+            
+              <div data-role="popup" id="updateCategoryAlertSuccess" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+				<h2 class="account-info-user" style="font-size: 13px;"><center>Category has been successfully updated</center></h2>
+				<hr />
+					<a href = "#administrator-page" style="background: transparent; padding: 0; border: none;" class="ui-btn-inline"><p class="account-info-user">Ok</p></a>
+               	
+				</div>      
+        	</div>        
+            <div data-role="popup" id="existingCategoryUpdateAlert" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+					<h2 class="account-info-user" style="font-size: 13px;"><center>New category already exists</center></h2>
+					<hr />
+						<a style="background: transparent; padding: 0; border: none;" class="ui-btn-inline"><p class="account-info-user">Ok</p></a>
+	               	
+				</div>      
+        	</div>  
+        	<div data-role="popup" id="nonExistingCategoryUpdateAlert" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+					<h2 class="account-info-user" style="font-size: 13px;"><center>Category to be updated not found</center></h2>
+					<hr />
+						<a data-rel='back' style="background: transparent; padding: 0; border: none;" class="ui-btn-inline"><p class="account-info-user">Ok</p></a>
+	               	
+				</div>      
+        	</div>  
+        </div>
+        
+        <!--###################################### REMOVE CATEGORY PAGE ######################################-->
+        <div id="remove-category-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" data-position="fixed">
+				<div class="ui-btn-left ui-nodisc-icon">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+				</div>
+			    <h3>Remove Category</h3>
+			    <div class="ui-btn-right ui-nodisc-icon">
+			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Logout</a>
+			  	</div>
+			</div><!-- /reports-page-header -->
+            <div data-role="content"> 
+            	<form method="post">
+                	<label for="categoryToBeRemoved">Category to be Removed</label>
+                    <input type="text" placeholder="Category" data-clear-btn="true" id="categoryToBeRemoved" value="">
+                </form>
+                          <button onclick="RemoveCategory()" data-mini="true" data-theme="b">Remove Category</button>
+          
+                        </div>
+                          
+            <div data-role="popup" id="removeCategoryAlertSuccess" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+			<div role="main" class="ui-content" align="center">
+				<h2 class="account-info-user" style="font-size: 13px;"><center>Category has been removed</center></h2>
+				<hr />
+					<a href = "#administrator-page" style="background: transparent; padding: 0; border: none;" class="ui-btn-inline"><p class="account-info-user">Ok</p></a>
+               	
+			</div>      
+        	</div> 
+        	<div data-role="popup" id="nonExistingCategoryRemoveAlert" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+					<h2 class="account-info-user" style="font-size: 13px;"><center>Category to be removed not found</center></h2>
+					<hr />
+						<a data-rel="back" style="background: transparent; padding: 0; border: none;" class="ui-btn-inline"><p class="account-info-user">Ok</p></a>
+	               	
+				</div>      
+        	</div>   
+        </div>     
+        
 		
 		<div data-role="popup" id="popupServer" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
 			<div role="main" class="ui-content" align="center">
@@ -2489,6 +2965,10 @@
             	<li data-icon="delete"><a id="logout">Sign Out</a></li>
         	</ul>
 		</div><!-- /popup Menu -->
+		
+		<script type="text/javascript" language="javascript">
+
+		</script>
 		
 		<!-- FlexSlider --> 
 	  	<script defer src="js/jquery.flexslider.js"></script> 

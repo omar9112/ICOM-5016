@@ -98,13 +98,18 @@ $(document).ready(function(){
 					auctions.each(function(){
 						var secondsToFinishedAuction = Math.floor((this.auctionEndTime - now) / 1000);
 						if (secondsToFinishedAuction < 0) {
-							//alert(this.timeDiv.attr('id'));
-
 							this.timeDiv.text("Auction closed");
 							auctionTerminated(this.timeDiv.attr('id'));
 						}
-						else
-							this.timeDiv.text(secondsToFinishedAuction + " seconds remaining");
+						else {
+							var days = Math.floor((secondsToFinishedAuction / 3600) / 24);
+							var hours = Math.floor((secondsToFinishedAuction / 3600) % 24);
+							var mins = Math.floor((secondsToFinishedAuction / 60)   % 60);
+							var secs = Math.floor(secondsToFinishedAuction % 60);
+							this.timeDiv.text(days + "d: " + hours + "h: " + mins + "m: " + secs +"s");
+							// this.timeDiv.text(secondsToFinishedAuction + " seconds remaining");
+
+						}
 					});
 				};
 				
@@ -121,29 +126,10 @@ $(document).ready(function(){
 				
 				//Starts the execution.
 				updateEverySecond();
-		 }, 1000);
+		 }, 10000);
 
-			});
+});
 			
-			
-// setInterval(function(){
-// 	
-	// $('.Countdown').each(function(){
-					// var $this = $(this);
-					// alert($this.text());
-				// });
-// 	
-	// // var formData = form.serializeArray();
-	// // console.log("form Data: " + formData);
-	// // var newProduct = ConverToJSON(formData);
-	// // newProduct.sellerid = currentUser.uid;
-	// // console.log("New Product: " + JSON.stringify(newProduct));
-	// // var newProductJSON = JSON.stringify(newProduct);
-  // // if(key == 'value'){
-    // // alert('Ended');
-  // // }
-// }, 1000);
-
 $(document).on('click', '#loginSubmit', function(){
 	GetUser($('#username').val(), $('#password').val());
 	
@@ -304,7 +290,12 @@ $(document).on('pagebeforeshow', "#edit-user-page", function( event, ui ) {
 		
 		// currentUser has been set at this point
 		$("#admin-edit-account-info-header").html("User Edit Mode");
-		document.getElementById("admin-edit-account-image").style.backgroundImage = "url('images/users/" + adminuid + ".png')";
+		if(uid > 23) {
+			document.getElementById("admin-edit-account-image").style.backgroundImage = "url('images/users/0.png')";
+		}
+		else
+			document.getElementById("admin-edit-account-image").style.backgroundImage = "url('images/users/" + adminuid + ".png')";
+		
 	    $("#admin-edit-account-info-username").html(adminCurrentUser.username);
 		$("#admin-edit-account-info-state").html("State: "+ adminCurrentUser.statema);	    
 	    $("#admin-edit-account-info-phone").html("Telephone: "+ adminCurrentUser.phonenumber);
@@ -354,7 +345,12 @@ $(document).on('pagebeforeshow', "#remove-user-page", function( event, ui ) {
 		
 		// currentUser has been set at this point
 		$("#admin-account-info-header").html("User Edit Mode");
-		document.getElementById("admin-account-image").style.backgroundImage = "url('images/users/" + adminuid + ".png')";
+		if(uid > 23) {
+			document.getElementById("admin-account-image").style.backgroundImage = "url('images/users/0.png')";
+		}
+		else
+			document.getElementById("admin-account-image").style.backgroundImage = "url('images/users/" + adminuid + ".png')";
+		
 	    $("#admin-account-info-username").html(adminCurrentUser.username);
 		$("#admin-account-info-state").html("State: "+ adminCurrentUser.statema);	    
 	    $("#admin-account-info-phone").html("Telephone: "+ adminCurrentUser.phonenumber);
@@ -410,7 +406,7 @@ $(document).on('click', '#view-order', function(){
 		 },
 		 error: function(data, textStatus, jqXHR){
 			 console.log("textStatus: " + textStatus);
-			 alert("No recent order");
+			 // alert("No recent order");
 		 }
 	 });
 });  
@@ -471,6 +467,31 @@ $(document).on('pagebeforeshow', "#login-page", function( event, ui ) {
 $(document).on('pagebeforeshow', "#home-page", function( event, ui ) {
 	// localStorage.removeItem('uid');
 	$("#administrate-li").hide();
+	$.ajax({
+		url : "http://localhost:3412/ProjectServer/categories",
+		contentType: "application/json",
+		success : function(data, textStatus, jqXHR){
+		var categoryList = data.categories;
+		var len = categoryList.length;
+		var list = $("#newCategories-list");
+		list.empty();
+		if(len >= 34) {
+			var category;
+			for (var i=34; i < len; ++i) {
+			category = categoryList[i];
+			list.append("<li id='alt-list'><a href='#category-page' onclick=\"GetProductByCategory('" + category.categoryname + "')\">" +
+			  			"<img src='images/icons/58-bookmark.png' class='ui-li-icon ui-corner-none'/>" + category.categoryname + "</a></li>");
+			 
+			}
+			list.listview("refresh");
+		}
+		 
+		},
+		error: function(data, textStatus, jqXHR){
+			console.log("textStatus 17: " + textStatus);
+		}
+});
+
 	var uid =  localStorage.getItem('uid');
        
        if( uid != null) {
@@ -499,6 +520,7 @@ $(document).on('pagebeforeshow', "#home-page", function( event, ui ) {
 
 // Add all catagories in the database to a list.
  $(document).on('pagebeforeshow', '#search-page' ,function( event, ui ) {
+ 	$("#categories-error").hide();
 	 console.log("TESTING SEARCH");
 	 $.ajax({
 		 url : "http://localhost:3412/ProjectServer/categories",
@@ -518,7 +540,7 @@ $(document).on('pagebeforeshow', "#home-page", function( event, ui ) {
 		 },
 		 error: function(data, textStatus, jqXHR){
 			 console.log("textStatus 17: " + textStatus);
-			 alert("Categories not found!");
+			 $("#categories-error").show();
 		 }
 	 });
  });
@@ -529,7 +551,12 @@ $(document).on('pagebeforeshow', "#home-page", function( event, ui ) {
 	 //currentProduct has been set at this point
 	 for(var i = 0; i < 3; i++)
 	 {
-		 $("#image" + i).html("<img src=\"images/products/" + currentProduct.pid + "/" + i + ".png\" />");
+		if(currentProduct.pid > 17){
+			$("#image" + i).html("<img src=\"images/products/0/" + i + ".png\" />");
+		}
+		else{
+	 		$("#image" + i).html("<img src=\"images/products/" + currentProduct.pid + "/" + i + ".png\" />");
+		}
 	 }
 	
 	 $("#product-name").html(currentProduct.pname);
@@ -659,7 +686,11 @@ $(document).on('pageshow', "#product-view", function( event, ui ) {
 $(document).on('pagebeforeshow', "#seller-feedback-page", function( event, ui ) {
 	
 	// currentSeller has been set at this point
-	document.getElementById("seller-feedback-image").style.backgroundImage = "url(images/users/" + currentProductSeller.uid + ".png)";
+	if(uid > 23) {
+			document.getElementById("seller-feedback-image").style.backgroundImage = "url(images/users/0.png)";
+		}
+		else
+			document.getElementById("seller-feedback-image").style.backgroundImage = "url(images/users/" + currentProductSeller.uid + ".png)";
 	$("#seller-feedback-username").html(currentProductSeller.username + "&nbsp;(" + currentProductSeller.totalreviews+ ")");
 	$("#seller-feedback-state").html("State: "+ currentProductSeller.statema);	    
 	$("#seller-feedback-phone").html("Telephone: "+ currentProductSeller.phonenumber);
@@ -751,7 +782,11 @@ $(document).on('pagebeforeshow', "#seller-feedback-page", function( event, ui ) 
 
 $(document).on('pagebeforeshow', "#account-profile-page", function( event, ui ) {
 	// currentSeller has been set at this point
-	document.getElementById("account-profile-image").style.backgroundImage = "url(images/users/" + currentUser.uid + ".png)";
+	if(uid > 23) {
+			document.getElementById("account-profile-image").style.backgroundImage = "url(images/users/0.png)";
+		}
+		else
+			document.getElementById("account-profile-image").style.backgroundImage = "url(images/users/" + currentUser.uid + ".png)";
 	$("#account-profile-header").html(currentUser.fname + " Profile");
 	$("#account-profile-username").html(currentUser.username + "&nbsp;(" + currentUser.totalreviews+ ")");
 	$("#account-profile-state").html("State: "+ currentUser.statema);	    
@@ -895,7 +930,7 @@ $(document).on('pagebeforeshow', "#recent-feedback-page", function( event, ui ) 
 		 },
 		 error: function(data, textStatus, jqXHR){
 			 console.log("textStatus 20: " + textStatus);
-			 alert("Data not found!");
+			 // alert("Data not found!");
 		 }
 	});
 });
@@ -1017,7 +1052,12 @@ $(document).on('pagebeforeshow', "#account-info-page", function( event, ui ) {
 		
 		// currentUser has been set at this point
 		$("#account-info-header").html("Hello "+ currentUser.fname + "!");
-		document.getElementById("account-image").style.backgroundImage = "url('images/users/" + uid + ".png')";
+		if(uid > 23) {
+			document.getElementById("account-image").style.backgroundImage = "url('images/users/0.png')";
+		}
+		else
+			document.getElementById("account-image").style.backgroundImage = "url('images/users/" + uid + ".png')";
+			
 	    $("#account-info-username").html(currentUser.username);
 		$("#account-info-state").html("State: "+ currentUser.statema);	    
 	    $("#account-info-phone").html("Telephone: "+ currentUser.phonenumber);
@@ -1306,43 +1346,58 @@ $(document).on('pagebeforeshow', "#payment-info-page", function( event, ui ) {
 
 $(document).on('pagebeforeshow', "#order-history-page", function( event, ui ) {
 	$('#order-history-empty').hide();
+	$('#order-history-complete').hide();
+	$('#order-history-incomplete').hide();
 	$('#order-history-loading').show();
 	$('#order-history-loading2').show();
 	var uid =  localStorage.getItem('uid');
 	if(uid != null) {
 		$.ajax({
-		url : "http://localhost:3412/ProjectServer/orderHistory/" + uid,
-		contentType: "application/json",
-		complete: function() {
-			$('#order-history-loading').hide();
-			$('#order-history-loading2').hide();
-		},
-		success : function(data, textStatus, jqXHR){
-			$('#order-history-complete').show();
-			$('#order-history-products').show();
-			var orderList = data.orderhistory;
-			var len = 0;
-			len = orderList.length;
-			itemTotal = len;
-			var list = $('#order-history-list');
-			list.empty();
-			var order;
-			for (var i = 0; i < len; ++i) {
-			order = orderList[i];
-			list.append("<li>" + 
-		             "<p style='font-size: 11px;'><b>Order Date: </b>" + order.orderdate.substring(0, 10) + "</p>" + 
-		             "<p style='font-size: 11px;'><b>Recipient: </b>" + order.namema + "</p>" +
-		             "<p style='font-size: 11px;' ><b>Items Ordered: </b>" + order.orderitems + "</p></li>" +
-		              "<li><a href='#order-view-page' onclick='GetOrderView(" + order.orderid + ")' data-role='bottom' style='font-size: 14px; color: #55A244; padding: 0'><center>View order</center></a></li><br />");
-			}			
-			list.listview("refresh");
+			url : "http://localhost:3412/ProjectServer/orderHistory/" + uid,
+			contentType: "application/json",
+			complete: function() {
+				$('#order-history-loading').hide();
+				$('#order-history-loading2').hide();
 			},
-		error: function(data, textStatus, jqXHR) {
-			console.log("textStatus 21: " + textStatus);
-			$('#order-history-products').hide();
-			$('#order-history-complete').hide();
-			$('#order-history-empty').show();
-		}
+			success : function(data, textStatus, jqXHR){
+				$('#order-history-products').show();
+				var orderList = data.orderhistory;
+				var len = 0;
+				len = orderList.length;
+				itemTotal = len;
+				var list = $('#order-history-list');
+				var list2 = $('#order-history-list2');
+				list.empty();
+				list2.empty();				
+				var order;
+				for (var i = 0; i < len; ++i) {
+					order = orderList[i];
+					if (order.status == 'incompleted') {
+						$('#order-history-incomplete').show();
+						list2.append("<li>" + 
+			             "<p style='font-size: 11px;'><b>Order Date: </b>" + order.orderdate.substring(0, 10) + "</p>" + 
+			             "<p style='font-size: 11px;' ><b>Items Ordered: </b>" + order.orderitems + "</p></li>" +
+			             "<p style='font-size: 11px;'><b>Status: </b>Waiting Payment</p>" +
+			              "<li><a href='#order-view-page' onclick='GetPendingOrderView(" + order.orderid + ")' data-role='bottom' style='font-size: 14px; color: #55A244; padding: 0'><center>View order</center></a></li><br />");
+					} else{
+						$('#order-history-complete').show();
+						list.append("<li>" + 
+			             "<p style='font-size: 11px;'><b>Order Date: </b>" + order.orderdate.substring(0, 10) + "</p>" + 
+			             "<p style='font-size: 11px;'><b>Recipient: </b>" + order.namema + "</p>" +
+			             "<p style='font-size: 11px;' ><b>Items Ordered: </b>" + order.orderitems + "</p></li>" +
+			              "<li><a href='#order-view-page' onclick='GetOrderView(" + order.orderid + ")' data-role='bottom' style='font-size: 14px; color: #55A244; padding: 0'><center>View order</center></a></li><br />");
+					};
+				}			
+				list.listview("refresh");
+				list2.listview("refresh");
+				},
+			error: function(data, textStatus, jqXHR) {
+				console.log("textStatus 21: " + textStatus);
+				$('#order-history-products').hide();
+				$('#order-history-complete').hide();
+				$('#order-history-incomplete').hide();
+				$('#order-history-empty').show();
+			}
 		});
 	}
 	else {
@@ -1363,14 +1418,13 @@ $(document).on('pagebeforeshow', "#administrator-page", function( event, ui ) {
 	    }
 	    else{
        		$.mobile.changePage("#home-page",false, true, true);
-       		alert('You are not an administrator');
+       		// alert('You are not an administrator');
 	    }
 	}
 	else {
 				setTimeout(function() {
     				$('#popupLoginMessage').popup("open");
 				},100);
-       // $.mobile.changePage("#login-page",false, true, true);
     }
 	
 });
@@ -1544,7 +1598,7 @@ $(document).on('pagebeforeshow', "#items-sale-page", function( event, ui ) {
 		            "<div class=\"ui-li-aside\">" +
 		                "<p class='account-info-user' style='font-weight: bold';>" + "$" + product.currentbidprice + "</p>" +
 		                "<p>"+ bids + "</p>" +
-		                "<p>"+ product.penddate.substring(0,10) +"</p>" +
+		                "<p class='Countdown' id='" + product.pid + "'>" + product.penddate + "</p>" +
 		              "</div></a></li>");
 		         }
 		         else if(product.ppricemethod.toLowerCase()=="instant")
@@ -1602,7 +1656,7 @@ $(document).on('pagebeforeshow', "#account-items-sale-page", function( event, ui
 		            "<div class=\"ui-li-aside\">" +
 		                "<p class='account-info-user' style='font-weight: bold';>" + "$" + product.currentbidprice + "</p>" +
 		                "<p>"+ bids + "</p>" +
-		                "<p>"+ product.penddate.substring(0,10) +"</p>" +
+		                "<p class='Countdown' id='" + product.pid + "'>" + product.penddate + "</p>" +
 		              "</div></a></li>");
 		         }
 		         else if(product.ppricemethod.toLowerCase()=="instant")
@@ -1661,7 +1715,7 @@ $(document).on('pagebeforeshow', "#sale-history-page", function( event, ui ) {
 		            "<div class=\"ui-li-aside\">" +
 		                "<p class='account-info-user' style='font-weight: bold';>" + "$" + product.currentbidprice + "</p>" +
 		                "<p>"+ bids + "</p>" +
-		                "<p>"+ product.penddate.substring(0,10) +"</p>" +
+		                "<p class='Countdown' id='" + product.pid + "'>" + product.penddate + "</p>" +
 		              "</div></a></li>");
 		         }
 		         else if(product.ppricemethod.toLowerCase()=="instant")
@@ -1720,7 +1774,7 @@ $(document).on('pagebeforeshow', "#account-sale-history-page", function( event, 
 		            "<div class=\"ui-li-aside\">" +
 		                "<p class='account-info-user' style='font-weight: bold';>" + "$" + product.currentbidprice + "</p>" +
 		                "<p>"+ bids + "</p>" +
-		                "<p>"+ product.penddate.substring(0,10) +"</p>" +
+		                "<p class='Countdown' id='" + product.pid + "'>" + product.penddate + "</p>" +
 		              "</div></a></li>");
 		         }
 		         else if(product.ppricemethod.toLowerCase()=="instant")
@@ -1757,7 +1811,11 @@ $(document).on('pagebeforeshow', "#account-sale-history-page", function( event, 
 $(document).on('pagebeforeshow', "#seller-page", function( event, ui ) {
 	// currentSeller has been set at this point
 	$("#seller-header").html(currentProductSeller.fname + " " + currentProductSeller.lname);
-	document.getElementById("seller-image").style.backgroundImage = "url(images/users/" + currentProductSeller.uid + ".png)";
+	if(uid > 23) {
+			document.getElementById("seller-image").style.backgroundImage = "url(images/users/0.png)";
+		}
+		else
+			document.getElementById("seller-image").style.backgroundImage = "url(images/users/" + currentProductSeller.uid + ".png)";
 	$("#seller-username").html(currentProductSeller.username + "&nbsp;(" + currentProductSeller.totalreviews+ ")");
 	$("#seller-state").html("State: "+ currentProductSeller.statema);	    
 	$("#seller-phone").html("Telephone: "+ currentProductSeller.phonenumber);
@@ -1905,7 +1963,7 @@ function SaveProduct(){
 		newProduct.productPrice == '' || newProduct.productShipping == '' || newProduct.productDescription == ''
 		|| newProduct.productCondition == '' || newProduct.productPriceMethod == '' || newProduct.productCategory == '' ||
 		newProduct.productPriceMethod == undefined || newProduct.productCategory == undefined || newProduct.productCondition == undefined) {
-		alert("Missing Fields");
+		// alert("Missing Fields");
 	} else{
 		setTimeout(function() {
 	    	$('#popupSaveProduct').popup("open");
@@ -2057,11 +2115,9 @@ function getProductById(id){
 		contentType: "application/json",
 		async: false,
 		dataType:"json",
-		// async: false,
 		success : function(data, textStatus, jqXHR){
-			// alert(data.product.sellerid);
 			product = data.product;	
-			alert(data.product.sellerid);	
+			// alert(data.product.sellerid);	
 			// $.mobile.loading("hide");
 			// $.mobile.navigate("#product-view");
 		},
@@ -2122,7 +2178,7 @@ function GetProduct(id, sellerid){
 			console.log("textStatus 29: " + textStatus);
 			// $.mobile.loading("hide");
 			if (data.status == 404){
-				alert("Seller not found.");
+				// alert("Seller not found.");
 			}
 			else {
 				$('#popupServer').popup();
@@ -2186,17 +2242,14 @@ function GetProductBid(id, sellerid){
 function auctionTerminated(pid) {
 	// alert(pid);
 	var product = getProductById(pid);
-	alert(product.pprice);
 	if (product.currentbidprice == 0) {
 		// means that the product was not sold
 		// añadirlo a la pagina del vendedor como producto no vendido
 		// eliminarlo de la tabla de auction
 		// darle la opcion al vendedor de volver a venderlo
 		// añadir un li arriba del producto diciendo Listing has ended
-		alert('No sold');
 		console.log('No sold');
 	} else if (product.currentbidprice > 0) {
-		alert('Sold');
 		console.log('sold');
 		// product was sold
 		// añadirlo a la pagina del comprador como producto a pagar
@@ -2204,6 +2257,62 @@ function auctionTerminated(pid) {
 		// añadir el currentbidprice como pfinalprice en tabla product
 		// luego cuando el usuario lo vaya a pagar hacer un checkout con el pfinalprice
 		// añadir un li arriba del producto diciendo Listing has ended (no creo q en este caso sea necesario)
+			$.ajax({
+				url : "http://localhost:3412/ProjectServer/higherBidder/" + product.pid,
+				method: 'get',
+				contentType: "application/json",
+				dataType:"json",
+				success : function(data, textStatus, jqXHR){
+					var uid = data.higherBidderItems.uid;
+					$.ajax({
+						url : "http://localhost:3412/ProjectServer/customerOrderBid/" + uid + "/" + product.pid,
+						method: 'post',
+						contentType: "application/json",
+						dataType:"json",
+						success : function(data, textStatus, jqXHR){
+							    location.reload();
+						},
+						error: function(data, textStatus, jqXHR){
+							console.log("textStatus 1: " + textStatus);
+							if (data.status == 500){
+								setTimeout(function() {
+				    			$('#popupDialogLogin').popup("open");
+								},100);			}
+							else if (data.status == 409) {
+								//User was deleted
+								setTimeout(function() {
+				    			$('#popupDialogLogin').popup("open");
+								},100);	
+							}
+							else {
+								$('#popupServer').popup();
+								setTimeout(function() {
+				    				$('#popupServer').popup("open");
+								},100);
+							}
+						}
+					});
+				},
+				error: function(data, textStatus, jqXHR){
+					console.log("textStatus 1: " + textStatus);
+					if (data.status == 500){
+						setTimeout(function() {
+		    			$('#popupDialogLogin').popup("open");
+						},100);			}
+					else if (data.status == 409) {
+						//User was deleted
+						setTimeout(function() {
+		    			$('#popupDialogLogin').popup("open");
+						},100);	
+					}
+					else {
+						$('#popupServer').popup();
+						setTimeout(function() {
+		    				$('#popupServer').popup("open");
+						},100);
+					}
+				}
+			});
 	}
 }
 
@@ -2336,7 +2445,7 @@ function AdminGetUser()
 				},50);
    		},
 		success : function(data, textStatus, jqXHR){
-			 alert(username + " " + password + "id = " + data.user.uid);
+			 // alert(username + " " + password + "id = " + data.user.uid);
               localStorage.setItem( 'adminuid', data.user.uid );
 			$.mobile.changePage("#edit-user-page");
 		},
@@ -2396,7 +2505,7 @@ function AddCategory()
 		error: function(data, textStatus, jqXHR){
 			console.log("textStatus: " + textStatus);
 			 console.log("textStatus: " + textStatus);
-             alert("Category could not be added");
+             // alert("Category could not be added");
 		}
 	});
 }
@@ -2462,14 +2571,14 @@ function AdminUpdateUser(){
 		contentType: "application/json",
 		dataType:"json",
 		success : function(data, textStatus, jqXHR){
-			alert("Success");
+			// alert("Success");
 			localStorage.removeItem('adminuid');
 			$.mobile.navigate("#administrator-page");
 		},
 		error: function(data, textStatus, jqXHR){
 			console.log("textStatus: " + textStatus);
 			if (data.status == 404){
-				alert("Data could not be updated!");
+				// alert("Data could not be updated!");
 			}
 			else {
 				$('#popupServer').popup();
@@ -2496,14 +2605,14 @@ function AdminRemoveUser(){
 		contentType: "application/json",
 		dataType:"json",
 		success : function(data, textStatus, jqXHR){
-			alert("Success");
+			// alert("Success");
 			localStorage.removeItem('adminuid');
 			$.mobile.navigate("#administrator-page");
 		},
 		error: function(data, textStatus, jqXHR){
 			console.log("textStatus: " + textStatus);
 			if (data.status == 404){
-				alert("Data could not be updated!");
+				// alert("Data could not be updated!");
 			}
 			else {
 				$('#popupServer').popup();
@@ -2697,7 +2806,7 @@ function GetSearchResults(searchInput) {
 		            "<div class=\"ui-li-aside\">" +
 		                "<p class='account-info-user' style='font-weight: bold';>" + "$" + product.currentbidprice + "</p>" +
 		                "<p>"+ bids + "</p>" +
-		                "<p>"+ product.penddate.substring(0,10) +"</p>" +
+		                "<p class='Countdown' id='" + product.pid + "'>" + product.penddate + "</p>" +
 		              "</div></a></li>");
 		         }
 		         else if(product.ppricemethod.toLowerCase()=="instant")
@@ -2726,78 +2835,6 @@ function GetSearchResults(searchInput) {
 	 });
  }
 			
-function getCount(element, auctionEndTime) {
-	
-	
-	var timeDiv = document.getElementById(element);
-				//First, we retrieve all the auction time divs and read their time values.
-				//The auctions array will contain all the auctions (or rather, the auction
-				//end time and the div which should be updated with remaining seconds.
-				// var auctions = $([]);
-				// $('.Countdown').each(function(){
-					// var $this = $(this);
-					// var auction = {
-						// auctionEndTime: Date.parse($this.text()),
-						// timeDiv: $this
-					// };
-					// auctions.push(auction);
-				// });
-				
-				//The updateAuctionTimes method updates the time fields with the number of seconds left
-				//until the auctions closes.
-				var updateAuctionTimes = function(){
-					var now = new Date();
-						var secondsToFinishedAuction = Math.floor((this.auctionEndTime - now) / 1000);
-						if (secondsToFinishedAuction < 0)
-							timeDiv.text("Auction closed");
-						else
-							timeDiv.text(secondsToFinishedAuction + " seconds remaining");
-				};
-				
-				//The updateEverySecond method executes the updateAuctionTimes method and then sets a timeout
-				//to call the updateEverySecond method again after one second.
-				var millisecondsBetweenUpdates = 1000;
-				var updateEverySecond = function(){
-					updateAuctionTimes();
-					
-					setTimeout(function(){
-						updateEverySecond();
-					}, millisecondsBetweenUpdates);
-				};
-				
-				//Starts the execution.
-				updateEverySecond();
- };
-     var interval;
-    // var minutes = 0;
-    // var seconds = 5;
-
-    function countdown(element, minutes, seconds) {
-        interval = setInterval(function() {
-            var el = document.getElementById(element);
-            if(seconds == 0) {
-                if(minutes == 0) {
-                    el.innerHTML = "countdown's over!";                    
-                    clearInterval(interval);
-                    return;
-                } else {
-                    minutes--;
-                    seconds = 60;
-                }
-            }
-            if(minutes > 0) {
-                var minute_text = minutes + (minutes > 1 ? ' minutes' : ' minute');
-            } else {
-                var minute_text = '';
-            }
-            var second_text = seconds > 1 ? 'seconds' : 'second';
-            el.innerHTML = minute_text + ' ' + seconds + ' ' + second_text + ' remaining';
-            seconds--;
-        }, 1000);
-    }
-
-
-
 function GetProductByCategory(category){
 	currentCategory = category;
 	$.mobile.loading("show");
@@ -2833,10 +2870,8 @@ function GetProductByCategory(category){
 		            "<div class=\"ui-li-aside\">" +
 		                "<p class='account-info-user' style='font-weight: bold';>" + "$" + product.currentbidprice + "</p>" +
 		                "<p>"+ bids + "</p>" +
-		                "<span class='Countdown' id='" + product.pid + "'>" + product.penddate + "</span>" +
+		                "<p class='Countdown' id='" + product.pid + "'>" + product.penddate + "</p>" +
 		              "</div></a></li>");
-		              // getCount('countdown' + product.pid, "Apr 5, 2014 23:59:00");
-		              // countdown('countdown' + product.pid, product.penddate.substring(9, 10), 0);
 		         }
 		         else if(product.ppricemethod.toLowerCase()=="instant")
 		         {
@@ -2900,7 +2935,7 @@ function GetSimilarProduct(){
 		            "<div class=\"ui-li-aside\">" +
 		                "<p class='account-info-user' style='font-weight: bold';>" + "$" + product.currentbidprice + "</p>" +
 		                "<p>"+ bids + "</p>" +
-		                "<p>"+ product.penddate.substring(0,10) +"</p>" +
+		                "<p class='Countdown' id='" + product.pid + "'>" + product.penddate + "</p>" +
 		              "</div></a></li>");
 		         }
 		         else if(product.ppricemethod.toLowerCase()=="instant")
@@ -2960,7 +2995,7 @@ function sortCategoryBy(orderType){
 		            "<div class=\"ui-li-aside\">" +
 		                "<p class='account-info-user' style='font-weight: bold';>" + "$" + product.currentbidprice + "</p>" +
 		                "<p>"+ bids + "</p>" +
-		                "<p>"+ product.penddate.substring(0,10) +"</p>" +
+		                "<p class='Countdown' id='" + product.pid + "'>" + product.penddate + "</p>" +
 		              "</div></a></li>");
 		         }
 		         else if(product.ppricemethod.toLowerCase()=="instant")
@@ -3020,7 +3055,7 @@ function sortSearchBy(orderType){
 		            "<div class=\"ui-li-aside\">" +
 		                "<p class='account-info-user' style='font-weight: bold';>" + "$" + product.currentbidprice + "</p>" +
 		                "<p>"+ bids + "</p>" +
-		                "<p>"+ product.penddate.substring(0,10) +"</p>" +
+		                "<p class='Countdown' id='" + product.pid + "'>" + product.penddate + "</p>" +
 		              "</div></a></li>");
 		         }
 		         else if(product.ppricemethod.toLowerCase()=="instant")
@@ -3078,7 +3113,7 @@ function sortItemsSalesBy(orderType){
 		            "<div class=\"ui-li-aside\">" +
 		                "<p class='account-info-user' style='font-weight: bold';>" + "$" + product.currentbidprice + "</p>" +
 		                "<p>"+ bids + "</p>" +
-		                "<p>"+ product.penddate.substring(0,10) +"</p>" +
+		                "<p class='Countdown' id='" + product.pid + "'>" + product.penddate + "</p>" +
 		              "</div></a></li>");
 		         }
 		         else if(product.ppricemethod.toLowerCase()=="instant")
@@ -3135,7 +3170,7 @@ function sortAccountItemsSalesBy(orderType){
 		            "<div class=\"ui-li-aside\">" +
 		                "<p class='account-info-user' style='font-weight: bold';>" + "$" + product.currentbidprice + "</p>" +
 		                "<p>"+ bids + "</p>" +
-		                "<p>"+ product.penddate.substring(0,10) +"</p>" +
+		                "<p class='Countdown' id='" + product.pid + "'>" + product.penddate + "</p>" +
 		              "</div></a></li>");
 		         }
 		         else if(product.ppricemethod.toLowerCase()=="instant")
@@ -3184,7 +3219,7 @@ function UpdateProduct(){
 			console.log("textStatus 11: " + textStatus);
 			$.mobile.loading("hide");
 			if (data.status == 404){
-				alert("Data could not be updated!");
+				// alert("Data could not be updated!");
 			}
 			else {
 				$('#popupServer').popup();
@@ -3212,7 +3247,7 @@ function DeleteProduct(){
 			console.log("textStatus 10: " + textStatus);
 			$.mobile.loading("hide");
 			if (data.status == 404){
-				alert("Product not found.");
+				// alert("Product not found.");
 			}
 			else {
 				$('#popupServer').popup();
@@ -3312,7 +3347,6 @@ function UpdateUser(){
 		else {
 			
 			var verify = verifyCurrentPassword(currentUser.uid, updUser.oldpassword);
-			alert(verify);
 			if (verify == 1) {
 				if (updUser.updemail == '') {
 					updUser.updemail = currentUser.email;
@@ -3401,7 +3435,7 @@ function AddtoShoppingCart() {
 						error: function(data, textStatus, jqXHR){
 							console.log("textStatus 15: " + textStatus);
 							if (data.status == 404){
-								alert("Data could not be updated!");
+								// alert("Data could not be updated!");
 							}
 							else {
 								$('#popupServer').popup();
@@ -3454,7 +3488,7 @@ function buyItNow() {
 						error: function(data, textStatus, jqXHR){
 							console.log("textStatus 15: " + textStatus);
 							if (data.status == 404){
-								alert("Data could not be updated!");
+								// alert("Data could not be updated!");
 							}
 							else {
 								$('#popupServer').popup();
@@ -3494,14 +3528,12 @@ function addMailingAddress() {
 	
 	if (newAddress.fistLastNameMa == '' || newAddress.phoneNumberMa == '' || newAddress.addressMa == '' ||
 	newAddress.streetMa == '' || newAddress.zipBa == '' || newAddress.cityBa == '' || newAddress.stateBa == '') {
-		alert('Missing Fields');
+		// alert('Missing Fields');
 	} else {
 		if(currentUser.poptionma == null) {
 			option = 1;
-			alert('Updating poption');
 		} else {
 			option = 0;
-			alert('No Updating poption');
 		}
 			$.ajax({
 				url : "http://localhost:3412/ProjectServer/addMailingAddress/" + option,
@@ -3592,7 +3624,6 @@ function addCreditCard() {
 		if(currentUser.cardid == null) {
 			option = 1;
 			//Updating credit card priamry option
-			alert('Updating poption');
 		} else {
 			option = 0;
 			//No update to credit card primary optiion
@@ -4209,7 +4240,6 @@ function AddCategory()
 {
 	var category=$('#categoryToBeAdded').val();
 	var found = findCategory(category);
-	alert(found);
 	if(found==0)
 	{
 		$.ajax({
@@ -4226,7 +4256,7 @@ function AddCategory()
 			error: function(data, textStatus, jqXHR){
 				console.log("textStatus: " + textStatus);
 				 console.log("textStatus: " + textStatus);
-	             alert("Category could not be added");
+	             // alert("Category could not be added");
 			}
 		});	
 	}
@@ -4275,7 +4305,7 @@ function UpdateCategory()
     			$('#existingCategoryUpdateAlert').popup("open");
 				},50);
 	}
-	alert(foundOld +"   " +foundNew);
+	// alert(foundOld +"   " +foundNew);
 	if(foundOld==1 && foundNew ==0)
 	{
 		$.ajax({
@@ -4290,7 +4320,7 @@ function UpdateCategory()
 				},50);
 		},
 		error: function(data, textStatus, jqXHR){
-			alert("Category could not be updated");
+			// alert("Category could not be updated");
 		}
 	});
 	}
@@ -4302,7 +4332,7 @@ function RemoveCategory()
 	var found = findCategory(category);
 	if(found==1)
 	{
-		alert(category);
+		// alert(category);
 		$.ajax({
 			url : "http://localhost:3412/ProjectServer/removeCategory/" + category,
 			method: 'put',
@@ -4316,7 +4346,7 @@ function RemoveCategory()
 			},
 			error: function(data, textStatus, jqXHR){
 				console.log("textStatus: " + textStatus);
-	             alert("Category could not be removed");
+	             // alert("Category could not be removed");
 			}
 		});	
 	}

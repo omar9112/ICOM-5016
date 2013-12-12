@@ -221,6 +221,12 @@
 							<li id="alt-list"><a href="#category-page" onclick="GetProductByCategory('Sports')"><img src="" class="ui-li-icon ui-corner-none"/>Others</a></li>
 				        </ul>
             		</li><!-- /collapsible -->
+            		<li data-role="collapsible" data-inset="false" data-iconpos="right" data-collapsed-icon="carat-d"  data-expanded-icon="carat-u" class="ui-nodisc-icon ui-alt-icon">
+		            	<h3>Others</h3>
+		             	<ul id="newCategories-list" data-role="listview" data-inset="false" data-theme="a">
+		             		<!-- Categories added dynamically -->
+		       			</ul>
+		            </li><!-- /collapsible -->
         		</ul>
     		</div><!-- /home-page panel -->   
 		</div>
@@ -849,15 +855,19 @@
 			</div><!-- /order-history-page header -->
 			<div data-role="content" style="padding-top: 0;">
 				<h6 id="order-history-header"></h6>
-				<p id="order-history-products" class="account-info-user" style="font-weight: lighter; margin-bottom: 15px; margin-top: 15px;">You ordered this products:</p>
-				<h3 id="order-history-complete" style="margin-bottom: 20px">Complete Orders</h3>
-				<ul id="order-history-list" data-role="listview" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
+				<p id="order-history-products" class="account-info-user" style="font-weight: lighter; margin-bottom: 25px; margin-top: 15px;">You ordered this products:</p>
+				<h3 id="order-history-incomplete" style="margin-bottom: 20px">Pending Orders</h3>
+				<ul id="order-history-list2" data-role="listview" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
 					<li id="order-history-loading">
 						<div align="center">
 							<img class="listImg" width='25' height'25' src="images/loading.gif" />
 						</div>
 					</li>
 					<li id="order-history-loading2" style="background-color: transparent; border-bottom-width: 0;"><h3 style="padding: auto; font-weight: lighter;">Loading Orders...</h3></li>
+					<!-- Orders added dynamically  -->
+				</ul>
+				<h3 id="order-history-complete" style="margin-bottom: 20px">Complete Orders</h3>
+				<ul id="order-history-list" data-role="listview" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
 					<!-- Orders added dynamically  -->
 				</ul>
 				<div id="order-history-empty" align="center">
@@ -1689,6 +1699,7 @@
 			</div><!-- /search-page header -->
 			<div data-role="content">
 				<ul id="category-list" data-role="listview" class="ui-alt-icon ui-nodisc-icon">
+					<li id='search-error' style="background: transparent;"><center><h3>Categories not found</h3></center></li>
 				<!-- Categories added dynamically  -->
 				</ul>		
 			</div> <!-- /search-page-content -->

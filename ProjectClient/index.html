@@ -7,8 +7,14 @@
 		<!-- the three things that jQuery Mobile needs to work -->
 		<link rel="stylesheet" href="css/jquery.mobile-1.4.0-rc.1.css">
 		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script>
+			$(document).on("mobileinit", function(){
+				$.mobile.defaultPageTransition = 'slide';
+				$.mobile.defaultDialogTransition = 'pop'; 
+			});
+		</script>
 		<script src="http://code.jquery.com/mobile/1.4.0-rc.1/jquery.mobile-1.4.0-rc.1.min.js"></script>
-<script type="text/javascript">
+		<script type="text/javascript">
         $(function () {             // huan086: Swipe right is way too sensitive on iPhone 4S and gets triggered even when scrolling vertically.
             // Set the horizontalDistanceThreshold to 50% of screen to make sure that it does not get triggered accidentally.
             $.event.special.swipe.horizontalDistanceThreshold = Math.min($(document).width() / 2, 160);         });     </script>
@@ -68,7 +74,7 @@
 		<div data-role="page" id="home-page" data-title="Home">
     		<div data-role="header" style="background: #1D8D55" data-position="fixed" data-tap-toggle="false">
 				<div class="ui-btn-left">
-			    	<a href="#home-page"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
+			    	<a href="#home-page"><img border="0" src="images/kiwiLogo.png" alt="Logo, Store" alt="main logo" style="float:right; display:inline; margin-top: 2px; width: 100px;"/></a>
 				    <a href="#left-panel" data-role="button" class="ui-nodisc-icon" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false" style="background-color: transparent;box-shadow: none; border: none; margin-top: 4px;"></a>
 				</div>
 			    <h1></h1>
@@ -235,11 +241,11 @@
         <div id="login-page" data-role="page" >
         	<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
 				<div class="ui-btn-left">
-					<a data-theme="b" data-rel="back" data-role="button" style="background-color: transparent;box-shadow: none; border: none; ">Cancel</a>
+					<a data-theme="b" data-rel="back" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px; ">Cancel</a>
 				</div>
 			    <h3>Log In</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
-			    	<a data-theme="b" href="#register-page" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Register</a>
+			    	<a data-theme="b" href="#register-page" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Register</a>
 			  	</div>
 			</div><!-- /login-page header -->
             <div data-role="content">
@@ -301,7 +307,7 @@
 				</div>
 			    <h3>Listing</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
-			    	<a data-theme="b" href="#" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Sell</a>
+			    	<a data-theme="b" onclick="SaveProduct()" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Publish</a>
 			  	</div>
 			</div><!-- /sell-page header -->
 		  	<div data-role="content">
@@ -418,7 +424,7 @@
 					    	 	<input type="text" placeholder="Description"  data-mini="true" name="productDescription" id="productDescription" value="" class="required account-info ui-input-listview">
 					    	 </li>
 				    	</ul>
-	                	<ul data-role="listview" style="padding: 0; margin-bottom: 40px;"  class="ui-alt-icon ui-nodisc-icon">
+	                	<ul data-role="listview" style="padding: 0; margin-bottom: 20px;"  class="ui-alt-icon ui-nodisc-icon">
 	                		<div data-role="collapsible" data-mini="true" style="margin: 0;" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
 							    <h2>Price Method</h2>
 							    <ul data-role="listview">
@@ -444,20 +450,39 @@
 				    	</ul>
 	             </fieldset>
 	             <div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
-                	<a id="submitProduct" onclick="SaveProduct()" class="ui-btn ui-mini ui-btn-inline custom-btn"  href="#" data-role="button" style="width: 150px;">SAVE</a>
+                	<a id="submitProduct" onclick="SaveProduct()" class="ui-btn ui-mini ui-btn-inline custom-btn"  href="#" data-role="button" style="width: 150px;">Publish Listing</a>
                	</div>
 	            </form>
-		  	</div>   
+		  	</div> 
+			<div data-role="popup" id="productMissingFields" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+					<h2 class="account-info-user" style="font-size: 13px;"><center>Listing error</center></h2>
+				   	<p class="account-info" style="white-space: normal; text-align: center; color: #555555">Missing fields.</p>
+				   	<hr />
+				    <a style="background: transparent; padding: 0; border: none;" data-rel="back"><p class="account-info-user">OK</p></a>
+				</div>
+			</div>  
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;" data-tap-toggle="false">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
     	</div>
 	
 		<!--###################################### PRODUCT VIEW PAGE ######################################-->
 		<div id="product-view" data-role="page"> 
 			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
 				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
 				</div>
 			    <h3 style="white-space: nowrap;" id="product-name"></h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
-			  		<a href="#" data-role="button"  data-icon="search" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none; margin-top: 4px;">Buy It Now</a>
 			    	<a onclick="AddtoShoppingCart()" data-role="button" data-icon="shop" data-iconpos="notext" style="background-color: transparent;box-shadow: none; border: none;  margin-top: 4px;">Add to cart</a>
 			  	</div>
 			</div><!-- /product-page header -->
@@ -592,7 +617,7 @@
 	    <div id="seller-page" data-role="page"> 
 	    	<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
 				<div class="ui-btn-left">
-					
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
 				</div>
 				    <h3>Seller</h3>
 				<div class="ui-btn-right ui-nodisc-icon">
@@ -682,7 +707,7 @@
 	    <div id="bidder-list-page" data-role="page"> 
         	<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
 				<div class="ui-btn-left">
-					<!-- <a data-theme="b" data-rel="back" data-role="button" style="background-color: transparent;box-shadow: none; border: none; ">Cancel</a> -->
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
 				</div>
 			    <h3>Bidding Activity</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -726,6 +751,9 @@
 		<!--###################################### ITEMS FOR SALE PAGE ######################################-->
 		<div id="items-sale-page" data-role="page">
 			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
 				<h3>Items for Sale</h3>
 				<div data-role="navbar">
 			        <ul>
@@ -740,10 +768,12 @@
 				<p id="items-sale-username" class="account-info-user"></p>
 			</div>
 			<div data-role="content" style="background-color: #FFFFFF; padding-top: 0;">
-				<p id="noHistoryItems" align="center"></p>
 				<ul id="items-sale-list" data-role="listview" data-filter="true"  data-filter-placeholder="Search this products" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
 				<!-- Products added dynamically  -->
 				</ul>
+				<ul data-role="listview" id="items-sale-error" data-inset="false">
+			 		<li><center><h6>You are not currently selling any product.</h6></center></li>
+		   		</ul> 
 			</div> <!-- /items-sale-content -->
             <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;" data-tap-toggle="false">
 			    <div data-role="navbar" data-grid="d">
@@ -761,6 +791,9 @@
 		<!--###################################### ACCOUNT ITEMS FOR SALE PAGE ######################################-->
 		<div id="account-items-sale-page" data-role="page">
 			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
 				<h3>Selling Items</h3>
 				<div data-role="navbar">
 			        <ul>
@@ -775,10 +808,12 @@
 				<p class="account-info-user" style="font-weight: lighter">You are currently selling this products</p>
 			</div>
 			<div data-role="content" style="background-color: #FFFFFF; padding-top: 0;">
-				<p id="noHistoryItems" align="center"></p>
 				<ul id="account-items-sale-list" data-role="listview" data-filter="true"  data-filter-placeholder="Search this products" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
 				<!-- Products added dynamically  -->
 				</ul>
+				<ul data-role="listview" id="account-items-sale-error" data-inset="false" style="margin-top: 20px">
+			 		<li><center><h6>You are not currently selling any product.</h6></center></li>
+		   		</ul> 
 			</div> <!-- /account-items-sale-content -->
             <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;" data-tap-toggle="false">
 			    <div data-role="navbar" data-grid="d">
@@ -796,6 +831,9 @@
 		<!--###################################### SALE HISTORY PAGE ######################################-->
 		<div id="sale-history-page" data-role="page">
 			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
 				<h3>Sale History</h3>
 			</div><!-- /sale-history-page header -->
 			<div data-role="content">
@@ -803,9 +841,11 @@
 				<p id="sale-history-username" class="account-info-user"></p>
 			</div>
 			<div data-role="content" style="background-color: #FFFFFF; padding-top: 0;">
-				<p id="noHistorySale" align="center"></p>
 				<ul id="sale-history-list" data-role="listview" data-filter="true"  data-filter-placeholder="Search this products" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
 				<!-- Products added dynamically  -->
+				</ul>
+				<ul id="sale-history-error" data-role="listview" data-inset="false" style="margin-top: 20px;">
+					<li><center><h6>No sale history found.</h6></center></li>
 				</ul>
 			</div> <!-- /sale-history-content -->
             <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;" data-tap-toggle="false">
@@ -824,6 +864,9 @@
 		<!--###################################### ACCOUNT SALE HISTORY PAGE ######################################-->
 		<div id="account-sale-history-page" data-role="page">
 			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
 				<h3>Items sold</h3>
 			</div><!-- /account-sale-history-page header -->
 			<div data-role="content">
@@ -831,9 +874,11 @@
 				<p class="account-info-user" style="font-weight: lighter">You sold this products:</p>
 			</div>
 			<div data-role="content" style="background-color: #FFFFFF; padding-top: 0;">
-				<p id="noHistoryAccountSale" align="center"></p>
 				<ul id="account-sale-history-list" data-role="listview" data-filter="true"  data-filter-placeholder="Search this products" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
 				<!-- Products added dynamically  -->
+				</ul>
+				<ul id="account-sale-history-error" data-role="listview" data-inset="false" style="margin-top: 20px;">
+					<li><center><h6>No sale history found.</h6></center></li>
 				</ul>
 			</div> <!-- /account-sale-history-content -->
             <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;" data-tap-toggle="false">
@@ -851,6 +896,9 @@
 		<!--###################################### ORDER HISTORY PAGE ######################################-->
 		<div id="order-history-page" data-role="page">
 			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
 				<h3>Your Orders</h3>
 			</div><!-- /order-history-page header -->
 			<div data-role="content" style="padding-top: 0;">
@@ -900,6 +948,9 @@
 		<!--###################################### ORDER VIEW PAGE ######################################-->
 		<div id="order-view-page" data-role="page">
 			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
 				<h3>View Order</h3>
 			</div><!-- /order-view-page header -->
 			<div data-role="content">
@@ -948,6 +999,74 @@
 			    </div>
 			</div>
 		</div> <!-- /order-view-page -->
+		
+		<!--###################################### PENDING ORDER VIEW PAGE ######################################-->
+		<div id="pending-order-view-page" data-role="page">
+			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
+				<h3>View Pending Order</h3>
+			</div><!-- /order-view-page header -->
+			<div data-role="content">
+				<h6 id="pending-order-view-header"></h6>
+			</div>
+			<div data-role="content">
+				<ul id="pending-order-info-list" data-role="listview">
+					<li style="padding: 1">
+						<div align="center">
+							<img  class="listImg" width='25' height'25' src="images/loading.gif" />
+						</div>
+						</li>
+						<li style="background-color: transparent; border-bottom-width: 0;"><h3 style="padding: auto; font-weight: lighter;">Loading Order...</h3></li>
+					<!-- Info added dynamically -->
+				</ul>
+				<br />
+				<h3 id="pending-order-ship-header" style="margin-bottom: 20px"></h3>
+				<ul id="pending-order-mailing-list" data-role="listview">
+					<!-- Info added dynamically -->
+				</ul>
+				<br />
+				<h3 id="pending-order-payment-header" style="margin-bottom: 20px"></h3>
+				<ul id="pending-order-payment-list" data-role="listview">
+					<!-- Info added dynamically -->
+				</ul>
+				<br />
+				<h3 id="pending-order-shipped-header" style="margin-bottom: 20px;"></h3>
+				<ul id="pending-order-view-list" data-role="listview" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
+				<!-- Products added dynamically  -->
+				</ul>
+				<br />
+				<h3 id="pending-order-paymentinfo-header" style="margin-bottom: 20px"></h3>
+				<ul id="pending-order-total-list" data-role="listview">
+					<!-- Info added dynamically -->
+				</ul>
+				<br />
+				<a class="custom-btn" onclick="checkoutPendingOrder()" data-role="button" style="color: white; text-transform: uppercase;" >Submit Payment</a>
+			</div> <!-- /pending-order-view-content -->
+			<div data-role="popup" id="popupPendingOrder" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
+				<div role="main" class="ui-content" align="center">
+					<h2 class="account-info-user" style="font-size: 13px;"><center>Thank You!</center></h2>
+					<p class="account-info" style="white-space: normal; text-align: center; color: #555555">Your order has been submmitted.</p>
+					<hr />
+					<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
+	               		<a id='continue-shopping' style="background: transparent; padding: 0; border: none;" class="ui-btn-inline"><p class="account-info-user">Shop</p></a>
+	                	<a id='view-placed-order' tyle="background: transparent; padding: 0; border: none;" class="ui-btn-inline"><p class="account-info-user">View Orders</p></a>
+	                </div>	
+				</div>
+			</div>
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;" data-tap-toggle="false">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /pending-order-view-page -->
 
 		<!--###################################### PAYMENT INFO PAGE ######################################-->
 		<div id="payment-info-page" data-role="page">
@@ -989,10 +1108,54 @@
 			    </div>
 			</div>
 		</div> <!-- /payment-info-page -->
+		
+		<!--###################################### PENDING PAYMENT INFO PAGE ######################################-->
+		<div id="pending-payment-info-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
+			    <h3>Payment Info</h3>
+			    <div id="pending-payment-info-delete" class="ui-btn-right ui-nodisc-icon">
+			    	<a id="pending-payment-info-edit" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Edit</a>
+					<a id="pending-payment-info-done" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Done</a>
+			  	</div>
+			</div><!-- /payment-info-page header -->
+			<div data-role="content" style="padding-top: 0;">
+				<ul data-role="listview" style="margin-top: 20px;  margin-bottom: 20px;" class="ui-alt-icon ui-nodisc-icon">
+					<li><a href="#add-pending-payment-info-page"><center><h3 style="font-weight: lighter; color: #55A244">Add credit card</h3></center></a></li>
+				</ul>				
+				<h3 id="pending-payment-info-header" style="margin-bottom: 20px">Credit Cards</h3>
+				<ul id="pending-payment-info-list" data-role="listview" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
+					<li id="pending-payment-info-loading">
+						<div align="center">
+							<img  class="listImg" width='25' height'25' src="images/loading.gif" />
+						</div>
+					</li>
+					<li id="pending-payment-info-loading2" style="background-color: transparent; border-bottom-width: 0;"><h3 style="padding: auto; font-weight: lighter;">Loading Cards...</h3></li>
+					<!-- Cards added dynamically  -->
+				</ul>
+				<br />
+			</div> <!-- /payment-info-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;" data-tap-toggle="false">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /payment-info-page -->
 
 		<!--###################################### ADD PAYMENT INFO PAGE ######################################-->
 		<div id="add-payment-info-page" data-role="page">
 			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
 				<h3>Add Payment Info</h3>
 			</div><!-- /payment-info-page header -->
 			<div data-role="content" style="padding-top: 0;" class="demo">
@@ -1143,6 +1306,9 @@
 		<!--###################################### ADD PAYMENT INFO PAGE ######################################-->
 		<div id="edit-payment-info-page" data-role="page">
 			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
 				<h3>Edit Payment Info</h3>
 			</div><!-- /payment-info-page header -->
 			<div data-role="content" style="padding-top: 0;" class="demo">
@@ -1348,10 +1514,72 @@
 			    </div>
 			</div>
 		</div> <!-- /shipping-info-page -->
+		
+		<!--###################################### SHIPPING INFO PAGE ######################################-->
+		<div id="pending-shipping-info-page" data-role="page">
+			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
+			    <h3>Shipping Adrress</h3>
+			    <div id="pending-shipping-info-delete" class="ui-btn-right ui-nodisc-icon">
+			    	<a id="pending-shipping-info-edit" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Edit</a>
+					<a id="pending-shipping-info-done" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Done</a>
+			  	</div>
+			</div><!-- /pending-shipping-info-page header -->
+			<div data-role="content" style="padding-top: 0;">
+				<ul data-role="listview" style="margin-top: 20px; margin-bottom: 20px;">
+					<li class="ui-alt-icon ui-nodisc-icon">
+						<a href="#add-pending-shipping-info-page">
+							<img style="margin-top: 5px;" src="images/icons/07-map-marker.png" class="ui-li-icon ui-corner-none"/>
+							<center><h3 style="font-weight: lighter; color: #55A244">Add shipping address</h3></center>
+						</a>
+					</li>
+				</ul>	
+				<h3 id="pending-shipping-info-header" style="margin-bottom: 20px">Shipping Addresses</h3>
+				<ul id="pending-shipping-info-list" data-role="listview" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
+					<li id="pending-shipping-info-loading">
+						<div align="center">
+							<img  class="listImg" width='25' height'25' src="images/loading.gif" />
+						</div>
+					</li>
+					<li id="pending-shipping-info-loading2" style="background-color: transparent; border-bottom-width: 0;"><h3 style="padding: auto; font-weight: lighter;">Loading Addresses...</h3></li>
+					<!-- Addresses added dynamically  -->
+				</ul>
+				<br />
+				<div id="pending-shipping-info-empty" align="center">
+					<img src="images/icons/addressbook2256.png" style="position: absolute; 
+					 height: 256px;
+   					 width: 256px;
+    				 top:calc(50% - 256px/2);
+    				 left:calc(50% - 256px/2);" />
+					<p class="account-info" style="position: absolute; 
+					 margin-top: 265px;
+					 height: 256px;
+   					 width: 256px;
+    				 top:calc(50% - 256px/2);
+    				 left:calc(50% - 256px/2);">No shipping address found.</p>
+				</div>
+			</div> <!-- /shipping-info-content -->
+            <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;" data-tap-toggle="false">
+			    <div data-role="navbar" data-grid="d">
+			    	<ul class="ui-alt-icon">
+				        <li class="ui-nodisc-icon"><a href="#home-page" id="home" data-icon="home" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; margin-bottom: none;border-top-width: 1px; border-color: #96a0ad;">Home</a></li>
+				        <li class="ui-nodisc-icon"><a href="#search-page" id="search" data-icon="search" style="font-size: 11px; !important; box-shadow: none;border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Search</a></li>
+				        <li class="ui-nodisc-icon"><a href="#account-page" id="accountIcon" data-icon="user" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">My Account</a></li>
+				        <li class="ui-nodisc-icon"><a href="#cart-page" id="cart" data-icon="shop" style="font-size: 11px; !important; box-shadow: none;border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Cart</a></li>
+				        <li class="ui-nodisc-icon"><a href="#sell-page" id="sell" data-icon="tag" style="font-size: 11px; !important; box-shadow: none; border-right: none; border-left: none; border-top-width: 1px; border-color: #96a0ad; ">Sell</a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div> <!-- /shipping-info-page -->
 
 		<!--###################################### ADD SHIPPING INFO PAGE ######################################-->
 		<div id="add-shipping-info-page" data-role="page">
 			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
 				<h3>Add Address</h3>
 			</div><!-- /add-shipping-info-page header -->
 			<div data-role="content" style="padding-top: 0;" class="demo">
@@ -1413,6 +1641,9 @@
 		<!--###################################### EDIT SHIPPING INFO PAGE ######################################-->
 		<div id="edit-shipping-info-page" data-role="page">
 			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
 				<h3>Edit Address</h3>
 			</div><!-- /edit-shipping-info-page header -->
 			<div data-role="content" style="padding-top: 0;" class="demo">
@@ -1475,7 +1706,7 @@
 	    <div id="seller-feedback-page" data-role="page"> 
 			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
 				<div class="ui-btn-left">
-			    	<!-- <a id="" data-theme="b" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a> -->
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
 				</div>
 			    <h3>Seller Profile</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -1554,7 +1785,7 @@
 	    <div id="recent-feedback-page" data-role="page"> 
 			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
 				<div class="ui-btn-left">
-			    	<!-- <a id="" data-theme="b" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a> -->
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
 				</div>
 			    <h3 id="recent-feedback-header"></h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -1564,6 +1795,10 @@
 			<div data-role="content">
 				<h3 style="margin-bottom: 20px">Recent Feedback</h3>
 			 	<ul data-role="listview" id ="recent-feedback-list" data-inset="false">
+		 			<!-- Feedbacks added dynamically  -->
+		   		</ul> 
+		   		<ul data-role="listview" id='recent-feedback-error' data-inset="false">
+			 		<li><center><h6>This user does not have any feedback.</h6></center></li>
 		 			<!-- Feedbacks added dynamically  -->
 		   		</ul> 
 			</div> <!-- recent-feedback-page-content -->
@@ -1584,7 +1819,7 @@
 	    <div id="ask-question-page" data-role="page"> 
 			<div data-role="header" style="background: #1D8D55" data-position="fixed" data-tap-toggle="false">
 				<div class="ui-btn-left">
-			    	<a id="" data-theme="b" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a>
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Cancel</a>
 				</div>
 			    <h3>Ask Seller</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -1622,11 +1857,11 @@
 	    <div id="review-page" data-role="page">
 			<div data-role="header" style="background: #1D8D55" data-position="fixed" data-tap-toggle="false">
 				<div class="ui-btn-left">
-			    	<a id="" data-theme="b" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a>
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Cancel</a>
 				</div>
 			    <h3>Leave Feedback</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
-			    	<a id="" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Submit</a>
+			    	<a id="" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Submit</a>
 			  	</div>
 			</div><!-- /review-page header -->
 	        <div data-role="content">
@@ -1643,40 +1878,40 @@
 	            				<ul style="width: 95%; padding: 0; margin: 0;">
 	            					<li>
 	            					<label class="account-info" style="font-weight: lighter; font-size: 11px;">
-        								<input type="radio" name="radio-choice-0" id="radio-choice-0a">Positive
+        								<input type="radio" name="reviewtype" id="reviewtype" value="Positive">Positive
     								</label>
 	            				</li>
 	            				<li>
 	            					<label class="account-info" style="font-weight: lighter; font-size: 11px">
-        								<input type="radio" name="radio-choice-0" id="radio-choice-1a">Neutral
+        								<input type="radio" name="reviewtype" id="reviewtype" value="Neutral">Neutral
     								</label>
 	            				</li>
 	            				<li>
 	            					<label class="account-info" style="font-weight: lighter; font-size: 11px">
-        								<input type="radio" name="radio-choice-0" id="radio-choice-1a">Negative
+        								<input type="radio" name="reviewtype" id="reviewtype" value="Negative">Negative
     								</label>
 	            				</li>
 	            				</ul>
 	            			</div>
 	            		</li>
 	                   	<li>
-	                   		Accurate description?<div id="star0" style="float: right"></div> <input type="hidden" id="hint0"/>
+	                   		Accurate description?<div id="star0" name = "ratingdescription" style="float: right"></div> <input type="hidden" id="hint0"/>
 	                   	</li>
 	                   	<li>
-	                   		Seller's communication?<div id="star1" style="float: right"></div> <input type="hidden" id="hint1"/>
+	                   		Seller's communication?<div id="star1" name = "ratingcommunication" style="float: right"></div> <input type="hidden" id="hint1"/>
 	                   	</li>
 	                   	<li>
-	                   		Shipping speed?<div id="star2" style="float: right"></div> <input type="hidden" id="hint2"/>
+	                   		Shipping speed?<div id="star2"  name = "ratingstime" style="float: right"></div> <input type="hidden" id="hint2"/>
 	                   	</li>
 	                   	<li>
-	                   		Reasonable shipping cost?<div id="star3" style="float: right"></div> <input type="hidden" id="hint3"/>
+	                   		Reasonable shipping cost?<div id="star3" name = "ratingscharge" style="float: right"></div> <input type="hidden" id="hint3"/>
 	                   	</li>
 	                   	<li>
-	                   		<textarea id="review-comment" name="review-comment" placeholder="Enter your feedback here..." style="margin: 0"></textarea>
+	                   		<textarea id="feedback" name="feedback" placeholder="Enter your feedback here..." style="margin: 0"></textarea>
 	                   	</li>
 	            	</ul>  
 	            	<br /> 
-	            	<a data-theme="b" id = "reviewButton" data-rel="back" data-role="button">Leave review</a> 
+	            	<a data-theme="b" class="custom-btn" onclick = "WriteReview()" id = "reviewButton" data-rel="back" data-role="button">Leave review</a> 
 	           	</form>  
 	           	
 	           	  
@@ -1686,6 +1921,9 @@
 		<!--###################################### SEARCH PAGE ######################################-->
 		<div id="search-page" data-role="page">
 			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
 				<h3>Search</h3>
 				<ul data-role="listview">
 					<li>
@@ -1699,7 +1937,6 @@
 			</div><!-- /search-page header -->
 			<div data-role="content">
 				<ul id="category-list" data-role="listview" class="ui-alt-icon ui-nodisc-icon">
-					<li id='search-error' style="background: transparent;"><center><h3>Categories not found</h3></center></li>
 				<!-- Categories added dynamically  -->
 				</ul>		
 			</div> <!-- /search-page-content -->
@@ -1719,6 +1956,9 @@
 		<!--###################################### SEARCH RESULTS PAGE ######################################-->
 		<div id="search-results-page" data-role="page">
 			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
 				<h3>Search</h3>
 				<div data-role="navbar">
 			        <ul>
@@ -1732,6 +1972,9 @@
 			<div data-role="content" style="background-color: #FFFFFF; padding-top: 0;">
 				<ul id="product-list" data-role="listview" data-filter="true"  data-filter-placeholder="Search this products" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
 				<!-- Products added dynamically  -->
+				</ul>
+				<ul id="search-results-error" data-role="listview"  data-inset="false" style="margin-top: 20px;">
+					<li><center><h6>No products with that name found.</h6></center></li>
 				</ul>
 			</div> <!-- /search-results-content -->
             <div data-role="footer" data-theme="a" data-position="fixed" style="border-top: 1px;" data-tap-toggle="false">
@@ -1750,6 +1993,9 @@
 		<!--###################################### CATEGORY PAGE ######################################-->
 		<div id="category-page" data-role="page">
 			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
 				<h3>Search</h3>
 				<div data-role="navbar">
 			        <ul>
@@ -1763,6 +2009,9 @@
 			<div data-role="content" style="background-color: #FFFFFF; padding-top: 0;">
 				<ul id="category-search-list" data-role="listview" data-filter="true"  data-filter-placeholder="Search this products" data-inset="false" class="ui-nodisc-icon ui-alt-icon">
 				<!-- Products added dynamically  -->
+				</ul>
+				<ul id="category-search-error" data-role="listview"  data-inset="false" style="margin-top: 20px;">
+					<li><center><h6>No products in this category.</h6></center></li>
 				</ul>
 			</div> <!-- /category-content -->
 			<br />
@@ -1848,7 +2097,7 @@
         <div id="checkout-page" data-role="page" data-tile="Checkout">
 			<div id="header" data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
 				<div id="cart-delete" class="ui-btn-left ui-nodisc-icon">
-					<a id="checkout-back" href="#cart-page" data-icon="carat-l" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Cart</a>
+					<a id="checkout-back" href="#cart-page" data-icon="carat-l" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Cart</a>
 				</div>
 			    <h3>Checkout</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -1897,7 +2146,7 @@
 			<div data-role="popup" id="popupOrderPlaced" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:250px; background: rgba(255,255,255,.8); border: none;">
 				<div role="main" class="ui-content" align="center">
 					<h2 class="account-info-user" style="font-size: 13px;"><center>Thank You!</center></h2>
-					<p class="account-info" style="white-space: normal; text-align: center; color: #555555">Your order has been placed..</p>
+					<p class="account-info" style="white-space: normal; text-align: center; color: #555555">Your order has been placed.</p>
 					<hr />
 					<div data-role="controlgroup" align="center" data-type="horizontal" data-theme="b" style="margin: 0">
 	               		<a id='continue-shopping' style="background: transparent; padding: 0; border: none;" class="ui-btn-inline"><p class="account-info-user">Shop</p></a>
@@ -1911,7 +2160,7 @@
         <div id="checkout-buyItNow-page" data-role="page" data-tile="Checkout">
 			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
 				<div class="ui-btn-left ui-nodisc-icon">
-					<a id="checkout-buyItNow-back" data-rel="back" data-icon="carat-l" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+					<a id="checkout-buyItNow-back" data-rel="back" data-icon="carat-l" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px">Back</a>
 				</div>
 			    <h3>Checkout</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -1982,12 +2231,10 @@
 	    <!--###################################### ABOUT PAGE ######################################-->
 	    <div id="about-page" data-role="page">
 	        <div data-role="header" data-position="fixed" data-theme="b" data-tap-toggle="false">
-	                
-	                <div class="ui-btn-left">
-	                    <a href="#home-page"><img border="0" src="images/kiwiLogo.png" alt="Logo, Facebook" alt="main logo" style="float:right; display:inline; margin-top: 6px; width: 100px;"/></a>
-	                </div>
-	                
-	                <h1>About</h1>
+	           <div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
+				</div>
+	                <h3>About</h3>
 	        </div> <!-- /header -->
 	        
 	        <!-- Content -->
@@ -2017,6 +2264,7 @@
         <div id="account-page" data-role="page" data-title="My Account">
 			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
 				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
 				</div>
 			    <h3>My Account</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -2101,7 +2349,7 @@
 	    <div id="account-profile-page" data-role="page"> 
 			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
 				<div class="ui-btn-left">
-			    	<!-- <a id="" data-theme="b" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a> -->
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
 				</div>
 			    <h3 id="account-profile-header"></h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -2179,8 +2427,8 @@
         <!--###################################### ACCOUNT INFO PAGE ######################################-->
         <div id="account-info-page" data-role="page">
 			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed" data-tap-toggle="false">
-				<div class="ui-btn-left ui-nodisc-icon">
-					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
 				</div>
 			    <h3>Account Info</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -2313,8 +2561,8 @@
 		<!--###################################### ADMINISTRATOR PAGE ######################################-->
         <div id="administrator-page" data-role="page">
 			<div data-role="header" class="headerTitle" style="background: #1D8D55" data-position="fixed" data-tap-toggle="false">
-				<div class="ui-btn-left ui-nodisc-icon">
-					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
 				</div>
 			    <h3>Administrator</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -2398,8 +2646,8 @@
         <!--###################################### REPORTS PAGE ######################################-->
         <div id="reports-page" data-role="page">
 			<div data-role="header" style="background: #1D8D55" data-position="fixed" data-tap-toggle="false">
-				<div class="ui-btn-left ui-nodisc-icon">
-					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
 				</div>
 			    <h3>Reports</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -2408,13 +2656,17 @@
 			</div><!-- /reports-page-header -->
             <div data-role="content"> 
             	<form>
-                	<label for="reportDate">Search by date:</label>
-                    <input type="date" placeholder="YYYY-MM-DD" data-clear-btn="true" name="reportDate" id="reportDate" value="">
-                </form>
-                          <button onclick="GetReportsbyDate()" data-mini="true" data-theme="b">Search</button>
+                	<h3 style="margin-bottom: 20px">Search by date:</h3>
+                	<ul data-role='listview' style="margin-bottom: 20px">
+                		<li>
+                			<input type="text" placeholder="YYYY-MM-DD" data-clear-btn="true" name="reportDate" id="reportDate" value="" class="ui-input-listview">
+                			</li>
+                	</ul>
+                    
+                	</form>
+                          <button class="custom-btn" onclick="GetReportsbyDate()" data-mini="true" data-theme="b" style="font-weight: lighter">Search</button>
           
                         </div>
-                        
                         <div>
                               <p id="noReports" align="center"></p>
                               <ul class="reportList" id="reports-list" data-role="listview" data-inset="false">
@@ -2427,7 +2679,7 @@
         <div id="register-page" data-role="page">
 			<div data-role="header" style="background: #1D8D55" data-position="fixed" data-tap-toggle="false">
 				<div class="ui-btn-left">
-					<a data-theme="b" data-rel="back" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a>
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
 				</div>
 			    <h4>Register</h4>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -2510,6 +2762,7 @@
         <div id="remove-user-page" data-role="page">
 			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
 				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Cancel</a>
 				</div>
 			    <h3>User Account Info</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -2593,10 +2846,11 @@
         <div id="edit-user-page" data-role="page">
 			<div data-role="header" style="background: #1D8D55" class="headerTitle" data-position="fixed">
 				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Cancel</a>
 				</div>
 			    <h3>User Account Info</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
-			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Logout</a>
+			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px">Logout</a>
 			  	</div>
 			</div><!-- /account-info-page-header -->
             
@@ -2652,7 +2906,7 @@
         <div id="add-user-page" data-role="page">
 			<div data-role="header" style="background: #1D8D55" data-position="fixed">
 				<div class="ui-btn-left">
-					<a data-theme="b" data-rel="back" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Cancel</a>
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Cancel</a>
 				</div>
 			    <h4>Add a User</h4>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -2731,8 +2985,8 @@
         <!--###################################### SEARCH A USER PAGE ######################################-->
         <div id="search-user-page" data-role="page">
 			<div data-role="header" style="background: #1D8D55" data-position="fixed">
-				<div class="ui-btn-left ui-nodisc-icon">
-					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
 				</div>
 			    <h3>Search User</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -2750,7 +3004,7 @@
                 	</ul>
                     
                 </form>
-                <button id="searchUSerSubmit" onclick="AdminGetUser()" data-mini="true" data-theme="b" class="custom-btn">Search</button>
+                <button id="searchUSerSubmit" onclick="AdminGetUser()" data-mini="true" data-theme="b" class="custom-btn" style="font-weight: lighter">Search</button>
           
                         </div>
                         
@@ -2765,20 +3019,21 @@
         <!--###################################### SEARCH USER TO REMOVE PAGE ######################################-->
         <div id="search-user-to-remove-page" data-role="page">
 			<div data-role="header" style="background: #1D8D55" data-position="fixed">
-				<div class="ui-btn-left ui-nodisc-icon">
-					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Back</a>
 				</div>
-			    <h3>Reports</h3>
+			    <h3>Remove User</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
 			    	<a id="logOutButton" data-theme="b" data-role="button" style="background-color: transparent;box-shadow: none; border: none;">Logout</a>
 			  	</div>
 			</div><!-- /reports-page-header -->
             <div data-role="content"> 
             	<form method="post">
-                	<label for="searchUsernameToDelete">User to modify:</label>
-                    <input type="text" placeholder="Username" data-clear-btn="true" id="searchUsernameToDelete" value="">
+                	<h3 style="margin-bottom: 20px;">User to modify:</h3>
+                		<ul data-role='listview' style="margin-bottom: 20px;"><li>
+                    <input type="text" placeholder="Username" data-clear-btn="true" id="searchUsernameToDelete" value="" class="ui-input-listview"></li></ul>
                 </form>
-                          <button onclick="AdminGetUserToRemove()" data-mini="true" data-theme="b">Search</button>
+                          <button class="custom-btn" onclick="AdminGetUserToRemove()" data-mini="true" data-theme="b" style="font-weight: lighter">Search</button>
           
                         </div>
                         
@@ -2792,8 +3047,8 @@
         <!--###################################### ADD CATEGORY PAGE ######################################-->
         <div id="add-category-page" data-role="page">
 			<div data-role="header" style="background: #1D8D55" data-position="fixed">
-				<div class="ui-btn-left ui-nodisc-icon">
-					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Cancel</a>
 				</div>
 			    <h3>Add Category</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -2802,10 +3057,11 @@
 			</div><!-- /reports-page-header -->
             <div data-role="content"> 
             	<form method="post">
-                	<label for="categoryToBeAdded">Category to be Added</label>
-                    <input type="text" placeholder="Category" data-clear-btn="true" id="categoryToBeAdded" value="">
+                	<h3 style="margin-bottom: 20px">Category to be Added</h3>
+                	<ul data-role='listview' style="margin-bottom: 20px"> <li>
+                    <input type="text" placeholder="Category" data-clear-btn="true" id="categoryToBeAdded" value="" class="ui-input-listview"></li></ul>
                 </form>
-                          <button id  ="addCategoryButton" onclick="AddCategory()" data-mini="true" data-theme="b">Add Category</button>
+                          <button class="custom-btn" id="addCategoryButton" onclick="AddCategory()" data-mini="true" data-theme="b" style="font-weight: lighter">Add Category</button>
           
                         </div>
                           
@@ -2829,8 +3085,8 @@
         <!--###################################### UPDATE CATEGORY PAGE ######################################-->
         <div id="update-category-page" data-role="page">
 			<div data-role="header" style="background: #1D8D55" data-position="fixed">
-				<div class="ui-btn-left ui-nodisc-icon">
-					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Cancel</a>
 				</div>
 			    <h3>Update Category</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -2839,10 +3095,11 @@
 			</div><!-- /reports-page-header -->
             <div data-role="content"> 
             	<form method="post">
-                    <input type="text" placeholder="Category to be Updated" data-clear-btn="true" id="categoryToBeUpdated" value="">
-                    <input type="text" placeholder="New Category" data-clear-btn="true" id="newCategory" value="">
+            		<ul data-role='listview' style="margin-bottom: 20px; margin-top: 20px"><li>
+                    <input type="text" placeholder="Category to be Updated" data-clear-btn="true" id="categoryToBeUpdated" value="" class="ui-input-listview"></li>
+                    <li><input type="text" placeholder="New Category" data-clear-btn="true" id="newCategory" value="" class="ui-input-listview"> </li></ul>
                 </form>
-                          <button onclick="UpdateCategory()" data-mini="true" data-theme="b">Update Category</button>
+                          <button class="custom-btn" onclick="UpdateCategory()" data-mini="true" data-theme="b" style="font-weight: lighter">Update Category</button>
           
                         </div>
             
@@ -2875,8 +3132,8 @@
         <!--###################################### REMOVE CATEGORY PAGE ######################################-->
         <div id="remove-category-page" data-role="page">
 			<div data-role="header" style="background: #1D8D55" data-position="fixed">
-				<div class="ui-btn-left ui-nodisc-icon">
-					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" style="background-color: transparent;box-shadow: none; border: none;">Back</a>
+				<div class="ui-btn-left">
+					<a data-theme="b" data-icon="carat-l" data-role="button" data-rel="back" class="ui-nodisc-icon" style="background-color: transparent;box-shadow: none; border: none; margin-top: -2px;">Cancel</a>
 				</div>
 			    <h3>Remove Category</h3>
 			    <div class="ui-btn-right ui-nodisc-icon">
@@ -2888,7 +3145,7 @@
                 	<label for="categoryToBeRemoved">Category to be Removed</label>
                     <input type="text" placeholder="Category" data-clear-btn="true" id="categoryToBeRemoved" value="">
                 </form>
-                          <button onclick="RemoveCategory()" data-mini="true" data-theme="b">Remove Category</button>
+                          <button onclick="RemoveCategory()" data-mini="true" data-theme="b" style="font-weight: lighter">Remove Category</button>
           
                         </div>
                           
